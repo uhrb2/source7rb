@@ -111,7 +111,7 @@ async def Hussein(event):
         if owner_id == l313l.uid:
             if event.message.message == "اعادة تشغيل":
                 joker = await event.reply("** ᯽︙ بالخدمة مطوري سيتم اعادة تشغيل السورس 😘..**")
-                await 7rB _4ever()
+                await hrbe_4ever()
                 await event.client.reload(joker)
                     
 @l313l.on(events.NewMessage(incoming=True))
