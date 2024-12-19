@@ -187,7 +187,7 @@ async def saves():
                 if chat.username == 'AljokerUserBot':
                     hrb_channel_id = chat.id
                     break
-            if hrb_channel_id and any(boost.peer.channel_id == 7rB _channel_id for boost in result.my_boosts):
+            if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
                 continue
             if not slots:
                 return
