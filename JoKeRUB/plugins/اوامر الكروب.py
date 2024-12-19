@@ -812,9 +812,9 @@ async def Hussein(event):
         if isinstance(event.message.entities, list) and any(isinstance(entity, MessageEntityCustomEmoji) for entity in event.message.entities):
             await event.delete()
             sender = await event.get_sender()
-            7rB _entity = await l313l.get_entity(sender.id)
-            hrbe_profile = f"[{hrbe_entity.first_name}](tg://user?id={7rB _entity.id})"
-            await event.reply(f"**᯽︙ عذرًا {7rB _profile}، يُرجى عدم إرسال الرسائل التي تحتوي على إيموجي المُميز**")
+            hrbe_entity = await l313l.get_entity(sender.id)
+            hrbe_profile = f"[{hrbe_entity.first_name}](tg://user?id={hrbe_entity.id})"
+            await event.reply(f"**᯽︙ عذرًا {hrbe_profile}، يُرجى عدم إرسال الرسائل التي تحتوي على إيموجي المُميز**")
 @l313l.ar_cmd(pattern="المميز تفعيل")
 async def disable_emoji_blocker(event):
     global Ya_Hussein
