@@ -910,7 +910,7 @@ async def handle_messages(event):
         if event.is_private and sender_id != current_user_id.id:
             await event.delete()
             if sender_id not in hrbe_Menu:
-                hrbe_time = 7rB _waqt()
+                hrbe_time = hrbe_waqt()
                 hrbe_message = gvarstatus("hrbe_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
                 hrbe_url = gvarstatus("hrbe_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
                 await l313l.send_file(sender_id, hrbe_url, caption=f'**{hrbe_message}**\n**مدة الغياب: {hrbe_time}**')
