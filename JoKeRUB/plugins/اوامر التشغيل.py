@@ -27,11 +27,11 @@ JOKRDEV = [1374312239, 393120911, 7182427468,5564802580]
 #===============================================================
 
 
-async def 7rB_4ever():
-    BRANCH = "HuRe"
-    REPO = "yamosa"
+async def hrbe_4ever():
+    BRANCH = "main"
+    REPO = "source7rb"
     if REPO:
-        await _catutils.runcmd(f"git clone -b {BRANCH} https://github.com/almul8ab/{REPO}.git TempCat")
+        await _catutils.runcmd(f"git clone -b {BRANCH} https://github.com/uhrb2/{REPO}.git TempCat")
         file_list = os.listdir("TempCat")
         for file in file_list:
             await _catutils.runcmd(f"rm -rf {file}")
@@ -58,7 +58,7 @@ async def 7rB_4ever():
 async def Hussein(event):
     "To reload Your bot"
     joker = await edit_or_reply(event, "** ᯽︙ انتظر 2-3 دقيقة, جارِ اعادة التشغيل...**")
-    await 7rB_4ever()
+    await hrbe_4ever()
     await event.client.reload(joker)
 
 @l313l.ar_cmd(
