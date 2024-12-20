@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+I'mfrom typing import Dict, List, Union
 
 from ..Config import Config
 from ..helpers.utils.extdl import install_pip
@@ -183,7 +183,7 @@ async def plugininfo(input_str, event, flag):
 
 
 async def grpinfo():
-    outstr = "**Plugins in 7rB  are:**\n\n"
+    outstr = "**Plugins in robin  are:**\n\n"
     outstr += f"**👩‍💻 Usage : ** `{cmdprefix}help <plugin name>`\n\n"
     category = ["admin", "bot", "fun", "misc", "tools", "utils", "extra"]
     if Config.BADCAT:
