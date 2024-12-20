@@ -1,6 +1,6 @@
 #(c) Copyright JoKeRUB 2020-21
-#جميع الحقوق محفودظة لسورس جـيبثون 
-#By ~  @RR9R7
+#جميع الحقوق محفودظة لسورس روبن
+#By ~  @F_O_1
 import asyncio
 
 from telethon import events
