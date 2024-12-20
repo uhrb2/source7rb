@@ -6,7 +6,7 @@ from telethon.tl import functions, types
 from telethon.tl.functions.messages import  CheckChatInviteRequest, GetFullChatRequest
 from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPublicGroupNaError, InviteHashEmptyError, InviteHashExpiredError, InviteHashInvalidError)
 from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest
-#k_jj_j old
+#RobinUserBot old
 
 async def get_chatinfo(event):
     chat = event.pattern_match.group(1)
@@ -63,7 +63,7 @@ def user_full_name(user):
  
 
 
-# كتابة فريق 7rB  المتغيرات تثبت ودي
+# كتابة فريق robin  المتغيرات تثبت ودي
 # تخمط اذكر حقوق غيرها انت فرخ و دي 😂
 
 
