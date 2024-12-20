@@ -90,7 +90,7 @@ async def bot_broadcast(event):
 async def bot_broadcast(event):
     replied = await event.get_reply_message()
     if not replied:
-        return await event.reply("**- يجب عليم الرد على رسالة اولا لعمل اذاعة**")
+        return await event.reply("**- يجب عليك الرد على رسالة اولا لعمل اذاعة**")
     start_ = datetime.now()
     br_cast = await replied.reply("**- جار الاذاعة الان أنتظر قليلا**")
     blocked_users = []
