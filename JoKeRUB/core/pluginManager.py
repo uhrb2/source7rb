@@ -1,5 +1,5 @@
-# @k_jj_j - < https://t.me/k_jj_j >
-# Copyright (C) 2021 - JoKeRUB-AR
+# @RobinUserBot - < https://t.me/RobinUserBot >
+# Copyright (C) 2021 - robin-AR
 # All rights reserved.
 #
 # Please read the GNU Affero General Public License in;
