@@ -1,4 +1,4 @@
-# Copyright (C) 2021 JoKeRUB TEAM
+# Copyright (C) 2021 robin TEAM
 # FILES WRITTEN BY  @F_O_1
 import requests
 from validators.url import url
