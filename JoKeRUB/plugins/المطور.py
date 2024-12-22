@@ -38,6 +38,7 @@ async def amireallyalive(event):
     uptime = await get_readable_time((time.time() - StartTime))
     _, check_sgnirts = check_data_base_heal_th()
     EMOJI = gvarstatus("ALIVE_EMOJI") or "  - "
+    PIC = "https://t.me/t661h/5"
     CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT")
         cat_caption = f"مطورين سورس Robin \n"
         cat_caption += f"✛━━━━━━━━━━━━━✛\n"
