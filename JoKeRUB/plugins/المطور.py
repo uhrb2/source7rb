@@ -39,12 +39,12 @@ async def amireallyalive(event):
     _, check_sgnirts = check_data_base_heal_th()
     EMOJI = gvarstatus("ALIVE_EMOJI") or "  - "
     CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT")
-CAT_IMG = "https://t.me/YYYTH0/1961"
+    CAT_IMG = "https://telegra.ph/file/bd533dbae347f83a37f82.jpg"
     if CAT_IMG:
         CAT = [x for x in CAT_IMG.split()]
         A_IMG = list(CAT)
         PIC = random.choice(A_IMG)
-        cat_caption = f"مطورين السورس \n"
+        cat_caption = f"مطورين 7rB \n"
         cat_caption += f"✛━━━━━━━━━━━━━✛\n"
         cat_caption += f"- المطور  : @F_O_1\n"
         cat_caption += f"✛━━━━━━━━━━━━━✛\n"
@@ -72,6 +72,4 @@ async def reda(event):
                await event.reply("**حاظر مطوري، لقد الغيت الحظر**")
                delgvar("blockedfrom")
                 
-
-
 
