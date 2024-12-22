@@ -122,7 +122,7 @@ async def jepmeme(memejep):
   url = f"https://t.me/MemeSoundJep/4"
   await memejep.client.send_file(memejep.chat_id,url,caption="",parse_mode="html",reply_to=Jep)
   await memejep.delete()
-@l313l.on(admin_cmd(outgoing=True, pattern="بجيت$"))
+@l313l.on(admin_cmd(outgoing=True, pattern="مطي$"))
 async def jepmeme(memejep):
   Jep = await reply_id(memejep)
   url = f"https://t.me/husjsbjxo/219"
