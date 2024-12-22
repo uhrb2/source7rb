@@ -30,7 +30,7 @@ async def _(event):
         except YouBlockedUserError:
             await event.edit("** اولا الغي حظر @SpamBot وحاول مجددا**")
             return
-        await event.edit(f"- {response.message.message}\n @k_jj_j")
+        await event.edit(f"- {response.message.message}\n @RobinUserBot")
 
 
 @l313l.on(admin_cmd(pattern="الاغنية ?(.*)"))
@@ -95,26 +95,26 @@ async def _(event):
 async def hrbe313(joker313):
   rl = random.randint(1,385)
   url = f"https://t.me/DwDi1/{rl}"
-  await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @k_jj_j 🎀",parse_mode="html")
+  await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @RobinUserBot 🎀",parse_mode="html")
   await joker313.delete()
     
 @l313l.on(admin_cmd(outgoing=True, pattern="شعر$"))
 async def jepvois(vois):
   rl = random.randint(2,101)
   url = f"https://t.me/L1BBBL/{rl}"
-  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @k_jj_j 🎀",parse_mode="html")
+  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @RobinUserbot 🎀",parse_mode="html")
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="قران$"))
 async def jepvois(vois):
   rl = random.randint(2,101)
   url = f"https://t.me/QuraanJep/{rl}"
-  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @k_jj_j 🤲🏻☪️",parse_mode="html")
+  await vois.client.send_file(vois.chat_id,url,caption="᯽︙ BY : @RobinUserBot 🤲🏻☪️",parse_mode="html")
   await vois.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="ثيم$"))
 async def jepThe(theme):
   rl = random.randint(2,510)
   url = f"https://t.me/GSSSD/{rl}"
-  await theme.client.send_file(theme.chat_id,url,caption="᯽︙ THEME BY : @k_jj_j 🎊",parse_mode="html")
+  await theme.client.send_file(theme.chat_id,url,caption="᯽︙ THEME BY : @RobinUserBot 🎊",parse_mode="html")
   await theme.delete()
 @l313l.on(admin_cmd(outgoing=True, pattern="لاتغلط$"))
 async def jepmeme(memejep):
