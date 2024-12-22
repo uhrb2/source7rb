@@ -212,3 +212,4 @@ async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
 
+
