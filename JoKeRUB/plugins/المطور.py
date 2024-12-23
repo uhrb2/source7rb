@@ -38,7 +38,6 @@ async def amireallyalive(event):
     uptime = await get_readable_time((time.time() - StartTime))
     _, check_sgnirts = check_data_base_heal_th()
     EMOJI = gvarstatus("ALIVE_EMOJI") or "  - "
-    PIC = "https://t.me/t661h/5"
     CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT")
     cat_caption = f"مطورين سورس Robin \n"
     cat_caption += f"✛━━━━━━━━━━━━━✛\n"
@@ -46,7 +45,7 @@ async def amireallyalive(event):
     cat_caption += f"- المطور  : @U_9_O\n"
     cat_caption += f"✛━━━━━━━━━━━━━✛\n"
     await l313l.send_file(
-            event.chat_id, PIC, caption=cat_caption, reply_to=reply_to_id
+            event.chat_id, caption=cat_caption, reply_to=reply_to_id
         )
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
