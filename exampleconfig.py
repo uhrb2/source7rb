@@ -18,6 +18,3 @@ class Development(Config):
     # command hanler for sudo
     SUDO_COMMAND_HAND_LER = "."
 
-PRIVATE_GROUP_BOT_API_ID = ""
-PM_LOGGER_GROUP_ID = ""
-
