@@ -4,7 +4,6 @@ from telethon import events
 
 @TNT.on(events.NewMessage(outgoing=True, pattern=r".مطور"))
 async def _(event):
-    await event.edit("تم التجربة بنجاح")
     await TNT.send_file(
                 event.chat_id,
                 file="https://t.me/floative/9",
