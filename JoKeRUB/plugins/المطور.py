@@ -34,19 +34,18 @@ plugin_category = "utils"
 )
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
-    uptime = await get_readable_time((time.time() - StartTime))
-    _, check_sgnirts = check_data_base_heal_th()
-    EMOJI = gvarstatus("ALIVE_EMOJI") or "  - "
-    PIC = "https://t.me/t661h/5"
-    CUSTOM_ALIVE_TEXT = gvarstatus("ALIVE_TEXT")
-    cat_caption = "مطورين سورس Robin\n"
-    cat_caption += "✛━━━━━━━━━━━━━✛\n"
-    cat_caption += "- المطور  : @F_O_1\n"
-    cat_caption += "- المطور  : @U_9_O\n"
-    cat_caption += "✛━━━━━━━━━━━━━✛\n"
-    await l313l.send_file(
-        event.chat_id, PIC, caption=cat_caption, reply_to=reply_to_id
-    )
+    post_link = "https://t.me/t661h/5"  # رابط المنشور
+    message = await l313l.get_messages(entity="t661h", ids=5)
+    
+    if message and message.media:
+        cat_caption = "مطورين سورس Robin\n"
+        cat_caption += "✛━━━━━━━━━━━━━✛\n"
+        cat_caption += "- المطور  : @F_O_1\n"
+        cat_caption += "- المطور  : @U_9_O\n"
+        cat_caption += "✛━━━━━━━━━━━━━✛\n"
+        await l313l.send_file(
+            event.chat_id, message.media, caption=cat_caption, reply_to=reply_to_id
+        )
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
 async def on_plug_in_callback_query_handler(event):
