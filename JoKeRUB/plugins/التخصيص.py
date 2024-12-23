@@ -12,8 +12,6 @@ from . import BOTLOG_CHATID
 LOGS = logging.getLogger(__name__)
 cmdhd = Config.COMMAND_HAND_LER
 
-extractor = URLExtract()
-
 oldvars = {
     "PM_PIC": "pmpermit_pic",
     "PM_TEXT": "pmpermit_txt",
