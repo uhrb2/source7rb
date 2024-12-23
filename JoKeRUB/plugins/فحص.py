@@ -88,10 +88,10 @@ async def amireallyalive(event):
 
 temp = """{ALIVE_TEXT}
 ⸻⸻⸻⸻⸻⸻
-⧼⦾ ✯ 𝐍a𝐦e  ⤷ ⨀  {mention} ✦
+⧼⦾ ✯ Na𝐦e  ⤷ ⨀  {mention} ✦
 ⧼⦾ ✯ 𝐏y𝐭𝗵o𝐧 ⤷ ⨀  {pyver} ⚙️
 ⧼⦾ ✯ 𝘂p𝘁i𝗺e ⤷ ⨀  {uptime} ⏳
 ⧼⦾ ✯ piᑎg ⤷ ⨀ {ping}
-⧼⦾ ✯ 𝗦e𝘁𝘂p Da𝘁e  ⤷ ⨀  {Tare5}  🗓️
+⧼⦾ ✯ 𝗦e𝘁𝘂p Da𝘁e  ⤷ ⨀  {Tare5}  
 ⸻⸻⸻⸻⸻⸻
 ✦ Soures RobinUserBot  ✦**"""
