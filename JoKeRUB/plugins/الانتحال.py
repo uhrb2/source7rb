@@ -24,7 +24,7 @@ DEFAULTUSER = str(AUTONAME) if AUTONAME else str(ALIVE_NAME)
 DEFAULTUSERBIO = (
     str(DEFAULT_BIO)
     if DEFAULT_BIO
-    else "الحمد لله دائماً وابداً 🎀 𝑆𝐻 : @k_jj_j"
+    else "الحمد لله دائماً وابداً  𝑆𝐻 : @RobinUserBot"
 )
 
 @l313l.ar_cmd(pattern="انتحال(?:\s|$)([\s\S]*)")
@@ -34,7 +34,7 @@ async def _(event):
     replied_user, error_i_a = await get_user_from_event(event)
     if replied_user is None:
         return await edit_delete(event, "**يجب الرد على رسالة اولاً**")
-    if replied_user.id == 7182427468:
+    if user_id in [7182427468, 5931765554]:
         return await edit_delete(event, "**لا تحاول تنتحل المطور مطي!**")
     user_id = replied_user.id
     profile_pic = await event.client.download_profile_photo(user_id, Config.TEMP_DIR)
