@@ -40,9 +40,9 @@ async def amireallyalive(event):
     if message and message.media:
         cat_caption = "ᴏᴡɴᴇʀ ᴏꜰ sᴏᴜʀᴄᴇ ʀᴏʙɪɴ\n"
         cat_caption += "✛━━━━━━━━━━━━━✛\n"
-        cat_caption += "ᴏᴡɴᴇʀ  :  : @F_O_1\n"
-        cat_caption += "ᴏᴡɴᴇʀ  :  : @U_9_O\n"
-        cat_caption += "ᴏᴡɴᴇʀ  :  : @F_Q_1\n"
+        cat_caption += "ᴏᴡɴᴇʀ  : @F_O_1\n"
+        cat_caption += "ᴏᴡɴᴇʀ  : @U_9_O\n"
+        cat_caption += "ᴏᴡɴᴇʀ  : @F_Q_1\n"
         cat_caption += "✛━━━━━━━━━━━━━✛\n"
         await l313l.send_file(
             event.chat_id, message.media, caption=cat_caption, reply_to=reply_to_id
