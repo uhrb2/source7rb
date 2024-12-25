@@ -215,7 +215,7 @@ async def stickerpack_spam(event):
         await event.client.send_file(BOTLOG_CHATID, reqd_sticker_set.documents[0])
 
 
-@l313l.ar_cmd(pattern="سبام (,*)")
+@l313l.ar_cmd(pattern="سبام (.*)")
 async def tmeme(event):
     cspam = str("".join(event.text.split(maxsplit=1)[1:]))
     message = cspam.replace(" ", "")
