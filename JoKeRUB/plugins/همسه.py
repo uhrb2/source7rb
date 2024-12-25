@@ -12,7 +12,7 @@ async def wspr(event):
     if event.fwd_from:
         return
     l313lb = event.pattern_match.group(1)
-    rrrd7 = "@T_y0bot"
+    rrrd7 = "@iizbot"
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
     tap = await bot.inline_query(rrrd7, l313lb) 
