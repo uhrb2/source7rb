@@ -6,7 +6,7 @@ import asyncio
 # Wespr File by  @F_O_1
 # Copyright (C) 2021 JoKeRUB TEAM
 @borg.on(
-    admin_cmd(pattern=".ميمز")
+    admin_cmd(pattern="ميمز ?(.*)")
 )
 async def wspr(event):
     if event.fwd_from:
@@ -22,7 +22,7 @@ async def wspr(event):
 @borg.on(admin_cmd("م27"))
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
-        await event.edit("᯽︙ اوامر الهمسه واكس او \n\n⌔︙الامر  • `.ميمز`\n⌔︙الاستخدام  • لكتابة همسه سرية لشخص في المجموعه \n\n᯽︙ الامر • `.الهمسة`\n᯽︙ استخدامه • لعرض كيفية كتابة همسة سرية\n\n᯽︙ الامر • `.اكس او `\n ᯽︙ استخدامه • ففط ارسل الامر لبدء لعبة اكس او\n\n᯽︙ CH  - @k_jj_j")
+        await event.edit("᯽︙ اوامر الهمسه واكس او \n\n⌔︙الامر  • `.همسة`\n⌔︙الاستخدام  • لكتابة همسه سرية لشخص في المجموعه \n\n᯽︙ الامر • `.الهمسة`\n᯽︙ استخدامه • لعرض كيفية كتابة همسة سرية\n\n᯽︙ الامر • `.اكس او `\n ᯽︙ استخدامه • ففط ارسل الامر لبدء لعبة اكس او\n\n᯽︙ CH  - @k_jj_j")
         
 @borg.on(admin_cmd("الهمسة"))
 async def _(event):
