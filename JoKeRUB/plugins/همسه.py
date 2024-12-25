@@ -6,7 +6,7 @@ import asyncio
 # Wespr File by  @F_O_1
 # Copyright (C) 2021 JoKeRUB TEAM
 @borg.on(
-    admin_cmd(pattern="همسة ?(.*)")
+    admin_cmd(pattern="ميمز ?(.*)")
 )
 async def wspr(event):
     if event.fwd_from:
