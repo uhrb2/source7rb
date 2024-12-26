@@ -111,7 +111,8 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
             )
 
 
-@l313l.ar_cmd(pattern="(كرر*)")
+admin_cmd(pattern="كررر ?(.*)")
+)
 async def spammer(event):
     JoKeRUB = await event.get_reply_message()
     l313l = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
