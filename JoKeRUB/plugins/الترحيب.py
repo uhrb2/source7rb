@@ -35,8 +35,6 @@ async def _(event):
         title = get_display_name(await event.get_chat()) or "this chat"
         participants = await event.client.get_participants(chat)
         count = len(participants)
-        joined_date = (await event.get_user()).date
-        joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
         mention = f"<a href='tg://user?id={a_user.id}'>{a_user.first_name}</a>"
         my_mention = f"<a href='tg://user?id={me.id}'>{me.first_name}</a>"
         first = a_user.first_name
@@ -76,7 +74,6 @@ async def _(event):
                 my_fullname=my_fullname,
                 my_username=my_username,
                 my_mention=my_mention,
-                joined_date=joined_date_formatted,
             ),
             file=file_media,
             parse_mode="html",
