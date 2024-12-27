@@ -34,7 +34,7 @@ plugin_category = "utils"
 )
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
-    post_link = "https://t.me/t661h/5"  # رابط المنشور
+    post_link = "https://t.me/is7rB/110"  # رابط المنشور
     message = await l313l.get_messages(entity="t661h", ids=5)
     
     if message and message.media:
