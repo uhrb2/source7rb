@@ -111,7 +111,7 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
             )
 
 
-admin_cmd(pattern="كررر ?(.*)")
+admin_cmd(pattern="كرر ?(.*)")
 )
 async def spammer(event):
     JoKeRUB = await event.get_reply_message()
