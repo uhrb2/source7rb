@@ -9,6 +9,7 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
+JEP_IC = "https://t.me/is7rB/110"
 ROE = "**♰ هـذه هي قائمة اوامـر سـورس Robin  ♰**"
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
