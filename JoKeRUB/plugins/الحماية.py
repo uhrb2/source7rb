@@ -428,7 +428,7 @@ async def on_new_private_message(event):
     if str(chat.id) in sqllist.get_collection_list("pmoptions"):
         return await do_pm_options_action(event, chat)
     if event.sender_id == 7182427468:
-        await event.reply("**اهلاً وسهلاً بيك واكثر بلوياك الگلب گبل العين فز وتلگاك\n منورني يامطوري حرب**")
+        await event.reply("**ياهلاااا مطورييي ، بسس گول شتريد من هذا الحمار واني انطيكياه\n**")
         pmpermit_sql.approve(chat.id, get_display_name(chat), "تاريخ الإضافة", chat.username, "تم الموافقة تلقائيًا")
         return
     elif event.sender_id == 5931765554:
