@@ -111,8 +111,7 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
             )
 
 
-admin_cmd(pattern="كرر ?(.*)")
-)
+@l313l.ar_cmd(pattern="كرر (.*)")
 async def spammer(event):
     JoKeRUB = await event.get_reply_message()
     l313l = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
@@ -273,7 +272,7 @@ async def stopspamrz(event):
         return await edit_delete(event, "**⌔∮ تم بنجاح ايقاف التكرار **")
     return await edit_delete(event, "**⌔∮ عذرا لم يتم تفعيل التكرار بالاصل**")
 #جميع الاكواد ادناه تمت كتابتها من قبل مطورين 7rB  ممنوع السرقة !
-async def hrbe_nshr(l313l, sleeptimet, chat, message, seconds):
+async def 7rB _nshr(l313l, sleeptimet, chat, message, seconds):
     global yaAli
     yaAli = True
     while yaAli:
@@ -299,19 +298,19 @@ async def Hussein(event):
     for chat_username in chat_usernames:
         try:
             chat = await l313l.get_entity(chat_username)
-            await hrbe_nshr(l313l, seconds, chat.id, message, seconds)  # تمرير قيمة seconds هنا لكل مجموعة
+            await 7rB _nshr(l313l, seconds, chat.id, message, seconds)  # تمرير قيمة seconds هنا لكل مجموعة
         except Exception as e:
             await edit_delete(
                 event, f"⌔∮ لا يمكن العثور على المجموعة أو الدردشة {chat_username}: {str(e)}"
             )
         await asyncio.sleep(1)
     
-async def hrbe_allnshr(l313l, sleeptimet, message):
+async def 7rB _allnshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
-    hrbe_chats = await l313l.get_dialogs()
+    7rB _chats = await l313l.get_dialogs()
     while yaAli:
-        for chat in hrbe_chats:
+        for chat in 7rB _chats:
             if chat.is_group:
                 if chat.title != "مشتركين 7rB  • Team 7rB ":
                     try:
@@ -337,14 +336,14 @@ async def Hussein(event):
     l313l = event.client
     global yaAli
     yaAli = True
-    await hrbe_allnshr(l313l, sleeptimet, message)
+    await 7rB _allnshr(l313l, sleeptimet, message)
 super_groups = ["super", "سوبر"]
-async def hrbe_supernshr(l313l, sleeptimet, message):
+async def 7rB _supernshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
-    hrbe_chats = await l313l.get_dialogs()
+    7rB _chats = await l313l.get_dialogs()
     while yaAli:
-        for chat in hrbe_chats:
+        for chat in 7rB _chats:
             chat_title_lower = chat.title.lower()
             if chat.is_group and any(keyword in chat_title_lower for keyword in super_groups):
                 try:
@@ -369,9 +368,9 @@ async def Hussein(event):
     l313l = event.client
     global yaAli
     yaAli = True
-    await hrbe_supernshr(l313l, sleeptimet, message)
+    await 7rB _supernshr(l313l, sleeptimet, message)
 @l313l.ar_cmd(pattern="ايقاف (النشر|نشر)")
-async def stop_hrbe(event):
+async def stop_7rB (event):
     global yaAli
     yaAli = False
     await event.edit("**᯽︙ تم ايقاف النشر التلقائي بنجاح ✓** ")
