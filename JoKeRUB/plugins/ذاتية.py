@@ -66,8 +66,6 @@ async def Reda(event):
            ♡    ♡
 ♡ تم حفظ الذاتية بنجاح ✓
 ♡ أسم المرسل : [{0}](tg://user?id={1})
-♡\n**⌔╎المـرسـل** {_format.mentionuser(sender.first_name , sender.id)} .")
-
 ♡  تاريخ الذاتية : `{2}`
 ♡  أرسلت في يوم `{3}`
        ♡        ♡
