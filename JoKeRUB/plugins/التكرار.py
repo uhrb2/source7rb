@@ -10,8 +10,7 @@ from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.utils import get_display_name
 from . import JoKeRUB
-yaAli = False
-client = l313l
+
 Mukrr = Config.MUKRR_ET or ",مكرر"
 async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam=False):
 
