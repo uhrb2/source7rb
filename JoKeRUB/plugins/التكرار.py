@@ -1,19 +1,15 @@
 # By JoKeRUB 2021-2023
 import asyncio
-import base64
-import re
-from .. telethon.tl import functions, types
+import contextlib
+import shutil
+
+from telethon.errors.rpcerrorlist import ForbiddenError
+from telethon.tl import functions, types
+from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.utils import get_display_name
-from JoKeRUB import l313l
-from telethon import events
-from Config import Config
-from core.managers import edit_delete, edit_or_reply
-from helpers.tools import media_type
-from helpers.utils import _catutils
-from sql_helper.globals import addgvar, delgvar, gvarstatus
-from import BOTLOG, BOTLOG_CHATID
+from . import JoKeRUB
 yaAli = False
 client = l313l
 Mukrr = Config.MUKRR_ET or ",مكرر"
