@@ -23,7 +23,7 @@ from . import (
 plugin_category = "fun"
 
 
-@l313l.on(admin_cmd(pattern='تقليد'))
+@l313l.on(admin_cmd(pattern="،،تقليد"))
 async def echo(event):
     if event.reply_to_msg_id is None:
         return await edit_delete(event, "⌁︙يرجى الرد على الشخص الذي تـريد ازعاجه ،")
