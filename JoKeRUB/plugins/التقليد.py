@@ -83,7 +83,7 @@ async def echo(event):
 
 
 @l313l.ar_cmd(
-    @l313l.on(admin_cmd(pattern="،،الغاء التقليد"))
+    pattern="الغاء التقليد( -a)?",
     command=("الغاء التقليد", plugin_category),
     info={
         "header": "To delete echo in this chat.",
