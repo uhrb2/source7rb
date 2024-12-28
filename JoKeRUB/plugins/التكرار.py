@@ -1,4 +1,3 @@
-# By JoKeRUB 2021-2023
 import asyncio
 import contextlib
 import shutil
@@ -9,7 +8,16 @@ from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.utils import get_display_name
-from . import JoKeRUB
+
+from . import zedub
+
+from ..core.managers import edit_delete, edit_or_reply
+from ..helpers import media_type, unsavegif
+from ..helpers.utils import _zedutils, _format
+from ..sql_helper.globals import addgvar, delgvar, gvarstatus
+from ..sql_helper.echo_sql import addecho, get_all_echos, get_echos, is_echo, remove_all_echos, remove_echo, remove_echos
+from . import BOTLOG, BOTLOG_CHATID
+
 
 Mukrr = Config.MUKRR_ET or ",مكرر"
 async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam=False):
