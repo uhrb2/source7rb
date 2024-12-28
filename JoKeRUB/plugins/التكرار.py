@@ -8,21 +8,21 @@ from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.utils import get_display_name
 from JoKeRUB import l313l
 from telethon import events
-from ..Config import Config
-from ..core.managers import edit_delete, edit_or_reply
-from ..helpers.tools import media_type
-from ..helpers.utils import _catutils
-from ..sql_helper.globals import addgvar, delgvar, gvarstatus
-from . import BOTLOG, BOTLOG_CHATID
+from Config import Config
+from core.managers import edit_delete, edit_or_reply
+from helpers.tools import media_type
+from helpers.utils import _catutils
+from sql_helper.globals import addgvar, delgvar, gvarstatus
+from import BOTLOG, BOTLOG_CHATID
 yaAli = False
 client = l313l
-Mukrr = Config.MUKRR_ET or "مكرر"
+Mukrr = Config.MUKRR_ET or ",مكرر"
 async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam=False):
 
     counter = int(l313l[0])
     if len(l313l) == 2:
         spam_message = str(l313l[1])
-        for _ in range(counter):
+        for_in range(counter):
             if gvarstatus("spamwork") is None:
                 return
             if event.reply_to_msg_id:
@@ -31,7 +31,7 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
                 await event.client.send_message(event.chat_id, spam_message)
             await asyncio.sleep(sleeptimet)
     elif event.reply_to_msg_id and JoKeRUB.media:
-        for _ in range(counter):
+        for_in range(counter):
             if gvarstatus("spamwork") is None:
                 return
             JoKeRUB = await event.client.send_file(
@@ -111,7 +111,7 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
             )
 
 
-@l313l.ar_cmd(pattern="كرر (.*)")
+@l313l.ar_cmd(pattern=",كرر")
 async def spammer(event):
     JoKeRUB = await event.get_reply_message()
     l313l = ("".join(event.text.split(maxsplit=1)[1:])).split(" ", 1)
@@ -215,7 +215,7 @@ async def stickerpack_spam(event):
         await event.client.send_file(BOTLOG_CHATID, reqd_sticker_set.documents[0])
 
 
-@l313l.ar_cmd(pattern="سبام (.*)")
+@l313l.ar_cmd(pattern=",سبام")
 async def tmeme(event):
     cspam = str("".join(event.text.split(maxsplit=1)[1:]))
     message = cspam.replace(" ", "")
@@ -265,14 +265,14 @@ async def tmeme(event):
             )
 
 
-@l313l.ar_cmd(pattern="ايقاف التكرار ?(.*)")
+@l313l.ar_cmd(pattern=",ايقاف التكرر")
 async def stopspamrz(event):
     if gvarstatus("spamwork") is not None and gvarstatus("spamwork") == "true":
         delgvar("spamwork")
         return await edit_delete(event, "**⌔∮ تم بنجاح ايقاف التكرار **")
     return await edit_delete(event, "**⌔∮ عذرا لم يتم تفعيل التكرار بالاصل**")
 #جميع الاكواد ادناه تمت كتابتها من قبل مطورين 7rB  ممنوع السرقة !
-async def 7rB _nshr(l313l, sleeptimet, chat, message, seconds):
+async def Robin_nshr(l313l, sleeptimet, chat, message, seconds):
     global yaAli
     yaAli = True
     while yaAli:
@@ -298,21 +298,21 @@ async def Hussein(event):
     for chat_username in chat_usernames:
         try:
             chat = await l313l.get_entity(chat_username)
-            await 7rB _nshr(l313l, seconds, chat.id, message, seconds)  # تمرير قيمة seconds هنا لكل مجموعة
+            await Robin_nshr(l313l, seconds, chat.id, message, seconds)  # تمرير قيمة seconds هنا لكل مجموعة
         except Exception as e:
             await edit_delete(
                 event, f"⌔∮ لا يمكن العثور على المجموعة أو الدردشة {chat_username}: {str(e)}"
             )
         await asyncio.sleep(1)
     
-async def 7rB _allnshr(l313l, sleeptimet, message):
+async def Robin_allnshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
     7rB _chats = await l313l.get_dialogs()
     while yaAli:
-        for chat in 7rB _chats:
+        for chat in Robin_chats:
             if chat.is_group:
-                if chat.title != "مشتركين 7rB  • Team 7rB ":
+                if chat.title != "مشتركين robin  • Team robin":
                     try:
                         if message.media:
                             await l313l.send_file(chat.id, message.media, caption=message.text)
@@ -336,14 +336,14 @@ async def Hussein(event):
     l313l = event.client
     global yaAli
     yaAli = True
-    await 7rB _allnshr(l313l, sleeptimet, message)
+    await Robin_allnshr(l313l, sleeptimet, message)
 super_groups = ["super", "سوبر"]
-async def 7rB _supernshr(l313l, sleeptimet, message):
+async def Robin_supernshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
     7rB _chats = await l313l.get_dialogs()
     while yaAli:
-        for chat in 7rB _chats:
+        for chat in Robin_chats:
             chat_title_lower = chat.title.lower()
             if chat.is_group and any(keyword in chat_title_lower for keyword in super_groups):
                 try:
@@ -370,7 +370,7 @@ async def Hussein(event):
     yaAli = True
     await 7rB _supernshr(l313l, sleeptimet, message)
 @l313l.ar_cmd(pattern="ايقاف (النشر|نشر)")
-async def stop_7rB (event):
+async def stop_Robin (event):
     global yaAli
     yaAli = False
     await event.edit("**᯽︙ تم ايقاف النشر التلقائي بنجاح ✓** ")
