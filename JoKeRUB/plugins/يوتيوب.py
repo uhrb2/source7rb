@@ -401,7 +401,7 @@ async def _(event):
         end = datetime.now()
         ms = (end - start).seconds
         await cat.edit(
-            f"꙳ ¦ تم تنزيل بواسطة  : @k_jj_j ",
+            f"꙳ ¦ تم تنزيل بواسطة  : @RobinUserBot ",
             parse_mode="html",
         )
     await event.client.delete_messages(
@@ -410,7 +410,7 @@ async def _(event):
 
             details = await conv.get_response()
             video = await conv.get_response()
-            """ قناة 7rB   @k_jj_j """
+            """قناة 7rB   @RobinUserBot"""
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @ttsavebot")
