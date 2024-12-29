@@ -6,7 +6,7 @@ class Development(Config):
     # the name to display in your alive message
     ALIVE_NAME = "Критический"
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
-    DB_URI = "postgresql://joker66:joker66@localhost:5432/joker66"
+    DB_URI = "postgresql://joker67:joker67@localhost:5432/joker67"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
     STRING_SESSION = "1BJWap1wBu2RkXQcyRGJRROpyYIw8bU5vCCynO2OGewoiowcp-os7L0S9xFLACKg0sj1siziA3oovJeWEMM3LybBB6aK6E0_y0EodYHyJrrLLc45peXVH_cMafLaSg-kJsiFA22_wDw4H3mwWJedKTuBN8pGLQB-45RJges5CF9fi-Ok1PLBLNFre1XczOUGglkyv5wtIBLVH_vDOIJuKqcXXo19UlZTeJAoTgKrbj51iwRr2QMjyaG5l2fCfwfcx7iMNvrRjP9daSml1oOGkKOHMj3oJJrK8Ae7OaLjhJYW08eQ8djMr0KEfXvfFIXB7b8anq0_giJc8nEgu8SoyzvcE6Qt-ZtA="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
