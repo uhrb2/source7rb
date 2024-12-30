@@ -1,4 +1,4 @@
-#all write Codes By Team 7rB  @k_jj_j
+#all write Codes By Team Robin  @RobinUserBot
 #By Hussein @F_O_1
 import asyncio
 import random
@@ -95,7 +95,7 @@ async def _(event):
 async def hrbe313(joker313):
   rl = random.randint(1,385)
   url = f"https://t.me/DwDi1/{rl}"
-  await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @RobinUserBot 🎀",parse_mode="html")
+  await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @RobinUserBot ",parse_mode="html")
   await joker313.delete()
     
 @l313l.on(admin_cmd(outgoing=True, pattern="شعر$"))
