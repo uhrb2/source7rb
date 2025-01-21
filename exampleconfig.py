@@ -4,13 +4,13 @@ class Development(Config):
     APP_ID = "24347380"
     API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
     # the name to display in your alive message
-    ALIVE_NAME = "Julie"
+    ALIVE_NAME = "aввoυd"
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
-    DB_URI = "postgresql://joker106:joker106@localhost:5432/joker106"
+    DB_URI = "postgresql://joker150:joker150@localhost:5432/joker150"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
-    STRING_SESSION = "1BJWap1wBuxy1x2H50eHj4cgMeV0fmlmwUnuKkQ3ZdprxZbzhA2qL6JGGGUQh93dGyj0s2QjYP3bEgeIWIa2zOHpruV8QUwBTxqnevuJ3IyiNzyYLgUIP8Nam22ivMktynAJHwQU9TrjiS6u15tY6xZVYRqukdBnxTm74OeWzZpK-qqmgKJzbJIcgiOh4phZUIyCvk_249IquHZegT5AWs2zhccoUJVBsYSFPKNoJJtKBEFUCDkMEi7lRlt6HfvPu44DtCaG39HRSbLgtZ8Ewu_hhUQq2nXWOiuYNQoPuoJdWyUuAqIdo7avND7x6FCdVlI-O-h7aEIfFhPJcL7bSmERoEqU8z9k="
+    STRING_SESSION = "1BJWap1wBuzQ79Murfj7882ot-aq-D02E78V_mBbIzOJg4y6vCD5sVyTJrZQWn2D30jHcrHW-iD7ib2xqg8CUjtUUTeI1ju-rvCNlT5bQwaBPpnHAN8ZzclarpW_wL77QHv94PYmkxr4iNUh20Hjg3jwBMHDOJRc24iP3FglVMQUJ8rhJuRtxNlBZ5-Sz0-oP4NVMFOBFyQiIZ8Ro3VFn24rXdTXl-JlUSFP9O5hh-OHNsV7An5dc6PG7xm3EFrxwI3Sdscvd5H7j32NXdSJl9iC9dKJ35mx0D_yaq65vqcpmYZXBxnOOrwV1wNEgB6ix8OgCKhhu6SX8HB4gxifb7Hvn804o5Ko="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
-    TG_BOT_TOKEN = "7560959156:AAEx9Q2BDPChTM9ZOqsdqvR3N1aO1RVPTOY"
+    TG_BOT_TOKEN = "7494083643:AAFmKolrGep7TA-TzNahTbvedNSKYqbohxw"
     # command
     COMMAND_HAND_LER = "."
     # sudo enter the id of sudo users userid's in that array
