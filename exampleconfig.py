@@ -10,7 +10,7 @@ class Development(Config):
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
     STRING_SESSION = "1ApWapzMBu8I25hPSaOORMc1Lfkgpml5tnqVMQiypfCzm3wxYyifpCncMX8YI7sSYgQV4dEFJIMcQU1IE570cDfNEzlE2n_CH0vijZ5mp0I7fDvqvsLKJBUS_Nx51tPCR2_7siOUAqitXcSjeQTXFrLBZ84R3MXENgid1nGurw3fkITP1G2mTqpzu0vFUkWQDSH_-Gg-lLF0Mc4C2I-2siYLWfLZmfiPLcVQ4y6vk7g6NKlyodA72yokSGLlpBvjcIrUiZHtOMsFKkbIT_qJRyNlOadKrHl6RkwC9TQF1SGakrTTNWcBYbHoK3XRRFSXNPbfOVW_GUpCDYLcHcvxGY5e0B_10vts="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
-    TG_BOT_TOKEN = "7920795244:AAFFCTGAFAlcMDDkiGrbVlznycFlNloyfK8"
+    TG_BOT_TOKEN = "7837016671:AAEfTRFdu_fLDIc6d3kfp3yjTFClXa1PKxs"
     # command
     COMMAND_HAND_LER = "."
     # sudo enter the id of sudo users userid's in that array
