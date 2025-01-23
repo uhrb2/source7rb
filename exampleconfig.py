@@ -4,7 +4,7 @@ class Development(Config):
     APP_ID = "24347380"
     API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
     # the name to display in your alive message
-    ALIVE_NAME = "alphalstene"
+    ALIVE_NAME = "ضاري"
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
     DB_URI = "postgresql://joker215:joker215@localhost:5432/joker215"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
