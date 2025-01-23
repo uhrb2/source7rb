@@ -6,7 +6,7 @@ class Development(Config):
     # the name to display in your alive message
     ALIVE_NAME = "excellence"
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
-    DB_URI = "postgresql://joker216:joker216@localhost:5432/joker216"
+    DB_URI = "postgresql://joker217:joker217@localhost:5432/joker217"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
     STRING_SESSION = "1BJWap1sBuyH7otawLtDbZJHFH-1n1hKEQ9KQwVmM0ko0AkcUeVtbbBZJaAsrUp25qfMe_TdZjjvM6o2mAZwxvF1gGSauDJGCO5wA5b2IZQfi8qak7we49m8ztmVBqCdKY6i3mjr5-cWxTZILTUBuAOIgyLvBZkKW0_3pFHePH639XYsBbQ3wpeGCOsOiqg1jRlzp747yny9v7JmobUdWwp55hkAZfcGXGkIOru8otV6hkln_I0eWbGeqwysEENqvc39elb2rMPJJghA4GdxlTDFyNj-f9df7hmWU1W9C2jN0psGs0ylsnRuCBlI5CnoUGIf4OVWYMQnFdnxDY5CdMDcapXXJG_E="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
