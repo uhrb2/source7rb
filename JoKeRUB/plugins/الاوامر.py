@@ -26,6 +26,7 @@ async def _(event):
         F_O_1 = random.choice(rehu)
         await event.edit(
         f": **⦑ قائمة اوامر 7rB  ⦒**\n
+)
 
 
 @l313l.ar_cmd(
