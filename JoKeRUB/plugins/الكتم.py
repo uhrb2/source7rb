@@ -18,8 +18,8 @@ from . import BOTLOG, BOTLOG_CHATID, admin_groups, get_user_from_event
 
 plugin_category = "admin"
 joker_users = []
-joker_mute =
-joker_unmute = 
+joker_mute = تم الكتم هيهيهيهي
+joker_unmute = ليش لغيت كتمة !!
 import os
 
 file_path = 'hrbeMute.txt'
