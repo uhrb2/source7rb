@@ -58,7 +58,7 @@ async def mutejep(event):
         else:
             return await event.client.send_file(
                 event.chat_id,
-                joker_mute,
+                file = joker_mute,
                 caption="** تم ڪتـم الـمستخـدم  . . بنجـاح 🔕✓**",
             )
         if BOTLOG:
@@ -129,13 +129,13 @@ async def mutejep(event):
         if reason:
             await event.client.send_file(
                 event.chat_id,
-                joker_mute,
+                file = joker_mute,
                 caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name ,user.id)}  \n**- تـم كتمـه بنجـاح ✓**\n\n**- السـبب :** {reason}",
             )
         else:
             await event.client.send_file(
                 event.chat_id,
-                joker_mute,
+                file = joker_mute,
                 caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name ,user.id)}  \n**- تـم كتمـه بنجـاح ✓**\n\n",
             )
         if BOTLOG:
@@ -169,7 +169,7 @@ async def unmutejep(event):
         else:
             await event.client.send_file(
                 event.chat_id,
-                joker_unmute,
+                file = joker_unmute,
                 caption="**- تـم الغــاء كتــم الشخـص هنـا .. بنجــاح ✓**",
             )
         if BOTLOG:
@@ -214,7 +214,7 @@ async def unmutejep(event):
             return await edit_or_reply(event, f"**- خطــأ : **`{e}`")
         await event.client.send_file(
             event.chat_id,
-            joker_unmute,
+            file = joker_unmute,
             caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name, user.id)} \n**- تـم الغـاء كتمـه بنجـاح ✓**",
         )
         if BOTLOG:
