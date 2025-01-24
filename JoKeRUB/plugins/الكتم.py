@@ -58,7 +58,7 @@ async def mutejep(event):
         else:
             return await event.client.send_file(
                 event.chat_id,
-                file = joker_mute,
+                file = "https://t.me/is7rB/185"
                 caption="** تم ڪتـم الـمستخـدم  . . بنجـاح 🔕✓**",
             )
         if BOTLOG:
