@@ -18,9 +18,8 @@ from . import BOTLOG, BOTLOG_CHATID, admin_groups, get_user_from_event
 
 plugin_category = "admin"
 joker_users = []
-joker_mute = post_link = "https://t.me/is7rB/110"  # رابط المنشور
-    message = await l313l.get_messages(entity="is7rb", ids=110)
-joker_unmute = "https://telegra.ph/file/e9473ddef0b58cdd7f9e7.jpg"
+joker_mute =
+joker_unmute = 
 import os
 
 file_path = 'hrbeMute.txt'
