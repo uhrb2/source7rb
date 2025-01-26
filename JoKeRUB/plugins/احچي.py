@@ -62,7 +62,7 @@ async def _(event):
     end = datetime.now()
     ms = (end - start).seconds
     
-    string_to_show = "**يگول : **`{}`".format(
+    string_to_show = "**يگول صاحب الصوتية : **`{}`".format(
             text
         )
     await jepevent.edit(string_to_show)
