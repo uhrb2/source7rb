@@ -130,5 +130,5 @@ async def _(event):
              api = ocrspace.API(language=lang)
             except BaseException as er:
              return await edit_delete(event, "**᯽︙ !ماكو هيج لغه يمعووووود**")
-     await edit_or_reply(event, "**᯽︙ دا اطلع النص من الصوره اصبررر...**")
+     await edit_or_reply(event, "**᯽︙ ◤دا اطلع النص من الصوره اصبررر...◢**")
      await edit_or_reply(event, to_text(pic_file, api))
