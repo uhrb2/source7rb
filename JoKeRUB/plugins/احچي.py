@@ -117,7 +117,7 @@ async def _(event):
     reply = await event.get_reply_message()
     lan = event.pattern_match.group(1)
     if not reply:
-     return edit_delete(event, "**◢ قم بالرد على الصورة المراد استخراج النص منه◤**")
+     return edit_delete(event, "**◢قم بالرد على الصورة المراد استخراج النص منه◤**")
     pic_file = await l313l.download_media(reply, Config.TMP_DOWNLOAD_DIRECTORY)
     if not pic_file:
         return await edit_delete(event, "**◢مطي رد على الصوره◤**")
