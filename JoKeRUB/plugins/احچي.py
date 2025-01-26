@@ -106,7 +106,7 @@ def to_text(pic, api):
         if output:
             return output
         else:
-            return "حدث خطأ في النضام , حاول مجدداً"
+            return "**اصار خلل بلنظام اخذ فره او تعال**"
     finally:
         os.remove(pic)
 
@@ -120,7 +120,7 @@ async def _(event):
      return edit_delete(event, "**᯽︙ قم بالرد على الصورة المراد استخراج النص منه**")
     pic_file = await l313l.download_media(reply, Config.TMP_DOWNLOAD_DIRECTORY)
     if not pic_file:
-        return await edit_delete(event, "**᯽︙ قم بالرد على صورة**")
+        return await edit_delete(event, "**᯽︙ مطي رد على صوره**")
     else:
      if not lan:
             api = ocrspace.API()
@@ -129,6 +129,6 @@ async def _(event):
              lang = langs[lan.replace(" ", "")]
              api = ocrspace.API(language=lang)
             except BaseException as er:
-             return await edit_delete(event, "**᯽︙ !لا يوجد هكذا لغة**")
-     await edit_or_reply(event, "**᯽︙ يجري استخراج النص...**")
+             return await edit_delete(event, "**᯽︙ !ماكو هيج لغه يمعووووود**")
+     await edit_or_reply(event, "**᯽︙ دا اطلع النص من الصوره اصبررر...**")
      await edit_or_reply(event, to_text(pic_file, api))
