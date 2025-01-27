@@ -31,7 +31,7 @@ async def get_full_user(event):
         if user.isnumeric():
             user = int(user)
         if not user:
-            await event.edit("▾∮ لا يمكنك بدون ايدي المستخدم")
+            await event.edit("**أبني ماتگدر بدون آيدي**")
             return
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
@@ -43,7 +43,7 @@ async def get_full_user(event):
         try:
             user_obj = await event.client.get_entity(user)
         except Exception as err:
-            return await event.edit("▾∮ هنالك خطأ يرجى تبليغنا @RobinUserBot", str(err))           
+            return await event.edit("** اكو **خطأ لازم تبلغنا سريععع ولك @RobinUserBot", str(err))           
     return user_obj, extra
 
 global hawk,moth
@@ -64,7 +64,7 @@ async def gben(JoKeRUB):
     i = 0
     sender = await dc.get_sender()
     me = await JoKeRUB.client.get_me()
-    await razan.edit("▾∮ يتم رفع المستخدم في جميع المجموعات")
+    await razan.edit("**هسة ارفعة بجميع الگروبات اصبر**")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await JoKeRUB.get_chat()
@@ -78,13 +78,13 @@ async def gben(JoKeRUB):
     except:
         pass
     if me == user:
-       l313l = await razan.edit("▾∮ لا استطيع رفع نفسي 🧸🤍،")
+       l313l = await razan.edit("** ياثور ماتگدر ترفع نفسك🧸🤍،**")
        return
     try:
         if not rank:
             rank = "ㅤㅤ"
     except:
-        return await razan.edit(f"**▾∮ هنالك شي خطأ**")
+        return await razan.edit(f"**أكو خطأ**")
     if user:
         telchanel = [d.entity.id
                      for d in await JoKeRUB.client.get_dialogs()
@@ -100,11 +100,11 @@ async def gben(JoKeRUB):
           try:
              await JoKeRUB.client(EditAdminRequest(x, user, rgt, rank))
              i += 1
-             await razan.edit(f"**▾∮ يتم الرفع في **: `{i}` من المجموعات")
+             await razan.edit(f"** يتم الرفع في **: `{i}` من المجموعات")
           except:
              pass
     else:
-        await razan.edit(f"**▾∮ يجب عليك الرد على المستخدم اولا **")
+        await razan.edit(f"** لازم تسوي رد يمعوددد **")
     return await razan.edit(
         f"**▾∮المستخدم [{user.first_name}](tg://user?id={user.id})\n▾∮ تم رفعه في : {i} من المجموعات**"
     )
@@ -115,7 +115,7 @@ async def gben(JoKeRUB):
     i = 0
     sender = await dc.get_sender()
     me = await JoKeRUB.client.get_me()
-    await razan.edit("**▾∮ يتم تنزيل الشخص من رتبة الاشراف في جميع الكروبات**")
+    await razan.edit("**هسة راح أنزلة من المشرفين اصبرلي**")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await JoKeRUB.get_chat()
@@ -129,13 +129,13 @@ async def gben(JoKeRUB):
     except:
         pass
     if me == user:
-       l313l = await razan.edit("▾∮ لا استطيع تنزيل نفسي 🧸🤍")
+       l313l = await razan.edit(" ياثور ماتگدر تنزل نفسك 🧸🤍")
        return
     try:
         if not rank:
             rank = "ㅤㅤ"
     except:
-        return await razan.edit(f"**▾∮ هنالك شي خطأ**")
+        return await razan.edit(f"** صار خطأ **")
     if user:
         telchanel = [d.entity.id
                      for d in await JoKeRUB.client.get_dialogs()
@@ -155,7 +155,7 @@ async def gben(JoKeRUB):
           except:
              pass
     else:
-        await razan.edit(f"**▾∮ يجب عليك الرد على المستخدم اولا **")
+        await razan.edit(f"** لازم تسوي رد أبني **")
     return await razan.edit(
         f"**▾∮المستخدم [{user.first_name}](tg://user?id={user.id})\n▾∮ تم تنزيله في : {i} من المجموعات**"
     )
