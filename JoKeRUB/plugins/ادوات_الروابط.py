@@ -25,14 +25,14 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  يجـب عليم الرد على الرابط او وضع الرابط مع الام", 5
+            event, "᯽︙  لازم تسوي الرد على الرابط لو تحط الرابط مع الأمر عزيزي", 5
         )
     check = url(input_str)
     if not check:
         catstr = "http://" + input_str
         check = url(catstr)
     if not check:
-        return await edit_delete(event, "᯽︙  هذا الرابط غير مدعوم", 5)
+        return await edit_delete(event, "᯽︙  هذا الرابط ما مدعوم", 5)
     sample_url = f"https://da.gd/dns/{input_str}"
     response_api = requests.get(sample_url).text
     if response_api:
@@ -60,14 +60,14 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  يجـب عليم الرد على الرابط او وضع الرابط مع الامر", 5
+            event, "᯽︙  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
         )
     check = url(input_str)
     if not check:
         catstr = f"http://" + input_str
         check = url(catstr)
     if not check:
-        return await edit_delete(event, "᯽︙  هذا الرابط غير مدعوم", 5)
+        return await edit_delete(event, "᯽︙  هذا الرابط ما مدعوم", 5)
     if not input_str.startswith("http"):
         input_str = "http://" + input_str
     sample_url = f"https://da.gd/s?url={input_str}"
@@ -77,7 +77,7 @@ async def _(event):
             event, f"᯽︙ تـم صنـع رابـط مصغر: {response_api}", link_preview=False
         )
     else:
-        await edit_or_reply(event, "᯽︙  هـنالك شي خطـا حاول لاحقـا")
+        await edit_or_reply(event, "᯽︙  اكو شي خطـا روح أخذ فرة وتعال جرب")
 
 # urltools for l313l
   
@@ -98,7 +98,7 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  يجـب عليم الرد على الرابط او وضع الرابط مع الامر", 5
+            event, "᯽︙  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
         )
     check = url(input_str)
     if not check:
