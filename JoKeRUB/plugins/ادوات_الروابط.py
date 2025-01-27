@@ -25,21 +25,21 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  لازم تسوي الرد على الرابط لو تحط الرابط مع الأمر عزيزي", 5
+            event, "  لازم تسوي الرد على الرابط لو تحط الرابط مع الأمر عزيزي", 5
         )
     check = url(input_str)
     if not check:
         catstr = "http://" + input_str
         check = url(catstr)
     if not check:
-        return await edit_delete(event, "᯽︙  هذا الرابط ما مدعوم", 5)
+        return await edit_delete(event, "  هذا الرابط ما مدعوم", 5)
     sample_url = f"https://da.gd/dns/{input_str}"
     response_api = requests.get(sample_url).text
     if response_api:
         await edit_or_reply(event, f"الـ دي أن اس لـ {input_str} هي \n\n{response_api}")
     else:
         await edit_or_reply(
-            event, f"᯽︙ - لم استطع ايجاد `{input_str}` في الانترنت"
+            event, f" - لم استطع ايجاد `{input_str}` في الانترنت"
         )
 
 # urltools for l313l 
@@ -60,24 +60,24 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
+            event, "  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
         )
     check = url(input_str)
     if not check:
         catstr = f"http://" + input_str
         check = url(catstr)
     if not check:
-        return await edit_delete(event, "᯽︙  هذا الرابط ما مدعوم", 5)
+        return await edit_delete(event, "  هذا الرابط ما مدعوم", 5)
     if not input_str.startswith("http"):
         input_str = "http://" + input_str
     sample_url = f"https://da.gd/s?url={input_str}"
     response_api = requests.get(sample_url).text
     if response_api:
         await edit_or_reply(
-            event, f"᯽︙ تـم صنـع رابـط مصغر: {response_api}", link_preview=False
+            event, f" تـم صنـع رابـط مصغر: {response_api}", link_preview=False
         )
     else:
-        await edit_or_reply(event, "᯽︙  اكو شي خطـا روح أخذ فرة وتعال جرب")
+        await edit_or_reply(event, "  اكو شي خطـا روح أخذ فرة وتعال جرب")
 
 # urltools for l313l
   
@@ -98,12 +98,12 @@ async def _(event):
         input_str = reply.text
     if not input_str:
         return await edit_delete(
-            event, "᯽︙  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
+            event, "  لازم تسوي رد على الرابط لو تحط الرابط مع الامر", 5
         )
     check = url(input_str)
     if not check:
         catstr = "http://" + input_str
         check = url(catstr)
     if not check:
-        return await edit_delete(event, "᯽︙  هذا الرابط غير مدعوم", 5)
+        return await edit_delete(event, " هذا الرابط غير مدعوم", 5)
     await edit_or_reply(event, "[ㅤㅤㅤㅤㅤㅤㅤ](" + input_str + ")")
