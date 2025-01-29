@@ -1,4 +1,4 @@
-import base64
+base64
 import asyncio
 from datetime import datetime
 from telethon import events
@@ -22,7 +22,7 @@ joker_mute = "https://telegra.ph/file/c5ef9550465a47845c626.jpg"
 joker_unmute = "https://telegra.ph/file/e9473ddef0b58cdd7f9e7.jpg"
 import os
 
-file_path = 'hrbeMute.txt'
+file_path = '7rB Mute.txt'
 
 if not os.path.isfile(file_path):
     open(file_path, 'w').close()
@@ -58,7 +58,7 @@ async def mutejep(event):
         else:
             return await event.client.send_file(
                 event.chat_id,
-                file = "https://t.me/is7rB/185"
+                joker_mute,
                 caption="** تم ڪتـم الـمستخـدم  . . بنجـاح 🔕✓**",
             )
         if BOTLOG:
@@ -129,13 +129,13 @@ async def mutejep(event):
         if reason:
             await event.client.send_file(
                 event.chat_id,
-                file = joker_mute,
+                joker_mute,
                 caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name ,user.id)}  \n**- تـم كتمـه بنجـاح ✓**\n\n**- السـبب :** {reason}",
             )
         else:
             await event.client.send_file(
                 event.chat_id,
-                file = joker_mute,
+                joker_mute,
                 caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name ,user.id)}  \n**- تـم كتمـه بنجـاح ✓**\n\n",
             )
         if BOTLOG:
@@ -169,7 +169,7 @@ async def unmutejep(event):
         else:
             await event.client.send_file(
                 event.chat_id,
-                file = joker_unmute,
+                joker_unmute,
                 caption="**- تـم الغــاء كتــم الشخـص هنـا .. بنجــاح ✓**",
             )
         if BOTLOG:
@@ -214,7 +214,7 @@ async def unmutejep(event):
             return await edit_or_reply(event, f"**- خطــأ : **`{e}`")
         await event.client.send_file(
             event.chat_id,
-            file = joker_unmute,
+            joker_unmute,
             caption=f"**- المستخـدم :** {_format.mentionuser(user.first_name, user.id)} \n**- تـم الغـاء كتمـه بنجـاح ✓**",
         )
         if BOTLOG:
