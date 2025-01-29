@@ -29,7 +29,7 @@ async def _(event):
     reply = await event.get_reply_message()
     lan = input_str
     if not lan:
-         return await edit_delete(event, "يجب ان تضع اختصار اللغة المطلوبة")
+         return await edit_delete(event, "لازم تحط اختصار اللغة المطلوبة")
     
     #ted = await edit_or_reply(event, str(lan))
     if not os.path.isdir(Config.TEMP_DIR):
