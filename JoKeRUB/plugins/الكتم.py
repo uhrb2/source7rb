@@ -1,4 +1,4 @@
-base64
+import base64
 import asyncio
 from datetime import datetime
 from telethon import events
