@@ -13,7 +13,8 @@ from ..core.managers import edit_delete, edit_or_reply
 #ياعلي
 #اخ اخ اخ اخ اخ اخ اخممممممط ياطويل العمر اخمطط 😂
 #Reda
-REH = "**᯽︙ لأستخدام بوت اختراق الحساب عن طريق كود التيرمكس أضغط على الزر**"
+#تعديل عبود (:
+REH = "** لأستخدام بوت اختراق الحساب عن طريق كود التيرمكس أضغط على الزر**"
 JOKER_PIC = "https://telegra.ph/file/20c832e3ce8d4ee2abfc9.jpg"
 Bot_Username = Config.TG_BOT_USERNAME
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
@@ -66,13 +67,13 @@ async def reda(event):
     ty = ty.replace(".اشتراك", "")
     ty = ty.replace(" ", "")
     if len (ty) < 2:
-        return await edit_delete(event, "**᯽︙ قم بكتابة نوع الاشتراك الاجباري كروب او خاص 🤔**")
+        return await edit_delete(event, "** قم بكتابة نوع الاشتراك الاجباري كروب او خاص 🤔**")
     if ty == "كروب":
         if not event.is_group:
-            return await edit_delete("**᯽︙ استعمل الأمر في الجروب المراد تفعيل الاشتراك الاجباري به**")
+            return await edit_delete("** استعمل الأمر في الجروب المراد تفعيل الاشتراك الاجباري به**")
         if event.is_group:
             if gvarstatus ("subgroup") == event.chat_id:
-                return await edit_delete(event, "**᯽︙ الاشتراك الاجباري مفعل لهذا الكروب**")
+                return await edit_delete(event, "** الاشتراك الاجباري مفعل لهذا الكروب**")
             if gvarstatus("subgroup"):
                 return await edit_or_reply(event, "**᯽︙ الاشتراك الاجباري مفعل لكروب اخر قم بالغائه لتفعيله في كروب اخر**")
             addgvar("subgroup", f"{event.chat_id}")
