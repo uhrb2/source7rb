@@ -18,7 +18,7 @@ from . import BOTLOG, BOTLOG_CHATID, admin_groups, get_user_from_event
 
 plugin_category = "admin"
 joker_users = []
-joker_mute = "https://telegra.ph/file/c5ef9550465a47845c626.jpg"
+joker_mute = "** تم ڪتـم الـمستخـدم  . . بنجـاح 🔕✓**"
 joker_unmute = "https://telegra.ph/file/e9473ddef0b58cdd7f9e7.jpg"
 import os
 
