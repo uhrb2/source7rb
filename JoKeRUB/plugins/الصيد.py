@@ -467,7 +467,7 @@ async def hunterusername(event):
             rub = f"@{l313l.me.username}" if l313l.me.username else ""
             ch = await l313l(
                 functions.channels.CreateChannelRequest(
-                    title="صيـد روبن",
+                    title="صيـد سورس روبن",
                     about=f"This channel to hunt username by - @RobinUserBot | {rub}",
                 )
             )
@@ -588,7 +588,7 @@ async def _(event):
         rob = f"@{l313l.me.username}" if l313l.me.username else ""
         ch = await l313l(
             functions.channels.CreateChannelRequest(
-                title="⎉ تثبيت روبن ⎉",
+                title=" تثبيت سورس روبن ",
                 about=f"تم تثبيت اليـوزر بواسطـة سـورس روبـــن - @RobinUserBot | {rob} ",
             )
         )
@@ -753,7 +753,7 @@ async def _(event):
     isbuto.append("on")
     username = hrrrb.replace("@", "") 
     bmodels = True
-    rrrnm = "⎉ تثبيت روبن  ⎉"
+    rrrnm = " تثبيت سورس روبن  "
     rrrby = "تم تثبيت اليـوزر بواسطـة سـورس روبـــن - @RobinUserBot "
     while bmodels:
         isbt = await checker_user(username)
