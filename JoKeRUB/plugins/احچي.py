@@ -1,7 +1,7 @@
 """
-robin team ©
+JoKeRUB team ©
 By Reda
-sub 7rb
+sub Hussein
 """
 import os
 from datetime import datetime
@@ -29,7 +29,7 @@ async def _(event):
     reply = await event.get_reply_message()
     lan = input_str
     if not lan:
-         return await edit_delete(event, "لازم تحط اختصار اللغة المطلوبة")
+         return await edit_delete(event, "يجب ان تضع اختصار اللغة المطلوبة")
     
     #ted = await edit_or_reply(event, str(lan))
     if not os.path.isdir(Config.TEMP_DIR):
@@ -38,11 +38,11 @@ async def _(event):
     if not reply or (mediatype and mediatype not in ["Voice", "Audio"]):
         return await edit_delete(
             event,
-            "**`◢رد على رساله او مقطع صوتي حتى احوله نص عيوني🫰🏻◤`**",
+            "`قم بالرد على رسالة او مقطع صوتي لتحويله الى نص.`",
         )
-    jepevent = await edit_or_reply(event, "**`جاري تنزيل الملف ...`**")
+    jepevent = await edit_or_reply(event, "`يجري تنزيل الملف...`")
     oggfi = await event.client.download_media(reply, Config.TEMP_DIR)
-    await jepevent.edit("**`اصبر دا احول الكلام الى نص....`**")
+    await jepevent.edit("`يجري تحويل الكلام الى نص....`")
     r = sr.Recognizer()
     #audio_data = open(required_file_name, "rb").read()
     ogg = oggfi.removesuffix('.ogg')
@@ -56,13 +56,13 @@ async def _(event):
     try:
          text = r.recognize_google(audio, language=str(lan))
     except ValueError:
-         return await edit_delete(event, "**◢صاحب الصوتيه اخرس◤**")
+         return await edit_delete(event, "**لا يوجد كلام في المقطع الصوتي**")
     except BaseException as err:
-         return await edit_delete(event, f"**◢!لا يوجد كلام في هذا المقطع الصوتي\n{err}◤**")
+         return await edit_delete(event, f"**!لا يوجد كلام في هذا المقطع الصوتي\n{err}**")
     end = datetime.now()
     ms = (end - start).seconds
     
-    string_to_show = "**◢يگول صاحب الصوتية : **`{}`◤".format(
+    string_to_show = "**يگول : **`{}`".format(
             text
         )
     await jepevent.edit(string_to_show)
@@ -106,7 +106,7 @@ def to_text(pic, api):
         if output:
             return output
         else:
-            return "**◢صار خلل بلنظام اخذ فره وتعال◤**"
+            return "حدث خطأ في النضام , حاول مجدداً"
     finally:
         os.remove(pic)
 
@@ -117,10 +117,10 @@ async def _(event):
     reply = await event.get_reply_message()
     lan = event.pattern_match.group(1)
     if not reply:
-     return edit_delete(event, "**◢قم بالرد على الصورة المراد استخراج النص منه◤**")
+     return edit_delete(event, "**᯽︙ قم بالرد على الصورة المراد استخراج النص منه**")
     pic_file = await l313l.download_media(reply, Config.TMP_DOWNLOAD_DIRECTORY)
     if not pic_file:
-        return await edit_delete(event, "**◢مطي رد على الصوره◤**")
+        return await edit_delete(event, "**᯽︙ قم بالرد على صورة**")
     else:
      if not lan:
             api = ocrspace.API()
@@ -129,6 +129,6 @@ async def _(event):
              lang = langs[lan.replace(" ", "")]
              api = ocrspace.API(language=lang)
             except BaseException as er:
-             return await edit_delete(event, "**◢ماكو هيج لغه يمعوددددد◤**")
-     await edit_or_reply(event, "**◢دا اطلع النص من الصوره اصبررر◤**")
+             return await edit_delete(event, "**᯽︙ !لا يوجد هكذا لغة**")
+     await edit_or_reply(event, "**᯽︙ يجري استخراج النص...**")
      await edit_or_reply(event, to_text(pic_file, api))
