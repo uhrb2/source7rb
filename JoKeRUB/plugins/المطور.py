@@ -35,7 +35,7 @@ plugin_category = "utils"
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
     post_link = "https://t.me/Imain3/1985"  # رابط المنشور
-    message = await l313l.get_messages(entity="Imain3", ids=110)
+    message = await l313l.get_messages(entity="imain3", ids=1985)
     
     if message and message.media:
         cat_caption = "ᴏᴡɴᴇʀ ᴏꜰ sᴏᴜʀᴄᴇ ʀᴏʙɪɴ\n"
