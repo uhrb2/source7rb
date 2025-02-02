@@ -471,7 +471,7 @@ async def hunterusername(event):
     event,
     "**⛔️│الأمر غير صحيح .. يرجى مراجعة أوامر الصيد المتاحة.**\n\n"
     "**✅│للاطلاع على الأوامر العامة، أرسل:** `.الصيد`\n"
-    "**📋│لمعرفة أنواع اليوزرات، أرسل:** `.الأنواع`"
+    "**📋│لمعرفة أنواع اليوزرات، أرسل:** `.النوع`"
 )
     try:
         if replly and replly.text.startswith('@'):
@@ -490,7 +490,7 @@ async def hunterusername(event):
             rub = f"@{l313l.me.username}" if l313l.me.username else ""
             ch = await l313l(
                 functions.channels.CreateChannelRequest(
-                    title="صيـد روبن",
+                    title="صيـد سورس روبن",
                     about=f"This channel to hunt username by - @RobinUserBot | {rub}",
                 )
             )
@@ -531,7 +531,7 @@ async def hunterusername(event):
             await edit_or_reply(
     event,
     f"**⛔️│عذرًا عزيزي، لا يوجد النوع:** {choice}\n\n"
-    "**📋│لعرض الأنواع المتاحة، أرسل:** `.الأنواع`"
+    "**📋│لعرض الأنواع المتاحة، أرسل:** `.النوع`"
 )
             break
         isav = await check_user(username)
