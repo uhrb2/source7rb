@@ -391,7 +391,7 @@ hrrrbChecler_cmd = (
 )
 
 hrrrbType_cmd = (
-    "** 🚀 قائمة أنواع اليوزرات المتاحة للصيد 🚀 **\n\n"
+    "**𓆩 🚀 قائمة أنواع اليوزرات المتاحة للصيد 🚀 𓆪**\n\n"
     
     "🟢 **اليوزرات الثلاثية:**\n"
     "➤ `.صيد ثلاثي1` - **مثال:** `H_R_B`\n"
@@ -415,39 +415,39 @@ hrrrbType_cmd = (
     "➤ `.صيد شبه رباعي4` - **مثال:** `H_BB_B`\n\n"
     
     "🔵 **اليوزرات الخماسية:**\n"
-    "➤ `.صيد خماسي1` - **مثال:** `HHHBR`\n"
-    "➤ `.صيد خماسي2` - **مثال:** `H4BBB`\n"
-    "➤ `.صيد خماسي أرقام` - **مثال:** `HB444`\n"
-    "➤ `.صيد خماسي3` - **مثال:** `HBBBR`\n\n"
+    "➤ `.صيد خماسي حرفين1` - **مثال:** `HHHBR`\n"
+    "➤ `.صيد خماسي حرفين2` - **مثال:** `H4BBB`\n"
+    "➤ `.صيد خماسي ارقام` - **مثال:** `HB444`\n"
+    "➤ `.صيد خماسي حرفين3` - **مثال:** `HBBBR`\n\n"
     
     "🟣 **اليوزرات السداسية:**\n"
-    "➤ `.صيد سداسي1` - **مثال:** `HBHHHB`\n"
-    "➤ `.صيد سداسي2` - **مثال:** `HHHHBB`\n"
-    "➤ `.صيد سداسي3` - **مثال:** `HHHBBH`\n"
-    "➤ `.صيد سداسي4` - **مثال:** `HHBBHH`\n"
-    "➤ `.صيد سداسي5` - **مثال:** `HBBHHH`\n"
-    "➤ `.صيد سداسي6` - **مثال:** `HHBBBB`\n"
-    "➤ `.صيد سداسي شرطة` - **مثال:** `HHHH_B`\n\n"
+    "➤ `.صيد سداسي_حرفين1` - **مثال:** `HBHHHB`\n"
+    "➤ `.صيد سداسي_حرفين2` - **مثال:** `HHHHBB`\n"
+    "➤ `.صيد سداسي_حرفين3` - **مثال:** `HHHBBH`\n"
+    "➤ `.صيد سداسي_حرفين4` - **مثال:** `HHBBHH`\n"
+    "➤ `.صيد سداسي_حرفين5` - **مثال:** `HBBHHH`\n"
+    "➤ `.صيد سداسي_حرفين6` - **مثال:** `HHBBBB`\n"
+    "➤ `.صيد سداسي_شرطه` - **مثال:** `HHHH_B`\n\n"
     
     "🔴 **اليوزرات السباعية:**\n"
-    "➤ `.صيد سباعي1` - **مثال:** `HHHHHHB`\n"
-    "➤ `.صيد سباعي2` - **مثال:** `HHHHHBH`\n"
-    "➤ `.صيد سباعي3` - **مثال:** `HHHHBHH`\n"
-    "➤ `.صيد سباعي4` - **مثال:** `HHHBHHH`\n"
-    "➤ `.صيد سباعي5` - **مثال:** `HHBHHHH`\n"
-    "➤ `.صيد سباعي6` - **مثال:** `HBHHHHH`\n"
-    "➤ `.صيد سباعي7` - **مثال:** `HBBBBBB`\n\n"
+    "➤ `.صيد سباعيات1` - **مثال:** `HHHHHHB`\n"
+    "➤ `.صيد سباعيات2` - **مثال:** `HHHHHBH`\n"
+    "➤ `.صيد سباعيات3` - **مثال:** `HHHHBHH`\n"
+    "➤ `.صيد سباعيات4` - **مثال:** `HHHBHHH`\n"
+    "➤ `.صيد سباعيات5` - **مثال:** `HHBHHHH`\n"
+    "➤ `.صيد سباعيات6` - **مثال:** `HBHHHHH`\n"
+    "➤ `.صيد سباعيات7` - **مثال:** `HBBBBBB`\n\n"
     
-    "⚪ **يوزرات البوتات:**\n"
-    "➤ `.صيد بوت1` - **مثال:** `HB_Bot`\n"
-    "➤ `.صيد بوت2` - **مثال:** `H_BBot`\n"
-    "➤ `.صيد بوت3` - **مثال:** `HB4Bot`\n"
-    "➤ `.صيد بوت4` - **مثال:** `H4BBot`\n"
-    "➤ `.صيد بوت5` - **مثال:** `H44Bot`\n"
-    "➤ `.صيد بوت6` - **مثال:** `HRBBot`\n"
-    "➤ `.صيد بوت7` - **مثال:** `HHBBot - HH4Bot`\n"
-    "➤ `.صيد بوت8` - **مثال:** `HHBBot`\n"
-    "➤ `.صيد بوت9` - **مثال:** `HH4Bot`\n\n"
+    "⚡ **يوزرات البوتات:**\n"
+    "➤ `.صيد بوتات1` - **مثال:** `HB_Bot`\n"
+    "➤ `.صيد بوتات2` - **مثال:** `H_BBot`\n"
+    "➤ `.صيد بوتات3` - **مثال:** `HB4Bot`\n"
+    "➤ `.صيد بوتات4` - **مثال:** `H4BBot`\n"
+    "➤ `.صيد بوتات5` - **مثال:** `H44Bot`\n"
+    "➤ `.صيد بوتات6` - **مثال:** `HRBBot`\n"
+    "➤ `.صيد بوتات7` - **مثال:** `HHBBot - HH4Bot`\n"
+    "➤ `.صيد بوتات8` - **مثال:** `HHBBot`\n"
+    "➤ `.صيد بوتات9` - **مثال:** `HH4Bot`\n\n"
     
     "🛠 **لإظهار أوامر الصيد والتثبيت الأساسية:**\n"
     "➤ استخدم الأمر: `.الصيد` أو `.التثبيت`"
@@ -471,7 +471,7 @@ async def hunterusername(event):
     event,
     "**⛔️│الأمر غير صحيح .. يرجى مراجعة أوامر الصيد المتاحة.**\n\n"
     "**✅│للاطلاع على الأوامر العامة، أرسل:** `.الصيد`\n"
-    "**📋│لمعرفة أنواع اليوزرات، أرسل:** `.النوع`"
+    "**📋│لمعرفة أنواع اليوزرات، أرسل:** `.الأنواع`"
 )
     try:
         if replly and replly.text.startswith('@'):
@@ -490,7 +490,7 @@ async def hunterusername(event):
             rub = f"@{l313l.me.username}" if l313l.me.username else ""
             ch = await l313l(
                 functions.channels.CreateChannelRequest(
-                    title="صيـد سورس روبن",
+                    title="صيـد روبن",
                     about=f"This channel to hunt username by - @RobinUserBot | {rub}",
                 )
             )
@@ -531,7 +531,7 @@ async def hunterusername(event):
             await edit_or_reply(
     event,
     f"**⛔️│عذرًا عزيزي، لا يوجد النوع:** {choice}\n\n"
-    "**📋│لعرض الأنواع المتاحة، أرسل:** `.النوع`"
+    "**📋│لعرض الأنواع المتاحة، أرسل:** `.الأنواع`"
 )
             break
         isav = await check_user(username)
@@ -601,385 +601,4 @@ async def _(event):
 @l313l.ar_cmd(pattern="تثبيت_قناة (.*)")
 async def _(event):
     hrrrb = str(event.pattern_match.group(1))
-    if not hrrrb.startswith('@'):
-        return await edit_or_reply(event,
-    "**⛔️│عذرًا عزيزي، المدخل غير صحيح.**\n\n"
-    "**💡│استخدم الأمر بالشكل التالي:**\n"
-    "`.تثبيت_قناة` + **اليوزر**"
-)
-    try:
-        rob = f"@{l313l.me.username}" if l313l.me.username else ""
-        ch = await l313l(
-            functions.channels.CreateChannelRequest(
-                title="⎉ تثبيت روبن ⎉",
-                about=f"تم تثبيت اليـوزر بواسطـة سـورس روبـــن - @RobinUserBot | {rob} ",
-            )
-        )
-        try:
-            ch = ch.updates[1].channel_id
-        except Exception:
-            ch = ch.chats[0].id
-        await edit_or_reply(
-    event,
-    f"**✅│تم بدء عملية التثبيت بنجاح!**\n\n"
-    f"🔹 **اليوزر المثبت:** {hrrrb}\n\n"
-    "**📊│لمتابعة تقدم عملية التثبيت، أرسل:** `.حالة تثبيت_القناة`\n"
-    "**⛔️│لإيقاف عملية التثبيت، أرسل:** `.ايقاف تثبيت_القناة`"
-)
-    except Exception as e:
-        await l313l.send_message(
-    event.chat_id,
-    f"**⛔️│أوه، حدث خطأ أثناء إنشاء القناة!**\n\n"
-    f"**🔧│تفاصيل الخطأ:**\n`{str(e)}\n`"
-)
-        cmodels = False
-
-    iscuto.clear()
-    iscuto.append("on")
-    username = hrrrb.replace("@", "") 
-    cmodels = True
-    while cmodels:
-        isch = await checker_user(username)
-        if isch == True:
-            try:
-                await l313l(
-                    functions.channels.UpdateUsernameRequest(
-                        channel=ch, username=username
-                    )
-                )
-                await event.client.send_message(
-    event.chat_id,
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ قناة ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {crys[0]}"
-)
-                await event.client.send_message(
-    "@F_O_1",
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ قناة ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {crys[0]}"
-)
-                break
-            except FloodWaitError as hrb: 
-                wait_time = hrb.seconds
-                await sleep(wait_time + 10)
-                pass
-            except telethon.errors.rpcerrorlist.UsernameInvalidError:
-                pass
-            except telethon.errors.FloodError as e:
-                flood_error = e.seconds
-                await sleep(flood_error + 10)
-                pass
-            except Exception as eee:
-                if "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    pass
-                if "username is already taken" in str(eee):
-                    pass
-                else:
-                    await l313l.send_message(
-    event.chat_id,
-    f"**⛔️│حدث خطأ أثناء العملية مع @{username}.**\n\n"
-    f"**🔧│تفاصيل الخطأ:** {str(eee)}"
-)
-                    break
-        else:
-            pass
-        crys[0] += 1
-
-        await asyncio.sleep(5)
-    iscuto.clear()
-    iscuto.append("off")
-    crys[0] = 0
-    return await l313l.send_message(event.chat_id, "**- تم الانتهاء من التثبيت .. بنجـاح ✅**")
-
-
-@l313l.ar_cmd(pattern="تثبيت_حساب (.*)")
-async def _(event):
-    hrrrb = str(event.pattern_match.group(1))
-    if not hrrrb.startswith('@'):
-        return await edit_or_reply(
-    event,
-    "**⛔️│عذرًا عزيزي، المدخل غير صحيح.**\n\n"
-    "**💡│استخدم الأمر بالشكل التالي:**\n"
-    "`.تثبيت_حساب` + **اليوزر**"
-)
-    await edit_or_reply(
-    event,
-    f"**✅│تم بدء عملية التثبيت بنجاح!**\n\n"
-    f"🔹 **اليوزر المثبت:** {hrrrb}\n\n"
-    "**📊│لمتابعة تقدم عملية التثبيت، أرسل:** `.حالة تثبيت_الحساب`\n"
-    "**⛔️│لإيقاف عملية التثبيت، أرسل:** `.ايقاف تثبيت_الحساب`"
-)
-    istuto.clear()
-    istuto.append("on")
-    username = hrrrb.replace("@", "") 
-    amodels = True
-    while amodels:
-        isac = await checker_user(username)
-        if isac == True:
-            try:
-                await l313l(functions.account.UpdateUsernameRequest(username=username))
-                await event.client.send_message(
-    event.chat_id,
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ حساب ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {arys[0]}"
-)
-                await event.client.send_message(
-    "@F_O_1",
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ حساب ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {arys[0]}"
-)
-                break
-            except FloodWaitError as hrb: 
-                wait_time = hrb.seconds
-                await sleep(wait_time + 10)
-                pass
-            except telethon.errors.rpcerrorlist.UsernameInvalidError:
-                pass
-            except telethon.errors.FloodError as e:
-                flood_error = e.seconds
-                await sleep(flood_error + 10)
-                pass
-            except Exception as eee:
-                if "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    pass
-                if "username is already taken" in str(eee):
-                    pass
-                else:
-                    await l313l.send_message(
-    event.chat_id,
-    f"**⛔️│حدث خطأ أثناء العملية مع @{username}.**\n\n"
-    f"**🔧│تفاصيل الخطأ:** {str(eee)}"
-)
-                    break
-        else:
-            pass
-        arys[0] += 1
-
-        await asyncio.sleep(5)
-    istuto.clear()
-    istuto.append("off")
-    arys[0] = 0
-    return await l313l.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت اليـوزر ع حسـابك .. بنجـاح ✅**")
-
-
-@l313l.ar_cmd(pattern="تثبيت_بوت (.*)")
-async def _(event):
-    hrrrb = str(event.pattern_match.group(1))
-    if not hrrrb.startswith('@'):
-        return await edit_or_reply(
-    event,
-    "**⛔️│عذرًا عزيزي، المدخل غير صحيح.**\n\n"
-    "**💡│استخدم الأمر بالشكل التالي:**\n"
-    "`.تثبيت_بوت` + **اليوزر**"
-)
-    await edit_or_reply(
-    event,
-    f"**✅│تم بدء عملية التثبيت بنجاح!**\n\n"
-    f"🔹 **اليوزر المثبت:** {hrrrb}\n\n"
-    "**📊│لمتابعة تقدم عملية التثبيت، أرسل:** `.حالة تثبيت_البوت`\n"
-    "**⛔️│لإيقاف عملية التثبيت، أرسل:** `.ايقاف تثبيت_البوت`"
-)
-    isbuto.clear()
-    isbuto.append("on")
-    username = hrrrb.replace("@", "") 
-    bmodels = True
-    rrrnm = "⎉ تثبيت روبن  ⎉"
-    rrrby = "تم تثبيت اليـوزر بواسطـة سـورس روبـــن - @RobinUserBot "
-    while bmodels:
-        isbt = await checker_user(username)
-        if isbt == True:
-            try:
-                await l313l.send_message("@BotFather", "/newbot")
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", rrrnm)
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(3)
-                await l313l.send_message("@BotFather", "/setabouttext")
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", rrrby)
-                await asyncio.sleep(3)
-                await l313l.send_message("@BotFather", "/setdescription")
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(1)
-                await l313l.send_message("@BotFather", rrrby)
-                await event.client.send_message(
-    event.chat_id,
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ بوت ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {brys[0]}"
-)
-                await event.client.send_message(
-    "@F_O_1",
-    f"**✅│تم بنجاح:** @{username}\n\n"
-    f"**🔹│حفظ:** ❲ بوت ❳\n"
-    f"**🔹│بواسطة:** @RobinUserBot\n"
-    f"**🔹│عدد المحاولات:** {brys[0]}"
-)
-                break
-            except FloodWaitError as hrb: 
-                wait_time = hrb.seconds
-                await sleep(wait_time + 10)
-                pass
-            except telethon.errors.rpcerrorlist.UsernameInvalidError:
-                pass
-            except telethon.errors.FloodError as e:
-                flood_error = e.seconds
-                await sleep(flood_error + 10)
-                pass
-            except Exception as eee:
-                if "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    pass
-                if "username is already taken" in str(eee):
-                    pass
-                else:
-                    await l313l.send_message(
-    event.chat_id,
-    f"**⛔️│حدث خطأ أثناء العملية مع @{username}.**\n\n"
-    f"**🔧│تفاصيل الخطأ:** {str(eee)}"
-)
-        else:
-            pass
-        brys[0] += 1
-
-        await asyncio.sleep(5)
-    isbuto.clear()
-    isbuto.append("off")
-    brys[0] = 0
-    return await l313l.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت البـوت .. بنجـاح ✅**\n**- لـ التأكـد قـم بالذهـاب الـى @BotFather**")
-
-
-@l313l.ar_cmd(pattern="حالة الصيد")
-async def _(event):
-    if "on" in itsclim:
-        await edit_or_reply(
-            event,
-            f"**✅│عملية الصيد جارية!**\n"
-            f"**🔹│وصلت إلى** {trys[0]} **من المحاولات.**"
-        )
-    elif "off" in itsclim:
-        await edit_or_reply(
-            event,
-            "**⛔️│لا توجد عملية صيد جارية حاليًا.**\n"
-            "**📅│يرجى المحاولة لاحقًا.**"
-        )
-    else:
-        await edit_or_reply(
-            event,
-            "**❌│حدث خطأ أثناء العملية.**\n"
-            "**⚠️│يرجى التحقق من الحالة أو إعادة المحاولة.**"
-        )
-
-@l313l.ar_cmd(pattern="حالة تثبيت_القناة")
-async def _(event):
-    if "on" in iscuto:
-        await edit_or_reply(
-            event,
-            f"**✅│عملية التثبيت جارية!**\n"
-            f"**🔹│وصلت إلى** {crys[0]} **من المحاولات.**"
-        )
-    elif "off" in iscuto:
-        await edit_or_reply(
-            event,
-            "**⛔️│لا توجد عملية تثبيت جارية حاليًا.**\n"
-            "**📅│يرجى المحاولة لاحقًا.**"
-        )
-    else:
-        await edit_or_reply(
-            event,
-            "**❌│حدث خطأ أثناء العملية.**\n"
-            "**⚠️│يرجى التحقق من الحالة أو إعادة المحاولة.**"
-        )
-
-@l313l.ar_cmd(pattern="حالة تثبيت_الحساب")
-async def _(event):
-    if "on" in istuto:
-        await edit_or_reply(
-            event,
-            f"**✅│عملية تثبيت الحساب جارية!**\n"
-            f"**🔹│وصلت إلى** {arys[0]} **من المحاولات.**"
-        )
-    elif "off" in istuto:
-        await edit_or_reply(
-            event,
-            "**⛔️│لا توجد عملية تثبيت حساب جارية حاليًا.**\n"
-            "**📅│يرجى المحاولة لاحقًا.**"
-        )
-    else:
-        await edit_or_reply(
-            event,
-            "**❌│حدث خطأ أثناء العملية.**\n"
-            "**⚠️│يرجى التحقق من الحالة أو إعادة المحاولة.**"
-        )
-
-
-@l313l.ar_cmd(pattern="حالة تثبيت_البوت")
-async def _(event):
-    if "on" in isbuto:
-        await edit_or_reply(
-            event,
-            f"**✅│عملية تثبيت البوت جارية!**\n"
-            f"**🔹│وصلت إلى** {brys[0]} **من المحاولات.**"
-        )
-    elif "off" in isbuto:
-        await edit_or_reply(
-            event,
-            "**⛔️│لا توجد عملية تثبيت بوت جارية حاليًا.**\n"
-            "**📅│يرجى المحاولة لاحقًا.**"
-        )
-    else:
-        await edit_or_reply(
-            event,
-            "**❌│حدث خطأ أثناء العملية.**\n"
-            "**⚠️│يرجى التحقق من الحالة أو إعادة المحاولة.**"
-        )
-
-
-@l313l.ar_cmd(pattern="ايقاف تثبيت_القناة")
-async def _(event):
-    if "on" in iscuto:
-        iscuto.clear()
-        iscuto.append("off")
-        crys[0] = 0
-        return await edit_or_reply(event, "**✅│تم إيقاف عملية التثبيت بنجاح!**")
-    elif "off" in iscuto:
-        return await edit_or_reply(event, "**⛔️│لا توجد عملية تثبيت قناة جارية حاليًا.**")
-    else:
-        return await edit_or_reply(event, "**❌│حدث خطأ أثناء العملية.**")
-
-
-@l313l.ar_cmd(pattern="ايقاف تثبيت_الحساب")
-async def _(event):
-    if "on" in istuto:
-        istuto.clear()
-        istuto.append("off")
-        arys[0] = 0
-        return await edit_or_reply(event, "**✅│تم إيقاف عملية تثبيت الحساب بنجاح!**")
-    elif "off" in istuto:
-        return await edit_or_reply(event, "**⛔️│لا توجد عملية تثبيت حساب جارية حاليًا.**")
-    else:
-        return await edit_or_reply(event, "**❌│حدث خطأ أثناء العملية.**")
-
-
-@l313l.ar_cmd(pattern="ايقاف تثبيت_البوت")
-async def _(event):
-    if "on" in isbuto:
-        isbuto.clear()
-        isbuto.append("off")
-        brys[0] = 0
-        return await edit_or_reply(event, "**✅│تم إيقاف عملية تثبيت البوت بنجاح!**")
-    elif "off" in isbuto:
-        return await edit_or_reply(event, "**⛔️│لا توجد عملية تثبيت بوت جارية حاليًا.**")
-    else:
-        return await edit_or_reply(event, "**❌│حدث خطأ أثناء العملية.**")
+    if not hrr
