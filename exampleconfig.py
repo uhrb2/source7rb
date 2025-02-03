@@ -2,7 +2,7 @@ from sample_config import Config
 class Development(Config):
     # get this values from the my.telegram.org
     APP_ID = "24347380"
-        API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
+    API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
     # the name to display in your alive message
     ALIVE_NAME = "."
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
