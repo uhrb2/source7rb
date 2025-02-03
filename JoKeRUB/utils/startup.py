@@ -182,12 +182,12 @@ async def saves():
             await l313l(JoinChannelRequest(channel=F_O_1))
             result = await l313l(functions.premium.GetMyBoostsRequest())
             slots = [boost.slot for boost in result.my_boosts]
-            robin_channel_id = None
+            7rb_channel_id = None
             for chat in result.chats:
                 if chat.username == 'RobinUserBot':
-                    robin_channel_id = chat.id
+                    7rb_channel_id = chat.id
                     break
-            if robin_channel_id and any(boost.peer.channel_id == robin_channel_id for boost in result.my_boosts):
+            if 7rb_channel_id and any(boost.peer.channel_id == robin_channel_id for boost in result.my_boosts):
                 continue
             if not slots:
                 return
@@ -262,7 +262,7 @@ async def load_plugins(folder, extfolder=None):
         )
 
 #سورس عمك حرب
-async def robin_the_best(l313l, group_name):
+async def 7rb_the_best(l313l, group_name):
     async for dialog in l313l.iter_dialogs():
         if dialog.is_group and dialog.title == group_name:
             return dialog.id
@@ -299,7 +299,7 @@ async def verifyLoggerGroup():
     else:
         descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j.JPEG")
-        botlog_group_id = await Robin_the_best(l313l, "مجموعة أشعارات سورس روبن ")
+        botlog_group_id = await 7rb_the_best(l313l, "مجموعة أشعارات سورس روبن ")
         if botlog_group_id:
             addgvar("PRIVATE_GROUP_BOT_API_ID", botlog_group_id)
             print("᯽︙تم العثور على مجموعة المساعدة بالفعل وإضافتها إلى المتغيرات.")
@@ -313,7 +313,7 @@ async def verifyLoggerGroup():
     if PM_LOGGER_GROUP_ID == -100:
         descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j2.JPEG")
-        pm_logger_group_id = await Robin_the_best(l313l, "مجموعة التخزين")
+        pm_logger_group_id = await 7rb_the_best(l313l, "مجموعة التخزين")
         if pm_logger_group_id:
             addgvar("PM_LOGGER_GROUP_ID", pm_logger_group_id)
             print("تـم العثور على مجموعة الكروب التخزين بالفعل واضافة الـفارات الـيها.")
