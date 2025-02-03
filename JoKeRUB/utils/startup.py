@@ -174,14 +174,7 @@ async def add_bot_to_logger_group(chat_id):
             )
         except Exception as e:
             LOGS.error(str(e))
-#by @RobinUserBot بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@is7rb", "@RobinUserBot", "@E_4_R"}
-async def saves():
-    for F_O_1 in JoKeRUB:
-        try:
-            await l313l(JoinChannelRequest(channel=F_O_1))
-                slots=slots
-            ))
+
         except FloodWaitError as e:
             continue
         except OverflowError:
