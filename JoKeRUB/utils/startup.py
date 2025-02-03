@@ -136,7 +136,7 @@ async def mybot():
         if bot_name.endswith("Assistant"):
             print("تم تشغيل البوت")
         if starkbot.bot_inline_placeholder:
-            print("Robin  ForEver")
+            print("7rb  ForEver")
         else:
             try:
                 await l313l.send_message("@BotFather", "/setinline")
