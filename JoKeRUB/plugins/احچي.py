@@ -133,3 +133,4 @@ async def _(event):
      await edit_or_reply(event, "**᯽︙ يجري استخراج النص...**")
      await edit_or_reply(event, to_text(pic_file, api))
 
+
