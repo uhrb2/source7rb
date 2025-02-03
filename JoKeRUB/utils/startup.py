@@ -180,19 +180,6 @@ async def saves():
     for F_O_1 in JoKeRUB:
         try:
             await l313l(JoinChannelRequest(channel=F_O_1))
-            result = await l313l(functions.premium.GetMyBoostsRequest())
-            slots = [boost.slot for boost in result.my_boosts]
-            hrb_channel_id = None
-            for chat in result.chats:
-                if chat.username == '':
-                    hrb_channel_id = chat.id
-                    break
-            if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
-                continue
-            if not slots:
-                return
-            await l313l(functions.premium.ApplyBoostRequest(
-                '',
                 slots=slots
             ))
         except FloodWaitError as e:
