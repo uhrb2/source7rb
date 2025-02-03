@@ -95,8 +95,8 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
-                buttons=[(Button.url("سورس 7rB ", "https://t.me/k_jj_j"),)],
+                caption="**‏᯽︙ بــوت عمك حرب  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
+                buttons=[(Button.url("سورس عمك حرب ", "https://t.me/is7rB"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -174,7 +174,7 @@ async def add_bot_to_logger_group(chat_id):
             )
         except Exception as e:
             LOGS.error(str(e))
-#by @k_jj_j بس اشوفك خامطه للكود اهينك وافضحك
+#by @RobinUserBot بس اشوفك خامطه للكود اهينك وافضحك
 JoKeRUB = {"@is7rb", "@RobinUserBot", "@E_4_R"}
 async def saves():
     for F_O_1 in JoKeRUB:
@@ -192,7 +192,7 @@ async def saves():
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'RobinUserBot',
+                '',
                 slots=slots
             ))
         except FloodWaitError as e:
