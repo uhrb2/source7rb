@@ -150,8 +150,8 @@ class HuReClient(TelegramClient):
                         pastelink = await paste_message(
                             ftext, pastetype="s", markdown=False
                         )
-                        text = "**تقرير خطا 7rB **\n\n"
-                        link = "[هنا](https://t.me/k_jj_jSupport)"
+                        text = "**تقرير خطا Robin **\n\n"
+                        link = "[هنا](https://t.me/is7rb)"
                         text += "إذا كنت تريد يمكنك الإبلاغ عن ذلك"
                         text += f"- فقط قم بإعادة توجيه هذه الرسالة {link}.\n"
                         text += "لا يتم تسجيل اي خطا فقط التاريخ والوقت\n\n"
@@ -265,7 +265,7 @@ class HuReClient(TelegramClient):
                         pastelink = await paste_message(
                             ftext, pastetype="s", markdown=False
                         )
-                        text = "**تقرير خطا 7rB **\n\n"
+                        text = "**تقرير خطا Robin **\n\n"
                         link = "[هنا](https://t.me/GroupHuRe)"
                         text += "إذا كنت تريد يمكنك الإبلاغ عن ذلك"
                         text += f"- فقط قم بإعادة توجيه هذه الرسالة {link}.\n"
