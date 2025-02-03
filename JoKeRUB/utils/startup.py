@@ -95,8 +95,8 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
-                buttons=[(Button.url("سورس 7rB ", "https://t.me/k_jj_j"),)],
+                caption="**‏᯽︙ بــوت Robin  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
+                buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -174,7 +174,7 @@ async def add_bot_to_logger_group(chat_id):
             )
         except Exception as e:
             LOGS.error(str(e))
-#by @k_jj_j بس اشوفك خامطه للكود اهينك وافضحك
+#by @is7rb بس اشوفك خامطه للكود اهينك وافضحك
 JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R"}
 async def saves():
     for F_O_1 in JoKeRUB:
@@ -184,7 +184,7 @@ async def saves():
             slots = [boost.slot for boost in result.my_boosts]
             robin_channel_id = None
             for chat in result.chats:
-                if chat.username == 'AljokerUserBot':
+                if chat.username == 'RobinUserBot':
                     robin_channel_id = chat.id
                     break
             if robin_channel_id and any(boost.peer.channel_id == robin _channel_id for boost in result.my_boosts):
