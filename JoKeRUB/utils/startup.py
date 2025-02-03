@@ -130,7 +130,7 @@ async def startupmessage():
 async def mybot():
     try:
         starkbot = await l313l.tgbot.get_me()
-        joker = "7rB  🤡"
+        joker = "البوت المساعد"
         bot_name = starkbot.first_name
         botname = f"@{starkbot.username}"
         if bot_name.endswith("Assistant"):
@@ -283,7 +283,7 @@ async def verifyLoggerGroup():
     else:
         descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @k_jj_j"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j.JPEG")
-        botlog_group_id = await 7rB _the_best(l313l, "مجموعة أشعارات 7rB ")
+        botlog_group_id = await 7rB_the_best(l313l, "مجموعة أشعارات 7rB ")
         if botlog_group_id:
             addgvar("PRIVATE_GROUP_BOT_API_ID", botlog_group_id)
             print("᯽︙تم العثور على مجموعة المساعدة بالفعل وإضافتها إلى المتغيرات.")
