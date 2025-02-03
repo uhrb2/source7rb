@@ -358,3 +358,4 @@ async def install_externalrepo(repo, branch, cfolder):
         await runcmd(f"pip3 install --no-cache-dir -r {rpath}")
     await load_plugins(folder="JoKeRUB", extfolder=cfolder)
 
+
