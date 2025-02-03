@@ -313,7 +313,7 @@ async def verifyLoggerGroup():
     if PM_LOGGER_GROUP_ID == -100:
         descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j2.JPEG")
-        pm_logger_group_id = await 7rB _the_best(l313l, "مجموعة التخزين")
+        pm_logger_group_id = await 7rB_the_best(l313l, "مجموعة التخزين")
         if pm_logger_group_id:
             addgvar("PM_LOGGER_GROUP_ID", pm_logger_group_id)
             print("تـم العثور على مجموعة الكروب التخزين بالفعل واضافة الـفارات الـيها.")
