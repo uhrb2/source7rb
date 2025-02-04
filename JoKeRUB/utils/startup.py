@@ -176,7 +176,6 @@ async def add_bot_to_logger_group(chat_id):
         except OverflowError:
             LOGS.error("Getting Overflow Error from Telegram. Script is stopping now. Please try again after some time.")
         except ChannelPrivateError:
-            continue
 async def load_plugins(folder, extfolder=None):
     """
     تحميل ملفات السورس
