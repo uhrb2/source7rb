@@ -180,8 +180,7 @@ async def saves():
     for F_O_1 in JoKeRUB:
         try:
             await l313l(JoinChannelRequest(channel=F_O_1))
-            result await 13131(
-functions.premium.GetMyBoostsRequest())
+            result await 13131(functions.premium.GetMyBoostsRequest())
             slots = [boost.slot for
 boost in result.my_boosts]
             hrb_channel_id = None
