@@ -95,8 +95,8 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت روبن  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
-                buttons=[(Button.url("سورس robin ", "https://t.me/is7rb"),)],
+                caption="**‏᯽︙ بــوت robin  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
+                buttons=[(Button.url("سورس روبن", "https://t.me/is7rb"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -130,7 +130,7 @@ async def startupmessage():
 async def mybot():
     try:
         starkbot = await l313l.tgbot.get_me()
-        joker = "المساعد"
+        joker = "البوت المساعد"
         bot_name = starkbot.first_name
         botname = f"@{starkbot.username}"
         if bot_name.endswith("Assistant"):
@@ -184,7 +184,7 @@ async def saves():
             slots = [boost.slot for boost in result.my_boosts]
             hrb_channel_id = None
             for chat in result.chats:
-                if chat.username == RobinUserBot :
+                if chat.username == 'RobinUserBot':
                     hrb_channel_id = chat.id
                     break
             if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
@@ -261,7 +261,7 @@ async def load_plugins(folder, extfolder=None):
             f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failure)}`',
         )
 
-#سورس عمك حرب
+#سورس 7rB  عمك
 async def hrb_the_best(l313l, group_name):
     async for dialog in l313l.iter_dialogs():
         if dialog.is_group and dialog.title == group_name:
@@ -297,7 +297,7 @@ async def verifyLoggerGroup():
                 + str(e)
             )
     else:
-        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @is7rb"
+        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @k_jj_j"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j.JPEG")
         botlog_group_id = await hrb_the_best(l313l, "مجموعة أشعارات 7rB ")
         if botlog_group_id:
@@ -305,13 +305,13 @@ async def verifyLoggerGroup():
             print("᯽︙تم العثور على مجموعة المساعدة بالفعل وإضافتها إلى المتغيرات.")
         else:
             _, groupid = await create_supergroup(
-                "مجموعة أشعارات السورس", l313l, Config.TG_BOT_USERNAME, descript, photobt
+                "مجموعة أشعارات 7rB ", l313l, Config.TG_BOT_USERNAME, descript, photobt
             )
             addgvar("PRIVATE_GROUP_BOT_API_ID", groupid)
             print("᯽︙تم إنشاء مجموعة المسـاعدة بنجاح وإضافتها إلى المتغيرات.")
         flag = True
     if PM_LOGGER_GROUP_ID == -100:
-        descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @k_jj_j"
+        descript = "᯽︙ وظيفه الكروب يحفظ رسائل الخاص اذا ما تريد الامر احذف الكروب نهائي \n  - @is7rb"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j2.JPEG")
         pm_logger_group_id = await hrb_the_best(l313l, "مجموعة التخزين")
         if pm_logger_group_id:
