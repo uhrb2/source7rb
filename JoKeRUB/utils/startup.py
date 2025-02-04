@@ -172,7 +172,6 @@ async def add_bot_to_logger_group(chat_id):
                     users=[bot_details.username],
                 )
             )
-        except Exception as e:
             LOGS.error(str(e))
         except FloodWaitError as e:
         except OverflowError:
