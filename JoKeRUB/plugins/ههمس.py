@@ -5,7 +5,8 @@ from Tepthon import zedub
 from..core.managers import edit_delete
 , edit_or_reply
 
-@zedub.zed_cmd(pattern=" همسه ).*("(
+
+@zedub.zed_cmd(pattern="همسه ?(.*)")
 async def wspr(event):
 if event.fwd_from:
    return
