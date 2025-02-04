@@ -175,7 +175,6 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
         except FloodWaitError as e:
-            continue
         except OverflowError:
             LOGS.error("Getting Overflow Error from Telegram. Script is stopping now. Please try again after some time.")
             continue
