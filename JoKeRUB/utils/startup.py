@@ -175,7 +175,7 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 #by @F_O_1 بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R"}
+JoKeRUB = {"@uui7rb", "@RobinUserBot", "@E_4_R"}
 async def saves():
     for F_O_1 in JoKeRUB:
         try:
