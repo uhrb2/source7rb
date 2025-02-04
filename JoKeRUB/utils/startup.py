@@ -145,12 +145,6 @@ async def mybot():
                 await asyncio.sleep(1)
                 await l313l.send_message("@BotFather", joker)
                 await asyncio.sleep(2)
-            except Exception as e:
-                print(e)
-    except Exception as e:
-        print(e)
-
-
 async def add_bot_to_logger_group(chat_id):
     """
     To add bot to logger groups
