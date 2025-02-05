@@ -7,14 +7,14 @@ from JoKeRUB import l313l , edit_or_reply
 plugin_category = "الادوات"
 
 
-@l313l.admin_cmd(
+@l313l.on(admin_cmd(
     pattern="احسب ([\s\S]*)",
     command=("احسب", plugin_category),
     info={
         "header": "لـ حل المعـادلات والمسائـل الرياضيـه",
         "الاستخـدام": "{tr}احسب 2+9",
     },
-)
+))
 async def calculator(event):
     "لـ حل المعـادلات والمسائـل الرياضيـه"
     cmd = event.text.split(" ", maxsplit=1)[1]
