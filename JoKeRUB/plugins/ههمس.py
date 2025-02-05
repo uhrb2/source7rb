@@ -2,7 +2,7 @@ import io
 import sys
 import traceback
 
-from . import zedub, edit_or_reply
+from . import admin_cmd , edit_or_reply
 
 plugin_category = "الادوات"
 
