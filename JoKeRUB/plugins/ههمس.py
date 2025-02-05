@@ -7,9 +7,9 @@ from . import zedub, edit_or_reply
 plugin_category = "الادوات"
 
 
-@l313l.on(admin_cmd(
+@l313l.admin_cmd(
     pattern="احسب ([\s\S]*)",
-    command=("احسب", plugin_category)),
+    command=("احسب", plugin_category),
     info={
         "header": "لـ حل المعـادلات والمسائـل الرياضيـه",
         "الاستخـدام": "{tr}احسب 2+9",
