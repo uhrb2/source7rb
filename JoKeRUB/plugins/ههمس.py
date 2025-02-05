@@ -2,7 +2,7 @@ import io
 import sys
 import traceback
 
-from . import admin_cmd , edit_or_reply
+from JoKeRUB import l313l , edit_or_reply
 
 plugin_category = "الادوات"
 
