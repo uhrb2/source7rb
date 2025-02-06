@@ -10,7 +10,7 @@ from ..core import check_owner
 from ..Config import Config
 
 JEP_IC = ""
-ROE = "هلا {my_mintion}"
+ROE = "هلا {me.first_name}"
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
