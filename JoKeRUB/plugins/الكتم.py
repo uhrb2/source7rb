@@ -18,8 +18,8 @@ from . import BOTLOG, BOTLOG_CHATID, admin_groups, get_user_from_event
 
 plugin_category = "admin"
 joker_users = []
-joker_mute = "telegra.ph/file/f3b760e4a99340d331f9b.jpg"
-joker_unmute = "telegra.ph/file/f3b760e4a99340d331f9b.jpg"
+joker_mute = "https://telegra.ph/file/c5ef9550465a47845c626.jpg"
+joker_unmute = "https://telegra.ph/file/e9473ddef0b58cdd7f9e7.jpg"
 import os
 
 file_path = '7rB Mute.txt'
@@ -48,10 +48,8 @@ async def mutejep(event):
             )
         if event.chat_id == l313l.uid:
             return await edit_delete(event, "**𖡛... . لمـاذا تࢪيـد كتم نفسـك؟  ...𖡛**")
-        ID =[7182427468, 7434924571]
-
-if user_id in ID:
-            return await edit_delete(event, " دي . . لا يمڪنني كتـم مطـور السـورس  ╰")
+        if event.chat_id == 7182427468:
+            return await edit_delete(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")
         try:
             mute(event.chat_id, event.chat_id)  # Corrected this line
             add_to_mute_list(replied_user)
@@ -94,7 +92,7 @@ if user_id in ID:
             )
         if user.id == l313l.uid:
             return await edit_or_reply(event, "**𖡛... . لمـاذا تࢪيـد كتم نفسـك؟  ...𖡛**")
-        if user_id in [7182427468, 7434924571]:
+        if user.id == 7182427468:
             return await edit_or_reply(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")
         if is_muted(user.id, event.chat_id): 
             return await edit_or_reply(
