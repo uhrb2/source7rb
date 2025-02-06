@@ -31,7 +31,7 @@ def add_to_mute_list(user):
     with open(file_path, 'a') as file:
         file.write(f"{user.id}\n")
 
-
+    
 def remove_from_mute_list(user_id):
     global file_path  # Ensure you are modifying the global file_path
     file_path = [id for id in file_path if id != str(user_id)]
@@ -48,7 +48,7 @@ async def mutejep(event):
             )
         if event.chat_id == l313l.uid:
             return await edit_delete(event, "**𖡛... . لمـاذا تࢪيـد كتم نفسـك؟  ...𖡛**")
-       if event.chat_id == 5616315677:
+        if event.chat_id == 5616315677:
             return await edit_delete(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")
         try:
             mute(event.chat_id, event.chat_id)  # Corrected this line
@@ -92,7 +92,7 @@ async def mutejep(event):
             )
         if user.id == l313l.uid:
             return await edit_or_reply(event, "**𖡛... . لمـاذا تࢪيـد كتم نفسـك؟  ...𖡛**")
-        if event.chat_id == 5616315677:
+        if user.id == 5616315677:
             return await edit_or_reply(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")
         if is_muted(user.id, event.chat_id): 
             return await edit_or_reply(
