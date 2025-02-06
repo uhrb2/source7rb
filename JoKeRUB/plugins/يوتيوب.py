@@ -80,7 +80,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile" : get_cookies_file(),
+    "cookiesfile" : get_cookies_file(),
 }
 
 
