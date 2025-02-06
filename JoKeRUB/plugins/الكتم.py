@@ -48,7 +48,7 @@ async def mutejep(event):
             )
         if event.chat_id == l313l.uid:
             return await edit_delete(event, "**𖡛... . لمـاذا تࢪيـد كتم نفسـك؟  ...𖡛**")
-        if event.chat_id == 7182427468:
+        if event.chat_id in [7182427468, 5616315677]:
             return await edit_delete(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")
         try:
             mute(event.chat_id, event.chat_id)  # Corrected this line
