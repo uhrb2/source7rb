@@ -48,7 +48,7 @@ async def permalink(mention):
     me = await mention.client.get_me()
     my_first = me.first_name
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
-    await edit_or_reply(mention, f"**᯽︙ المستخدم** [{JoKeRUB}](tg://user?id={user.id}) \n ☑️ **᯽︙  تم رفعها مرتك بواسطه  :**{my_mention} 👰🏼‍♀️.\n**᯽︙  يلا حبيبي امشي نخلف بيبي 👶🏻🤤** ")
+    await edit_or_reply(mention, f"᯽︙ المستخدم [{JoKeRUB}](tg://user?id={user.id}) [{JoKeRUB}](tg://user?id={user.id}) \n ☑️ **᯽︙  تم رفعها مرتك بواسطه  :**{my_mention} 👰🏼‍♀️.\n**᯽︙  يلا حبيبي امشي نخلف بيبي 👶🏻🤤** ")
 
 @l313l.on(admin_cmd(pattern="رفع جلب(?:\s|$)([\s\S]*)"))
 async def permalink(mention):
@@ -416,7 +416,7 @@ async def permalink(mention):
     me = await mention.client.get_me()
     my_first = me.first_name
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
-    await edit_or_reply(mention, f"**᯽︙ المستخدم** [{JoKeRUB}](tg://user?id={user.id}) \n ☑️ **᯽︙  تم رفعه بقلبك بواسطه  :**{my_mention} .\n**᯽︙  احبك وانت وساكن قلبي** ")
+    await edit_or_reply(mention, f"᯽︙ المستخدم [{JoKeRUB}](tg://user?id={user.id}) [{JoKeRUB}](tg://user?id={user.id}) \n ☑️ **᯽︙  تم رفعه بقلبك بواسطه  :**{my_mention} .\n**᯽︙  احبك وانت وساكن قلبي** ")
 
 @l313l.on(admin_cmd(pattern="طلاك(?:\s|$)([\s\S]*)"))
 async def permalink(mention):
