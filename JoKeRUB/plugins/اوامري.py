@@ -45,7 +45,6 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline(" الترفيه ", data="rfhrz"),
                 ],
                 [
-                    Button.inline(" التكرار والتنظيف ", data="iiers"),
                     Button.inline(" الملصقات وصور ", data="jrzst"),
                 ],
                 [
