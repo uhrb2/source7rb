@@ -11,7 +11,6 @@ import re
 import time
 from datetime import datetime
 
-from JoKeRUB.utils import sudo_cmd
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl import types
 from telethon.utils import get_attributes
@@ -124,7 +123,6 @@ async def ytdl_down(event, opts, url):
 async def fix_attributes(
     path, info_dict: dict, supports_streaming: bool = False, round_message: bool = False
 ) -> list:
-    """Avoid multiple instances of an attribute."""
     new_attributes = []
     video = False
     audio = False
@@ -187,7 +185,6 @@ async def _get_file_name(path: pathlib.Path, full: bool = True) -> str:
     },
 )
 async def download_audio(event):
-    """To download audio from YouTube and many other sites."""
     url = event.pattern_match.group(1)
     rmsg = await event.get_reply_message()
     if not url and rmsg:
@@ -199,7 +196,6 @@ async def download_audio(event):
     reply_to_id = await reply_id(event)
     ytdl_data = await ytdl_down(catevent, audio_opts, url)
     if ytdl_data is None:
-
         return
     await catevent.edit(
         f"᯽︙ يتم لتحميل الأغنية:\
@@ -255,7 +251,6 @@ async def download_audio(event):
     },
 )
 async def download_video(event):
-    """To download video from YouTube and many other sites."""
     url = event.pattern_match.group(1)
     rmsg = await event.get_reply_message()
     if not url and rmsg:
@@ -320,7 +315,6 @@ async def download_video(event):
     },
 )
 async def yt_search(event):
-    "Youtube search command"
     if event.is_reply and not event.pattern_match.group(2):
         query = await event.get_reply_message()
         query = str(query.message)
@@ -357,7 +351,6 @@ async def yt_search(event):
     },
 )
 async def kakashi(event):
-    "For downloading instagram media"
     chat = "@instasavegrambot"
     link = event.pattern_match.group(1)
     if "www.instagram.com" not in link:
@@ -392,9 +385,6 @@ async def kakashi(event):
     await event.client.delete_messages(
         conv.chat_id, [msg_start.id, response.id, msg.id, video.id, details.id]
     )
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-
-from JoKeRUB import l313l
 
 
 @l313l.on(admin_cmd(pattern="تيك توك(?: |$)(.*)"))
@@ -414,7 +404,6 @@ async def _(event):
             msg = await conv.send_message(r_link)
             details = await conv.get_response()
             video = await conv.get_response()
-            """ قناة 7rB   @k_jj_j """
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @ttsavebot")
@@ -424,5 +413,4 @@ async def _(event):
             conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
         )
         await event.delete()
-
 
