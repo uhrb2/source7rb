@@ -10,7 +10,7 @@ from ..core import check_owner
 from ..Config import Config
 
 JEP_IC = ""
-Malath = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n 
+ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)
@@ -53,20 +53,20 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
             ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
-                    JEP_IC, text=Malath, buttons=buttons, link_preview=False
+                    JEP_IC, text=EOE, buttons=buttons, link_preview=False
                 )
             elif JEP_IC:
                 result = builder.document(
                     JEP_IC,
                     title="JoKeRUB",
-                    text=Malath,
+                    text=ROE,
                     buttons=buttons,
                     link_preview=False,
                 )
             else:
                 result = builder.article(
                     title="JoKeRUB",
-                    text=Malath,
+                    text=ROE,
                     buttons=buttons,
                     link_preview=False,
                 )
