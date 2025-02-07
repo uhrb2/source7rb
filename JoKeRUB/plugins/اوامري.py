@@ -9,10 +9,8 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-post_link = "https://t.me/Imain3/1985"  # رابط المنشور
-    message = await l313l.get_messages(entity="imain3", ids=1985)
-
-ROE =ROE = "**♰ هـذه هي قائمة اوامـر سـورس 7rB  ♰**"
+JEP_IC = "https://telegra.ph/file/762989c65df81fc2e96d7.jpg"
+ROE = "**♰ هـذه هي قائمة اوامـر سـورس 7rB  ♰**"
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
@@ -24,43 +22,44 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         await bot.get_me()
         if query.startswith("اوامري") and event.query.user_id == bot.uid:
             buttons = [
-                [Button.inline(" اوامر الادمن ", data="l313l0")],
+                [Button.inline("☪︎ اوامر الادمن ☪︎", data="l313l0")],
                 [
-                    Button.inline(" اوامر البوت ", data="rozbot"),
-                    Button.inline(" الحساب ", data="Jmrz"),
-                    Button.inline(" المجموعات ", data="gro"),
+                    Button.inline("☪︎ اوامر البوت ☪︎", data="rozbot"),
+                    Button.inline("☪︎ الحساب ☪︎", data="Jmrz"),
+                    Button.inline("☪︎ المجموعات ☪︎", data="gro"),
                 ],
                 [
-                    Button.inline(" الصيغ و الجهات ", data="sejrz"),
-                    Button.inline(" الحماية و تلكراف ", data="grrz"),
+                    Button.inline("☪︎ الصيغ و الجهات ☪︎", data="sejrz"),
+                    Button.inline("☪︎ الحماية و تلكراف ☪︎", data="grrz"),
                 ],
                 [
-                    Button.inline(" اوامر التسلية ", data="tslrzj"),
-                    Button.inline(" الترحيبات والردود ", data="r7brz"),
+                    Button.inline("☪︎ اوامر التسلية ☪︎", data="tslrzj"),
+                    Button.inline("☪︎ الترحيبات والردود ☪︎", data="r7brz"),
                 ],
                 [
-                    Button.inline(" اومر المساعدة ", data="krrznd"),
-                    Button.inline(" الملصقات وصور ", data="jrzst"),
+                    Button.inline("☪︎ اومر المساعدة ☪︎", data="krrznd"),
+                    Button.inline("☪︎ الملصقات وصور ☪︎", data="jrzst"),
                 ],
                 [
-                    Button.inline(" التكرار والتنظيف ", data="krrznd"),
-                    Button.inline(" الترفيه ", data="rfhrz"),
+                    Button.inline("☪︎ التكرار والتنظيف ☪︎", data="krrznd"),
+                    Button.inline("☪︎ الترفيه ☪︎", data="rfhrz"),
                 ],
                 [
-                    Button.inline(" الملصقات وصور ", data="jrzst"),
+                    Button.inline("☪︎ التكرار والتنظيف ☪︎", data="iiers"),
+                    Button.inline("☪︎ الملصقات وصور ☪︎", data="jrzst"),
                 ],
                 [
-                    Button.inline(" الأكستـرا ", data="iiers"),
-                    Button.inline(" الانتحال والتقليد ", data="uscuxrz"),
+                    Button.inline("☪︎ الأكستـرا ☪︎", data="iiers"),
+                    Button.inline("☪︎ الانتحال والتقليد ☪︎", data="uscuxrz"),
                 ],
             ]
-            if post_link and post_link.endswith((".jpg", ".png", "gif", "mp4")):
+            if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
-                    post_link, text=ROE, buttons=buttons, link_preview=False
+                    JEP_IC, text=ROE, buttons=buttons, link_preview=False
                 )
-            elif post_link:
+            elif JEP_IC:
                 result = builder.document(
-                    post_link,
+                    JEP_IC,
                     title="JoKeRUB",
                     text=ROE,
                     buttons=buttons,
