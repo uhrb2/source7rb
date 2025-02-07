@@ -12,6 +12,8 @@ from . import BOTLOG_CHATID
 LOGS = logging.getLogger(__name__)
 cmdhd = Config.COMMAND_HAND_LER
 
+extractor = URLExtract()
+
 oldvars = {
     "PM_PIC": "pmpermit_pic",
     "PM_TEXT": "pmpermit_txt",
@@ -104,15 +106,10 @@ async def custom_HuRe(event):
         addgvar("PM_LOGGER_GROUP_ID", text)
         var = "PM_LOGGER_GROUP_ID"
     if input_str == "كليشة الخاص" or input_str == "كليشه الخاص":
-        addgvar("hrbe_message", text)
-        var = "hrbe_message"
+        addgvar("7rB _message", text)
+        var = "7rB _message"
     if input_str == "اشعارات" or input_str == "الاشعارات":
-       
-addgvar("ALIVE_NAME", text)
-        var = "ALIVE_NAME"
-if input_str == "اسم" or input_str == "اسم":
-
- addgvar("PRIVATE_GROUP_BOT_API_ID", text)
+        addgvar("PRIVATE_GROUP_BOT_API_ID", text)
         var = "PRIVATE_GROUP_BOT_API_ID"
     await edit_or_reply(event, f"**₰ تم بنجاح تحديث فار {input_str} 𓆰،**")
     delgvar(var)
@@ -125,7 +122,7 @@ if input_str == "اسم" or input_str == "اسم":
         )
 
 
-@l313l.ar_cmd(pattern="حذف فار (.*)")
+@l313l.ar_cmd(pattern="حذف (.*)")
 async def custom_HuRe(event):
     input_str = event.pattern_match.group(1)
     if (
@@ -245,7 +242,7 @@ async def custom_HuRe(event):
                     \n**فار {input_str}** تم حذفه من قاعده البيانات",
         )
 @l313l.ar_cmd(pattern="اضف صورة (الفحص|فحص) ?(.*)")
-async def alive_hrbe(event):
+async def alive_7rB (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -275,7 +272,7 @@ async def alive_hrbe(event):
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
 @l313l.ar_cmd(pattern="اضف صورة (البنك|بنك) ?(.*)")
-async def ping_hrbe(event):
+async def ping_7rB (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -305,7 +302,7 @@ async def ping_hrbe(event):
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
 @l313l.ar_cmd(pattern="اضف صورة (الحماية|الحمايه|حماية|حمايه) ?(.*)")
-async def secu_hrbe(event):
+async def secu_7rB (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -352,7 +349,7 @@ async def khas_7rB (event):
             
             if response.status_code == 200 and response.json().get("success"):
                 url = response.json()["files"][0]["url"]
-                addgvar("hrbe_url", url)
+                addgvar("7rB _url", url)
                 await jokevent.edit(f"** ⌔︙  تم اضافة الصورة الى الخاص ✓ **")
             else:
                 await jokevent.edit(f"** ⌔︙حدث خطأ في رفع الصورة: **\n`{response.json()}`")
@@ -364,3 +361,5 @@ async def khas_7rB (event):
                 os.remove(media)
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
+
+
