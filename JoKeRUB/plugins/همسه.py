@@ -90,7 +90,7 @@ async def gamez(event):
     await tap[0].click(event.chat_id)
     await event.delete()
 
-@borg.on(admin_cmd(pattern="(تفعيل البصمه الذاتيه|تفعيل البصمه الذاتية|تفعيل البصمة الذاتيه|تفعيل البصمة الذاتية)")
+@zedub.zed_cmd(pattern="(تفعيل البصمه الذاتيه|تفعيل البصمه الذاتية|تفعيل البصمة الذاتيه|تفعيل البصمة الذاتية)")
 async def start_datea(event):
     global vocself
 
@@ -99,7 +99,7 @@ async def start_datea(event):
     vocself = True
     await edit_or_reply(event, "**⎉╎تم تفعيل حفظ البصمة الذاتية 🎙**\n**⎉╎تلقائيًّـا .. بنجاح ✅**")
 
-@borg.on(admin_cmd(pattern="(ايقاف البصمه الذاتيه|ايقاف البصمه الذاتية|ايقاف البصمة الذاتيه|ايقاف البصمة الذاتية)")
+@zedub.zed_cmd(pattern="(ايقاف البصمه الذاتيه|ايقاف البصمه الذاتية|ايقاف البصمة الذاتيه|ايقاف البصمة الذاتية)")
 async def stop_datea(event):
     global vocself
 
@@ -108,7 +108,7 @@ async def stop_datea(event):
         return await edit_or_reply(event, "**⎉╎تم تعطيل حفظ البصمة الذاتية 🎙**\n**⎉╎الان صارت مو شغالة .. ✅**")
     await edit_or_reply(event, "**⎉╎حفظ البصمة الذاتية التلقائي 🎙**\n**⎉╎معطلـه .. مسبقـاً ✅**")
 
-@borg.on(events.NewMessage(func=lambda e: e.is_private and (e.audio or e.voice) and e.media_unread))
+@zedub.on(events.NewMessage(func=lambda e: e.is_private and (e.audio or e.voice) and e.media_unread))
 async def sddm(event):
     global vocself
 
@@ -118,4 +118,4 @@ async def sddm(event):
         chat = await event.get_chat()
         voc = await event.download_media()
         PM_LOGGER_GROUP_ID
-        await borg.send_file(PM_LOGGER_GROUP_ID, voc, caption=f"ᯓ 𝙏𝙀𝙋𝙏𝙃𝙊𝙉 ⌁ - حفـظ البصمـة الذاتيــة 🎙\n⋆─┄─┄─┄─┄─┄─┄─⋆\n⌔ مࢪحبـًا .. عـزيـزي 🫂\n⌔ تـم حفظ البصمة الذاتية .. تلقائيًّـا ☑️ ❝\n⌔ معلومـات المـرسـل :-\n• الاسم : {_format.mentionuser(sender.first_name , sender.id)}\n• اليوزر : {username}\n• الايدي : {sender.id}")
+        await zedub.send_file(PM_LOGGER_GROUP_ID, voc, caption=f"ᯓ 𝙏𝙀𝙋𝙏𝙃𝙊𝙉 ⌁ - حفـظ البصمـة الذاتيــة 🎙\n⋆─┄─┄─┄─┄─┄─┄─⋆\n⌔ مࢪحبـًا .. عـزيـزي 🫂\n⌔ تـم حفظ البصمة الذاتية .. تلقائيًّـا ☑️ ❝\n⌔ معلومـات المـرسـل :-\n• الاسم : {_format.mentionuser(sender.first_name , sender.id)}\n• اليوزر : {username}\n• الايدي : {sender.id}")
