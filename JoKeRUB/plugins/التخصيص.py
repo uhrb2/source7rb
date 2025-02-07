@@ -110,7 +110,7 @@ async def custom_HuRe(event):
        
 addgvar("ALIVE_NAME", text)
         var = "ALIVE_NAME"
-await edit_or_reply(event, f"₰ تم بنجاح تحديث فار {input_str} 𓆰،")
+if input_str == "اسم" or input_str == "اسم":
 
  addgvar("PRIVATE_GROUP_BOT_API_ID", text)
         var = "PRIVATE_GROUP_BOT_API_ID"
