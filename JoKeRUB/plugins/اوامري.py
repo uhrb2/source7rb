@@ -54,13 +54,13 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline(" الانتحال والتقليد ", data="uscuxrz"),
                 ],
             ]
-            if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
+            if post_link and post_link.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
-                    JEP_IC, text=ROE, buttons=buttons, link_preview=False
+                    post_link, text=ROE, buttons=buttons, link_preview=False
                 )
-            elif JEP_IC:
+            elif post_link:
                 result = builder.document(
-                    JEP_IC,
+                    post_link,
                     title="JoKeRUB",
                     text=ROE,
                     buttons=buttons,
