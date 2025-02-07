@@ -9,7 +9,7 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-JEP_IC = "https://telegra.ph/file/762989c65df81fc2e96d7.jpg"
+JEP_IC = ""
 ROE = "**♰ هـذه هي قائمة اوامـر سـورس 7rB  ♰**"
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
