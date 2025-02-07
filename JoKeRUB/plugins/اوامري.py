@@ -10,8 +10,10 @@ from ..core import check_owner
 from ..Config import Config
 
 JEP_IC = ""
-ROE = "**تفضل سيدي هذه هي قائمة الأوامر الخاصة بك:**"
-
+ROE = f"╭─━━━━━━━━━━━━━━━─╮
+     * Source RobinUserBot*
+╰─━━━━━━━━━━━━━━━─╯
+*تفضل سيدي هذه هي قائمة الأوامر الخاصة بك:*"
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)
