@@ -120,7 +120,7 @@ async def custom_HuRe(event):
         )
 
 
-@l313l.ar_cmd(pattern="حذف (.*)")
+@l313l.ar_cmd(pattern="حذف فار (.*)")
 async def custom_HuRe(event):
     input_str = event.pattern_match.group(1)
     if (
