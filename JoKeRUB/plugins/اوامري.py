@@ -9,7 +9,7 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-    post_link = "https://t.me/Imain3/1985"  # رابط المنشور
+post_link = "https://t.me/Imain3/1985"  # رابط المنشور
     message = await l313l.get_messages(entity="imain3", ids=1985)
 
 ROE =ROE = "**♰ هـذه هي قائمة اوامـر سـورس 7rB  ♰**"
