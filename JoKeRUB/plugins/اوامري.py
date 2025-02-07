@@ -9,8 +9,9 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-JEP_IC = ""
-ROE =f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n "
+JEP_IC = "https://telegra.ph/file/762989c65df81fc2e96d7.jpg"
+ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n ""
+
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
     @tgbot.on(events.InlineQuery)
@@ -21,37 +22,38 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         await bot.get_me()
         if query.startswith("اوامري") and event.query.user_id == bot.uid:
             buttons = [
-                [Button.inline("🧩اوامر الادمن ", data="l313l0")],
+                [Button.inline("☪︎ اوامر الادمن ☪︎", data="l313l0")],
                 [
-                    Button.inline("🔋 اوامر البوت", data="rozbot"),
-                    Button.inline("📟 الحساب", data="Jmrz"),
-                    Button.inline("🪙 المجموعات", data="gro"),
+                    Button.inline("☪︎ اوامر البوت ☪︎", data="rozbot"),
+                    Button.inline("☪︎ الحساب ☪︎", data="Jmrz"),
+                    Button.inline("☪︎ المجموعات ☪︎", data="gro"),
                 ],
                 [
-                    Button.inline("📭 الصيغ و الجهات", data="sejrz"),
-                    Button.inline("🔗 الحماية و تلكراف", data="grrz"),
+                    Button.inline("☪︎ الصيغ و الجهات ☪︎", data="sejrz"),
+                    Button.inline("☪︎ الحماية و تلكراف ☪︎", data="grrz"),
                 ],
                 [
-                    Button.inline("🤣 اوامر التسلية", data="tslrzj"),
-                    Button.inline("💌 الترحيبات والردود", data="r7brz"),
+                    Button.inline("☪︎ اوامر التسلية ☪︎", data="tslrzj"),
+                    Button.inline("☪︎ الترحيبات والردود ☪︎", data="r7brz"),
                 ],
                 [
-                    Button.inline("👀 اومر المساعدة", data="krrznd"),
-                    Button.inline("🖼️ الملصقات وصور", data="jrzst"),
+                    Button.inline("☪︎ اومر المساعدة ☪︎", data="krrznd"),
+                    Button.inline("☪︎ الملصقات وصور ☪︎", data="jrzst"),
                 ],
                 [
-                    Button.inline("🪕 التكرار والتنظيف", data="krrznd"),
-                    Button.inline("🎟️ الترفيه", data="rfhrz"),
+                    Button.inline("☪︎ التكرار والتنظيف ☪︎", data="krrznd"),
+                    Button.inline("☪︎ الترفيه ☪︎", data="rfhrz"),
                 ],
                 [
-                    Button.inline("📑 الملصقات وصور", data="jrzst"),
+                    Button.inline("☪︎ التكرار والتنظيف ☪︎", data="iiers"),
+                    Button.inline("☪︎ الملصقات وصور ☪︎", data="jrzst"),
                 ],
                 [
-                    Button.inline("🏷️ الأكستـرا", data="iiers"),
-                    Button.inline("🛡️ الانتحال والتقليد", data="uscuxrz"),
+                    Button.inline("☪︎ الأكستـرا ☪︎", data="iiers"),
+                    Button.inline("☪︎ الانتحال والتقليد ☪︎", data="uscuxrz"),
                 ],
             ]
-                        if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
+            if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
                     JEP_IC, text=ROE, buttons=buttons, link_preview=False
                 )
@@ -87,7 +89,7 @@ async def repo(event):
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"l313l0")))
 @check_owner
-async def_(event):
+async def _(event):
     buttons = [
     [
       Button.inline("التالي", data="jrzst"),
@@ -209,5 +211,3 @@ async def _(event):
 async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
-
-
