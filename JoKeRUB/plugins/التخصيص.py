@@ -242,7 +242,7 @@ async def custom_HuRe(event):
                     \n**فار {input_str}** تم حذفه من قاعده البيانات",
         )
 @l313l.ar_cmd(pattern="اضف صورة (الفحص|فحص) ?(.*)")
-async def alive_7rB (event):
+async def alive_hrb (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -272,7 +272,7 @@ async def alive_7rB (event):
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
 @l313l.ar_cmd(pattern="اضف صورة (البنك|بنك) ?(.*)")
-async def ping_7rB (event):
+async def ping_hrb (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -302,7 +302,7 @@ async def ping_7rB (event):
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
 @l313l.ar_cmd(pattern="اضف صورة (الحماية|الحمايه|حماية|حمايه) ?(.*)")
-async def secu_7rB (event):
+async def secu_hrb (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -332,7 +332,7 @@ async def secu_7rB (event):
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
 @l313l.ar_cmd(pattern="اضف صورة (الخاص|خاص) ?(.*)")
-async def khas_7rB (event):
+async def khas_hrb (event):
     reply = await event.get_reply_message()
     if reply and reply.media:
         input_str = event.pattern_match.group(1)
@@ -349,7 +349,7 @@ async def khas_7rB (event):
             
             if response.status_code == 200 and response.json().get("success"):
                 url = response.json()["files"][0]["url"]
-                addgvar("7rB _url", url)
+                addgvar("hrb_url", url)
                 await jokevent.edit(f"** ⌔︙  تم اضافة الصورة الى الخاص ✓ **")
             else:
                 await jokevent.edit(f"** ⌔︙حدث خطأ في رفع الصورة: **\n`{response.json()}`")
