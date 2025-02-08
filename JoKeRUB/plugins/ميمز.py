@@ -93,7 +93,7 @@ async def _(event):
 #السلام على الحسين وعلى الارواح التي حلت بفنائك ولعن الله قاتليك
 @l313l.on(admin_cmd(outgoing=True, pattern="غنيلي$"))
 async def hrbe313(joker313):
-  rl = random.randint(1,385)
+  rl = random.randint(1,2)
   url = f"https://t.me/gttts3/{rl}"
   await joker313.client.send_file(joker313.chat_id,url,caption="᯽︙ BY : @RobinUserBot ",parse_mode="html")
   await joker313.delete()
