@@ -34,18 +34,18 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 ],
                 [
                     Button.inline("🪗 اوامر التسلية ", data="tslrzj"),
-                    Button.inline("☪︎ الترحيبات والردود ☪︎", data="r7brz"),
+                    Button.inline("🪙 الترحيبات والردود ", data="r7brz"),
                 ],
                 [
                     Button.inline("🎴 اومر المساعدة ", data="krrznd"),
                     Button.inline("🖼️ الملصقات وصور ", data="jrzst"),
                 ],
                 [
-                    Button.inline("⚡ التكرار والتنظيف ", data="krrznd"),
-                    Button.inline("👀 الترفيه ", data="rfhrz"),
+                    Button.inline("💭 التكرار والتنظيف ", data="krrznd"),
+                    Button.inline("🧾 الترفيه ", data="rfhrz"),
                 ],
                 [
-                    Button.inline("☪︎ الملصقات وصور ☪︎", data="jrzst"),
+                    Button.inline("🔮 الملصقات وصور ", data="jrzst"),
                 ],
                 [
                     Button.inline("📭 الأكستـرا ", data="iiers"),
