@@ -336,7 +336,7 @@ async def gen_user(choice):
         d = random.choices(z)
         f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0]]
         username = "".join(f)
-    elif choice == "متاح":
+    elif choice == "مايرون":
         c = d = random.choices(a)
         d = random.choices(z)
         f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0], c[0], d[0], c[0]]
