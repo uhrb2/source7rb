@@ -52,9 +52,8 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("🎟️ الانتحال والتقليد ", data="uscuxrz"),
                 ],
                 [
-                    Button.inline("🃏 المطور ", data="F_O_1"),
-               ],
-               [
+                    [Button.inline("🃏 اوامر الادمن ", data="l313l0")],
+                [
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
                     JEP_IC, text=ROE, buttons=buttons, link_preview=False
