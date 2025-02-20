@@ -35,7 +35,7 @@ async def _(event):
 async def _(event):
 	if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
 		await event.edit(
-		"** قائمة اوامر الادمن لسورس Robin  **:\n\n ( `.اوامر الحظر` )\n (  `.اوامر الكتم` )\n ( `.اوامر التثبيت` )\n ( `.اوامر الاشراف` )\n\n⌔︙CH : @RobinUserBot"
+		"** قائمة اوامر الادمن لسورس Robin  **:\n\n ( `.اوامر الحظر` )\n (  `.اوامر الكتم` )\n ( `.اوامر التثبيت` )\n ( `.اوامر الاشراف` ) •\n\n⌔︙CH : @RobinUserBot"
 )
 		
 @l313l.ar_cmd(
@@ -45,7 +45,7 @@ async def _(event):
 async def _(event):
 	if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
 		await event.edit(
-		"** قائمة اوامر المجـموعه لسورس Robin  **:\n ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n ᯽︙ اختر احدى هذه القوائم\n\n- ( `.اوامر التفليش` )\n- ( `.اوامر المحذوفين` )\n- ( `.اوامر الكروب` )\n★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n⌔︙CH : @RobinUserBot"
+		"** قائمة اوامر المجـموعه لسورس Robin  **:\n ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n ᯽︙ اختر احدى هذه القوائم\n- ( `.اوامر التفليش` )\n- ( `.اوامر المحذوفين` )\n- ( `.اوامر الكروب` )\n★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n⌔︙CH : @RobinUserBot"
 )
 
 @l313l.ar_cmd(
