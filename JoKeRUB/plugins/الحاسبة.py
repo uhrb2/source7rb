@@ -1,19 +1,4 @@
-# WRITE  BY JoKeRUB
-# PLUGIN FOR JoKeRUB 
-# @RobinUserBot
-
-from telethon import events
-import random, re
-from ..Config import Config
-
-from JoKeRUB.utils import admin_cmd
-
-import asyncio
-from JoKeRUB import l313l
-from random import choice
-
-from ..core.managers import edit_or_reply
-from ..sql_helper.globals import gvarstatus
+import random, re 
 
 from telethon import Button
 from telethon.events import CallbackQuery, InlineQuery
