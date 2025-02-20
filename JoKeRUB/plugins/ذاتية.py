@@ -19,7 +19,6 @@ Aljoker_Asbo3 = {
 @l313l.on(admin_cmd(pattern="(جلب الصورة|جلب الصوره|ذاتيه|ذاتية)"))
 async def dato(event):
     if not event.is_reply:
-        return await event.edit("..")
     lMl10l = await event.get_reply_message()
     pic = await lMl10l.download_media()
     await bot.send_file(
