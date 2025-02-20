@@ -1,11 +1,26 @@
-import re
+# WRITE  BY JoKeRUB
+# PLUGIN FOR JoKeRUB 
+# @RobinUserBot
+
+from telethon import events
+import random, re
+from ..Config import Config
+
+from JoKeRUB.utils import admin_cmd
+
+import asyncio
+from JoKeRUB import l313l
+from random import choice
+
+from ..core.managers import edit_or_reply
+from ..sql_helper.globals import gvarstatus
 
 from telethon import Button
 from telethon.events import CallbackQuery, InlineQuery
 
 from JoKeRUB import CMD_HELP, l313l
 
-# 𝗧𝗲𝗹𝗲𝗚𝗿𝗮𝗠 : @k_jj_j  ~ @F_O_1
+# 𝗧𝗲𝗹𝗲𝗚𝗿𝗮𝗠 : @robinuserbot  ~ @F_O_1
 from ..core.decorators import check_owner
 
 CALC = {}
