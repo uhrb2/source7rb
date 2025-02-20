@@ -41,7 +41,7 @@ async def amireallyalive(event):
         cat_caption = "ᴏᴡɴᴇʀ ᴏꜰ sᴏᴜʀᴄᴇ ʀᴏʙɪɴ\n"
         cat_caption += " ╭─━━━━━━𖤐━━━━━━─╮\n"
         cat_caption += "ᴏᴡɴᴇʀ  : @F_O_1\n"
-        cat_caption += "ᴏᴡɴᴇʀ  : @U_9_O\n"
+        cat_caption += "ᴏᴡɴᴇʀ  : @u93_u\n"
         cat_caption += "ᴏᴡɴᴇʀ  : @F_Q_2\n"
         cat_caption += "╰─━━━━━━𖤐━━━━━━─╯\n"
         await l313l.send_file(
