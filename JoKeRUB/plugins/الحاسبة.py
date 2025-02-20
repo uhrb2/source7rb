@@ -163,3 +163,75 @@ async def _(e):
 CMD_HELP.update(
     {"الحسابة": ".حاسبة" "\n فقط اكتب الامر لعرض حاسبة علميه تحتاج الى تفعيل وضع الانلاين اولا\n\n"}
 )
+
+
+import tkinter as tk
+import math
+
+class ScientificCalculator:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Scientific Calculator")
+        self.expression = ""
+        self.input_text = tk.StringVar()
+
+        # إنشاء واجهة المستخدم
+        self.create_ui()
+
+    def create_ui(self):
+        input_frame = tk.Frame(self.root, width=400, height=50, bd=0, highlightbackground="black", highlightcolor="black", highlightthickness=2)
+        input_frame.pack(side=tk.TOP)
+
+        input_field = tk.Entry(input_frame, font=('arial', 18, 'bold'), textvariable=self.input_text, width=50, bg="#eee", bd=0, justify=tk.RIGHT)
+        input_field.grid(row=0, column=0)
+        input_field.pack(ipady=10)
+
+        buttons_frame = tk.Frame(self.root, width=400, height=450, bg="grey")
+        buttons_frame.pack()
+
+        # أزرار الأرقام
+        buttons = [
+            '7', '8', '9', '/', 'C',
+            '4', '5', '6', '*', 'sin',
+            '1', '2', '3', '-', 'cos',
+            '0', '.', '=', '+', 'tan'
+        ]
+
+        row = 0
+        col = 0
+        for button in buttons:
+            tk.Button(buttons_frame, text=button, width=10, height=3, bd=0, bg="#fff", cursor="hand2",
+                      command=lambda x=button: self.on_button_click(x)).grid(row=row, column=col, padx=1, pady=1)
+            col += 1
+            if col > 4:
+                col = 0
+                row += 1
+
+    def on_button_click(self, button):
+        if button == 'C':
+            self.expression = ""
+            self.input_text.set("")
+        elif button == '=':
+            try:
+                result = str(eval(self.expression))
+                self.input_text.set(result)
+                self.expression = result
+            except Exception as e:
+                self.input_text.set("خطأ")
+                self.expression = ""
+        elif button in ['sin', 'cos', 'tan']:
+            try:
+                result = str(getattr(math, button)(math.radians(float(self.expression))))
+                self.input_text.set(result)
+                self.expression = result
+            except Exception as e:
+                self.input_text.set("خطأ")
+                self.expression = ""
+        else:
+            self.expression += button
+            self.input_text.set(self.expression)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    calculator = ScientificCalculator(root)
+    root.mainloop()
