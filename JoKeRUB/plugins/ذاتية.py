@@ -19,7 +19,7 @@ Aljoker_Asbo3 = {
 @l313l.on(admin_cmd(pattern="(جلب الصورة|جلب الصوره|ذاتيه|ذاتية)"))
 async def dato(event):
     if not event.is_reply:
-        return await event.edit("")
+        return await event.edit:
     lMl10l = await event.get_reply_message()
     pic = await lMl10l.download_media()
     await bot.send_file(
@@ -41,7 +41,7 @@ async def reda(event):
 async def Reda_Is_Here(event):
     if gvarstatus ("savepicforme"):
         delgvar("savepicforme")
-        return await edit_delete(event, "**᯽︙تم تعطيل حفظت الذاتيات بنجاح ✓**")
+        return await edit_delete(event, "**᯽︙تم تعطيل حفظ الذاتيات بنجاح ✓**")
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الذاتيات لتعطيلها!**")
 def joker_unread_media(message):
