@@ -18,7 +18,7 @@ from ..sql_helper.globals import gvarstatus
 plugin_category = "extra"
 
 rehu = [
-    "᯽︙ **هـذه هي قائـمة الأوامر الخاصة بك**",
+    "᯽︙ هـذه هي قائـمة الأوامر الخاصة بك",
 ]
 @l313l.ar_cmd(pattern="الاوامر(?:\s|$)([\s\S]*)")
 async def _(event):
