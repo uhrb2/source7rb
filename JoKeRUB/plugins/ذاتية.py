@@ -114,3 +114,19 @@ async def gamez(event):
     tap = await bot.inline_query(jmusername, uunzz)
     await tap[0].click(event.chat_id)
     await event.delete()
+
+@l313l.on(admin_cmd(pattern="حفظ الصوتية الذاتية"))
+async def save_voice(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على الرسالة التي تحتوي على الصوتية.")
+    message = await event.get_reply_message()
+    if not message.voice:
+        return await event.edit("الرسالة لا تحتوي على صوتية.")
+    
+    voice = await message.download_media()
+    await bot.send_file(
+        "me",
+        voice,
+        caption="تم حفظ الصوتية بنجاح ✓"
+    )
+    await event.delete()
