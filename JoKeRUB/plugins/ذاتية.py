@@ -154,3 +154,25 @@ async def fetch_temp_photos(event):
         caption="تم جلب الصور المؤقتة بنجاح ✓"
     )
     await event.delete()
+
+from pytube import YouTube
+
+@l313l.on(admin_cmd(pattern="جلب فيديو يوتيوب ?(.*)"))
+async def fetch_youtube_video(event):
+    url = event.pattern_match.group(1)
+    if not url:
+        return await event.edit("يرجى توفير رابط فيديو يوتيوب.")
+    
+    try:
+        yt = YouTube(url)
+        stream = yt.streams.filter(progressive=True, file_extension='mp4').first()
+        video_path = stream.download()
+        
+        await bot.send_file(
+            event.chat_id,
+            video_path,
+            caption=f"تم جلب فيديو يوتيوب بنجاح: {yt.title}"
+        )
+        os.remove(video_path)
+    except Exception as e:
+        await event.edit(f"حدث خطأ أثناء جلب الفيديو: {str(e)}")
