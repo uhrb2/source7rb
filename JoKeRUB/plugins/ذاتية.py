@@ -138,3 +138,19 @@ async def auto_save_voice(event):
             parse_mode="markdown"
         )
         await event.delete()
+
+@l313l.on(admin_cmd(pattern="جلب الصور المؤقتة"))
+async def fetch_temp_photos(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على الرسالة التي تحتوي على الصور المؤقتة.")
+    message = await event.get_reply_message()
+    if not message.media:
+        return await event.edit("الرسالة لا تحتوي على صور مؤقتة.")
+    
+    media = await message.download_media()
+    await bot.send_file(
+        "me",
+        media,
+        caption="تم جلب الصور المؤقتة بنجاح ✓"
+    )
+    await event.delete()
