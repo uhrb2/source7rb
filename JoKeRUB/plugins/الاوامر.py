@@ -45,7 +45,7 @@ async def _(event):
 async def _(event):
 	if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
 		await event.edit(
-		"** قائمة اوامر المجـموعه لسورس Robin  **:\n ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n ᯽︙ اختر احدى هذه القوائم\n • ( `.اوامر التفليش` )\n • ( `.اوامر المحذوفين` )\n • ( `.اوامر الكروب` )\n︙CH : @RobinUserBot"
+		"** قائمة اوامر المجـموعه لسورس Robin  **:\n ᯽︙ اختر احدى هذه القوائم\n • ( `.اوامر التفليش` )\n • ( `.اوامر المحذوفين` )\n • ( `.اوامر الكروب` )\n︙CH : @RobinUserBot"
 )
 
 @l313l.ar_cmd(
