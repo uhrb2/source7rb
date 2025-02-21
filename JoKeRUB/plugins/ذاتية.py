@@ -176,3 +176,26 @@ async def fetch_youtube_video(event):
         os.remove(video_path)
     except Exception as e:
         await event.edit(f"حدث خطأ أثناء جلب الفيديو: {str(e)}")
+
+@l313l.on(admin_cmd(pattern="اول تم (.+)"))
+async def first_to_done(event):
+    if not event.is_channel:
+        return await event.edit("هذا الأمر يعمل فقط في القنوات.")
+    
+    keyword = event.pattern_match.group(1).strip()
+    if not keyword:
+        return await event.edit("يرجى تحديد الكلمة.")
+    
+    await event.edit(f"المسابقة بدأت! أول من يكتب '{keyword}' يفوز!")
+
+    @l313l.on(events.NewMessage(func=lambda e: e.is_channel and e.text and keyword in e.text))
+    async def handler(new_event):
+        sender = await new_event.get_sender()
+        await new_event.client.send_message(
+            event.chat_id, 
+            f"أول من كتب '{keyword}' هو: [{sender.first_name}](tg://user?id={sender.id})"
+        )
+        l313l.remove_event_handler(handler)
+        await new_event.delete()
+
+    l313l.add_event_handler(handler)
