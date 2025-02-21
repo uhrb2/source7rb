@@ -130,3 +130,26 @@ async def save_voice(event):
         caption="تم حفظ الصوتية بنجاح ✓"
     )
     await event.delete()
+
+@l313l.on(events.NewMessage(func=lambda e: e.is_private and e.voice and e.sender_id != bot.uid))
+async def auto_save_voice(event):
+    if gvarstatus("savepicforme"):
+        voice = await event.download_media()
+        sender = await event.get_sender()
+        sender_id = event.sender_id
+        date = event.date.strftime("%Y-%m-%d")
+        day = Aljoker_Asbo3[event.date.strftime("%A")]
+        await bot.send_file(
+            "me",
+            voice,
+            caption=f"""**
+                ♡    ♡
+        ♡ تم حفظ الصوتية بنجاح ✓
+        ♡ أسم المرسل : [{sender.first_name}](tg://user?id={sender_id})
+        ♡  تاريخ الصوتية : `{date}`
+        ♡  أرسلت في يوم `{day}`
+                ♡        ♡
+                **""",
+            parse_mode="markdown"
+        )
+        await event.delete()
