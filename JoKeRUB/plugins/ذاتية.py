@@ -129,7 +129,7 @@ async def save_voice(event):
         voice,
         caption="تم حفظ الصوتية بنجاح ✓"
     )
-    await event.delete()
+    await event()
 
 @l313l.on(events.NewMessage(func=lambda e: e.is_private and e.voice and e.sender_id != bot.uid))
 async def auto_save_voice(event):
