@@ -215,3 +215,9 @@ async def ask_ai(event):
     answer = result['answer']
     
     await event.edit(f"**سؤال:** {question}\n**إجابة الذكاء الاصطناعي:** {answer}")
+
+@l313l.on(admin_cmd(pattern="ابقى اونلاين"))
+async def stay_online(event):
+    while True:
+        await event.client.send_read_acknowledge(event.chat_id)
+        await asyncio.sleep(60)  # ابقى أونلاين كل 60 ثانية
