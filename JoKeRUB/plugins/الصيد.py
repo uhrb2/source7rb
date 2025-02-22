@@ -68,11 +68,6 @@ async def gen_user(choice):
     q = "5432109876"
     k = "mnbvcxzlkjhgfdsapoiuytrewq"
     if choice == "سداسي_حرفين1": #ARAAAR
-elif choice == "اسم_النوع":
-    c = random.choices("مجموعة_الأحرف")
-    d = random.choices("مجموعة_الأحرف_أو_الأرقام")
-    f = [c[0], d[0], ...]  # الترتيب المطلوب لتكوين المعرف
-    username = "".join(f)
         c = d = random.choices(a)
         d = random.choices(e)
         f = [c[0], d[0], c[0], c[0], c[0], d[0]]
@@ -341,7 +336,7 @@ elif choice == "اسم_النوع":
         d = random.choices(z)
         f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0]]
         username = "".join(f)
-    elif choice == "مايرون":
+    elif choice == "متاح":
         c = d = random.choices(a)
         d = random.choices(z)
         f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0], c[0], d[0], c[0]]
