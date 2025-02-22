@@ -195,32 +195,6 @@ async def disable_voice_save(event):
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الصوتيات لتعطيلها!**")
 
-from transformers import pipeline
-
-# تحميل نموذج الذكاء الاصطناعي
-qa_model = pipeline('question-answering', model='distilbert-base-uncased-distilled-squad')
-
-@l313l.on(admin_cmd(pattern="اسأل (.*)"))
-async def ask_ai(event):
-    question = event.pattern_match.group(1)
-    if not question:
-        return await event.edit("يرجى تقديم سؤال.")
-    
-    context = """
-    هذا هو النص الذي سيستخدمه النموذج للإجابة على السؤال.
-    يمكنك تعديل هذا النص ليحتوي على المعلومات التي تريد أن يجيب عليها النموذج.
-    """
-    
-    result = qa_model(question=question, context=context)
-    answer = result['answer']
-    
-    await event.edit(f"**سؤال:** {question}\n**إجابة الذكاء الاصطناعي:** {answer}")
-
-@l313l.on(admin_cmd(pattern="ابقى اونلاين"))
-async def stay_online(event):
-    while True:
-        await event.client.send_read_acknowledge(event.chat_id)
-        await asyncio.sleep(60)  # ابقى أونلاين كل 60 ثانية
 
 @l313l.on(admin_cmd(pattern="حاسبة (.*)"))
 async def calculator(event):
