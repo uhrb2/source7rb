@@ -221,3 +221,12 @@ async def stay_online(event):
     while True:
         await event.client.send_read_acknowledge(event.chat_id)
         await asyncio.sleep(60)  # ابقى أونلاين كل 60 ثانية
+
+@l313l.on(admin_cmd(pattern="حاسبة (.*)"))
+async def calculator(event):
+    expression = event.pattern_match.group(1)
+    try:
+        result = eval(expression)
+        await event.edit(f"**نتيجة الحساب:** {result}")
+    except Exception as e:
+        await event.edit(f"**حدث خطأ:** {str(e)}")
