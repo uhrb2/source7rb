@@ -116,28 +116,7 @@ async def gamez(event):
     await event.delete()
 
 
-@l313l.on(events.NewMessage(func=lambda e: e.is_private and e.voice and e.sender_id != bot.uid))
-async def auto_save_voice(event):
-    if gvarstatus("savepicforme"):
-        voice = await event.download_media()
-        sender = await event.get_sender()
-        sender_id = event.sender_id
-        date = event.date.strftime("%Y-%m-%d")
-        day = Aljoker_Asbo3[event.date.strftime("%A")]
-        await bot.send_file(
-            "me",
-            voice,
-            caption=f"""**
-                ♡    ♡
-        ♡ تم حفظ الصوتية بنجاح ✓
-        ♡ أسم المرسل : [{sender.first_name}](tg://user?id={sender_id})
-        ♡  تاريخ الصوتية : `{date}`
-        ♡  أرسلت في يوم `{day}`
-                ♡        ♡
-                **""",
-            parse_mode="markdown"
-        )
-        await event.delete()
+
 
 @l313l.on(admin_cmd(pattern="جلب الصور المؤقتة"))
 async def fetch_temp_photos(event):
@@ -199,3 +178,19 @@ async def first_to_done(event):
         await new_event.delete()
 
     l313l.add_event_handler(handler)
+
+@l313l.on(admin_cmd(pattern="(الصوتية تشغيل|صوتية تشغيل)"))
+async def enable_voice_save(event):
+    if gvarstatus("savevoiceforme"):
+        return await edit_delete(event, "**᯽︙حفظ الصوتيات مفعل وليس بحاجة للتفعيل مجدداً **")
+    else:
+        addgvar("savevoiceforme", "enabled")
+        await edit_delete(event, "**᯽︙تم تفعيل ميزة حفظ الصوتيات بنجاح ✓**")
+
+@l313l.on(admin_cmd(pattern="(الصوتية تعطيل|صوتية تعطيل)"))
+async def disable_voice_save(event):
+    if gvarstatus("savevoiceforme"):
+        delgvar("savevoiceforme")
+        return await edit_delete(event, "**᯽︙تم تعطيل حفظ الصوتيات بنجاح ✓**")
+    else:
+        await edit_delete(event, "**᯽︙انت لم تفعل حفظ الصوتيات لتعطيلها!**")
