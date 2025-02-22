@@ -194,3 +194,24 @@ async def disable_voice_save(event):
         return await edit_delete(event, "**᯽︙تم تعطيل حفظ الصوتيات بنجاح ✓**")
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الصوتيات لتعطيلها!**")
+
+from transformers import pipeline
+
+# تحميل نموذج الذكاء الاصطناعي
+qa_model = pipeline('question-answering', model='distilbert-base-uncased-distilled-squad')
+
+@l313l.on(admin_cmd(pattern="اسأل (.*)"))
+async def ask_ai(event):
+    question = event.pattern_match.group(1)
+    if not question:
+        return await event.edit("يرجى تقديم سؤال.")
+    
+    context = """
+    هذا هو النص الذي سيستخدمه النموذج للإجابة على السؤال.
+    يمكنك تعديل هذا النص ليحتوي على المعلومات التي تريد أن يجيب عليها النموذج.
+    """
+    
+    result = qa_model(question=question, context=context)
+    answer = result['answer']
+    
+    await event.edit(f"**سؤال:** {question}\n**إجابة الذكاء الاصطناعي:** {answer}")
