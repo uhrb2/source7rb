@@ -214,7 +214,7 @@ async def enable_online(event):
         await bot.send_read_acknowledge(event.chat_id)
         await asyncio.sleep(60)  # تكرار كل دقيقة
 
-@l313l.on(admin_cmd(pattern="تعطيل الاونلاين"))
+@l313l.on(admin_cmd(pattern="ايقاف الاونلاين"))
 async def disable_online(event):
     if gvarstatus("always_online"):
         delgvar("always_online")
