@@ -278,22 +278,37 @@ async def merge_images(event):
     os.remove(image2_data)
     os.remove(merged_image_path)
 
-@l313l.on(admin_cmd(pattern="حفظ المحتوى المقيد"))
+import requests
+
+@l313l.on(admin_cmd(pattern="حفظ المحتوى المقيد (.+)"))
 async def save_restricted_content(event):
-    if not event.is_reply:
-        return await event.edit("يرجى الرد على الرسالة التي تحتوي على المحتوى.")
+    url = event.pattern_match.group(1).strip()
+    if not url:
+        return await event.edit("يرجى توفير رابط المحتوى المقيد.")
     
-    message = await event.get_reply_message()
-    if not message.media:
-        return await event.edit("الرسالة لا تحتوي على محتوى.")
-    
-    media = await message.download_media()
-    
-    await bot.send_file(
-        "me",
-        media,
-        caption="تم حفظ المحتوى المقيد بنجاح ✓"
-    )
-    await event.delete()
-    
-    os.remove(media)
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        content_type = response.headers.get('content-type')
+
+        if 'image' in content_type:
+            extension = 'jpg'
+        elif 'video' in content_type:
+            extension = 'mp4'
+        else:
+            return await event.edit("نوع المحتوى غير مدعوم.")
+        
+        file_path = f'restricted_content.{extension}'
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
+        
+        await bot.send_file(
+            "me",
+            file_path,
+            caption="تم حفظ المحتوى المقيد بنجاح ✓"
+        )
+        await event.delete()
+        
+        os.remove(file_path)
+    except Exception as e:
+        await event.edit(f"حدث خطأ أثناء جلب المحتوى: {str(e)}")
