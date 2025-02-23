@@ -222,11 +222,8 @@ async def disable_online(event):
     else:
         await event.edit("**ميزة البقاء أونلاين غير مفعلة!**")
 
-import requests
-
-import requests
-
 import re
+import requests
 
 @l313l.on(admin_cmd(pattern="كاشف تيكتوك (.+)"))
 async def tiktok_info(event):
@@ -247,9 +244,16 @@ async def tiktok_info(event):
         
         # استخراج المعلومات من الصفحة
         html_content = response.text
-        followers = re.search(r'\"fans\":(\d+),', html_content).group(1)
-        likes = re.search(r'\"heart\":(\d+),', html_content).group(1)
-        videos = re.search(r'\"video\":(\d+),', html_content).group(1)
+        followers_match = re.search(r'"fans":(\d+),', html_content)
+        likes_match = re.search(r'"heart":(\d+),', html_content)
+        videos_match = re.search(r'"video":(\d+),', html_content)
+
+        if followers_match and likes_match and videos_match:
+            followers = followers_match.group(1)
+            likes = likes_match.group(1)
+            videos = videos_match.group(1)
+        else:
+            return await event.edit("لم أتمكن من استخراج المعلومات من الصفحة.")
         
         message = f"""
         **معلومات حساب تيكتوك**
