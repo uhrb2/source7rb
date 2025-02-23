@@ -238,3 +238,34 @@ async def draw_square(event):
         await event.edit(f"تم رسم مربع بحجم {size}:\n\n{square}")
     except ValueError:
         await event.edit("يرجى توفير حجم صحيح.")
+
+@l313l.on(admin_cmd(pattern="دمج الصور"))
+async def merge_images(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على الرسالة التي تحتوي على الصور.")
+    
+    messages = await event.get_reply_message()
+    if not messages.media:
+        return await event.edit("الرسالة لا تحتوي على صور.")
+    
+    image1 = await messages[0].download_media()
+    image2 = await messages[1].download_media()
+    
+    with open(image1, 'rb') as img1, open(image2, 'rb') as img2:
+        img1_data = img1.read()
+        img2_data = img2.read()
+    
+    merged_image = img1_data + b'\n' + img2_data
+    
+    with open('merged_image.jpg', 'wb') as merge_img:
+        merge_img.write(merged_image)
+    
+    await event.client.send_file(
+        event.chat_id,
+        'merged_image.jpg',
+        caption="تم دمج الصور بنجاح"
+    )
+    await event.delete()
+    os.remove(image1)
+    os.remove(image2)
+    os.remove('merged_image.jpg')
