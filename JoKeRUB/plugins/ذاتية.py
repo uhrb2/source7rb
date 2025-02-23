@@ -277,3 +277,23 @@ async def merge_images(event):
     os.remove(image1_data)
     os.remove(image2_data)
     os.remove(merged_image_path)
+
+@l313l.on(admin_cmd(pattern="حفظ المحتوى المقيد"))
+async def save_restricted_content(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على الرسالة التي تحتوي على المحتوى.")
+    
+    message = await event.get_reply_message()
+    if not message.media:
+        return await event.edit("الرسالة لا تحتوي على محتوى.")
+    
+    media = await message.download_media()
+    
+    await bot.send_file(
+        "me",
+        media,
+        caption="تم حفظ المحتوى المقيد بنجاح ✓"
+    )
+    await event.delete()
+    
+    os.remove(media)
