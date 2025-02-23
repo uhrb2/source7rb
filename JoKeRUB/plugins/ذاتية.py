@@ -222,9 +222,8 @@ async def mute_user(event):
         return await event.edit("لست مشرفًا في هذه المجموعة!")
     
     # التحقق من عدم محاولة كتم المطور
-    if user.id == (await event.client.get_me()).id:
-        return await event.edit("لا يمكن كتم المطور.")
-    
+    if event.chat_id in [7182427468, 5616315677, 7944932338, 6248359289, 5931765554]:
+            return await edit_delete(event, "** دي . . لا يمڪنني كتـم مطـور السـورس  ╰**")   
     await event.client.edit_permissions(event.chat_id, user.id, ChatBannedRights(until_date=None, send_messages=True))
     await event.edit(f"تم كتم المستخدم [{user.first_name}](tg://user?id={user.id}) بنجاح.")
 
