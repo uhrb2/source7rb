@@ -14,11 +14,12 @@ from ..helpers.tools import media_type
 from ..helpers.utils import _catutils
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from . import BOTLOG, BOTLOG_CHATID
+
 yaAli = False
 client = l313l
 Mukrr = Config.MUKRR_ET or "مكرر"
-async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam=False):
 
+async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam=False):
     counter = int(l313l[0])
     if len(l313l) == 2:
         spam_message = str(l313l[1])
@@ -45,25 +46,25 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
                     await event.client.send_message(
                         BOTLOG_CHATID,
                         "**⌔∮ التڪرار  **\n"
-                        + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {counter} **عدد المرات مع الرسالة أدناه**",
+                        + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {counter} **عدد المرات**"
                     )
                 else:
                     await event.client.send_message(
                         BOTLOG_CHATID,
                         "**⌔∮ التڪرار  **\n"
-                        + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **مع** {counter} **عدد المرات مع الرسالة أدناه**",
+                        + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **مع** {counter} **عدد المرات**"
                     )
             elif event.is_private:
                 await event.client.send_message(
                     BOTLOG_CHATID,
                     "**⌔∮ التكرار الوقتي **\n"
-                    + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {counter} **عدد المرات مع الرسالة أدناه مع التأخير** {sleeptimet} ** الثواني **",
+                    + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {counter} **عدد المرات**"
                 )
             else:
                 await event.client.send_message(
                     BOTLOG_CHATID,
                     "**⌔∮ التكرار الوقتي **\n"
-                    + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **مع** {counter} **عدد المرات مع الرسالة أدناه مع التأخير** {sleeptimet} ** الثواني **",
+                    + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **مع** {counter} **عدد المرات**"
                 )
 
             JoKeRUB = await event.client.send_file(BOTLOG_CHATID, JoKeRUB)
@@ -91,7 +92,7 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
                 await event.client.send_message(
                     BOTLOG_CHATID,
                     "**⌔∮ التڪرار  **\n"
-                    + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع** {counter} **رسائل الـ   :** \n"
+                    + f"**⌔∮ تم تنفيذ التكرار بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع** {counter} **رسائل ال** \n"
                     + f"⌔∮ `{spam_message}`",
                 )
     elif BOTLOG:
@@ -99,14 +100,14 @@ async def spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet, DelaySpam
             await event.client.send_message(
                 BOTLOG_CHATID,
                 "**⌔∮ التكرار الوقتي **\n"
-                + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {sleeptimet} seconds and with {counter} **رسائل الـ   :** \n"
+                + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع** {sleeptimet} **ثواني** \n"
                 + f"⌔∮ `{spam_message}`",
             )
         else:
             await event.client.send_message(
                 BOTLOG_CHATID,
                 "**⌔∮ التكرار الوقتي **\n"
-                + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع** {sleeptimet} **الثواني و مع** {counter} **رسائل الـ  ️ :** \n"
+                + f"**⌔∮ تم تنفيذ التكرار الوقتي  بنجاح في ** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع** {sleeptimet} **ثواني** \n"
                 + f"⌔∮ `{spam_message}`",
             )
 
@@ -119,7 +120,7 @@ async def spammer(event):
         counter = int(l313l[0])
     except Exception:
         return await edit_delete(
-            event, "⌔∮ يجي استخدام كتابة صحيحة الرجاء التاكد من الامر اولا ⚠️"
+            event, "⌔∮ يجب استخدام كتابة صحيحة الرجاء التاكد من الامر اولا ⚠️"
         )
     if counter > 50:
         sleeptimet = 0.5
@@ -130,6 +131,7 @@ async def spammer(event):
     await event.delete()
     addgvar("spamwork", True)
     await spam_function(event, JoKeRUB, l313l, sleeptimem, sleeptimet)
+
 
 @l313l.on(admin_cmd(pattern=f"{Mukrr}"))
 async def spammer(event):
@@ -204,13 +206,13 @@ async def stickerpack_spam(event):
             await event.client.send_message(
                 BOTLOG_CHATID,
                 "**⌔∮ تكرار الملصق :**\n"
-                + f"**⌔∮ تم تنفيذ الإزعاج بواسطة حزمة الملصقات في  :** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع الحزمة **",
+                + f"**⌔∮ تم تنفيذ الإزعاج بواسطة حزمة الملصقات في  :** [المستخدم](tg://user?id={event.chat_id}) **الدردشة مع الحزمة **"
             )
         else:
             await event.client.send_message(
                 BOTLOG_CHATID,
                 "**⌔∮ تكرار الملصق :**\n"
-                + f"**⌔∮ تم تنفيذ الإزعاج بواسطة حزمة الملصقات في   :** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع الحزمة **",
+                + f"**⌔∮ تم تنفيذ الإزعاج بواسطة حزمة الملصقات في   :** {get_display_name(await event.get_chat())}(`{event.chat_id}`) **الدردشة مع الحزمة **"
             )
         await event.client.send_file(BOTLOG_CHATID, reqd_sticker_set.documents[0])
 
@@ -271,7 +273,9 @@ async def stopspamrz(event):
         delgvar("spamwork")
         return await edit_delete(event, "**⌔∮ تم بنجاح ايقاف التكرار **")
     return await edit_delete(event, "**⌔∮ عذرا لم يتم تفعيل التكرار بالاصل**")
-#جميع الاكواد ادناه تمت كتابتها من قبل مطورين 7rB  ممنوع السرقة !
+
+
+# جميع الاكواد ادناه تمت كتابتها من قبل مطورين 7rB  ممنوع السرقة !
 async def robin_nshr(l313l, sleeptimet, chat, message, seconds):
     global yaAli
     yaAli = True
@@ -281,6 +285,7 @@ async def robin_nshr(l313l, sleeptimet, chat, message, seconds):
         else:
             sent_message = await l313l.send_message(chat, message.text)
         await asyncio.sleep(sleeptimet)
+
 @l313l.ar_cmd(pattern="نشر")
 async def Hussein(event):
     await event.delete()
@@ -304,11 +309,11 @@ async def Hussein(event):
                 event, f"⌔∮ لا يمكن العثور على المجموعة أو الدردشة {chat_username}: {str(e)}"
             )
         await asyncio.sleep(1)
-    
+
 async def robin_allnshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
-    7rB _chats = await l313l.get_dialogs()
+    robin_chats = await l313l.get_dialogs()
     while yaAli:
         for chat in robin_chats:
             if chat.is_group:
@@ -326,7 +331,7 @@ async def robin_allnshr(l313l, sleeptimet, message):
 async def Hussein(event):
     await event.delete()
     seconds = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
-    message =  await event.get_reply_message()
+    message = await event.get_reply_message()
     try:
         sleeptimet = int(seconds[0])
     except Exception:
@@ -337,11 +342,13 @@ async def Hussein(event):
     global yaAli
     yaAli = True
     await robin_allnshr(l313l, sleeptimet, message)
+
 super_groups = ["super", "سوبر"]
+
 async def robin_supernshr(l313l, sleeptimet, message):
     global yaAli
     yaAli = True
-    7rB _chats = await l313l.get_dialogs()
+    robin_chats = await l313l.get_dialogs()
     while yaAli:
         for chat in robin_chats:
             chat_title_lower = chat.title.lower()
@@ -354,11 +361,12 @@ async def robin_supernshr(l313l, sleeptimet, message):
                 except Exception as e:
                     print(f"Error in sending message to chat {chat.id}: {e}")
         await asyncio.sleep(sleeptimet)
+
 @l313l.ar_cmd(pattern="سوبر")
 async def Hussein(event):
     await event.delete()
     seconds = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
-    message =  await event.get_reply_message()
+    message = await event.get_reply_message()
     try:
         sleeptimet = int(seconds[0])
     except Exception:
@@ -369,8 +377,9 @@ async def Hussein(event):
     global yaAli
     yaAli = True
     await robin_supernshr(l313l, sleeptimet, message)
+
 @l313l.ar_cmd(pattern="ايقاف (النشر|نشر)")
-async def stop_7rB (event):
+async def stop_7rB(event):
     global yaAli
     yaAli = False
     await event.edit("**᯽︙ تم ايقاف النشر التلقائي بنجاح ✓** ")
