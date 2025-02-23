@@ -206,12 +206,3 @@ async def write_text_letter_by_letter(event):
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
 
-@l313l.on(admin_cmd(pattern="زر شفاف (.+)"))
-async def transparent_button(event):
-    url = event.pattern_match.group(1).strip()
-    if not url:
-        return await event.edit("يرجى تقديم رابط صالح.")
-
-    button = [{"text": "زر شفاف", "url": url}]
-    await bot.send_message(event.chat_id, "اضغط على الزر أدناه:", buttons=button)
-    await event.delete()
