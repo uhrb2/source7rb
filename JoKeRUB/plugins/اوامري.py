@@ -9,8 +9,8 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-JEP_IC = "https://t.me/Imain3/1995"
-ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {{mention}} \n\n "
+JEP_IC = "https://telegra.ph/file/762989c65df81fc2e96d7.jpg"
+ROE = f"☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n☆┊المستخـِدم ↶ {mention} \n\n "
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
@@ -113,7 +113,6 @@ async def _(event):
      Button.inline("التالي", data="krrznd"),
      Button.inline("رجوع", data="jrzst")]]
     await event.edit(JMAN, buttons=buttons)
-
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"krrznd")))
 @check_owner
