@@ -206,13 +206,18 @@ async def write_text_letter_by_letter(event):
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
 
-@l313l.on(admin_cmd(pattern="زر (.+) (.+)"))
-async def transparent_button(event):
-    match = event.pattern_match.group(1, 2)
-    if not match:
-        return await event.edit("يرجى تقديم رابط واسم الزر صالحين.")
+@l313l.on(admin_cmd(pattern="تشغيل الاونلاين"))
+async def enable_online(event):
+    addgvar("always_online", "true")
+    await event.edit("**تم تفعيل ميزة البقاء أونلاين ✓**")
+    while gvarstatus("always_online"):
+        await bot.send_read_acknowledge(event.chat_id)
+        await asyncio.sleep(60)  # تكرار كل دقيقة
 
-    name, url = match
-    button = [{"text": name, "url": url}]
-    await bot.send_message(event.chat_id, "اضغط على الزر أدناه:", buttons=button)
-    await event.delete()
+@l313l.on(admin_cmd(pattern="تعطيل الاونلاين"))
+async def disable_online(event):
+    if gvarstatus("always_online"):
+        delgvar("always_online")
+        await event.edit("**تم تعطيل ميزة البقاء أونلاين ✓**")
+    else:
+        await event.edit("**ميزة البقاء أونلاين غير مفعلة!**")
