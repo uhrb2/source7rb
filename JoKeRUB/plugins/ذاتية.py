@@ -222,3 +222,32 @@ async def disable_online(event):
     else:
         await event.edit("**ميزة البقاء أونلاين غير مفعلة!**")
 
+import openai
+
+@l313l.on(admin_cmd(pattern="رسم صورة (.+)"))
+async def generate_image(event):
+    prompt = event.pattern_match.group(1).strip()
+    if not prompt:
+        return await event.edit("يرجى توفير وصف للصورة.")
+    
+    await event.edit("جاري إنشاء الصورة...")
+    
+    try:
+        response = openai.Image.create(
+            prompt=prompt,
+            n=1,
+            size="512x512"
+        )
+        image_url = response['data'][0]['url']
+        
+        await event.client.send_file(
+            event.chat_id,
+            image_url,
+            caption=f"تم إنشاء الصورة بناءً على الوصف: {prompt}"
+        )
+        await event.delete()
+    except Exception as e:
+        await event.edit(f"حدث خطأ أثناء إنشاء الصورة: {str(e)}")
+
+# تأكد من أنك قد قمت بتثبيت مكتبة OpenAI باستخدام الأمر التالي:
+# pip install openai
