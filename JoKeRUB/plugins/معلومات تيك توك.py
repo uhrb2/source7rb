@@ -5,7 +5,7 @@ import re
 import os
 import datetime
 
-@l313l.on(events.NewMessage(pattern='\.حساب تيك (.+)'))
+@l313l.on(events.NewMessage(pattern='\.جلب معلومات حساب تيكتوك (.+)'))
 async def tiktok_scraper(event):
     user = event.pattern_match.group(1)
     url = f'https://www.tiktok.com/@{user}'
@@ -42,18 +42,20 @@ async def tiktok_scraper(event):
         await event.reply(file=avatar_filename)
         
         response = f"""
-         🔹معلومات حساب التيك توك :
-  🏷 اسم الحساب  :   {nickname}
- 🏷 ايدي الحساب  :  {user_id}
-👥 عدد المتابعين  :   {follower_count}
-🔄 عدد المتابعهم  : {following_count}
-🎬 عدد الفديوهات :  {video_count}
-📝 البايو  : {bio}
-تم سحب المعلومات بواسطه 𝗦𝗼𝘂𝗿𝗰𝗲 𝗥𝗼𝗯𝗶𝗻
+         ╭─━━━━━━𖤐━━━━━━─╮
+🔹معلومات حساب التيك توك ورده :
+ ✦ الاسم   :   {nickname}───────────────
+ ✦ الايدي   :  {user_id}───────────────
+✦ المتابعين  :   {follower_count}───────────────
+✦ لمتابعهم  : {following_count}───────────────
+✦ الفديوهات :  {video_count}───────────────
+✦ البايو  : {bio}╰
+╰─━━━━━━𖤐━━━━━━─╯
+✦  Source @RobinUserBot  ✦
         """
         
         await event.reply(response)
     except Exception as e:
-        await event.reply(f"❌ حدث خطأ أثناء جلب البيانات: {str(e)}")
+        await event.reply(f"❌ اليوزر خطا ورده: {str(e)}")
 
 l313l.run_until_disconnected()
