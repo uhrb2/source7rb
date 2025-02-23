@@ -224,7 +224,7 @@ async def disable_online(event):
 
 import requests
 
-@l313l.on(admin_cmd(pattern="معلومات تيكتوك (.+)"))
+@l313l.on(admin_cmd(pattern="كاشف تيكتوك (.+)"))
 async def tiktok_info(event):
     username = event.pattern_match.group(1).strip()
     if not username:
