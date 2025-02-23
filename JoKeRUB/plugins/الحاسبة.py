@@ -1,11 +1,7 @@
 import random, re 
-
 from telethon import Button
 from telethon.events import CallbackQuery, InlineQuery
-
 from JoKeRUB import CMD_HELP, l313l
-
-# 𝗧𝗲𝗹𝗲𝗚𝗿𝗮𝗠 : @robinuserbot  ~ @F_O_1
 from ..core.decorators import check_owner
 
 CALC = {}
@@ -36,7 +32,6 @@ tultd = [Button.inline(f"{x}", data=f"calc{x}") for x in m]
 lst = list(zip(tultd[::4], tultd[1::4], tultd[2::4], tultd[3::4]))
 lst.append([Button.inline("=", data="calc=")])
 
-
 @l313l.on(admin_cmd(pattern="حاسبة(?:\s|$)([\s\S]*)"))
 async def icalc(e):
     if e.client._bot:
@@ -46,7 +41,6 @@ async def icalc(e):
     results = await e.client.inline_query(Config.TG_BOT_USERNAME, "calc")
     await results[0].click(e.chat_id, silent=True, hide_via=True)
     await e.delete()
-
 
 @l313l.tgbot.on(InlineQuery)
 async def inlinecalc(event):
@@ -62,8 +56,6 @@ async def inlinecalc(event):
         )
         await event.answer([calc])
 
-
-# 𝗧𝗲𝗹𝗲𝗚𝗿𝗮𝗠 : @RobinUserBot  ~ @F_O_1
 @l313l.tgbot.on(CallbackQuery(data=re.compile(b"calc(.*)")))
 @check_owner
 async def _(e):  # sourcery no-metrics
@@ -111,13 +103,14 @@ async def _(e):  # sourcery no-metrics
         if get:
             if get.endswith(("*", ".", "/", "-", "+")):
                 get = get[:-1]
-            out = eval(get)
             try:
+                out = eval(get)
                 num = float(out)
                 await e.answer(f"▾∮ الجـواب : {num}", cache_time=0, alert=True)
             except BaseException:
                 CALC.pop(user)
                 await e.answer("خـطأ", cache_time=0, alert=True)
+            return
         await e.answer("غير معروف")
     else:
         if CALC.get(user):
@@ -128,8 +121,6 @@ async def _(e):  # sourcery no-metrics
         CALC.update({user: x})
         await e.answer(str(x))
 
-
-# 𝗧𝗲𝗹𝗲𝗚𝗿𝗮𝗠 : @RobinUserBot  ~ @F_O_1
 @l313l.tgbot.on(CallbackQuery(data=re.compile(b"recalc")))
 @check_owner
 async def _(e):
@@ -163,5 +154,3 @@ async def _(e):
 CMD_HELP.update(
     {"الحسابة": ".حاسبة" "\n فقط اكتب الامر لعرض حاسبة علميه تحتاج الى تفعيل وضع الانلاين اولا\n\n"}
 )
-
-
