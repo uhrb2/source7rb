@@ -206,79 +206,12 @@ async def write_text_letter_by_letter(event):
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
 
-# إضافة زر تفعيل وتعطيل لعبة الروليت
-@l313l.on(admin_cmd(pattern="تفعيل_الروليت"))
-async def enable_roulette(event):
-    addgvar("roulette_enabled", "true")
-    await event.edit("**تم تفعيل لعبة الروليت ✓**")
+@l313l.on(admin_cmd(pattern="زر شفاف (.+)"))
+async def transparent_button(event):
+    url = event.pattern_match.group(1).strip()
+    if not url:
+        return await event.edit("يرجى تقديم رابط صالح.")
 
-@l313l.on(admin_cmd(pattern="تعطيل_الروليت"))
-async def disable_roulette(event):
-    if gvarstatus("roulette_enabled"):
-        delgvar("roulette_enabled")
-        await event.edit("**تم تعطيل لعبة الروليت ✓**")
-    else:
-        await event.edit("**لعبة الروليت غير مفعلة!**")
-
-from telethon import events
-import random, re
-from JoKeRUB.utils import admin_cmd
-import asyncio 
-from JoKeRUB import l313l
-from ..sql_helper.globals import addgvar, delgvar, gvarstatus
-import os
-import datetime
-from JoKeRUB import *
-
-@l313l.on(admin_cmd(pattern="تفعيل_الروليت"))
-async def enable_roulette(event):
-    addgvar("roulette_enabled", "true")
-    await event.edit("**تم تفعيل لعبة الروليت ✓**")
-
-@l313l.on(admin_cmd(pattern="تعطيل_الروليت"))
-async def disable_roulette(event):
-    if gvarstatus("roulette_enabled"):
-        delgvar("roulette_enabled")
-        await event.edit("**تم تعطيل لعبة الروليت ✓**")
-    else:
-        await event.edit("**لعبة الروليت غير مفعلة!**")
-
-@l313l.on(admin_cmd(pattern="انضمام_الروليت"))
-async def join_roulette(event):
-    if not gvarstatus("roulette_enabled"):
-        return await event.edit("**لعبة الروليت غير مفعلة!**")
-    
-    user_id = event.sender_id
-    participants = gvarstatus("roulette_participants") or []
-    if user_id in participants:
-        await event.edit("**أنت بالفعل مشترك في لعبة الروليت!**")
-    else:
-        participants.append(user_id)
-        addgvar("roulette_participants", participants)
-        await event.edit("**تم انضمامك إلى لعبة الروليت ✓**")
-
-@l313l.on(admin_cmd(pattern="مغادرة_الروليت"))
-async def leave_roulette(event):
-    if not gvarstatus("roulette_enabled"):
-        return await event.edit("**لعبة الروليت غير مفعلة!**")
-    
-    user_id = event.sender_id
-    participants = gvarstatus("roulette_participants") or []
-    if user_id not in participants:
-        await event.edit("**أنت لست مشترك في لعبة الروليت!**")
-    else:
-        participants.remove(user_id)
-        addgvar("roulette_participants", participants)
-        await event.edit("**تم مغادرتك من لعبة الروليت ✓**")
-
-@l313l.on(admin_cmd(pattern="روليت"))
-async def roulette_game(event):
-    if not gvarstatus("roulette_enabled"):
-        return await event.edit("**لعبة الروليت غير مفعلة!**")
-    
-    participants = gvarstatus("roulette_participants") or []
-    if not participants:
-        return await event.edit("**لا يوجد مشاركين في لعبة الروليت!**")
-    
-    winner = random.choice(participants)
-    await event.edit(f"🎉 الفائز في لعبة الروليت هو: [{winner}](tg://user?id={winner})")
+    button = [{"text": "زر شفاف", "url": url}]
+    await bot.send_message(event.chat_id, "اضغط على الزر أدناه:", buttons=button)
+    await event.delete()
