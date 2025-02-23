@@ -224,41 +224,17 @@ async def disable_online(event):
 
 import openai
 
-@l313l.on(admin_cmd(pattern="رسم صورة (.+)"))
-async def generate_image(event):
-    prompt = event.pattern_match.group(1).strip()
-    if not prompt:
-        return await event.edit("يرجى توفير وصف للصورة.")
-    
-    await event.edit("جاري إنشاء الصورة...")
-    
+@l313l.on(admin_cmd(pattern="رسم مربع (\d+)"))
+async def draw_square(event):
     try:
-        response = openai.Image.create(
-            prompt=prompt,
-            n=1,
-            size="512x512"
-        )
-        image_url = response['data'][0]['url']
+        size = int(event.pattern_match.group(1).strip())
+        if size < 1:
+            return await event.edit("يرجى توفير حجم أكبر من 0.")
         
-        await event.client.send_file(
-            event.chat_id,
-            image_url,
-            caption=f"تم إنشاء الصورة بناءً على الوصف: {prompt}"
-        )
-        await event.delete()
-    except Exception as e:
-        await event.edit(f"حدث خطأ أثناء إنشاء الصورة: {str(e)}")
-
-# تأكد من أنك قد قمت بتثبيت مكتبة OpenAI باستخدام الأمر التالي:
-# pip install openai
-
-
-import OpenAI from "openai";
-const openai = new OpenAI();
-const completion = await openai.chat.completions.create({
-    model: "gpt-4o",
-    store: true,
-    messages: [
-        {"role": "user", "content": "write a haiku about ai"}
-    ]
-});
+        square = ""
+        for i in range(size):
+            square += "█" * size + "\n"
+        
+        await event.edit(f"تم رسم مربع بحجم {size}:\n\n{square}")
+    except ValueError:
+        await event.edit("يرجى توفير حجم صحيح.")
