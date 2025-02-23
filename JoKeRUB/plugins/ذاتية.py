@@ -226,6 +226,8 @@ import requests
 
 import requests
 
+import re
+
 @l313l.on(admin_cmd(pattern="كاشف تيكتوك (.+)"))
 async def tiktok_info(event):
     username = event.pattern_match.group(1).strip()
