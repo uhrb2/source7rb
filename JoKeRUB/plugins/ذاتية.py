@@ -221,3 +221,31 @@ async def disable_online(event):
         await event.edit("**تم تعطيل ميزة البقاء أونلاين ✓**")
     else:
         await event.edit("**ميزة البقاء أونلاين غير مفعلة!**")
+
+import requests
+
+@l313l.on(admin_cmd(pattern="معلومات تيكتوك (.+)"))
+async def tiktok_info(event):
+    username = event.pattern_match.group(1).strip()
+    if not username:
+        return await event.edit("يرجى توفير اسم مستخدم تيكتوك.")
+    
+    await event.edit("جاري جلب معلومات الحساب...")
+    
+    try:
+        response = requests.get(f"https://www.tiktok.com/@{username}")
+        if response.status_code != 200:
+            return await event.edit("لم أتمكن من الوصول إلى حساب تيكتوك.")
+        
+        account_info = response.json()  # Assuming the response is in JSON format
+        
+        message = f"""
+        **معلومات حساب تيكتوك**
+        - اسم المستخدم: {account_info['username']}
+        - عدد المتابعين: {account_info['followers']}
+        - عدد الفيديوهات: {account_info['videos']}
+        - عدد الإعجابات: {account_info['likes']}
+        """
+        await event.edit(message)
+    except Exception as e:
+        await event.edit(f"حدث خطأ أثناء جلب المعلومات: {str(e)}")
