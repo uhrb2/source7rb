@@ -224,6 +224,8 @@ async def disable_online(event):
 
 import requests
 
+import requests
+
 @l313l.on(admin_cmd(pattern="كاشف تيكتوك (.+)"))
 async def tiktok_info(event):
     username = event.pattern_match.group(1).strip()
@@ -231,20 +233,28 @@ async def tiktok_info(event):
         return await event.edit("يرجى توفير اسم مستخدم تيكتوك.")
     
     await event.edit("جاري جلب معلومات الحساب...")
-    
+
     try:
-        response = requests.get(f"https://www.tiktok.com/@{username}")
+        url = f"https://www.tiktok.com/@{username}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+        response = requests.get(url, headers=headers)
         if response.status_code != 200:
             return await event.edit("لم أتمكن من الوصول إلى حساب تيكتوك.")
         
-        account_info = response.json()  # Assuming the response is in JSON format
+        # استخراج المعلومات من الصفحة
+        html_content = response.text
+        followers = re.search(r'\"fans\":(\d+),', html_content).group(1)
+        likes = re.search(r'\"heart\":(\d+),', html_content).group(1)
+        videos = re.search(r'\"video\":(\d+),', html_content).group(1)
         
         message = f"""
         **معلومات حساب تيكتوك**
-        - اسم المستخدم: {account_info['username']}
-        - عدد المتابعين: {account_info['followers']}
-        - عدد الفيديوهات: {account_info['videos']}
-        - عدد الإعجابات: {account_info['likes']}
+        - اسم المستخدم: {username}
+        - عدد المتابعين: {followers}
+        - عدد الفيديوهات: {videos}
+        - عدد الإعجابات: {likes}
         """
         await event.edit(message)
     except Exception as e:
