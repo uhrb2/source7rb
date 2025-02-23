@@ -1,6 +1,3 @@
-#JoKeRUB ©
-#By Reda telegram: @rd0r0
-
 from telethon.tl.custom import Button
 from cryptography.fernet import Fernet
 import requests
@@ -55,15 +52,10 @@ async def rfilm(event):
     if 'results' in movie_data:
         for video in movie_data["results"]:
             url = "https://www.youtube.com/watch?v={}".format(video["key"])
-            x = [Button.url("مشاهدة الفيديو",url)]
-            
+            x = [Button.url("مشاهدة الفيديو", url)]
             buttons.append(x)
 
-    #await event.delete()
     try:
-        await l313l.send_message(event.chat_id, f"{event.chat_id}")
-        #await l313l.tgbot.send_message(
-            #event.chat_id,
         await event.edit(
             moviet,
             buttons=buttons,
@@ -72,8 +64,6 @@ async def rfilm(event):
             link_preview=False,
         )
     except ValueError:
-        #await l313l.send_message(
-            #event.chat_id,
         await event.edit(
             moviet,
             file=moviep,
@@ -82,12 +72,9 @@ async def rfilm(event):
         )
 
 
-    
-#Reda
-
 @l313l.ar_cmd(pattern="مسلسل")
 async def rfilm(event):
-    await event.edit("يرجى الانتضار جاري البحث على مسلسل...")
+    await event.edit("يرجى الانتظار جاري البحث على مسلسل...")
     dk = ek.encode()
     nk = ea.encode()
     cipher_suite = Fernet(dk)
@@ -123,7 +110,7 @@ async def rfilm(event):
     if 'results' in series_data:
         for video in series_data["results"]:
             url = "https://www.youtube.com/watch?v={}".format(video["key"])
-            x = [Button.url("مشاهدة الفيديو",url)]
+            x = [Button.url("مشاهدة الفيديو", url)]
             buttons.append(x)
     await event.delete()
     try:
