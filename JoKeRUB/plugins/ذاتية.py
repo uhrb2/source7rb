@@ -204,3 +204,42 @@ async def calculator(event):
         await event.edit(f"**نتيجة الحساب:** {result}")
     except Exception as e:
         await event.edit(f"**حدث خطأ:** {str(e)}")
+
+from telethon.tl.types import ChatBannedRights
+
+# إعداد أوامر الكتم وإلغاء الكتم
+@l313l.on(admin_cmd(pattern="كتم ?(.*)"))
+async def mute_user(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على رسالة المستخدم الذي ترغب في كتمه.")
+    
+    reply_message = await event.get_reply_message()
+    user = await event.client.get_entity(reply_message.sender_id)
+    chat = await event.get_chat()
+
+    # التحقق من صلاحيات المشرف
+    if not chat.admin_rights and not chat.creator:
+        return await event.edit("لست مشرفًا في هذه المجموعة!")
+    
+    # التحقق من عدم محاولة كتم المطور
+    if user.id == (await event.client.get_me()).id:
+        return await event.edit("لا يمكن كتم المطور.")
+    
+    await event.client.edit_permissions(event.chat_id, user.id, ChatBannedRights(until_date=None, send_messages=True))
+    await event.edit(f"تم كتم المستخدم [{user.first_name}](tg://user?id={user.id}) بنجاح.")
+
+@l313l.on(admin_cmd(pattern="الغاء_كتم ?(.*)"))
+async def unmute_user(event):
+    if not event.is_reply:
+        return await event.edit("يرجى الرد على رسالة المستخدم الذي ترغب في إلغاء كتمه.")
+    
+    reply_message = await event.get_reply_message()
+    user = await event.client.get_entity(reply_message.sender_id)
+    chat = await event.get_chat()
+
+    # التحقق من صلاحيات المشرف
+    if not chat.admin_rights and not chat.creator:
+        return await event.edit("لست مشرفًا في هذه المجموعة!")
+    
+    await event.client.edit_permissions(event.chat_id, user.id, ChatBannedRights(until_date=None, send_messages=None))
+    await event.edit(f"تم إلغاء كتم المستخدم [{user.first_name}](tg://user?id={user.id}) بنجاح.")
