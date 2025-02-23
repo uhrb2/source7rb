@@ -244,9 +244,9 @@ async def tiktok_info(event):
         
         # استخراج المعلومات من الصفحة
         html_content = response.text
-        followers_match = re.search(r'"fans":(\d+),', html_content)
-        likes_match = re.search(r'"heart":(\d+),', html_content)
-        videos_match = re.search(r'"video":(\d+),', html_content)
+        followers_match = re.search(r'"fans":(\d+)', html_content)
+        likes_match = re.search(r'"heart":(\d+)', html_content)
+        videos_match = re.search(r'"video":(\d+)', html_content)
 
         if followers_match and likes_match and videos_match:
             followers = followers_match.group(1)
@@ -256,3 +256,12 @@ async def tiktok_info(event):
             return await event.edit("لم أتمكن من استخراج المعلومات من الصفحة.")
         
         message = f"""
+        **معلومات حساب تيكتوك**
+        - اسم المستخدم: {username}
+        - عدد المتابعين: {followers}
+        - عدد الفيديوهات: {videos}
+        - عدد الإعجابات: {likes}
+        """
+        await event.edit(message)
+    except Exception as e:
+        await event.edit(f"حدث خطأ أثناء جلب المعلومات: {str(e)}")
