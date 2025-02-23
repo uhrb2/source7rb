@@ -198,6 +198,10 @@ async def disable_voice_save(event):
 
 
 @l313l.on(admin_cmd(pattern="اكتب (.+)"))
-async def write_text(event):
+async def write_text_letter_by_letter(event):
     text = event.pattern_match.group(1)
-    await event.edit(text)
+    result = ""
+    for char in text:
+        result += char
+        await event.edit(result)
+        await asyncio.sleep(0.1)  # إضافة تأخير بسيط بين كل حرف وآخر
