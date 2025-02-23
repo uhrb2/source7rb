@@ -212,7 +212,7 @@ async def enable_online(event):
     await event.edit("**تم تفعيل ميزة البقاء أونلاين ✓**")
     while gvarstatus("always_online"):
         await bot.send_read_acknowledge(event.chat_id)
-        await asyncio.sleep(60)  # تكرار كل دقيقة
+        await asyncio.sleep(0)  # تكرار كل دقيقة
 
 @l313l.on(admin_cmd(pattern="ايقاف الاونلاين"))
 async def disable_online(event):
