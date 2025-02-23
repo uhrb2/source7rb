@@ -256,12 +256,3 @@ async def tiktok_info(event):
             return await event.edit("لم أتمكن من استخراج المعلومات من الصفحة.")
         
         message = f"""
-        **معلومات حساب تيكتوك**
-        - اسم المستخدم: {username}
-        - عدد المتابعين: {followers}
-        - عدد الفيديوهات: {videos}
-        - عدد الإعجابات: {likes}
-        """
-        await event.edit(message)
-    except Exception as e:
-        await event.edit(f"حدث خطأ أثناء جلب المعلومات: {str(e)}")
