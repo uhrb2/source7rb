@@ -251,3 +251,13 @@ async def generate_image(event):
 
 # تأكد من أنك قد قمت بتثبيت مكتبة OpenAI باستخدام الأمر التالي:
 # pip install openai
+
+import OpenAI from "openai";
+const openai = new OpenAI();
+const completion = await openai.chat.completions.create({
+    model: "gpt-4o",
+    store: true,
+    messages: [
+        {"role": "user", "content": "write a haiku about ai"}
+    ]
+});
