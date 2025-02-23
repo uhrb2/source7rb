@@ -242,3 +242,8 @@ async def unmute_user(event):
     
     await event.client.edit_permissions(event.chat_id, user.id, ChatBannedRights(until_date=None, send_messages=None))
     await event.edit(f"تم إلغاء كتم المستخدم [{user.first_name}](tg://user?id={user.id}) بنجاح.")
+
+@l313l.on(admin_cmd(pattern="اكتب (.+)"))
+async def write_text(event):
+    text = event.pattern_match.group(1)
+    await event.edit(text)
