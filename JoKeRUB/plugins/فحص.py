@@ -100,7 +100,7 @@ temp = """
 ╰─━━━━━━𖤐━━━━━━─╯
 ✦ {ALIVE_TEXT} ✦ """
 
-@l313l.on(admin_cmd(pattern="تغيير كليشة الفحص(.+)"))
+@l313l.on(admin_cmd(pattern="تغيير كليشة الفحص (.+)"))
 async def change_alive_template(event):
     new_template = event.pattern_match.group(1)
     addgvar("ALIVE_TEMPLATE", new_template)
