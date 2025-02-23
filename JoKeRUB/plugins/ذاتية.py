@@ -239,33 +239,41 @@ async def draw_square(event):
     except ValueError:
         await event.edit("يرجى توفير حجم صحيح.")
 
-@l313l.on(admin_cmd(pattern="دمج الصور"))
+@l313l.on(admin_cmd(pattern="دمج رقم1 ورقم2"))
 async def merge_images(event):
     if not event.is_reply:
         return await event.edit("يرجى الرد على الرسالة التي تحتوي على الصور.")
     
     messages = await event.get_reply_message()
-    if not messages.media:
+    if not messages.photo:
         return await event.edit("الرسالة لا تحتوي على صور.")
     
-    image1 = await messages[0].download_media()
-    image2 = await messages[1].download_media()
+    # تحميل الصور من الرسائل
+    image1_data = await messages[0].download_media()
+    image2_data = await messages[1].download_media()
     
-    with open(image1, 'rb') as img1, open(image2, 'rb') as img2:
+    # فتح الصور وقراءة البيانات الثنائية
+    with open(image1_data, 'rb') as img1, open(image2_data, 'rb') as img2:
         img1_data = img1.read()
         img2_data = img2.read()
     
-    merged_image = img1_data + b'\n' + img2_data
-    
-    with open('merged_image.jpg', 'wb') as merge_img:
-        merge_img.write(merged_image)
-    
+    # دمج الصور بشكل بسيط
+    merged_image_data = img1_data + img2_data
+
+    # حفظ الصورة المدمجة
+    merged_image_path = 'merged_image.jpg'
+    with open(merged_image_path, 'wb') as merge_img:
+        merge_img.write(merged_image_data)
+
+    # إرسال الصورة المدمجة
     await event.client.send_file(
         event.chat_id,
-        'merged_image.jpg',
+        merged_image_path,
         caption="تم دمج الصور بنجاح"
     )
     await event.delete()
-    os.remove(image1)
-    os.remove(image2)
-    os.remove('merged_image.jpg')
+    
+    # إزالة الملفات المؤقتة
+    os.remove(image1_data)
+    os.remove(image2_data)
+    os.remove(merged_image_path)
