@@ -9,7 +9,7 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-JEP_IC = "https://t.me/Imain3/1985"
+JEP_IC = "https://t.me/Imain3/1993"
 ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n "
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
