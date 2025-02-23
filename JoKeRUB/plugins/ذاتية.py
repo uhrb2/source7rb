@@ -204,4 +204,4 @@ async def write_text_letter_by_letter(event):
     for char in text:
         result += char
         await event.edit(result)
-        await asyncio.sleep(0.1)  # إضافة تأخير بسيط بين كل حرف وآخر
+        await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
