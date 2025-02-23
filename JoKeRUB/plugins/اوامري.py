@@ -9,8 +9,8 @@ from JoKeRUB import l313l
 from ..core import check_owner
 from ..Config import Config
 
-JEP_IC = "https://t.me/Imain3/1996"  # تأكد من أن الرابط ينتهي بأحد الامتدادات المدعومة
-ROE = f"☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n☆┊المستخـِدم ↶ {{mention}} \n\n "
+JEP_IC = "https://t.me/Imain3/1996"
+ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n "
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
