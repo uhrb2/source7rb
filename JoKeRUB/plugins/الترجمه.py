@@ -42,7 +42,7 @@ async def gtrans(text, lan):
     try:
         response = translate(text, lang_tgt=lan)
         if response == 400:
-            return Flase
+            return False
     except Exception as er:
         return f"حدث خطأ \n{er}"
     return response
@@ -97,33 +97,4 @@ async def _(event):
         await edit_delete(event, f"**خطا:**\n`{exc}`", time=5)
 
 
-@l313l.ar_cmd(pattern="(الترجمة الفورية|الترجمه الفوريه|ايقاف الترجمة|ايقاف الترجمه)")
-async def reda(event):
-    if gvarstatus("transnow"):
-        delgvar("transnow")
-        await edit_delete(event, "**᯽︙ تم تعطيل الترجمه الفورية **")
-    else:
-        addgvar("transnow", "Reda") 
-        await edit_delete(event, "**᯽︙ تم تفعيل الترجمه الفورية**")
-
-@l313l.ar_cmd(pattern="لغة الترجمة")
-async def Reda_is_Here(event):
-    t = event.text.replace(".لغة الترجمة", "")
-    t = t.replace(" ", "")
-    try:  
-        lang = langs[t]
-    except BaseException as er:
-        return await edit_delete(event, "**᯽︙ !تأكد من قائمة اللغات. لا يوجد هكذا لغة**")
-    addgvar("translang", lang)
-    await edit_delete(event, f"**᯽︙ تم تغير لغة الترجمة الى {lang} بنجاح ✓ **")
-
-# Reda
-@l313l.on(events.NewMessage(outgoing=True))
-async def reda(event):
-    if gvarstatus("transnow"):
-        if event.media or isinstance(event.media, types.MessageMediaDocument) or isinstance(event.media, types.MessageMediaInvoice):
-            print ("JoKeRUB")
-        else:
-            original_message = event.message.message
-            translated_message = await gtrans(soft_deEmojify(original_message.strip()), gvarstatus("translang") or "en")
-            await event.message.edit(translated_message)
+@l313l
