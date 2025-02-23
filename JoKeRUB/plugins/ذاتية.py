@@ -205,3 +205,26 @@ async def write_text_letter_by_letter(event):
         result += char
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
+
+# إضافة زر تفعيل وتعطيل لعبة الروليت
+@l313l.on(admin_cmd(pattern="تفعيل_الروليت"))
+async def enable_roulette(event):
+    addgvar("roulette_enabled", "true")
+    await event.edit("**تم تفعيل لعبة الروليت ✓**")
+
+@l313l.on(admin_cmd(pattern="تعطيل_الروليت"))
+async def disable_roulette(event):
+    if gvarstatus("roulette_enabled"):
+        delgvar("roulette_enabled")
+        await event.edit("**تم تعطيل لعبة الروليت ✓**")
+    else:
+        await event.edit("**لعبة الروليت غير مفعلة!**")
+
+# إضافة أمر لعبة الروليت
+@l313l.on(admin_cmd(pattern="روليت"))
+async def roulette_game(event):
+    if not gvarstatus("roulette_enabled"):
+        return await event.edit("**لعبة الروليت غير مفعلة!**")
+
+    result = random.choice(["💥 بوم! لقد خسرت", "🎉 نجوت! لقد فزت"])
+    await event.edit(result)
