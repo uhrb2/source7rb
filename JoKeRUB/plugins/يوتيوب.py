@@ -43,7 +43,7 @@ def get_cookies_file():
         raise FileNotFoundError("No .txt files found in the specified folder.")
     cookie_txt_file = random.choice(txt_files)
     return cookie_txt_file
- 
+
 
 plugin_category = "misc"
 
@@ -65,7 +65,7 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile" : get_cookies_file(),
+    "cookiefile": get_cookies_file(),
 }
 
 video_opts = {
@@ -80,7 +80,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile" : get_cookies_file(),
+    "cookiefile": get_cookies_file(),
 }
 
 
@@ -199,7 +199,6 @@ async def download_audio(event):
     reply_to_id = await reply_id(event)
     ytdl_data = await ytdl_down(catevent, audio_opts, url)
     if ytdl_data is None:
-
         return
     await catevent.edit(
         f"᯽︙ يتم لتحميل الأغنية:\
@@ -266,7 +265,7 @@ async def download_video(event):
     catevent = await edit_or_reply(event, "᯽︙ يتم التحميل انتظر قليلا")
     reply_to_id = await reply_id(event)
     ytdl_data = await ytdl_down(catevent, video_opts, url)
-    if ytdl_down is None:
+    if ytdl_data is None:
         return
     f = pathlib.Path(f"{ytdl_data['title']}.mp4".replace("|", "_"))
     catthumb = pathlib.Path(f"{ytdl_data['title']}.jpg".replace("|", "_"))
