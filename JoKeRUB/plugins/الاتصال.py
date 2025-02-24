@@ -10,19 +10,19 @@ import os
 voice_message_path = "default_voice_message.ogg"
 feature_enabled = True
 
-@l313l.on(admin_cmd(pattern="تفعيل الرسالة الصوتية"))
+@l313l.on(admin_cmd(pattern="تفعيل_الرد_الصوتي"))
 async def enable_voice_message(event):
     global feature_enabled
     feature_enabled = True
-    await event.edit("تم تفعيل الرسالة الصوتية عند عدم الرد.")
+    await event.edit("تم تفعيل الرد الصوتي عند عدم الرد.")
 
-@l313l.on(admin_cmd(pattern="تعطيل الرسالة الصوتية"))
+@l313l.on(admin_cmd(pattern="تعطيل_الرد_الصوتي"))
 async def disable_voice_message(event):
     global feature_enabled
     feature_enabled = False
-    await event.edit("تم تعطيل الرسالة الصوتية عند عدم الرد.")
+    await event.edit("تم تعطيل الرد الصوتي عند عدم الرد.")
 
-@l313l.on(admin_cmd(pattern="إضافة بصمة صوتية"))
+@l313l.on(admin_cmd(pattern="إضافة_رسالة_صوتية"))
 async def add_voice_message(event):
     if not event.is_reply:
         return await event.edit("يرجى الرد على الرسالة الصوتية لإضافتها.")
@@ -30,9 +30,9 @@ async def add_voice_message(event):
     voice = await reply_message.download_media()
     global voice_message_path
     voice_message_path = voice
-    await event.edit("تم إضافة البصمة الصوتية بنجاح.")
+    await event.edit("تم إضافة الرسالة الصوتية بنجاح.")
 
-@l313l.on(admin_cmd(pattern="تغيير بصمة صوتية"))
+@l313l.on(admin_cmd(pattern="تغيير_الرسالة_الصوتية"))
 async def change_voice_message(event):
     if not event.is_reply:
         return await event.edit("يرجى الرد على الرسالة الصوتية لتغييرها.")
@@ -40,7 +40,7 @@ async def change_voice_message(event):
     voice = await reply_message.download_media()
     global voice_message_path
     voice_message_path = voice
-    await event.edit("تم تغيير البصمة الصوتية بنجاح.")
+    await event.edit("تم تغيير الرسالة الصوتية بنجاح.")
 
 # Function to handle unanswered calls
 @l313l.on(events.Raw)
