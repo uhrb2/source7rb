@@ -325,7 +325,7 @@ from JoKeRUB import *
 
 # باقي الكود...
 
-@l313l.on(admin_cmd(pattern="وقت انشاء الحساب ?(.*)"))
+@l313l.on(admin_cmd(pattern="كشف انشاء الحساب ?(.*)"))
 async def account_creation_date(event):
     """معرفة تاريخ إنشاء الحساب"""
     user = await event.get_reply_message()
