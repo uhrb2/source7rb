@@ -76,7 +76,8 @@ async def wait_for_response(client, user_id, timeout=30):
 
     async def response_handler(event):
         if event.sender_id == int(user_id):
-            future.set_result(event)
+            if not future.done():
+                future.set_result(event)
 
     client.add_event_handler(response_handler, events.NewMessage)
 
