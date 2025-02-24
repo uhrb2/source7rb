@@ -24,33 +24,6 @@ async def promote_user(event):
     if not match:
         return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
     
-    roles = {
-        "مساعد": "مطور مساعد",
-        "ادمن": "ادمن",
-        "مميز": "مميز",
-        "مرت": "مرتك",
-        "جلب": "جلب",
-        "تاج": "تاج",
-        "قرد": "قرد",
-        "بكلبي": "بكلبك",
-        "مطي": "مطي",
-        "زوجي": "زوجج",
-        "زاحف": "زاحف",
-        "كحبة": "كحبة",
-        "فرخ": "فرخ",
-        "حاتة": "حاتة",
-        "هايشة": "هايشة",
-        "صاك": "صاك",
-        "ايجة": "ايچة",
-        "زبال": "زبال",
-        "كواد": "كواد",
-        "ديوث": "ديوث"
-    }
-
-    role = roles.get(match)
-    if not role:
-        return await edit_or_reply(event, "**- الدور غير صالح. يرجى تحديد دور صحيح**")
-
     user, custom = await get_user_from_event(event)
     if not user:
         return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
@@ -60,6 +33,6 @@ async def promote_user(event):
     me = await event.client.get_me()
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
-    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {role} بواسطة :** {my_mention}")
+    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
 # بقية الأكواد...
