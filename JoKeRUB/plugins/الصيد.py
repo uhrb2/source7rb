@@ -662,3 +662,59 @@ async def custom_hunt(event):
     itsclim.append("off")
     trys[0] = 0
     await event.client.send_message(event.chat_id, "**✅│تم الانتهاء من عملية الصيد بنجاح!**")
+
+@l313l.ar_cmd(pattern="صيد معنى")
+async def random_meaningful_hunt(event):
+    meanings = ["happy", "funny", "cool", "awesome", "great"]  # قائمة معاني عشوائية
+    choice = random.choice(meanings)
+    
+    rub = f"@{l313l.me.username}" if l313l.me.username else ""
+    ch = await l313l(
+        functions.channels.CreateChannelRequest(
+            title="صيـد روبن معنى عشوائي",
+            about=f"This channel to hunt username by - @RobinUserBot | {rub}",
+        )
+    )
+    try:
+        ch = ch.updates[1].channel_id
+    except Exception:
+        ch = ch.chats[0].id
+
+    itsclim.clear()
+    itsclim.append("on")
+    vedmod = True
+    while vedmod:
+        username = f"{choice}{random.randint(100, 999)}"
+        if username == "stop":
+            itsclim.clear()
+            itsclim.append("off")
+            trys[0] = 0
+            await edit_or_reply(event, "**✅│تم إيقاف عملية الصيد بنجاح!**")
+            break
+        if username == "error":
+            await edit_or_reply(event, f"**⛔️│عذرًا، المعنى غير موجود:** {choice}")
+            break
+        isav = await check_user(username)
+        if isav:
+            try:
+                await l313l(
+                    functions.channels.UpdateUsernameRequest(
+                        channel=ch, username=username
+                    )
+                )
+                await event.client.send_message(event.chat_id,
+                    f"**✅│تم الصيد بنجاح!**\n\n"
+                    f"🔹 **المعرف:** @{username}\n"
+                    f"🔹 **بواسطة:** @RobinUserBot\n"
+                    f"🔹 **عدد المحاولات:** {trys[0]}"
+                )
+                vedmod = False
+                break
+            except Exception as e:
+                pass
+        trys[0] += 1
+        await asyncio.sleep(1)
+    itsclim.clear()
+    itsclim.append("off")
+    trys[0] = 0
+    await event.client.send_message(event.chat_id, "**✅│تم الانتهاء من عملية الصيد بنجاح!**")
