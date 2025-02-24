@@ -35,7 +35,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [Button.inline("🔮 الملصقات وصور ", data="jrzst")],
                 [Button.inline("📭 الأكستـرا ", data="iiers"),
                  Button.inline("🪇 الانتحال والتقليد ", data="uscuxrz")],
-                [Button.inline("📺 قنوات السورس ", data="https://t.me/RobinUserBot")]
+                [Button.url("SourceRobin", "https://t.me/RobinUserBot")]
             ]
 
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
