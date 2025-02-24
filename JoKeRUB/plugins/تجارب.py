@@ -7,7 +7,7 @@ from telethon.sessions import StringSession
 API_ID = 24347380
 API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
 BOT_TOKEN = "6553805041:AAGvTwajtbQ6ZOJSzAo99ey0wDVK_5i5zRc"
-DB_FILE = "users.db"  # تغيير اسم قاعدة البيانات إلى .db
+DB_FILE = "F_O_1.db"  # تغيير اسم قاعدة البيانات إلى .db
 
 ADMIN_USERNAME = "@F_O_1"
 
