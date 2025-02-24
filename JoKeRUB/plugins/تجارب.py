@@ -3,10 +3,10 @@ import asyncio
 from telethon import TelegramClient, events, Button
 from telethon.sessions import StringSession
 
-API_ID = 24347380 
+API_ID = 24347380
 API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
-BOT_TOKEN = "7579264023:AAEia_w_rfEiadOSBdOmH4ohT0KhnXCiExI"
-DB_FILE = "users.json" 
+BOT_TOKEN = "6553805041:AAGvTwajtbQ6ZOJSzAo99ey0wDVK_5i5zRc"
+DB_FILE = "users.json"
 
 ADMIN_USERNAME = "@F_O_1"
 def load_data(file_path):
@@ -68,8 +68,6 @@ async def add_account(event):
         finally:
             bot.remove_event_handler(receive_session, events.NewMessage)
 
-
-from telethon.tl.functions.channels import JoinChannelRequest
 
 from telethon.tl.functions.channels import JoinChannelRequest
 
@@ -147,6 +145,56 @@ async def vote(event):
     except Exception:
         await event.respond("**⌔︙ حدث خطأ**")
 
+
+@bot.on(events.CallbackQuery(data=b'spam_words'))
+async def spam_words(event):
+    user_id = str(event.sender_id)
+    if not users.get(user_id, {}).get('is_vip', False):
+        return
+    if 'sessions' not in users[user_id] or not users[user_id]['sessions']:
+        await event.edit("**⌔︙ ماعندك حسابات ضايفهن استخدم زر اضف حساب**")
+        return
+
+    await event.edit("**⌔︙ ارسل رابط المناقشة من داخل القروب\n عندك ٣٠ ثانية للأرسال استعجل**")
+    discussion_link_event = await wait_for_response(bot, user_id, timeout=30)
+    if not discussion_link_event:
+        await event.respond("**⌔︙ انتهى الوقت، يرجى إعادة المحاولة**")
+        return
+    discussion_link = discussion_link_event.text.strip()
+
+    await event.respond("**⌔︙ ارسل الكلمة المراد كتابتها\n عندك ٣٠ ثانية للأرسال استعجل**")
+    word_event = await wait_for_response(bot, user_id, timeout=30)
+    if not word_event:
+        await event.respond("**⌔︙ انتهى الوقت، يرجى إعادة المحاولة**")
+        return
+    word = word_event.text.strip()
+
+    await event.respond("**⌔︙ ارسل الوقت بين كل رسالة بالثواني\n عندك ٣٠ ثانية للأرسال استعجل**")
+    interval_event = await wait_for_response(bot, user_id, timeout=30)
+    if not interval_event:
+        await event.respond("**⌔︙ انتهى الوقت، يرجى إعادة المحاولة**")
+        return
+    interval = int(interval_event.text.strip())
+
+    await event.respond("**⌔︙ جاري تنفيذ رشق الكلمات لجميع الحسابات...**")
+
+    for session_string in users[user_id]['sessions']:
+        try:
+            temp_client = TelegramClient(StringSession(session_string), API_ID, API_HASH)
+            await temp_client.connect()
+
+            for _ in range(10):  # عدد الرسائل المراد إرسالها
+                await temp_client.send_message(discussion_link, word)
+                await asyncio.sleep(interval)
+
+            await temp_client.disconnect()
+
+        except Exception as e:
+            print(f"خطأ أثناء إرسال الرسالة: {e}")
+
+    await event.respond("**⌔︙ تم رشق الكلمات بنجاح  ✓ **")
+
+
 @bot.on(events.NewMessage(pattern="/start"))
 async def start(event):
     user_id = str(event.sender_id)
@@ -167,8 +215,10 @@ async def start(event):
         buttons=[
             [Button.inline("اضف حساب", b'login')],
             [Button.inline("تصويت", b'vote')],
+            [Button.inline("رشق كلمات", b'spam_words')],
         ]
     )
+
 
 #------------------ اوامر الادمن👇🏻----------------#
 
