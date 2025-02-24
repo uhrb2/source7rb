@@ -324,17 +324,3 @@ import datetime
 from JoKeRUB import *
 
 # باقي الكود...
-
-@l313l.on(admin_cmd(pattern="معرفه انشاء الحساب ?(.*)"))
-async def account_creation_date(event):
-    """معرفة تاريخ إنشاء الحساب"""
-    user = await event.get_reply_message()
-    if not user:
-        user = await event.client.get_me()
-    else:
-        user = await event.client.get_entity(user.sender_id)
-    
-    created_date = user.date.strftime("%Y-%m-%d %H:%M:%S")
-    await event.edit(f"**تاريخ إنشاء الحساب:** {created_date}")
-
-# باقي الكود...
