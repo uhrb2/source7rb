@@ -4,7 +4,7 @@ class Development(Config):
     APP_ID = "24347380"
     API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
     # the name to display in your alive message
-    ALIVE_NAME = "- 7rB ."
+    ALIVE_NAME = os.getenv("USER")
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
     DB_URI = "postgresql://jokeer55:jokeer55@localhost:5432/jokeer55"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
