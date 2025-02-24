@@ -48,4 +48,4 @@ async def unanswered_call_handler(event):
     if feature_enabled and isinstance(event, InputPhoneCall):
         sender = await event.get_sender()
         await event.client(DiscardCall(call=event))
-        await event.client.send_file(sender.id, voice_message_path, caption="هذه رسالة صوتية تلقائية لعدم وجودي.")
+        await event.client.send_file(sender.id, voice_message_path, caption="هذه رسالة صوتية تلق
