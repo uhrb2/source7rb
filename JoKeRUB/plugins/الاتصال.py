@@ -50,10 +50,7 @@ async def unanswered_call_handler(event):
         await event.client(DiscardCall(call=event))
         await event.client.send_file(sender.id, voice_message_path, caption="هذه رسالة صوتية تلقائية لعدم وجودي.")
 
-from telethon import events
-from JoKeRUB.utils import admin_cmd
-from JoKeRUB import l313l
 
-@l313l.on(admin_cmd(pattern="استدعاء_المساعد"))
+@l313l.on(admin_cmd(pattern="استدعاء المساعد"))
 async def summon_assistant(event):
     await event.edit("تم استدعاء مساعد GitHub Copilot. كيف يمكنني مساعدتك؟")
