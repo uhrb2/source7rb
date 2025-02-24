@@ -35,6 +35,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [Button.inline("🔮 الملصقات وصور ", data="jrzst")],
                 [Button.inline("📭 الأكستـرا ", data="iiers"),
                  Button.inline("🪇 الانتحال والتقليد ", data="uscuxrz")],
+                [Button.inline("📺 قنوات السورس ",
             ]
 
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
@@ -195,3 +196,8 @@ async def _(event):
 async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"source_channels")))
+@check_owner
+async def _(event):
+    await event.edit("قنوات السورس:\n1. قناة 1\n2. قناة 2\n3. قناة 3")
