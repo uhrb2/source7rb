@@ -42,6 +42,6 @@ async def promote_user(event):
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     # تحديث رتبة المستخدم
-    user_ranks[{JEP_EM}] = match
+    user_ranks[{rotbat}] = match
 
     await event.respond(f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
