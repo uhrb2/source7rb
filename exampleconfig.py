@@ -1,10 +1,11 @@
 from sample_config import Config
+import os
+import telethon.sync
+
 class Development(Config):
     # get this values from the my.telegram.org
     APP_ID = "24347380"
     API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
-    # the name to display in your alive message
-    ALIVE_NAME = os.getenv("USER")
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
     DB_URI = "postgresql://jokeer55:jokeer55@localhost:5432/jokeer55"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
@@ -17,3 +18,22 @@ class Development(Config):
     SUDO_USERS = []
     # command hanler for sudo
     SUDO_COMMAND_HAND_LER = "."
+
+    # Function to get the account owner's name
+    @staticmethod
+    def get_alive_name():
+        try:
+            client = telethon.TelegramClient(StringSession(STRING_SESSION), APP_ID, API_HASH)
+            client.connect()
+            if not client.is_user_authorized():
+                client.send_code_request(phone)
+                client.sign_in(phone, input('Enter the code: '))
+            me = client.get_me()
+            return me.first_name
+        except Exception as e:
+            return "Unknown"
+        finally:
+            client.disconnect()
+
+    # the name to display in your alive message
+    ALIVE_NAME = get_alive_name()
