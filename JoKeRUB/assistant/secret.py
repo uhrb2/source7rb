@@ -6,7 +6,6 @@ from telethon.events import CallbackQuery
 
 from JoKeRUB import l313l
 
-
 @l313l.tgbot.on(CallbackQuery(data=re.compile(b"secret_(.*)")))
 async def on_plug_in_callback_query_handler(event):
     timestamp = int(event.pattern_match.group(1).decode("UTF-8"))
@@ -26,9 +25,9 @@ async def on_plug_in_callback_query_handler(event):
                 encrypted_tcxt = message["text"]
                 reply_pop_up_alert = encrypted_tcxt
             else:
-                reply_pop_up_alert = "مطـي الهمسـه مـو الك 🦓"
+                reply_pop_up_alert = "هذه الرسالة ليست مخصصة لك 🦓 - حقوق: uhrb2"
         except KeyError:
-            reply_pop_up_alert = "- عـذراً .. هذه الرسـالة لم تعد موجـوده في البوت"
+            reply_pop_up_alert = "- عذراً .. هذه الرسالة لم تعد موجودة في البوت - حقوق: uhrb2"
     else:
-        reply_pop_up_alert = "- عـذراً .. هذه الرسـالة لم تعد موجـوده في البـوت"
+        reply_pop_up_alert = "- عذراً .. هذه الرسالة لم تعد موجودة في البوت - حقوق: uhrb2"
     await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
