@@ -663,11 +663,16 @@ async def custom_hunt(event):
     trys[0] = 0
     await event.client.send_message(event.chat_id, "**✅│تم الانتهاء من عملية الصيد بنجاح!**")
 
-@l313l.ar_cmd(pattern="صيد معنى")
+@l313l.ar_cmd(pattern="صيد_معنى_عشوائي")
 async def random_meaningful_hunt(event):
-    meanings = ["happy", "funny", "cool", "awesome", "great"]  # قائمة معاني عشوائية
-    choice = random.choice(meanings)
-    
+    possible_meanings = ["happy", "funny", "cool", "awesome", "great"]
+    choice = random.choice(possible_meanings)
+    c = random.choices("qwertyuiopasdfghjklzxcvbnm")
+    d = random.choices("qwertyuiopasdfghjklzxcvbnm1234567890")
+    f = [choice, c[0], d[0], d[0], c[0], c[0]]
+    random.shuffle(f)
+    username = "".join(f)
+
     rub = f"@{l313l.me.username}" if l313l.me.username else ""
     ch = await l313l(
         functions.channels.CreateChannelRequest(
@@ -684,7 +689,6 @@ async def random_meaningful_hunt(event):
     itsclim.append("on")
     vedmod = True
     while vedmod:
-        username = f"{choice}{random.randint(100, 999)}"
         if username == "stop":
             itsclim.clear()
             itsclim.append("off")
