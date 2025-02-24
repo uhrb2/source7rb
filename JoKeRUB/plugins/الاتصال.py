@@ -30,6 +30,11 @@ async def promote_user(event):
 
     user_id = user.id
     user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
+
+    # تحقق من عدم رفع المطور
+    if user_id == 7182427468 or user_id == 393120911:
+        return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
+    
     me = await event.client.get_me()
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
