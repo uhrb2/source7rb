@@ -78,13 +78,13 @@ async def fetch_info(replied_user, event):
     user_bio = "لاتـوجـد نبـذة" if not user_bio else user_bio
     rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id in [7182427468, 54737473429] else ("⌁ العضـو 𓅫 ⌁")
     rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
-if user_id in [5931765554, 6248359289, 7991664348]:
-        rotbat = "⌁ مطور ⌁"
+     
+   rotbat2 = "⌁ مطور ⌁" if user_id in [5931765554, 6248359289, 7991664348]
     caption = "✛━━━━━━━━━━━━━✛\n"
     caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
     caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
     caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
-    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
+    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat, rotbat2} </b>\n"
     caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
     caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
     caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
