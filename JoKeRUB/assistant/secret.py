@@ -14,7 +14,7 @@ async def whisper(event):
         return
     if event.reply_to_msg_id:
         reply_msg = await event.get_reply_message()
-        target_user = reply_msg.from_id
+        target_user = reply_msg.from_id.user_id
         message = event.pattern_match.group(1)
     else:
         args = event.pattern_match.group(1).split(" ", 1)
