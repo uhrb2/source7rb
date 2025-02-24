@@ -83,7 +83,7 @@ async def fetch_info(replied_user, event):
     caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
     caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
     caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
-    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat, rotbat2} </b>\n"
+    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
     caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
     caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
     caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
