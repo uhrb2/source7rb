@@ -1,4 +1,4 @@
-from telethon import events
+٥from telethon import events
 import random, re
 from JoKeRUB.utils import admin_cmd
 import asyncio 
@@ -325,7 +325,7 @@ from JoKeRUB import *
 
 # باقي الكود...
 
-@l313l.on(admin_cmd(pattern="كشف انشاء الحساب ?(.*)"))
+@l313l.on(admin_cmd(pattern="معرفه انشاء الحساب ?(.*)"))
 async def account_creation_date(event):
     """معرفة تاريخ إنشاء الحساب"""
     user = await event.get_reply_message()
