@@ -26,7 +26,7 @@ async def on_plug_in_callback_query_handler(event):
         reply_pop_up_alert = "⌯︙عـذرا هذه الهمسة لم تعد موجوده  "
     await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-@l313l.tgbot.on(NewMessage(pattern=r"همسة (.+)", outgoing=True))
+@l313l.tgbot.on(NewMessage(pattern=r"همس (.+)", outgoing=True))
 async def whisper(event):
     if event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
