@@ -37,7 +37,8 @@ async def main():
     await setup_database(DB_FILE)
     users = await load_data(DB_FILE)
     
-    bot = TelegramClient("bot", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+    bot = TelegramClient("bot", API_ID, API_HASH)
+    await bot.start(bot_token=BOT_TOKEN)
 
     @bot.on(events.NewMessage(pattern='تحديث'))
     async def restart(event):
@@ -308,6 +309,6 @@ async def main():
 
     print("⌔︙ البوت يعمل الآن...")
 
-    bot.run_until_disconnected()
+    await bot.run_until_disconnected()
 
 asyncio.run(main())
