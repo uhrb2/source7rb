@@ -1,12 +1,15 @@
 import html
 import os
+
 from requests import get
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.utils import get_input_location
 from ..sql_helper.globals import gvarstatus
+
 from JoKeRUB import l313l
 from JoKeRUB.core.logger import logging
+
 from ..Config import Config
 from ..core.managers import edit_or_reply
 from ..helpers import get_user_from_event, reply_id
@@ -14,15 +17,42 @@ from . import spamwatch
 
 JEP_EM = Config.ID_EM or " •❃ "
 ID_EDIT = gvarstatus("ID_ET") or "ايدي"
+
 plugin_category = "utils"
 LOGS = logging.getLogger(__name__)
+async def get_user_from_event(event):
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        user_object = await event.client.get_entity(previous_message.sender_id)
+    else:
+        user = event.pattern_match.group(1)
+        if user.isnumeric():
+            user = int(user)
+        if not user:
+            self_user = await event.client.get_me()
+            user = self_user.id
+        if event.message.entities:
+            probable_user_mention_entity = event.message.entities[0]
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                user_obj = await event.client.get_entity(user_id)
+                return user_obj
+        if isinstance(user, int) or user.startswith("@"):
+            user_obj = await event.client.get_entity(user)
+            return user_obj
+        try:
+            user_object = await event.client.get_entity(user)
+        except (TypeError, ValueError) as err:
+            await event.edit(str(err))
+            return None
+    return user_object
+
 
 async def fetch_info(replied_user, event):
     """Get details from the User object."""
     FullUser = (await event.client(GetFullUserRequest(replied_user.id))).full_user
     replied_user_profile_photos = await event.client(
-        GetUserPhotosRequest(user_id=replied_user.id, offset=42, max_id=0, limit=80)
-    )
+        GetUserPhotosRequest(user_id=replied_user.id, offset=42, max_id=0, limit=80)    )
     replied_user_profile_photos_count = "لايـوجـد بروفـايـل"
     dc_id = "Can't get dc id"
     try:
@@ -39,29 +69,27 @@ async def fetch_info(replied_user, event):
     is_bot = replied_user.bot
     restricted = replied_user.restricted
     verified = replied_user.verified
-    created_at = replied_user.date
-    photo = await event.client.download_profile_photo(
-        user_id, Config.TMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg", download_big=True
-    )
-    first_name = (first_name.replace("\u2060", "") if first_name else "هذا المستخدم ليس له اسم أول")
+    photo = await event.client.download_profile_photo(     user_id,     Config.TMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg",    download_big=True  )
+    first_name = (      first_name.replace("\u2060", "")
+        if first_name
+        else ("هذا المستخدم ليس له اسم أول")  )
     full_name = full_name or first_name
-    username = "@{}".format(username) if username else "لايـوجـد معـرف"
+    username = "@{}".format(username) if username else ("لايـوجـد معـرف")
     user_bio = "لاتـوجـد نبـذة" if not user_bio else user_bio
-    rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id in [7182427468, 5931765554, 6248359289, 7991664348] else "⌁ العضـو 𓅫 ⌁"
-    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468 else rotbat
-    caption = (
-        "✛━━━━━━━━━━━━━✛\n"
-        f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
-        f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
-        f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
-        f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
-        f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
-        f"<b> {JEP_EM}╎الحساب ⇠ </b> <a href='tg://user?id={user_id}'>{first_name}</a>\n"
-        f"<b> {JEP_EM}╎البايـو    ⇠ </b> {user_bio}\n"
-        f"<b> {JEP_EM}╎تاريخ الإنشاء ⇠ </b> {created_at.strftime('%Y-%m-%d')}\n"
-        "✛━━━━━━━━━━━━━✛"
-    )
+    rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id in [7182427468, 5931765554, 6248359289, 7991664348] else ("⌁ العضـو 𓅫 ⌁")
+    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
+    caption = "✛━━━━━━━━━━━━━✛\n"
+    caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
+    caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
+    caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
+    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
+    caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
+    caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
+    caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
+    caption += f"\n<b> {JEP_EM}╎البايـو    ⇠ </b> {user_bio} \n"
+    caption += f"✛━━━━━━━━━━━━━✛"
     return photo, caption
+
 
 
 @l313l.ar_cmd(
