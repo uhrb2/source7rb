@@ -236,7 +236,3 @@ async def ban_antiflood(event):
         delgvar("bot_antif")
         await edit_delete(event, "**وضع منع التكرار معطل بالأصل**")
 
-@l313l.bot_cmd(pattern="قول (.*)")
-async def speak(event):
-    message = event.pattern_match.group(1)
-    await event.reply(message)
