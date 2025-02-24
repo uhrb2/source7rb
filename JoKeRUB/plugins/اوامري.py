@@ -8,7 +8,7 @@ from ..core import check_owner
 from ..Config import Config
 
 JEP_IC = "https://i.top4top.io/p_3341a91a10.jpg"
-ROE = f"**☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة**\n**☆┊المستخـِدم ↶** {mention} \n\n "
+ROE = f"☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n☆┊المستخـِدم ↶ {mention} \n\n "
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
@@ -35,7 +35,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [Button.inline("🔮 الملصقات وصور ", data="jrzst")],
                 [Button.inline("📭 الأكستـرا ", data="iiers"),
                  Button.inline("🪇 الانتحال والتقليد ", data="uscuxrz")],
-                [Button.inline("📺 قنوات السورس ",
+                [Button.inline("📺 قنوات السورس ", data="https://t.me/RobinUserBot")]
             ]
 
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
