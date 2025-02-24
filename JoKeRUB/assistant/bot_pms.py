@@ -64,9 +64,6 @@ async def check_bot_started_users(user, event):
 
 
 
-
-
-
 @l313l.bot_cmd(incoming=True, func=lambda e: e.is_private)
 async def bot_pms(event): 
     chat = await event.get_chat()
@@ -404,3 +401,10 @@ async def antif_on_msg(event):
         raise StopPropagation
     elif user_id in FloodConfig.BANNED_USERS:
         FloodConfig.BANNED_USERS.remove(user_id)
+
+
+@l313l.bot_cmd(pattern="احجي (.*)")
+async def speak(event):
+    if event.is_private:
+        message = event.pattern_match.group(1)
+        await event.reply(message)
