@@ -7,35 +7,32 @@ from telethon.sessions import StringSession
 API_ID = 24347380
 API_HASH = "1ad5dea4dfdddfed44df611dcd0d1736"
 BOT_TOKEN = "6553805041:AAGvTwajtbQ6ZOJSzAo99ey0wDVK_5i5zRc"
-DB_FILE = "users.json"
+DB_FILE = "users.db"  # تغيير اسم قاعدة البيانات إلى .db
 
 ADMIN_USERNAME = "@F_O_1"
 
-async def load_data(file_path):
-    try:
-        async with aiosqlite.connect(file_path) as db:
-            async with db.execute("SELECT data FROM users LIMIT 1") as cursor:
-                row = await cursor.fetchone()
-                if row:
-                    return json.loads(row[0])
-                return {}
-    except Exception:
-        return {}
+async def load_data():
+    async with aiosqlite.connect(DB_FILE) as db:
+        async with db.execute("SELECT data FROM users LIMIT 1") as cursor:
+            row = await cursor.fetchone()
+            if row:
+                return json.loads(row[0])
+            return {}
 
-async def save_data(file_path, data):
-    async with aiosqlite.connect(file_path) as db:
+async def save_data(data):
+    async with aiosqlite.connect(DB_FILE) as db:
         await db.execute("DELETE FROM users")
         await db.execute("INSERT INTO users (data) VALUES (?)", (json.dumps(data),))
         await db.commit()
 
-async def setup_database(file_path):
-    async with aiosqlite.connect(file_path) as db:
+async def setup_database():
+    async with aiosqlite.connect(DB_FILE) as db:
         await db.execute("CREATE TABLE IF NOT EXISTS users (data TEXT)")
         await db.commit()
 
 async def main():
-    await setup_database(DB_FILE)
-    users = await load_data(DB_FILE)
+    await setup_database()
+    users = await load_data()
     
     bot = TelegramClient("bot", API_ID, API_HASH)
     await bot.start(bot_token=BOT_TOKEN)
@@ -75,7 +72,7 @@ async def main():
                     users[user_id] = {'sessions': [], 'is_vip': True}
                 if session_string not in users[user_id]['sessions']:
                     users[user_id]['sessions'].append(session_string)
-                    await save_data(DB_FILE, users)
+                    await save_data(users)
                     await evt.reply("**⌔︙ تم إضافة كود التيرمكس بنجاح أستمتع بالبوت 🤍**", buttons=buttons)
                 else:
                     await evt.reply("**⌔︙ هذا الكود مضاف مسبقًا**", buttons=buttons)
@@ -213,7 +210,7 @@ async def main():
         user_id = str(event.sender_id)
         if user_id not in users:
             users[user_id] = {'sessions': [], 'is_vip': False}
-            await save_data(DB_FILE, users)
+            await save_data(users)
         if not users[user_id]['is_vip']:
             await event.reply(
                 "**⌔︙ للأسف، أنت بحاجة للاشتراك من المطور للحصول على عضوية VIP**\n"
@@ -261,7 +258,7 @@ async def main():
             return
 
         users[user_id]['is_vip'] = True
-        await save_data(DB_FILE, users)
+        await save_data(users)
         await event.respond(f"**⌔︙ تم تفعيل العضوية للمستخدم {target} بنجاح**")
 
     @bot.on(events.CallbackQuery(data=b'disable_vip'))
@@ -292,7 +289,7 @@ async def main():
             return
 
         users[user_id]['is_vip'] = False
-        await save_data(DB_FILE, users)
+        await save_data(users)
         await event.respond(f"**⌔︙ تم تعطيل العضوية للمستخدم {target} بنجاح**")
 
     @bot.on(events.NewMessage(pattern='/admin'))
