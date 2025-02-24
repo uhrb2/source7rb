@@ -279,48 +279,38 @@ async def merge_images(event):
     os.remove(merged_image_path)
 
 import requests
+from telethon import events
+from JoKeRUB import l313l
+from JoKeRUB.utils import admin_cmd
+import os
 
-@l313l.on(admin_cmd(pattern="حفظ المحتوى المقيد (.+)"))
-async def save_restricted_content(event):
-    url = event.pattern_match.group(1).strip()
-    if not url:
-        return await event.edit("يرجى توفير رابط المحتوى المقيد.")
+@l313l.on(admin_cmd(pattern="حفظ الصورة المقيدة (.+)"))
+async def save_restricted_image(event):
+    message_link = event.pattern_match.group(1).strip()
+    if not message_link:
+        return await event.edit("يرجى توفير رابط الرسالة.")
     
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        content_type = response.headers.get('content-type')
-
-        if 'image' in content_type:
-            extension = 'jpg'
-        elif 'video' in content_type:
-            extension = 'mp4'
-        else:
-            return await event.edit("نوع المحتوى غير مدعوم.")
+        # استخراج معلومات الرسالة من الرابط
+        parts = message_link.split('/')
+        chat_id = int(parts[-2])
+        message_id = int(parts[-1])
         
-        file_path = f'restricted_content.{extension}'
-        with open(file_path, 'wb') as file:
-            file.write(response.content)
+        # جلب الرسالة
+        message = await event.client.get_messages(chat_id, ids=message_id)
+        if not message or not message.media:
+            return await event.edit("الرسالة لا تحتوي على صورة.")
         
-        await bot.send_file(
+        # تحميل الصورة
+        photo_path = await message.download_media()
+        
+        # إرسال الصورة إلى "Saved Messages"
+        await event.client.send_file(
             "me",
-            file_path,
-            caption="تم حفظ المحتوى المقيد بنجاح ✓"
+            photo_path,
+            caption="تم حفظ الصورة المقيدة بنجاح ✓"
         )
-        await event.delete()
-        
-        os.remove(file_path)
+        os.remove(photo_path)
+        await event.edit("تم حفظ الصورة المقيدة بنجاح.")
     except Exception as e:
-        await event.edit(f"حدث خطأ أثناء جلب المحتوى: {str(e)}")
-
-from telethon import events
-import random, re
-from JoKeRUB.utils import admin_cmd
-import asyncio 
-from JoKeRUB import l313l
-from ..sql_helper.globals import addgvar, delgvar, gvarstatus
-import os
-import datetime
-from JoKeRUB import *
-
-# باقي الكود...
+        await event.edit(f"حدث خطأ أثناء جلب الصورة: {str(e)}")
