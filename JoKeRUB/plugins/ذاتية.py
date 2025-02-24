@@ -315,11 +315,3 @@ async def save_restricted_image(event):
     except Exception as e:
         await event.edit(f"حدث خطأ أثناء جلب الصورة: {str(e)}")
 
-import sys
-
-@l313l.on(admin_cmd(pattern="اعادة تشغيل"))
-async def restart_bot(event):
-    await event.edit("جارٍ إعادة تشغيل البوت...")
-    await bot.disconnect()
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    await event.client.send_message(event.chat_id, "تم إعادة التشغيل بنجاح")
