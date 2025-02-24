@@ -402,9 +402,7 @@ async def antif_on_msg(event):
     elif user_id in FloodConfig.BANNED_USERS:
         FloodConfig.BANNED_USERS.remove(user_id)
 
-
 @l313l.bot_cmd(pattern="قول (.*)")
 async def speak(event):
-    if event.is_private:
-        message = event.pattern_match.group(1)
-        await event.reply(message)
+    message = event.pattern_match.group(1)
+    await event.reply(message)
