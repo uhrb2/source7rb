@@ -21,8 +21,7 @@ plugin_category = "utils"
 
 #كتـابة وتعـديل:  @F_O_1
 
-@l313l.ar_cmd(pattern="بنك(?:\s|$)([\s\S]*)")
-
+@l313l.ar_cmd(pattern="بنك(?:\s|$)([\س\S]*)")
 async def jokerping(event):
     reply_to_id = await reply_id(event)
     start = datetime.now()
@@ -31,7 +30,7 @@ async def jokerping(event):
     ms = (end - start).microseconds / 1000
     EMOJI = gvarstatus("ALIVE_EMOJI") or "✇ ◅"
     PING_TEXT = gvarstatus("PING_TEXT") or "**[ 𝗜 𝗝𝘂𝘀𝘁 𝗔𝘀𝗸𝗲𝗱 𝗙𝗼𝗿 𝗦𝗼𝗺𝗲 𝗣𝗲𝗮𝗰𝗲 🎀 ](t.me/RobinUserBot)**"
-    PING_IMG = gvarstatus("PING_PIC") or Config.P_PIC or "https://telegra.ph/file/fb62d70ce09f4a78dfc86.jpg"
+    PING_IMG = gvarstatus("PING_PIC") or "https://telegra.ph/file/fb62d70ce09f4a78dfc86.jpg"
     HuRe_caption = gvarstatus("PING_TEMPLATE") or temp
     caption = HuRe_caption.format(
         PING_TEXT=PING_TEXT,
@@ -50,7 +49,7 @@ async def jokerping(event):
         except (WebpageMediaEmptyError, MediaEmptyError, WebpageCurlFailedError):
             return await edit_or_reply(
                 event,
-                f"**الميـديا خـطأ **\nغـير الرابـط بأستـخدام الأمـر  \n `.اضف_فار ALIVE_PIC رابط صورتك`\n\n**لا يمـكن الحـصول عـلى صـورة من الـرابـط :-** `{PIC}`",
+                f"**الميـديا خـطأ **\nغـير الرابـط بأستـخدام الأمـر  \n `.اضف_فار ALIVE_PIC رابط صورتك`\n\n**لا يمـكن الحـصول على الميديا**"
             )
     else:
         await edit_or_reply(
@@ -64,4 +63,3 @@ temp = """{PING_TEXT}
 ┃ ✦ {ping}
 ┃ ✦ {mention}
 ┗━━━━━━━┛"""
-
