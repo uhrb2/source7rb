@@ -63,35 +63,7 @@ async def fetch_info(replied_user, event):
     )
     return photo, caption
 
-@l313l.ar_cmd(pattern="ايدي(?: |$)(.*)",
-    command=("ايدي", plugin_category),
-    info={
-        "header": "لـ عـرض معلومـات الشخـص",
-        "الاستـخـدام": " {tr}ايدي بالـرد او {tr}ايدي + معـرف/ايـدي الشخص",
-    },
-)
-async def who(event):
-    "Gets info of an user"
-    cat = await edit_or_reply(event, "⇆")
-    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
-    replied_user = await get_user_from_event(event)
-    try:
-        photo, caption = await fetch_info(replied_user, event)
-    except AttributeError:
-        return await edit_or_reply(cat, "**- لـم استطـع العثــور ع الشخــص**")
-    message_id_to_reply = event.message.reply_to_msg_id
-    if not message_id_to_reply:
-        message_id_to_reply = None
-    try:
-        await event.client.send_file(
-            event.chat_id, photo, caption=caption, link_preview=False, force_document=False, reply_to=message_id_to_reply
-        )
-        if not photo.startswith("http"):
-            os.remove(photo)
-        await cat.delete()
-    except TypeError:
-        await cat.edit(caption, parse_mode="html")
+
 @l313l.ar_cmd(
     pattern="كشف(?:\s|$)([\s\S]*)",
     command=("كشف", plugin_category),
