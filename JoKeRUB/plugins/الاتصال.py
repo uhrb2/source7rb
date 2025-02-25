@@ -39,13 +39,3 @@ async def promote_user(event):
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
-
-# إضافة دالة جديدة لاكتشاف معرف الملصق
-@l313l.on(admin_cmd(pattern="ملاصق$"))
-async def get_sticker_id(event):
-    reply_message = await event.get_reply_message()
-    if reply_message and reply_message.sticker:
-        sticker_id = reply_message.sticker.file_id
-        await edit_or_reply(event, f"**معرف الملصق:** `{sticker_id}`")
-    else:
-        await edit_or_reply(event, "**يرجى الرد على ملصق لاكتشاف معرفه.**")
