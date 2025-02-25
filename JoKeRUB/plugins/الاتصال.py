@@ -46,7 +46,7 @@ async def get_premium_sticker_id(event):
     reply_message = await event.get_reply_message()
     if reply_message and reply_message.sticker:
         sticker = reply_message.sticker
-        if sticker.is_premium:
+        if getattr(sticker, 'is_premium', False):
             sticker_id = sticker.file_id
             await edit_or_reply(event, f"**معرف الملصق المميز:** `{sticker_id}`")
         else:
