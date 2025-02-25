@@ -10,14 +10,8 @@ from user_agent import generate_user_agent
 from JoKeRUB import l313l
 from ..core.managers import edit_or_reply
 
-trys = [0]
-crys = [0]
-arys = [0]
 brys = [0]
 itsclim = ["off"]
-iscuto = ["off"]
-istuto = ["off"]
-isbuto = ["off"]
 
 async def check_user(username):
     url = "https://t.me/" + str(username)
