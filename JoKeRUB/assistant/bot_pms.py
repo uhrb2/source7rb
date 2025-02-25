@@ -402,3 +402,72 @@ async def antif_on_msg(event):
     elif user_id in FloodConfig.BANNED_USERS:
         FloodConfig.BANNED_USERS.remove(user_id)
 
+from telethon import events, Button
+from JoKeRUB.utils import admin_cmd
+import asyncio
+from JoKeRUB import l313l
+
+# أمر البداية لعرض أزرار الأوامر
+@l313l.bot_cmd(pattern="start"))
+async def start(event):
+    buttons = [
+        [Button.inline("رصيد", b"check_balance")],
+        [Button.inline("شحن", b"recharge_balance")],
+        [Button.inline("تحويل", b"transfer_balance")],
+        [Button.inline("إضافة رقم", b"add_number")]
+    ]
+    await event.edit("مرحبا! اختر أحد الأوامر التالية:", buttons=buttons)
+
+# معالج زر "رصيد"
+@l313l.bot_cmd(events.CallbackQuery(data=b"check_balance"))
+async def check_balance(event):
+    await event.edit("جارٍ التحقق من الرصيد...")
+    # هنا يمكنك إضافة الكود للتواصل مع API أسيا سيل والتحقق من الرصيد
+    balance = "1000 دينار"  # مثال على الرصيد
+    await event.edit(f"رصيدك الحالي هو: {balance}")
+
+# معالج زر "شحن"
+@l313l.bot_cmd(events.CallbackQuery(data=b"recharge_balance"))
+async def recharge_balance(event):
+    await event.edit("الرجاء إدخال كود الشحن:")
+    l313l.add_event_handler(get_recharge_code, events.NewMessage(from_users=event.sender_id))
+
+async def get_recharge_code(event):
+    code = event.message.message
+    await event.reply(f"جارٍ شحن الرصيد باستخدام الكود: {code}")
+    # هنا يمكنك إضافة الكود للتواصل مع API أسيا سيل لشحن الرصيد باستخدام الكود
+    await event.reply("تم شحن الرصيد بنجاح!")
+    l313l.remove_event_handler(get_recharge_code, events.NewMessage(from_users=event.sender_id))
+
+# معالج زر "تحويل"
+@l313l.bot_cmd(events.CallbackQuery(data=b"transfer_balance"))
+async def transfer_balance(event):
+    await event.edit("الرجاء إدخال الرقم والمبلغ (مثال: 123456789 5000):")
+    l313l.add_event_handler(get_transfer_details, events.NewMessage(from_users=event.sender_id))
+
+async def get_transfer_details(event):
+    details = event.message.message.split()
+    if len(details) != 2:
+        await event.reply("الرجاء إدخال التفاصيل بشكل صحيح.")
+        return
+    recipient, amount = details
+    await event.reply(f"جارٍ تحويل {amount} دينار إلى {recipient}")
+    # هنا يمكنك إضافة الكود للتواصل مع API أسيا سيل لتحويل الرصيد
+    await event.reply(f"تم تحويل {amount} دينار إلى {recipient} بنجاح!")
+    l313l.remove_event_handler(get_transfer_details, events.NewMessage(from_users=event.sender_id))
+
+# معالج زر "إضافة رقم"
+@l313l.bot_cmd(events.CallbackQuery(data=b"add_number"))
+async def add_number(event):
+    await event.edit("الرجاء إدخال الرقم:")
+    l313l.add_event_handler(get_number, events.NewMessage(from_users=event.sender_id))
+
+async def get_number(event):
+    number = event.message.message
+    await event.reply(f"تم إضافة الرقم: {number}")
+    # هنا يمكنك إضافة الكود لحفظ الرقم
+    l313l.remove_event_handler(get_number, events.NewMessage(from_users=event.sender_id))
+
+# تأكد من وجود الأوامر الأصلية في الملف وعدم حذفها
+# ...
+
