@@ -185,11 +185,11 @@ from telethon import events
 
 # الشيفرة الموجودة...
 
-@l313l.on(events.NewMessage(pattern=r"^اول واحد يكتب (.+)$"))
+@l313l.on(events.NewMessage(pattern=r"^اول واحد يكتب \((.+?)\)$"))
 async def auto_respond(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
-        await event.respond(word_to_type)
+        await event.reply(word_to_type)  # الرد للشخص الذي كتب
 
 @l313l.on(admin_cmd(pattern="(تشغيل الرد التلقائي)"))
 async def enable_auto_respond(event):
@@ -205,14 +205,20 @@ async def disable_auto_respond(event):
         await event.edit("**ميزة الرد التلقائي غير مفعلة!**")
 
 # إضافة أوامر إضافية
-@l313l.on(events.NewMessage(pattern=r"^اول شخص يكتب (.+)$"))
+@l313l.on(events.NewMessage(pattern=r"^اول شخص يكتب \((.+?)\)$"))
 async def auto_respond_alternative1(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
-        await event.respond(word_to_type)
+        await event.reply(word_to_type)  # الرد للشخص الذي كتب
 
-@l313l.on(events.NewMessage(pattern=r"^أول من يكتب (.+)$"))
+@l313l.on(events.NewMessage(pattern=r"^أول من يكتب \((.+?)\)$"))
 async def auto_respond_alternative2(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
-        await event.respond(word_to_type)
+        await event.reply(word_to_type)  # الرد للشخص الذي كتب
+
+@l313l.on(events.NewMessage(pattern=r"^أول \((.+?)\)$"))
+async def auto_respond_alternative3(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد للشخص الذي كتب
