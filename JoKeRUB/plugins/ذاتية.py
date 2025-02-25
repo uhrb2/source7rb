@@ -179,3 +179,10 @@ async def draw_square(event):
         await event.edit(f"تم رسم مربع بحجم {size}:\n\n{square}")
     except ValueError:
         await event.edit("يرجى توفير حجم صحيح.")
+
+# الشيفرة الموجودة...
+
+@l313l.on(events.NewMessage(pattern=r"^اول واحد يكتب (.+)$"))
+async def auto_respond(event):
+    word_to_type = event.pattern_match.group(1).strip()
+    await event.respond(word_to_type)
