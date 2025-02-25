@@ -18,12 +18,12 @@ from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install
 
 plugin_category = "utils"
 
-@l313l.on(admin_cmd(pattern="رفع(?: |$)([\s\S]*)"))
+@l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
     match = event.pattern_match.group(1).strip()
     if not match:
         return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
-    
+
     user, custom = await get_user_from_event(event)
     if not user:
         return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
@@ -34,8 +34,22 @@ async def promote_user(event):
     # تحقق من عدم رفع المطور
     if user_id in [7182427468]:
         return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
-    
+
     me = await event.client.get_me()
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
+
+# إضافة دالة جديدة لاكتشاف معرف الملصقات المميزة
+@l313l.on(admin_cmd(pattern="مميز$"))
+async def get_premium_sticker_id(event):
+    reply_message = await event.get_reply_message()
+    if reply_message and reply_message.sticker:
+        sticker = reply_message.sticker
+        if sticker.is_premium:
+            sticker_id = sticker.file_id
+            await edit_or_reply(event, f"**معرف الملصق المميز:** `{sticker_id}`")
+        else:
+            await edit_or_reply(event, "**هذا الملصق ليس مميزًا.**")
+    else:
+        await edit_or_reply(event, "**يرجى الرد على ملصق لاكتشاف معرفه.**")
