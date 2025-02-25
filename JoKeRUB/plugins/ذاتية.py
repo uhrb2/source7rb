@@ -183,6 +183,10 @@ async def draw_square(event):
 
 # الشيفرة الموجودة...
 
+from telethon import events
+
+# الشيفرة الموجودة...
+
 @l313l.on(events.NewMessage(pattern=r"^اول واحد يكتب (.+)$"))
 async def auto_respond(event):
     if gvarstatus("auto_respond_enabled"):
@@ -201,3 +205,22 @@ async def disable_auto_respond(event):
         await event.edit("**تم تعطيل ميزة الرد التلقائي ✓**")
     else:
         await event.edit("**ميزة الرد التلقائي غير مفعلة!**")
+
+# إضافة أوامر إضافية
+@l313l.on(events.NewMessage(pattern=r"^اول شخص يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.respond(word_to_type)
+
+@l313l.on(events.NewMessage(pattern=r"^أول من يكتب (.+)$"))
+async def auto_respond_alternative2(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.respond(word_to_type)
+
+@l313l.on(events.NewMessage(pattern=r"^أول (.+)$"))
+async def auto_respond_alternative2(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.respond(word_to_type)
