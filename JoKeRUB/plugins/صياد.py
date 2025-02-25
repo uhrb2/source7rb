@@ -24,18 +24,18 @@ async def check_user(username):
         return True
     return False
 
-async def gen_user():
-    chars = "qwertyuiopasdfghjklzxcvbnm1234567890"
-    username = "".join(random.choices(chars, k=6))
+async def gen_meaningful_user():
+    words = ["happy", "joy", "love", "peace", "kind", "brave", "smart", "cool", "fun", "hero"]
+    username = random.choice(words) + str(random.randint(100, 999))
     return username
 
-@l313l.ar_cmd(pattern="صيد متاح")
-async def available_hunt(event):
+@l313l.ar_cmd(pattern="صيد معنى")
+async def meaningful_hunt(event):
     try:
         rub = f"@{l313l.me.username}" if l313l.me.username else ""
         ch = await l313l(functions.channels.CreateChannelRequest(
-            title="صيد متاح",
-            about=f"This channel is to hunt usernames by - @AvailableHuntBot | {rub}",
+            title="صيد معنى",
+            about=f"This channel is to hunt meaningful usernames by - @MeaningfulHuntBot | {rub}",
         ))
         ch_id = ch.updates[1].channel_id if len(ch.updates) > 1 else ch.chats[0].id
 
@@ -51,7 +51,7 @@ async def available_hunt(event):
 
     itsclim[0] = "on"
     while itsclim[0] == "on":
-        username = await gen_user()
+        username = await gen_meaningful_user()
         if username == "stop":
             itsclim[0] = "off"
             trys[0] = 0
@@ -64,7 +64,7 @@ async def available_hunt(event):
                 await event.client.send_message(event.chat_id,
                                                 f"**✅│تم الصيد بنجاح!**\n\n"
                                                 f"🔹 **المعرف:** @{username}\n"
-                                                f"🔹 **بواسطة:** @AvailableHuntBot\n"
+                                                f"🔹 **بواسطة:** @MeaningfulHuntBot\n"
                                                 f"🔹 **عدد المحاولات:** {trys[0]}")
                 itsclim[0] = "off"
                 break
@@ -83,6 +83,8 @@ async def available_hunt(event):
     trys[0] = 0
     if itsclim[0] == "off":
         await event.client.send_message(event.chat_id, "**✅│تم الانتهاء من عملية الصيد بنجاح!**")
+
+# Existing functions and commands
 
 @l313l.ar_cmd(pattern="حالة الصيد")
 async def hunt_status(event):
