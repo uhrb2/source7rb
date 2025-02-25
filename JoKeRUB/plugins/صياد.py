@@ -33,29 +33,21 @@ async def check_user(username):
     else:
         return False
 
-async def gen_user(choice):
+async def gen_user():
     a = "qwertyuiopasdfghjklzxcvbnm"
     b = "1234567890"
     e = "qwertyuiopasdfghjklzxcvbnm1234567890"
-    z = "sdfghjklzwerty1234567890uioxcvbqpanm"
-    if choice == "مخصص": # مثال على نوع مخصص
-        c = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], d[0], c[0], d[0], d[0], c[0]]
-        username = "".join(f)
-    else:
-        return "error"
+    username = "".join(random.choices(a + b, k=6))
     return username
 
-@l313l.ar_cmd(pattern="صيد مخصص")
-async def custom_hunt(event):
-    choice = "مخصص"
+@l313l.ar_cmd(pattern="صيد متاح")
+async def available_hunt(event):
     try:
         rub = f"@{l313l.me.username}" if l313l.me.username else ""
         ch = await l313l(
             functions.channels.CreateChannelRequest(
-                title="صيـد مخصص",
-                about=f"This channel to hunt username by - @CustomHuntBot | {rub}",
+                title="صيد متاح",
+                about=f"This channel to hunt username by - @AvailableHuntBot | {rub}",
             )
         )
         try:
@@ -66,7 +58,6 @@ async def custom_hunt(event):
         await edit_or_reply(
             event,
             f"**✅│تم بدء عملية الصيد بنجاح!**\n\n"
-            f"🔹 **النوع المحدد:** {choice}\n\n"
             "**📊│لمتابعة حالة عملية الصيد، أرسل:** `.حالة الصيد`\n"
             "**⛔️│لإيقاف عملية الصيد، أرسل:** `.صيد ايقاف`"
         )
@@ -82,7 +73,7 @@ async def custom_hunt(event):
     itsclim.append("on")
     vedmod = True
     while vedmod:
-        username = await gen_user(choice)
+        username = await gen_user()
         if username == "stop":
             itsclim.clear()
             itsclim.append("off")
@@ -90,13 +81,6 @@ async def custom_hunt(event):
             await edit_or_reply(
                 event,
                 "**✅│تم إيقاف عملية الصيد بنجاح!**"
-            )
-            break
-        if username == "error":
-            await edit_or_reply(
-                event,
-                f"**⛔️│عذرًا عزيزي، لا يوجد النوع:** {choice}\n\n"
-                "**📋│لعرض الأنواع المتاحة، أرسل:** `.الأنواع`"
             )
             break
         isav = await check_user(username)
@@ -110,7 +94,7 @@ async def custom_hunt(event):
                 await event.client.send_message(event.chat_id,
                                                 f"**✅│تم الصيد بنجاح!**\n\n"
                                                 f"🔹 **المعرف:** @{username}\n"
-                                                f"🔹 **بواسطة:** @CustomHuntBot\n"
+                                                f"🔹 **بواسطة:** @AvailableHuntBot\n"
                                                 f"🔹 **عدد المحاولات:** {trys[0]}"
                                                 )
                 vedmod = False
