@@ -300,9 +300,3 @@ async def stop_copying(event):
     global is_copying
     is_copying = False
     await event.edit("تم إيقاف عملية التسريب.")
-
-import time
-from datetime import datetime, timedelta
-import random
-
-is_alarm_running = False
