@@ -256,10 +256,15 @@ async def auto_respond_alternative1(event):
 
 from telethon import events
 from telethon.tl.functions.users import GetFullUser
+from telethon.tl.types import User
 
 @l313l.on(admin_cmd(pattern="انشاء الحساب"))
 async def account_creation_date(event):
     user = await event.get_sender()
     user_full = await bot(GetFullUser(user.id))
-    creation_date = user_full.user.date.strftime("%Y-%m-%d")
-    await event.respond(f"تم إنشاء الحساب في: {creation_date}")
+    
+    if isinstance(user_full.user, User):
+        creation_date = user_full.user.date.strftime("%Y-%m-%d")
+        await event.respond(f"تم إنشاء الحساب في: {creation_date}")
+    else:
+        await event.respond("لا يمكن استرجاع تاريخ إنشاء الحساب.")
