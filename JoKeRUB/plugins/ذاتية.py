@@ -304,3 +304,17 @@ async def stop_copying(event):
     global is_copying
     is_copying = False
     await event.edit("تم إيقاف عملية التسريب.")
+
+@l313l.on(admin_cmd(pattern="الوقت المتبقي (.+)"))
+async def remaining_time(event):
+    input_word = event.pattern_match.group(1).strip()
+    random_word = ''.join(random.choices(input_word, k=len(input_word)))
+    
+    now = datetime.datetime.now()
+    midnight = datetime.datetime.combine(now + datetime.timedelta(days=1), datetime.time.min)
+    remaining = midnight - now
+    
+    hours, remainder = divmod(remaining.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
+    await event.edit(f"الوقت المتبقي حتى منتصف الليل: {hours} ساعات و {minutes} دقائق و {seconds} ثواني\nالكلمة العشوائية: {random_word}")
