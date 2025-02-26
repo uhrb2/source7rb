@@ -305,16 +305,40 @@ async def stop_copying(event):
     is_copying = False
     await event.edit("تم إيقاف عملية التسريب.")
 
-@l313l.on(admin_cmd(pattern="الوقت المتبقي (.+)"))
-async def remaining_time(event):
+import time
+from datetime import datetime, timedelta
+import random
+
+is_alarm_running = False
+
+@l313l.on(admin_cmd(pattern="منبه (.+)"))
+async def alarm(event):
+    global is_alarm_running
+    if is_alarm_running:
+        await event.edit("يوجد منبه قيد التشغيل حالياً.")
+        return
+    
+    is_alarm_running = True
     input_word = event.pattern_match.group(1).strip()
     random_word = ''.join(random.choices(input_word, k=len(input_word)))
     
-    now = datetime.datetime.now()
-    midnight = datetime.datetime.combine(now + datetime.timedelta(days=1), datetime.time.min)
-    remaining = midnight - now
+    now = datetime.now()
+    target_time = now + timedelta(days=24)  # حدد الوقت المستهدف هنا (مثلاً بعد يوم واحد)
     
-    hours, remainder = divmod(remaining.seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
+    while is_alarm_running:
+        now = datetime.now()
+        remaining_time = target_time - now
+        if remaining_time.total_seconds() <= 0:
+            break
+        hours, remainder = divmod(remaining_time.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        await event.edit(f"{input_word} + تاريخ عمل الكلمة: {now.strftime('%Y-%m-%d %H:%M:%S')}\nالوقت المتبقي هو: {hours} ساعات و {minutes} دقائق و {seconds} ثواني\nالكلمة العشوائية: {random_word}")
+        time.sleep(1)
     
-    await event.edit(f"الوقت المتبقي حتى منتصف الليل: {hours} ساعات و {minutes} دقائق و {seconds} ثواني\nالكلمة العشوائية: {random_word}")
+    is_alarm_running = False
+
+@l313l.on(admin_cmd(pattern="ايقاف المنبه"))
+async def stop_alarm(event):
+    global is_alarm_running
+    is_alarm_running = False
+    await event.edit("تم إيقاف المنبه.")
