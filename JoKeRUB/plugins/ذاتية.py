@@ -316,7 +316,13 @@ from datetime import datetime, timedelta
 
 is_alarm_running = False
 
-@l313l.on(admin_cmd(pattern="منبه (\d+)([dhms]) (.+)"))
+import asyncio
+import time
+from datetime import datetime, timedelta
+
+is_alarm_running = False
+
+@l313l.on(admin_cmd(pattern="منبه (\d+)([dhms])"))
 async def alarm(event):
     global is_alarm_running
     if is_alarm_running:
@@ -326,7 +332,6 @@ async def alarm(event):
     is_alarm_running = True
     input_amount = int(event.pattern_match.group(1))
     input_unit = event.pattern_match.group(2)
-    input_word = event.pattern_match.group(3).strip()
     
     if input_unit == "d":
         target_time = datetime.now() + timedelta(days=input_amount)
@@ -347,12 +352,8 @@ async def alarm(event):
         if remaining_time.total_seconds() <= 0:
             break
         
-        days, remainder = divmod(remaining_time.total_seconds(), 86400)
-        hours, remainder = divmod(remainder, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        
-        await event.edit(f"{input_word}\nالوقت المتبقي هو: {int(days)} أيام، {int(hours)} ساعات، {int(minutes)} دقائق، و {int(seconds)} ثواني.")
-        time.sleep(1)
+        # إزالة تحرير الرسالة بالوقت المتبقي
+        await asyncio.sleep(1)
     
     is_alarm_running = False
 
