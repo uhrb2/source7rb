@@ -261,6 +261,8 @@ import asyncio
 # متغير عالمي لتتبع حالة النسخ
 is_copying = False
 
+from telethon.tl.types import MessageService
+
 @l313l.on(admin_cmd(pattern="تسريب (.+)"))
 async def copy_posts(event):
     global is_copying
@@ -276,7 +278,13 @@ async def copy_posts(event):
 
         posts_count = 0
         is_copying = True
+        messages = []
         async for message in bot.iter_messages(source_channel, limit=None):
+            if isinstance(message, MessageService):
+                continue
+            messages.append(message)
+        
+        for message in reversed(messages):
             if not is_copying:
                 await event.edit(f"تم إيقاف عملية التسريب بعد تسريب {posts_count} منشور.")
                 return
