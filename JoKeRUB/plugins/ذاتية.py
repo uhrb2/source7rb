@@ -254,10 +254,12 @@ async def auto_respond_alternative1(event):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
 
-from telethon.tl.types import MessageService
 from telethon import events
 from JoKeRUB.utils import admin_cmd
 import asyncio
+
+# متغير عالمي لتتبع حالة النسخ
+is_copying = False
 
 @l313l.on(admin_cmd(pattern="تسريب (.+)"))
 async def copy_posts(event):
@@ -274,24 +276,22 @@ async def copy_posts(event):
 
         posts_count = 0
         is_copying = True
-        async for message in bot.iter_messages(source_channel, limit=None, reverse=True):
+        async for message in bot.iter_messages(source_channel, limit=None):
             if not is_copying:
                 await event.edit(f"تم إيقاف عملية التسريب بعد تسريب {posts_count} منشور.")
                 return
-            if isinstance(message, MessageService):
-                continue
             await bot.send_message(destination_channel, message)
             posts_count += 1
             if posts_count >= 4000:
                 break
 
         is_copying = False
-        await event.edit(f"تم نسخ {posts_count} التسريب بنجاح من {source_channel_username} إلى القناة الحالية.")
+        await event.edit(f"تم تسريب {posts_count} منشور بنجاح من {source_channel_username} إلى القناة الحالية.")
     except Exception as e:
         is_copying = False
         await event.edit(f"حدث خطأ: {str(e)}")
 
-@l313l.on(admin_cmd(pattern="ايقاف التسريب"))
+@l313l.on(admin_cmd(pattern="إيقاف التسريب"))
 async def stop_copying(event):
     global is_copying
     is_copying = False
