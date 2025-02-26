@@ -255,16 +255,15 @@ async def auto_respond_alternative1(event):
         await event.reply(word_to_type)  # الرد على الرسالة
 
 from telethon import events
-from telethon.tl.functions.users import GetFullUser
-from telethon.tl.types import User
+from telethon.tl.functions.bots import GetBotInfo
 
-@l313l.on(admin_cmd(pattern="انشاء الحساب"))
-async def account_creation_date(event):
-    user = await event.get_sender()
-    user_full = await bot(GetFullUser(user.id))
-    
-    if isinstance(user_full.user, User):
-        creation_date = user_full.user.date.strftime("%Y-%m-%d")
-        await event.respond(f"تم إنشاء الحساب في: {creation_date}")
-    else:
-        await event.respond("لا يمكن استرجاع تاريخ إنشاء الحساب.")
+@l313l.on(admin_cmd(pattern="كشف البوت"))
+async def detect_bot(event):
+    try:
+        bot_info = await bot(GetBotInfo())
+        if bot_info:
+            await event.respond(f"البوت يعمل بشكل صحيح.\nID البوت: {bot_info.id}\nاسم البوت: {bot_info.username}")
+        else:
+            await event.respond("لم يتم العثور على معلومات البوت.")
+    except Exception as e:
+        await event.respond(f"حدث خطأ أثناء محاولة كشف البوت: {str(e)}")
