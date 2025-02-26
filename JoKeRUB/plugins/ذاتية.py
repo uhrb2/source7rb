@@ -271,7 +271,7 @@ async def copy_posts(event):
 
         posts_count = 0
         is_copying = True
-        async for message in bot.iter_messages(source_channel, limit=None):
+        async for message in bot.iter_messages(source_channel, limit=None, reverse=True):
             if not is_copying:
                 await event.edit(f"تم إيقاف عملية التسريب بعد تسريب {posts_count} منشور.")
                 return
