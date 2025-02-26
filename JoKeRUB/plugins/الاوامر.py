@@ -268,3 +268,12 @@ async def _(event):
         await event.edit(
             "** قائمة اوامر تجميع النقاط و بوت وعد **:\n ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n ᯽︙ اختر احدى هذه القوائم\n\n- ( `.اوامر التجميع` ) \n- ( `.اوامر وعد` ) \n★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★\n⌔︙CH : @RobinUserBot"
         )
+
+@l313l.ar_cmd(
+    pattern="م25$",
+    command=("م25", plugin_category),
+)
+async def _(event):
+        if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
+                await event.edit(
+** قائمة الأوامر المدفوعة لسورس Robin**\n\n1 - `.امر اول تم`\n\n2 - `.أمر الذاتية`\n\n3 - `.أمر النسخ`
