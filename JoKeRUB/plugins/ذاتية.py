@@ -255,15 +255,9 @@ async def auto_respond_alternative1(event):
         await event.reply(word_to_type)  # الرد على الرسالة
 
 from telethon import events
-from telethon.tl.functions.bots import GetBotInfo
 
-@l313l.on(admin_cmd(pattern="كشف البوت"))
-async def detect_bot(event):
-    try:
-        bot_info = await bot(GetBotInfo())
-        if bot_info:
-            await event.respond(f"البوت يعمل بشكل صحيح.\nID البوت: {bot_info.id}\nاسم البوت: {bot_info.username}")
-        else:
-            await event.respond("لم يتم العثور على معلومات البوت.")
-    except Exception as e:
-        await event.respond(f"حدث خطأ أثناء محاولة كشف البوت: {str(e)}")
+@l313l.on(admin_cmd(pattern="يوزر البوت"))
+async def fetch_bot_username(event):
+    bot_info = await bot.get_me()
+    bot_username = bot_info.username
+    await event.respond(f"اسم المستخدم الخاص بالبوت هو: @{bot_username}")
