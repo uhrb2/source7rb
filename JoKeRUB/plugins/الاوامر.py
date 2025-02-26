@@ -276,4 +276,4 @@ async def _(event):
 async def _(event):
         if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
                 await event.edit(
-** قائمة الأوامر المدفوعة لسورس Robin**\n1 - `.امر اول تم`\n2 - `.أمر الذاتية`\n3 - `.أمر النسخ`
+** قائمة الأوامر المدفوعة لسورس Robin**\n 1 - `.امر اول تم`\n 2 - `.أمر الذاتية`\n 3 - `.أمر النسخ`
