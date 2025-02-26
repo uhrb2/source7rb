@@ -254,3 +254,24 @@ async def auto_respond_alternative1(event):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
 
+from telethon import events
+from JoKeRUB.utils import admin_cmd
+
+@l313l.on(admin_cmd(pattern="نسخ المنشورات من (.+)"))
+async def copy_posts(event):
+    source_channel_username = event.pattern_match.group(1).strip()
+
+    try:
+        source_channel = await bot.get_entity(source_channel_username)
+        destination_channel = await event.get_input_chat()
+
+        posts_count = 0
+        async for message in bot.iter_messages(source_channel, limit=None):
+            await bot.send_message(destination_channel, message)
+            posts_count += 1
+            if posts_count >= 4000:
+                break
+
+        await event.edit(f"تم نسخ {posts_count} منشور بنجاح من {source_channel_username} إلى القناة الحالية.")
+    except Exception as e:
+        await event.edit(f"حدث خطأ: {str(e)}")
