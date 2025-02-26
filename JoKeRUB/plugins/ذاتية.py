@@ -255,6 +255,9 @@ async def auto_respond_alternative1(event):
         await event.reply(word_to_type)  # الرد على الرسالة
 
 from telethon.tl.types import MessageService
+from telethon import events
+from JoKeRUB.utils import admin_cmd
+import asyncio
 
 @l313l.on(admin_cmd(pattern="تسريب (.+)"))
 async def copy_posts(event):
