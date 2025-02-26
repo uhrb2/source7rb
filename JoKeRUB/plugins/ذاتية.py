@@ -190,7 +190,7 @@ async def enable_auto_respond(event):
     addgvar("auto_respond_enabled", "enabled")
     await event.edit("**تم تفعيل ميزة الرد التلقائي ✓**")
 
-@l313l.on(admin_cmd(pattern="(تعطيل الرد التلقائي)"))
+@l313l.on(admin_cmd(pattern="(ايقاف الرد التلقائي)"))
 async def disable_auto_respond(event):
     if gvarstatus("auto_respond_enabled"):
         delgvar("auto_respond_enabled")
