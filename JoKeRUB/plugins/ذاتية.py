@@ -254,10 +254,3 @@ async def auto_respond_alternative1(event):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
 
-from telethon import events
-
-@l313l.on(admin_cmd(pattern="يوزر البوت"))
-async def fetch_bot_username(event):
-    bot_info = await bot.get_me()
-    bot_username = bot_info.username
-    await event.respond(f"اسم المستخدم الخاص بالبوت هو: @{bot_username}")
