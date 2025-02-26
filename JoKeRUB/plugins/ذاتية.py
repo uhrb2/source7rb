@@ -311,7 +311,12 @@ import random
 
 is_alarm_running = False
 
-@l313l.on(admin_cmd(pattern="منبه (.+)"))
+import time
+from datetime import datetime, timedelta
+
+is_alarm_running = False
+
+@l313l.on(admin_cmd(pattern="منبه (\d+)([dhms]) (.+)"))
 async def alarm(event):
     global is_alarm_running
     if is_alarm_running:
@@ -319,20 +324,34 @@ async def alarm(event):
         return
     
     is_alarm_running = True
-    input_word = event.pattern_match.group(1).strip()
-    random_word = ''.join(random.choices(input_word, k=len(input_word)))
+    input_amount = int(event.pattern_match.group(1))
+    input_unit = event.pattern_match.group(2)
+    input_word = event.pattern_match.group(3).strip()
     
-    now = datetime.now()
-    target_time = now + timedelta(days=24)  # حدد الوقت المستهدف هنا (مثلاً بعد يوم واحد)
+    if input_unit == "d":
+        target_time = datetime.now() + timedelta(days=input_amount)
+    elif input_unit == "h":
+        target_time = datetime.now() + timedelta(hours=input_amount)
+    elif input_unit == "m":
+        target_time = datetime.now() + timedelta(minutes=input_amount)
+    elif input_unit == "s":
+        target_time = datetime.now() + timedelta(seconds=input_amount)
+    else:
+        await event.edit("يرجى توفير وحدة زمنية صحيحة (d: أيام، h: ساعات، m: دقائق، s: ثواني).")
+        is_alarm_running = False
+        return
     
     while is_alarm_running:
         now = datetime.now()
         remaining_time = target_time - now
         if remaining_time.total_seconds() <= 0:
             break
-        hours, remainder = divmod(remaining_time.seconds, 3600)
+        
+        days, remainder = divmod(remaining_time.total_seconds(), 86400)
+        hours, remainder = divmod(remainder, 3600)
         minutes, seconds = divmod(remainder, 60)
-        await event.edit(f"{input_word} + تاريخ عمل الكلمة: {now.strftime('%Y-%m-%d %H:%M:%S')}\nالوقت المتبقي هو: {hours} ساعات و {minutes} دقائق و {seconds} ثواني\nالكلمة العشوائية: {random_word}")
+        
+        await event.edit(f"{input_word}\nالوقت المتبقي هو: {int(days)} أيام، {int(hours)} ساعات، {int(minutes)} دقائق، و {int(seconds)} ثواني.")
         time.sleep(1)
     
     is_alarm_running = False
