@@ -94,17 +94,17 @@ async def wspr(event):
     tap = await bot.inline_query(rrrd7, l313lb) 
     await tap[0].click(event.chat_id)
     await event.delete()
-    
+
 @borg.on(admin_cmd("م27"))
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         await event.edit("᯽︙ اوامر الهمسه واكس او \n\n⌔︙الامر  • `.همسة`\n⌔︙الاستخدام  • لكتابة همسه سرية لشخص في المجم�[...
-        
+
 @borg.on(admin_cmd("الهمسة"))
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         await event.edit("**᯽︙ شـرح كيـفية كـتابة همـسة سـرية**\n᯽︙ اولا اكتب الامر  .همسة  بعدها الرسالة بعدها اكتب معر�[...
-        
+
 @borg.on(
     admin_cmd(
        pattern="اكس او$"
@@ -171,11 +171,11 @@ async def draw_square(event):
         size = int(event.pattern_match.group(1).strip())
         if size < 1:
             return await event.edit("يرجى توفير حجم أكبر من 0.")
-        
+
         square = ""
         for i in range(size):
             square += "█" * size + "\n"
-        
+
         await event.edit(f"تم رسم مربع بحجم {size}:\n\n{square}")
     except ValueError:
         await event.edit("يرجى توفير حجم صحيح.")
@@ -279,7 +279,7 @@ async def copy_posts(event):
             if isinstance(message, MessageService):
                 continue
             messages.append(message)
-        
+
         for message in reversed(messages):
             if not is_copying:
                 await event.edit(f"تم إيقاف عملية التسريب بعد تسريب {posts_count} منشور.")
@@ -313,7 +313,7 @@ async def alarm(event):
     if is_alarm_running:
         await event.edit("يوجد منبه قيد التشغيل حالياً.")
         return
-    
+
     is_alarm_running = True
     input_amount = int(event.pattern_match.group(1))
     input_unit = event.pattern_match.group(2)
@@ -331,20 +331,20 @@ async def alarm(event):
         await event.edit("يرجى توفير وحدة زمنية صحيحة (d: أيام، h: ساعات، m: دقائق، s: ثواني).")
         is_alarm_running = False
         return
-    
+
     while is_alarm_running:
         now = datetime.now()
         remaining_time = target_time - now
         if remaining_time.total_seconds() <= 0:
             break
-        
+
         if message:
             await event.edit(f"الوقت المتبقي: {remaining_time} - {message}")
         else:
             await event.edit(f"الوقت المتبقي: {remaining_time}")
-        
+
         await asyncio.sleep(1)
-    
+
     is_alarm_running = False
     await event.edit("انتهى الوقت!")
 
