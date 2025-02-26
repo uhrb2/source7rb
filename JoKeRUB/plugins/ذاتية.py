@@ -257,7 +257,7 @@ async def auto_respond_alternative1(event):
 from telethon import events
 from JoKeRUB.utils import admin_cmd
 
-@l313l.on(admin_cmd(pattern="نسخ المنشورات من (.+)"))
+@l313l.on(admin_cmd(pattern="تسريب (.+)"))
 async def copy_posts(event):
     source_channel_username = event.pattern_match.group(1).strip()
 
