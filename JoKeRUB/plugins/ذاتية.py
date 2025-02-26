@@ -205,7 +205,6 @@ async def auto_respond(event):
         await event.reply(word_to_type)  # الرد على الرسالة
 
 # إضافة أوامر إضافية
-
 @l313l.on(events.NewMessage(pattern=r"^اول شخص يكتب (.+)$"))
 async def auto_respond_alternative1(event):
     if gvarstatus("auto_respond_enabled"):
