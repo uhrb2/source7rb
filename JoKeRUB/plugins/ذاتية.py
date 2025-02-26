@@ -253,3 +253,11 @@ async def auto_respond_alternative1(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
+
+from telethon import events
+
+@l313l.on(admin_cmd(pattern="انشاء الحساب"))
+async def account_creation_date(event):
+    user = await event.get_sender()
+    creation_date = user.date.strftime("%Y-%m-%d")
+    await event.respond(f"تم إنشاء الحساب في: {creation_date}")
