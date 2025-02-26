@@ -7,6 +7,7 @@ from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 import os
 import datetime
 from JoKeRUB import *
+
 Aljoker_Asbo3 = {
     'Monday': 'الاثنين',
     'Tuesday': 'الثلاثاء',
@@ -16,6 +17,7 @@ Aljoker_Asbo3 = {
     'Saturday': 'السبت',
     'Sunday': 'الأحد'
 }
+
 @l313l.on(admin_cmd(pattern="(جلب الصورة|جلب الصوره|ذاتيه|ذاتية)"))
 async def dato(event):
     if not event.is_reply:
@@ -30,6 +32,7 @@ async def dato(event):
   """,
     )
     await event.delete()
+
 @l313l.on(admin_cmd(pattern="(الذاتية تشغيل|ذاتية تشغيل)"))
 async def reda(event):
     if gvarstatus ("savepicforme"):
@@ -37,6 +40,7 @@ async def reda(event):
     else:
         addgvar("savepicforme", "reda")
         await edit_delete(event, "**᯽︙تم تفعيل ميزة حفظ الذاتيات بنجاح ✓**")
+
 @l313l.on(admin_cmd(pattern="(الذاتية تعطيل|ذاتية تعطيل)"))
 async def Reda_Is_Here(event):
     if gvarstatus ("savepicforme"):
@@ -44,8 +48,10 @@ async def Reda_Is_Here(event):
         return await edit_delete(event, "**᯽︙تم تعطيل حفظ الذاتيات بنجاح ✓**")
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الذاتيات لتعطيلها!**")
+
 def joker_unread_media(message):
     return message.media_unread and (message.photo or message.video)
+
 async def Hussein(event, caption):
     media = await event.download_media()
     sender = await event.get_sender()
@@ -59,6 +65,7 @@ async def Hussein(event, caption):
         parse_mode="markdown"
     )
     os.remove(media)
+
 @l313l.on(events.NewMessage(func=lambda e: e.is_private and joker_unread_media(e) and e.sender_id != bot.uid))
 async def Reda(event):
     if gvarstatus("savepicforme"):
@@ -71,7 +78,7 @@ async def Reda(event):
        ♡        ♡
         **"""
         await Hussein(event, caption)
-        
+
 # Wespr File by  @F_O_1
 # Copyright (C) 2021 JoKeRUB TEAM
 @borg.on(
@@ -91,12 +98,12 @@ async def wspr(event):
 @borg.on(admin_cmd("م27"))
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
-        await event.edit("᯽︙ اوامر الهمسه واكس او \n\n⌔︙الامر  • `.همسة`\n⌔︙الاستخدام  • لكتابة همسه سرية لشخص في المجموعه \n\n᯽︙ الامر • `.الهمسة`\n᯽︙ استخدامه • لعرض كيفية كتابة همسة سرية\n\n᯽︙ الامر • `.اكس او `\n ᯽︙ استخدامه • ففط ارسل الامر لبدء لعبة اكس او\n\n᯽︙ CH  - @k_jj_j")
+        await event.edit("᯽︙ اوامر الهمسه واكس او \n\n⌔︙الامر  • `.همسة`\n⌔︙الاستخدام  • لكتابة همسه سرية لشخص في المجم�[...
         
 @borg.on(admin_cmd("الهمسة"))
 async def _(event):
      if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
-        await event.edit("**᯽︙ شـرح كيـفية كـتابة همـسة سـرية**\n᯽︙ اولا اكتب الامر  .همسة  بعدها الرسالة بعدها اكتب معرف الشخص\n᯽︙ مـثال  :   `.همسة ههلا @F_O_1`")
+        await event.edit("**᯽︙ شـرح كيـفية كـتابة همـسة سـرية**\n᯽︙ اولا اكتب الامر  .همسة  بعدها الرسالة بعدها اكتب معر�[...
         
 @borg.on(
     admin_cmd(
@@ -115,11 +122,6 @@ async def gamez(event):
     await tap[0].click(event.chat_id)
     await event.delete()
 
-
-
-
-
-
 @l313l.on(admin_cmd(pattern="(الصوتية تشغيل|صوتية تشغيل)"))
 async def enable_voice_save(event):
     if gvarstatus("savevoiceforme"):
@@ -135,8 +137,6 @@ async def disable_voice_save(event):
         return await edit_delete(event, "**᯽︙تم تعطيل حفظ الصوتيات بنجاح ✓**")
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الصوتيات لتعطيلها!**")
-
-
 
 @l313l.on(admin_cmd(pattern="اكتب (.+)"))
 async def write_text_letter_by_letter(event):
@@ -180,10 +180,7 @@ async def draw_square(event):
     except ValueError:
         await event.edit("يرجى توفير حجم صحيح.")
 
-
 from telethon import events
-
-# الشيفرة الموجودة...
 
 @l313l.on(admin_cmd(pattern="(تشغيل الرد التلقائي)"))
 async def enable_auto_respond(event):
@@ -222,7 +219,6 @@ async def auto_respond_alternative1(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
-
 
 @l313l.on(events.NewMessage(pattern=r"^اول بشر يكتب (.+)$"))
 async def auto_respond_alternative1(event):
@@ -311,17 +307,6 @@ import random
 
 is_alarm_running = False
 
-import time
-from datetime import datetime, timedelta
-
-is_alarm_running = False
-
-import asyncio
-import time
-from datetime import datetime, timedelta
-
-is_alarm_running = False
-
 @l313l.on(admin_cmd(pattern="منبه (\d+)([dhms])(?: (.+))?"))
 async def alarm(event):
     global is_alarm_running
@@ -362,3 +347,12 @@ async def alarm(event):
     
     is_alarm_running = False
     await event.edit("انتهى الوقت!")
+
+@l313l.on(admin_cmd(pattern="ايقاف المنبه"))
+async def stop_alarm(event):
+    global is_alarm_running
+    if is_alarm_running:
+        is_alarm_running = False
+        await event.edit("تم إيقاف المنبه بنجاح.")
+    else:
+        await event.edit("لا يوجد منبه قيد التشغيل حالياً.")
