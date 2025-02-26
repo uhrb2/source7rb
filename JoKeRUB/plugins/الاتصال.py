@@ -40,3 +40,19 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
+import openai
+
+@l313l.on(admin_cmd(pattern="رسم مربع (\d+)"))
+async def draw_square(event):
+    try:
+        size = int(event.pattern_match.group(1).strip())
+        if size < 1:
+            return await event.edit("يرجى توفير حجم أكبر من 0.")
+
+        square = ""
+        for i in range(size):
+            square += "█" * size + "\n"
+
+        await event.edit(f"تم رسم مربع بحجم {size}:\n\n{square}")
+    except ValueError:
+        await event.edit("يرجى توفير حجم صحيح.")
