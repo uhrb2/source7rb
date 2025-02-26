@@ -216,3 +216,45 @@ async def auto_respond_alternative2(event):
     if gvarstatus("auto_respond_enabled"):
         word_to_type = event.pattern_match.group(1).strip()
         await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^اول واحد يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^اول (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^اول بشر يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^أول شخص يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^أول بشر يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^أول من يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
+
+@l313l.on(events.NewMessage(pattern=r"^أول واحد يكتب (.+)$"))
+async def auto_respond_alternative1(event):
+    if gvarstatus("auto_respond_enabled"):
+        word_to_type = event.pattern_match.group(1).strip()
+        await event.reply(word_to_type)  # الرد على الرسالة
