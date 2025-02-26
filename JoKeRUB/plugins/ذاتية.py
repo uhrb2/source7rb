@@ -255,9 +255,11 @@ async def auto_respond_alternative1(event):
         await event.reply(word_to_type)  # الرد على الرسالة
 
 from telethon import events
+from telethon.tl.functions.users import GetFullUser
 
 @l313l.on(admin_cmd(pattern="انشاء الحساب"))
 async def account_creation_date(event):
     user = await event.get_sender()
-    creation_date = user.date.strftime("%Y-%m-%d")
+    user_full = await bot(GetFullUser(user.id))
+    creation_date = user_full.user.date.strftime("%Y-%m-%d")
     await event.respond(f"تم إنشاء الحساب في: {creation_date}")
