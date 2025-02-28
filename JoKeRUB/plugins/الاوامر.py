@@ -22,7 +22,7 @@ rehu = [
 ]
 
 emoji_id =  10024  # ضع هنا معرف الرمز التعبيري
-emoji = get_emoji_by_id(emoji_id)  # تأكد من وجود دالة get_emoji_by_id التي تعيد التعبير بناءً على المعرف
+emoji = get_emoji_by_id(✨_10024)  # تأكد من وجود دالة get_emoji_by_id التي تعيد التعبير بناءً على المعرف
 await event.edit(
     f"✦ **⦑ قائمة اوامر سورس {emoji} Robin ⦒** ✦\n\n"
     "1. **أوامر الادمن**\n"
