@@ -42,7 +42,7 @@ async def promote_user(event):
 
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.messages import GetMessagesRequest
+from telethon.tl.functions.messages import GetMessagesRequest, ForwardMessagesRequest
 
 @l313l.on(admin_cmd(pattern="نسخ(?: |$)([\س\S]*)"))
 async def copy_restricted_posts(event):
@@ -50,13 +50,21 @@ async def copy_restricted_posts(event):
     if not links:
         return await event.edit("**- يرجى تحديد الروابط المراد نسخها**")
     
+    saved_messages_peer = await event.client.get_input_entity("me")
+    
     for link in links:
         try:
             post_id = int(link.split('/')[-1])
             chat = link.split('/')[-2]
             message = await event.client(GetMessagesRequest(chat_id=chat, id=[post_id]))
-            if message:
-                await event.client.send_message(event.chat_id, message.message)
+            if message and message.messages[0].restricted:
+                await event.client(ForwardMessagesRequest(
+                    from_peer=chat,
+                    id=[post_id],
+                    to_peer=saved_messages_peer,
+                    silent=True,
+                    with_my_score=True
+                ))
             else:
                 await event.edit(f"**- لم أتمكن من نسخ المنشور: {link}**")
         except Exception as e:
