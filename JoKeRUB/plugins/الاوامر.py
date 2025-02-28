@@ -21,15 +21,6 @@ rehu = [
     "᯽︙هـذه هي قائـمة الأوامر الخاصة بسورس Robin",
 ]
 
-@l313l.ar_cmd(pattern="عرض تعبير(?:\s|$)([\s\S]*)")
-async def get_custom_emoji(event):
-    emoji = event.pattern_match.group(1).strip()
-    if emoji in custom_emojis:
-        await event.edit(f"ID الخاص بالتعبير {emoji} هو {custom_emojis[emoji]}.")
-    else:
-        await event.edit(f"التعبير {emoji} غير موجود.")
-
-# تعديل الدالة الحالية لإضافة التعبير المميز في
 @l313l.ar_cmd(pattern="الاوامر(?:\s|$)([\s\S]*)")
 async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
