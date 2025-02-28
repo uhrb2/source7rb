@@ -21,13 +21,30 @@ rehu = [
     "᯽︙هـذه هي قائـمة الأوامر الخاصة بسورس Robin",
 ]
 
+from telethon import events
+import random, re
+from ..Config import Config
+from JoKeRUB.utils import admin_cmd
+import asyncio
+from JoKeRUB import l313l
+from random import choice
+from ..core.managers import edit_or_reply
+from ..sql_helper.globals import gvarstatus
+
+plugin_category = "extra"
+
+rehu = [
+    "᯽︙هـذه هي قائـمة الأوامر الخاصة بسورس Robin",
+]
+
 @l313l.ar_cmd(pattern="الاوامر(?:\s|$)([\س\S]*)")
 async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         F_O_1 = random.choice(rehu)
-        emoji = "\u2728"  # الرمز التعبيري الذي يتوافق مع معرف 10024
+        emoji = "\u2728"  # الرمز التعبيري المدفوع
+        link_text = f"[سورس{emoji}](tg://emoji?id=10024)"  # استبدل id بمعرف التعبير المدفوع
         await event.edit(
-            f"✦ **⦑ قائمة اوامر سورس {emoji} Robin ⦒** ✦\n\n"
+            f"✦ **⦑ قائمة اوامر {link_text} Robin ⦒** ✦\n\n"
             "1. **أوامر الادمن**\n"
             "   - `.م1`\n"
             "2. **أوامر المجموعة**\n"
