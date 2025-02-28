@@ -241,3 +241,17 @@ async def _(event):
                 await event.edit(
           "** قائمة الأوامر المدفوعة لسورس Robin**\n 1 - `.امر اول تم`\n 2 - `.أمر الذاتية`\n 3 - `.أمر النسخ`"
 )
+
+@l313l.ar_cmd(pattern="تعابير(?:\s|$)([\s\S]*)")
+async def add_custom_emoji(event):
+    input_str = event.pattern_match.group(1)
+    if not input_str:
+        await event.edit("يرجى إدخال التعابير.")
+        return
+    custom_emojis = input_str.split(',')
+    response = "تم إضافة التعابير التالية:\n"
+    for emoji in custom_emojis:
+        response += f"• {emoji.strip()}\n"
+    await event.edit(response)
+
+# مثال على الاستخدام: .اضافة_تعابير 😃, 😂, 🤔
