@@ -40,7 +40,6 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-
 import youtube_dl
 from telethon.tl.types import DocumentAttributeAudio
 
@@ -63,6 +62,7 @@ async def play_music(event):
         }],
         'outtmpl': '/tmp/%(title)s.%(ext)s',
         'quiet': True,
+        'cookiefile': 'path/to/cookies.txt',  # مسار ملف cookies.txt
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
