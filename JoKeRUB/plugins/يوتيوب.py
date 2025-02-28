@@ -37,6 +37,10 @@ from ..helpers import progress, reply_id
 
 
 
+import glob
+import os
+import random
+
 def get_cookies_file():
     folder_path = f"{os.getcwd()}/cookies"
     txt_files = glob.glob(os.path.join(folder_path, '*.txt'))
@@ -80,7 +84,6 @@ video_opts = {
     "quiet": True,
     "cookiefile": get_cookies_file(),
 }
-
 
 async def ytdl_down(event, opts, url):
     try:
