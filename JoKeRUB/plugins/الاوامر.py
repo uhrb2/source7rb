@@ -42,7 +42,7 @@ async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         F_O_1 = random.choice(rehu)
         emoji = "\u2728"  # الرمز التعبيري المدفوع
-        link_text = f"[سورس{emoji}](tg://emoji?id=10024)"  # استبدل id بمعرف التعبير المدفوع
+        link_text = f"[سورس{emoji}](tg://openmessage?emoji=10024)"  # استبدل id بمعرف التعبير المدفوع
         await event.edit(
             f"✦ **⦑ قائمة اوامر {link_text} Robin ⦒** ✦\n\n"
             "1. **أوامر الادمن**\n"
