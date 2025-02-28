@@ -21,24 +21,6 @@ rehu = [
     "᯽︙هـذه هي قائـمة الأوامر الخاصة بسورس Robin",
 ]
 
-from telethon.tl.types import InputStickerSetShortName
-
-# قائمة لتعابير تليجرام المميزة
-custom_emojis = {}
-
-@l313l.ar_cmd(pattern="اضافة تعبير(?:\s|$)([\s\S]*)")
-async def add_custom_emoji(event):
-    input_str = event.pattern_match.group(1)
-    if not input_str:
-        await event.edit("يرجى إدخال التعبير و ID الخاص بالتعبير.")
-        return
-    try:
-        emoji, emoji_id = input_str.split(',')
-        custom_emojis[emoji.strip()] = emoji_id.strip()
-        await event.edit(f"تم إضافة التعبير {emoji.strip()} برقم ID {emoji_id.strip()}.")
-    except ValueError:
-        await event.edit("صيغة الإدخال غير صحيحة. يرجى استخدام الصيغة: تعبير, ID")
-
 @l313l.ar_cmd(pattern="عرض تعبير(?:\s|$)([\s\S]*)")
 async def get_custom_emoji(event):
     emoji = event.pattern_match.group(1).strip()
@@ -47,14 +29,13 @@ async def get_custom_emoji(event):
     else:
         await event.edit(f"التعبير {emoji} غير موجود.")
 
-# تعديل الدالة الحالية لإضافة التعبير المميز في نهاية كلمة "سورس"
+# تعديل الدالة الحالية لإضافة التعبير المميز في
 @l313l.ar_cmd(pattern="الاوامر(?:\s|$)([\s\S]*)")
 async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         F_O_1 = random.choice(rehu)
-        emoji_id = custom_emojis.get("سورس", "❓")  # استخدم التعبير المميز إذا كان موجودًا
         await event.edit(
-            f"✦ **⦑ قائمة اوامر سورس {✨,  10024} Robin ⦒** ✦\n\n"
+            f"✦ **⦑ قائمة اوامر سورس Robin ⦒** ✦\n\n"
             "1. **أوامر الادمن**\n"
             "   - `.م1`\n"
             "2. **أوامر المجموعة**\n"
