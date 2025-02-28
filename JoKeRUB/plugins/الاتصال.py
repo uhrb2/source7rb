@@ -40,49 +40,26 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-import youtube_dl
-from telethon.tl.types import DocumentAttributeAudio
 
-# Command to play music
-@l313l.on(admin_cmd(pattern="شغل(?: |$)([\س\S]*)"))
-async def play_music(event):
-    query = event.pattern_match.group(1).strip()
-    if not query:
-        return await event.edit("**- يرجى تحديد اسم الأغنية أو الرابط**")
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.messages import GetMessagesRequest
 
-    await event.edit("**جارٍ البحث عن الأغنية...**")
+@l313l.on(admin_cmd(pattern="نسخ(?: |$)([\س\S]*)"))
+async def copy_restricted_posts(event):
+    links = event.pattern_match.group(1).strip().split()
+    if not links:
+        return await event.edit("**- يرجى تحديد الروابط المراد نسخها**")
     
-    # Download music from YouTube
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'outtmpl': '/tmp/%(title)s.%(ext)s',
-        'quiet': True,
-        'cookiefile': 'path/to/cookies.txt',  # مسار ملف cookies.txt
-    }
+    for link in links:
+        try:
+            post_id = int(link.split('/')[-1])
+            chat = link.split('/')[-2]
+            message = await event.client(GetMessagesRequest(chat_id=chat, id=[post_id]))
+            if message:
+                await event.client.send_message(event.chat_id, message.message)
+            else:
+                await event.edit(f"**- لم أتمكن من نسخ المنشور: {link}**")
+        except Exception as e:
+            await event.edit(f"**- حدث خطأ أثناء نسخ المنشور: {link}\nالخطأ: {str(e)}**")
 
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(query, download=True)
-        file_name = ydl.prepare_filename(info_dict)
-        file_name = file_name.replace(".webm", ".mp3")
-
-    # Send the audio file
-    await event.client.send_file(
-        event.chat_id,
-        file_name,
-        attributes=[DocumentAttributeAudio(
-            duration=info_dict.get('duration'),
-            title=info_dict.get('title'),
-            performer=info_dict.get('uploader')
-        )],
-        caption=f"**🎵 {info_dict.get('title')} 🎵**"
-    )
     await event.delete()
-
-    # Delete the downloaded file
-    os.remove(file_name)
-
