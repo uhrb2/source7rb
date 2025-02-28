@@ -36,6 +36,7 @@ from ..core.managers import edit_delete, edit_or_reply
 from ..helpers import progress, reply_id
 
 
+
 def get_cookies_file():
     folder_path = f"{os.getcwd()}/cookies"
     txt_files = glob.glob(os.path.join(folder_path, '*.txt'))
@@ -43,9 +44,6 @@ def get_cookies_file():
         raise FileNotFoundError("No .txt files found in the specified folder.")
     cookie_txt_file = random.choice(txt_files)
     return cookie_txt_file
-
-
-plugin_category = "misc"
 
 audio_opts = {
     "format": "bestaudio",
