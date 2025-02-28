@@ -26,7 +26,7 @@ async def _(event):
     if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
         F_O_1 = random.choice(rehu)
         await event.edit(
-            f"✦ **⦑ قائمة اوامر سورس Robin ⦒** ✦\n\n"
+            f"✦ **⦑ قائمة اوامر سورس [🌟](tg://emoji?id= 10024) Robin ⦒** ✦\n\n"
             "1. **أوامر الادمن**\n"
             "   - `.م1`\n"
             "2. **أوامر المجموعة**\n"
