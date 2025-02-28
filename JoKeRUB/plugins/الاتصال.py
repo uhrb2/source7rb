@@ -40,3 +40,49 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
+
+import youtube_dl
+from telethon.tl.types import DocumentAttributeAudio
+
+# Command to play music
+@l313l.on(admin_cmd(pattern="شغل(?: |$)([\س\S]*)"))
+async def play_music(event):
+    query = event.pattern_match.group(1).strip()
+    if not query:
+        return await event.edit("**- يرجى تحديد اسم الأغنية أو الرابط**")
+
+    await event.edit("**جارٍ البحث عن الأغنية...**")
+    
+    # Download music from YouTube
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'outtmpl': '/tmp/%(title)s.%(ext)s',
+        'quiet': True,
+    }
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(query, download=True)
+        file_name = ydl.prepare_filename(info_dict)
+        file_name = file_name.replace(".webm", ".mp3")
+
+    # Send the audio file
+    await event.client.send_file(
+        event.chat_id,
+        file_name,
+        attributes=[DocumentAttributeAudio(
+            duration=info_dict.get('duration'),
+            title=info_dict.get('title'),
+            performer=info_dict.get('uploader')
+        )],
+        caption=f"**🎵 {info_dict.get('title')} 🎵**"
+    )
+    await event.delete()
+
+    # Delete the downloaded file
+    os.remove(file_name)
+
