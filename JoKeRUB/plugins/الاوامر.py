@@ -54,7 +54,7 @@ async def _(event):
         F_O_1 = random.choice(rehu)
         emoji_id = custom_emojis.get("سورس", "❓")  # استخدم التعبير المميز إذا كان موجودًا
         await event.edit(
-            f"✦ **⦑ قائمة اوامر سورس {emoji_id} Robin ⦒** ✦\n\n"
+            f"✦ **⦑ قائمة اوامر سورس {✨,  10024} Robin ⦒** ✦\n\n"
             "1. **أوامر الادمن**\n"
             "   - `.م1`\n"
             "2. **أوامر المجموعة**\n"
