@@ -71,3 +71,25 @@ async def copy_restricted_posts(event):
             await event.edit(f"**- حدث خطأ أثناء نسخ المنشور: {link}\nالخطأ: {str(e)}**")
 
     await event.delete()
+
+import openai
+
+# إعدادات مكتبة OpenAI
+openai.api_key = "YOUR_API_KEY"
+
+@l313l.on(admin_cmd(pattern="اسأل(?: |$)([\س\S]*)"))
+async def ask_ai(event):
+    question = event.pattern_match.group(1).strip()
+    if not question:
+        return await event.edit("**- يرجى تحديد السؤال المراد إرساله**")
+
+    try:
+        response = openai.Completion.create(
+            engine="davinci",
+            prompt=question,
+            max_tokens=50
+        )
+        answer = response.choices[0].text.strip()
+        await event.edit(f"**سؤالك:** {question}\n**الإجابة:** {answer}")
+    except Exception as e:
+        await event.edit(f"**- حدث خطأ أثناء معالجة السؤال:\nالخطأ: {str(e)}**")
