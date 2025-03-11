@@ -1,0 +1,19 @@
+from telethon import events
+import random, re
+from JoKeRUB.utils import admin_cmd
+import asyncio 
+from JoKeRUB import l313l
+from ..sql_helper.globals import addgvar, delgvar, gvarstatus
+import os
+import datetime
+from JoKeRUB import *
+
+Aljoker_Asbo3 = {
+    'Monday': 'الاثنين',
+    'Tuesday': 'الثلاثاء',
+    'Wednesday': 'الأربعاء',
+    'Thursday': 'الخميس',
+    'Friday': 'الجمعة',
+    'Saturday': 'السبت',
+    'Sunday': 'الأحد'
+}
