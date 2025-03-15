@@ -24,7 +24,7 @@ DEFAULTUSER = str(AUTONAME) if AUTONAME else str(ALIVE_NAME)
 DEFAULTUSERBIO = (
     str(DEFAULT_BIO)
     if DEFAULT_BIO
-    else "الحمد لله دائماً وابداً 🎀 𝑆𝐻 : @k_jj_j"
+    else "الحمد لله دائماً وابداً  𝑆𝐻 : @robinuserbot"
 )
 
 @l313l.ar_cmd(pattern="انتحال(?:\s|$)([\s\S]*)")
