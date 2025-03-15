@@ -55,11 +55,11 @@ async def enable_reactions(event):
     reactions_enabled = True
     await edit_or_reply(event, "**تم تفعيل التفاعل بالتعبيرات**")
 
-@l313l.on(admin_cmd(pattern="تعطيل التعبيرات"))
+@l313l.on(admin_cmd(pattern="ايقاف التعبيرات"))
 async def disable_reactions(event):
     global reactions_enabled
     reactions_enabled = False
-    await edit_or_reply(event, "**تم تعطيل التفاعل بالتعبيرات**")
+    await edit_or_reply(event, "**تم ايقاف التفاعل بالتعبيرات**")
 
 @l313l.on(events.NewMessage(pattern=None))
 async def react_to_message(event):
