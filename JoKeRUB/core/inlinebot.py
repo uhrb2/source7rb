@@ -398,6 +398,99 @@ async def inline_handler(event):  # sourcery no-metrics
                 json.dump(newsecret, open(secret, "w"))
         elif match3:
             query = query[5:]
+            builder = eventRUB", "hide.txt")
+            try:
+                jsondata = json.load(open(hide))
+            except Exception:
+                jsondata = False
+            timestamp = int(time.time() * 2)
+            newhide = {str(timestamp): {"text": query}}
+
+            buttons = [Button.inline("قراءة الـرسالـة ", data=f"hide_{timestamp}")]
+            result = builder.article(
+                title="رسـالة مخفيـة من سـورس robin 🧸♥",
+                text=f"✖✖✖",
+                buttons=buttons,
+            )
+            await event.answer([result] if result else None)
+            if jsondata:
+                jsondata.update(newhide)
+                json.dump(jsondata, open(hide, "w"))
+            else:
+                json.dump(newhide, open(hide, "w"))
+        elif string == "                title="© JoKeRUB Help",
+                description="Help menu for JoKeRUB",
+                text=_result[0],
+                buttons=_result[1],
+                link_preview=False,
+            )
+            await event.answer([result] if result else None)
+        elif str_y[0].lower() == "ytdl" and len(str_y) == 2:
+            link = get_yt_video_id(str_y[1].strip())
+            found_ = True
+            if link is None:
+                search = VideosSearch(str_y[1].strip(), limit=15)
+                resp = (search.result()).get("result")
+                if len(resp) == 0:
+                    found_ = False
+                else:
+                    outdata = await result_formatter(resp)
+                    key_ = rand_key()
+                    ytsearch_data.store_(key_, outdata)
+                    buttons = [
+                        Button.inline(
+                            f"1 / {len(outdata)}",
+                            data=f"ytdl_next_{key_}_1",
+                        ),
+                        Button.inline(
+                            "📜  اضهار القائمة",
+                            data=f"ytdl_listall_{key_}_1",
+                        ),
+                        Button.inline(
+                            "⬇️  تنزيل",
+                            data=f'ytdl_download_{outdata[1]["video_id"]}_0',
+                        ),
+                    ]
+                    caption = outdata[1]["message"]
+                    photo = await get_ytthumb(outdata[1]["video_id"])
+            else:
+                caption, buttons = await download_button(link, body=True)
+                photo = await get_ytthumb(link)
+            if found_:
+                markup = event.client.build_reply_markup(buttons)
+                photo = types.InputWebDocument(
+                    url=photo, size=0, mime_type="image/jpeg", attributes=[]
+                )
+                text, msg_entities = await event.client._parse_message_text(
+                    caption, "html"
+                )
+                result = types.InputBotInlineResult(
+                    id=str(uuid4()),
+                    type="photo",
+                    title=link,
+                    description="⬇️ اضغط للتنزيل",
+                    thumb=photo,
+                    content=photo,
+                    send_message=types.InputBotInlineMessageMediaAuto(
+                        reply_markup=markup, message=text, entities=msg_entities
+                    ),
+                )
+            else:
+                result = builder.article(
+                    title="Not Found",
+                    text=f"No Results found for `{str_y[1]}`",
+                    description="INVALID",
+                )
+            try:
+                await event.answer
+            await event.answer([result] if result else None)
+            if jsondata:
+                jsondata.update(newsecret)
+                json.dump(jsondata, open(secret, "w"))
+            else:
+                json.dump(newsecret, open(secret, "w"))
+        elif match3:
+            query = query[5:]
             builder = event.builder
             hide = os.path.join("./JoKeRUB", "hide.txt")
             try:
