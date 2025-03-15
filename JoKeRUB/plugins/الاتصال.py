@@ -40,3 +40,29 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
+
+from telethon.tl.functions.messages import SendReactionRequest
+
+# قائمة التعبيرات
+emojis = ['😊', '😂', '😍', '😢', '😡', '👍', '👎', '❤️', '🔥', '🎉']
+
+# حالة التفعيل
+reactions_enabled = False
+
+@l313l.on(admin_cmd(pattern="تفعيل التعبيرات"))
+async def enable_reactions(event):
+    global reactions_enabled
+    reactions_enabled = True
+    await edit_or_reply(event, "**تم تفعيل التفاعل بالتعبيرات**")
+
+@l313l.on(admin_cmd(pattern="تعطيل التعبيرات"))
+async def disable_reactions(event):
+    global reactions_enabled
+    reactions_enabled = False
+    await edit_or_reply(event, "**تم تعطيل التفاعل بالتعبيرات**")
+
+@l313l.on(events.NewMessage(pattern=None))
+async def react_to_message(event):
+    if reactions_enabled:
+        emoji = random.choice(emojis)
+        await event.client(SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=emoji))
