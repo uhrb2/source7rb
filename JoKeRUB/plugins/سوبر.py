@@ -48,18 +48,26 @@ async def schedule_post(event):
         try:
             channel = int(channel)
         except BaseException:
-            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
+            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/ الايدي**")
 
     try:
         channel_id = (await event.client.get_entity(channel)).id
     except BaseException:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
 
     def job():
+        # نشر الرسالة بخط عادي
         if message.media:
             event.client.send_file(channel_id, message.media, caption=message.text)
         else:
             event.client.send_message(channel_id, message.text)
+        
+        # نشر الرسالة بخط عريض
+        bold_message = f"**{message.text}**"
+        if message.media:
+            event.client.send_file(channel_id, message.media, caption=bold_message)
+        else:
+            event.client.send_message(channel_id, bold_message)
 
     job_id = schedule.every(time_to_publish).seconds.do(job)
     context.chat_data['jobs'].append(job_id)
