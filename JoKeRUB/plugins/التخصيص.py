@@ -361,5 +361,3 @@ async def khas_hrb (event):
                 os.remove(media)
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
-
-
