@@ -385,11 +385,11 @@ async def settings(event):  # انتهـى  :)  اذا تخـمط تـذكر ت�
         await event.answer("انت لا تستطيع استخدام هذا البوت.", alert=True)
 
 
-import openai
-import os
+from transformers import pipeline
+from telethon import events
 
-# Initialize OpenAI API
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# تحميل نموذج محلي للذكاء الاصطناعي
+nlp = pipeline("conversational", model="microsoft/DialoGPT-medium")
 
 @tgbot.on(events.NewMessage(pattern="^/start"))
 async def start(event):
@@ -400,14 +400,10 @@ async def start(event):
     firstname = replied_user.users[0].first_name
     vent = event.chat_id
 
-    # Generate AI response
+    # Generate AI response using local model
     user_message = event.raw_text
-    ai_response = openai.Completion.create(
-        engine="davinci",
-        prompt=f"The user said: {user_message}\nAI response:",
-        max_tokens=50
-    )
-    response_text = ai_response.choices[0].text.strip()
+    conversation = nlp(user_message)
+    response_text = conversation[0]['generated_text']
 
     await tgbot.send_message(
         event.chat_id,
