@@ -383,3 +383,34 @@ async def settings(event):  # انتهـى  :)  اذا تخـمط تـذكر ت�
                                  ])
     else:
         await event.answer("انت لا تستطيع استخدام هذا البوت.", alert=True)
+
+
+import openai
+import os
+
+# Initialize OpenAI API
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+@tgbot.on(events.NewMessage(pattern="^/start"))
+async def start(event):
+    rehu = await tgbot.get_me()
+    bot_id = rehu.first_name
+    bot_username = rehu.username
+    replied_user = await event.client(GetFullUserRequest(event.sender_id))
+    firstname = replied_user.users[0].first_name
+    vent = event.chat_id
+
+    # Generate AI response
+    user_message = event.raw_text
+    ai_response = openai.Completion.create(
+        engine="davinci",
+        prompt=f"The user said: {user_message}\nAI response:",
+        max_tokens=50
+    )
+    response_text = ai_response.choices[0].text.strip()
+
+    await tgbot.send_message(
+        event.chat_id,
+        message=response_text,
+        link_preview=False
+    )
