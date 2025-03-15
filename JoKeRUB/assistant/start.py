@@ -383,30 +383,3 @@ async def settings(event):  # انتهـى  :)  اذا تخـمط تـذكر ت�
                                  ])
     else:
         await event.answer("انت لا تستطيع استخدام هذا البوت.", alert=True)
-
-
-from transformers import pipeline
-from telethon import events
-
-# تحميل نموذج محلي للذكاء الاصطناعي
-nlp = pipeline("conversational", model="microsoft/DialoGPT-medium")
-
-@tgbot.on(events.NewMessage(pattern="^/start"))
-async def start(event):
-    rehu = await tgbot.get_me()
-    bot_id = rehu.first_name
-    bot_username = rehu.username
-    replied_user = await event.client(GetFullUserRequest(event.sender_id))
-    firstname = replied_user.users[0].first_name
-    vent = event.chat_id
-
-    # Generate AI response using local model
-    user_message = event.raw_text
-    conversation = nlp(user_message)
-    response_text = conversation[0]['generated_text']
-
-    await tgbot.send_message(
-        event.chat_id,
-        message=response_text,
-        link_preview=False
-    )
