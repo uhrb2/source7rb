@@ -1,4 +1,3 @@
-import base64
 import asyncio
 from datetime import datetime
 from telethon import events
@@ -9,7 +8,6 @@ from telethon.tl.types import ChatBannedRights
 from telethon.utils import get_display_name
 
 from JoKeRUB import l313l
-
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.utils import _format
 from ..sql_helper import gban_sql_helper as gban_sql
@@ -30,8 +28,12 @@ def add_to_mute_list(user):
         file.write(f"{user.id}\n")
 
 def remove_from_mute_list(user_id):
-    global file_path  # Ensure you are modifying the global file_path
-    file_path = [id for id in file_path if id != str(user_id)]
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+    with open(file_path, 'w') as file:
+        for line in lines:
+            if line.strip("\n") != str(user_id):
+                file.write(line)
 
 #=================== الكـــــــــــــــتم  ===================  #
 
@@ -50,6 +52,7 @@ async def mutejep(event):
         try:
             mute(event.chat_id, event.chat_id)  # Corrected this line
             add_to_mute_list(replied_user)
+            await event.edit("**تم كتم المستخدم**")
         except Exception as e:
             await event.edit(f"**- خطــأ : **`{e}`")
         if BOTLOG:
@@ -103,6 +106,7 @@ async def mutejep(event):
         try:
             mute(user.id, event.chat_id) 
             add_to_mute_list(user)
+            await event.edit("**تم كتم المستخدم**")
         except UserAdminInvalidError:
             if "admin_rights" in vars(chat) and vars(chat)["admin_rights"] is not None:
                 if chat.admin_rights.delete_messages is not True:
@@ -153,6 +157,7 @@ async def unmutejep(event):
             unmute(event.chat_id, event.chat_id)
             if str(replied_user.id) in file_path:
                 remove_from_mute_list(replied_user.id)  # Ensure user ID is removed from the list
+            await event.edit("**تم الغاء كتم المستخدم**")
         except Exception as e:
             await event.edit(f"**- خطــأ : **`{e}`")
         if BOTLOG:
@@ -182,6 +187,7 @@ async def unmutejep(event):
                 unmute(user.id, event.chat_id)  # Corrected this line
                 if str(user.id) in file_path:  # Ensure file_path contains user ids as strings
                     remove_from_mute_list(user.id)  # Use user.id instead of user
+                await event.edit("**تم الغاء كتم المستخدم**")
             else:
                 result = await event.client.get_permissions(event.chat_id, user.id)
                 if result.participant.banned_rights.send_messages:
