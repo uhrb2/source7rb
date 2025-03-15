@@ -86,7 +86,7 @@ async def random_spam_function(event, messages, sleeptimet):
 async def random_spammer(event):
     input_str = "".join(event.text.split(maxsplit=1)[1:])
     messages = input_str.split("|")
-    sleeptimet = 1  # يمكنك تغيير هذا الوقت حسب الحاجة
+    sleeptimet = 300  # يمكنك تغيير هذا الوقت حسب الحاجة
     addgvar("spamwork", True)
     await random_spam_function(event, messages, sleeptimet)
 
