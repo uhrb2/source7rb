@@ -1,8 +1,3 @@
-"""
-JoKeRUB team ©
-By Reda
-sub Hussein
-"""
 import os
 from datetime import datetime
 import speech_recognition as sr
@@ -15,8 +10,6 @@ from ..helpers.utils import reply_id
 import ocrspace
 
 plugin_category = "utils"
-
-#لتخمط الملف اذا انته ابن گحبة انسخ وألصق لسورسك وصيح اني مطور الملف متعوب عليه وشغل ايد
 
 @l313l.ar_cmd(pattern="احجي(?:\s|$)([\s\S]*)",
                command=("احجي", plugin_category),
@@ -31,7 +24,6 @@ async def _(event):
     if not lan:
          return await edit_delete(event, "يجب ان تضع اختصار اللغة المطلوبة")
     
-    #ted = await edit_or_reply(event, str(lan))
     if not os.path.isdir(Config.TEMP_DIR):
         os.makedirs(Config.TEMP_DIR)
     mediatype = media_type(reply)
@@ -42,24 +34,23 @@ async def _(event):
         )
     jepevent = await edit_or_reply(event, "`يجري تنزيل الملف...`")
     oggfi = await event.client.download_media(reply, Config.TEMP_DIR)
+    print(f"Downloaded file: {oggfi}")  # طباعة مسار الملف الذي تم تنزيله
     await jepevent.edit("`يجري تحويل الكلام الى نص....`")
     r = sr.Recognizer()
-    #audio_data = open(required_file_name, "rb").read()
+    
     ogg = oggfi.removesuffix('.ogg')
-   
     AudioSegment.from_file(oggfi).export(f"{ogg}.wav", format="wav")
     user_audio_file = sr.AudioFile(f"{ogg}.wav")
+    print(f"Converted file to WAV: {ogg}.wav")  # طباعة مسار ملف WAV
     with user_audio_file as source:
          audio = r.record(source)
 
-    
     try:
          text = r.recognize_google(audio, language=str(lan))
     except ValueError:
          return await edit_delete(event, "**لا يوجد كلام في المقطع الصوتي**")
     except BaseException as err:
-         return await edit_delete(event, f"**!لا يوجد كلام في هذا المقطع الصوتي\n{err}**")
-    end = datetime.now()
+         return await edit_delete(event, f"**!لا يوجد كلام في هذا المقطع الصوتي\n{err    end = datetime.now()
     ms = (end - start).seconds
     
     string_to_show = "**يگول : **`{}`".format(
