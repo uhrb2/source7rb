@@ -78,3 +78,10 @@ async def _(event):
             BOTLOG_CHATID,
             f"#الانتحال\nتم انتحال المستخدم: [{first_name}](tg://user?id={user_id })",
         )
+
+@l313l.ar_cmd(
+    pattern="اعادة$",
+    command=("اعادة", plugin_category),
+    info={
+        "header": "To revert back to your original name , bio and profile pic",
+        "note": "For proper Functioning of this command you need to set AUTONAME and DEFAULT_BIO with your profile name and bio respectively.",
