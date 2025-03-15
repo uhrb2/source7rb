@@ -1,3 +1,31 @@
+# Copyright (C) 2021 JoKeRUB TEAM
+# FILES WRITTEN BY  @F_O_1
+import html
+import base64
+from telethon.tl.functions.channels import GetFullChannelRequest
+from telethon.tl import functions, types
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.errors import ChatAdminRequiredError, FloodWaitError
+from ..sql_helper.globals import addgvar, delgvar, gvarstatus
+from ..Config import Config
+from . import (
+    ALIVE_NAME,
+    AUTONAME,
+    BOTLOG,
+    BOTLOG_CHATID,
+    DEFAULT_BIO,
+    l313l,
+    edit_delete,
+    get_user_from_event,
+)
+
+plugin_category = "utils"
+DEFAULTUSER = str(AUTONAME) if AUTONAME else str(ALIVE_NAME)
+DEFAULTUSERBIO = (
+    str(DEFAULT_BIO)
+    if DEFAULT_BIO
+    else "الحمد لله دائماً وابداً  𝑆𝐻 : @RobinUserBot"
+)
 @l313l.ar_cmd(pattern="انتحال(?:\s|$)([\s\S]*)")
 async def _(event):
     mid = await l313l.get_me()
