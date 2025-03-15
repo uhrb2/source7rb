@@ -25,14 +25,13 @@ def run_schedule():
 
 threading.Thread(target=run_schedule).start()
 
-@l313l.on(admin_cmd(pattern="نشر (\\d+) (.+)"))
+@l313l.on(admin_cmd(pattern="نشر (.+)"))
 async def schedule_post(event):
     args = event.pattern_match.group(0).split()
-    if len(args) < 3:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب تحديد الوقت والقناة والرسالة**")
+    if len(args) < 2:
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب تحديد القناة والرسالة**")
 
-    time_to_publish = int(args[1])
-    channel = args[2]
+    channel = args[1]
     message = await event.get_reply_message()
 
     if not message:
@@ -48,12 +47,12 @@ async def schedule_post(event):
         try:
             channel = int(channel)
         except BaseException:
-            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
+            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
 
     try:
         channel_id = (await event.client.get_entity(channel)).id
     except BaseException:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
 
     def job():
         if message.media:
@@ -61,13 +60,23 @@ async def schedule_post(event):
         else:
             event.client.send_message(channel_id, message.text)
 
-    job_id = schedule.every(time_to_publish).seconds.do(job)
+    alternating_bold = False
+    def alternating_job():
+        nonlocal alternating_bold
+        caption = f"**{message.text}**" if alternating_bold else message.text
+        alternating_bold = not alternating_bold
+        if message.media:
+            event.client.send_file(channel_id, message.media, caption=caption)
+        else:
+            event.client.send_message(channel_id, caption)
+
+    job_id = schedule.every(500).seconds.do(alternating_job)
     context.chat_data['jobs'].append(job_id)
-    await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في القنـاة ** `{channel}` ** بوقـت {time_to_publish} ثانية بنجـاح ✓**")
+    await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في القنـاة ** `{channel}` ** بوقـت 500 ثانية بنجـاح ✓**")
 
 @l313l.on(admin_cmd(pattern="ايقاف نشر"))
 async def stop_scheduled_posts(event):
     for job in context.chat_data.get('jobs', []):
         schedule.cancel_job(job)
     context.chat_data['jobs'] = []
-    await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجاح ✓**")
+    await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجاح ✓**") لا 
