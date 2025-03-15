@@ -40,7 +40,11 @@ def remove_from_mute_list(user_id):
 @l313l.ar_cmd(pattern=f"كتم(?:\s|$)([\s\S]*)")
 async def mutejep(event):
     if event.is_private:
-        replied_user = await event.client.get_entity(event.chat_id)
+        try:
+            replied_user = await event.client.get_entity(event.chat_id)
+        except ValueError:
+            return await event.edit("**- خطأ: لم يتم العثور على المستخدم.**")
+        
         if is_muted(event.chat_id, event.chat_id):  # Corrected this line
             return await event.edit(
                 "**- هـذا المسـتخـدم مڪتـوم . . سـابقـاً **"
@@ -148,7 +152,11 @@ async def handle_forwarded(event):
 @l313l.ar_cmd(pattern=f"(الغاء الكتم|الغاء كتم)(?:\s|$)([\s\S]*)")
 async def unmutejep(event):
     if event.is_private:
-        replied_user = await event.client.get_entity(event.chat_id)
+        try:
+            replied_user = await event.client.get_entity(event.chat_id)
+        except ValueError:
+            return await event.edit("**- خطأ: لم يتم العثور على المستخدم.**")
+
         if not is_muted(event.chat_id, event.chat_id):
             return await event.edit(
                 "**عــذراً .. هـذا الشخـص غيــر مكتــوم هنـا**"
