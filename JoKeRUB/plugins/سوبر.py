@@ -48,12 +48,12 @@ async def schedule_post(event):
         try:
             channel = int(channel)
         except BaseException:
-            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
+            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
 
     try:
         channel_id = (await event.client.get_entity(channel)).id
     except BaseException:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
 
     def job():
         if message.media:
@@ -61,5 +61,13 @@ async def schedule_post(event):
         else:
             event.client.send_message(channel_id, message.text)
 
-    schedule.every(time_to_publish).seconds.do(job)
+    job_id = schedule.every(time_to_publish).seconds.do(job)
+    context.chat_data['jobs'].append(job_id)
     await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في القنـاة ** `{channel}` ** بوقـت {time_to_publish} ثانية بنجـاح ✓**")
+
+@l313l.on(admin_cmd(pattern="ايقاف نشر"))
+async def stop_scheduled_posts(event):
+    for job in context.chat_data.get('jobs', []):
+        schedule.cancel_job(job)
+    context.chat_data['jobs'] = []
+    await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجاح ✓**")
