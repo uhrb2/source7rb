@@ -14,7 +14,7 @@ from ..Config import Config
 from ..core.managers import edit_delete, edit_or_reply
 from ..sql_helper.autopost_sql import add_post, get_all_post, is_post, remove_post
 from JoKeRUB.core.logger import logging
- import gvarstatus
+from ..sql_helper.globals import gvarstatus
 from . import BOTLOG, BOTLOG_CHATID
 from . import *
 
@@ -25,60 +25,49 @@ def run_schedule():
 
 threading.Thread(target=run_schedule).start()
 
-@l313l.on(admin_cmd(pattern="نشر (.+)"))
+@l313l.on(admin_cmd(pattern="نشر (\\d+) (.+)"))
 async def schedule_post(event):
-    args = event.pattern_match.group(1).split()
-    if len(args) < 1:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب تحديد الكروب والرسالة**")
+    args = event.pattern_match.group(0).split()
+    if len(args) < 3:
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب تحديد الوقت والقناة والرسالة**")
 
-    chat = args[0]
+    time_to_publish = int(args[1])
+    channel = args[2]
     message = await event.get_reply_message()
 
     if not message:
         return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب الرد على الرسالة المراد نشرها**")
 
-    if chat.startswith("@"):
-        chat = chat
-    elif chat.startswith("https://t.me/"):
-        chat = chat.replace("https://t.me/", "@")
-    elif str(chat).startswith("-100"):
-        chat = str(chat).replace("-100", "")
+    if channel.startswith("@"):
+        channel = channel
+    elif channel.startswith("https://t.me/"):
+        channel = channel.replace("https://t.me/", "@")
+    elif str(channel).startswith("-100"):
+        channel = str(channel).replace("-100", "")
     else:
         try:
-            chat = int(chat)
+            channel = int(channel)
         except BaseException:
-            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي الكروب غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
+            return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
 
     try:
-        chat_id = (await event.client.get_entity(chat)).id
+        channel_id = (await event.client.get_entity(channel)).id
     except BaseException:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي الكروب غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الايدي**")
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. معـرف/ايـدي القنـاة غيـر صـالح**\n**✾╎الرجـاء التـأكـد مـن المعـرف/الاي[...]
 
-    alternating_bold = False
-    async def alternating_job():
-        nonlocal alternating_bold
-        caption = f"**{message.text}**" if alternating_bold else message.text
-        alternating_bold = not alternating_bold
+    def job():
         if message.media:
-            await event.client.send_file(chat_id, message.media, caption=caption)
+            event.client.send_file(channel_id, message.media, caption=message.text)
         else:
-            await event.client.send_message(chat_id, caption)
+            event.client.send_message(channel_id, message.text)
 
-    job_id = schedule.every(500).seconds.do(lambda: asyncio.run(alternating_job()))
-    if not hasattr(event.chat, 'jobs'):
-        event.chat.jobs = []
-    event.chat.jobs.append(job_id)
-    await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في الكروب ** `{chat}` ** بوقـت 500 ثانية بنجـاح ✓**")
+    job_id = schedule.every(time_to_publish).seconds.do(job)
+    context.chat_data['jobs'].append(job_id)
+    await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في القنـاة ** `{channel}` ** بوقـت {time_to_publish} ثانية بنجـاح ✓**")
 
-@l313l.on(admin_cmd(pattern="ايقاف نشر"))
+@l313l.on(admin_cmd(pattern="إيقاف_نشر"))
 async def stop_scheduled_posts(event):
-    if not hasattr(event.chat, 'jobs'):
-        event.chat.jobs = []
-    for job in event.chat.jobs:
+    for job in context.chat_data.get('jobs', []):
         schedule.cancel_job(job)
-    event.chat.jobs = []
-    await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجنا بتحديث الرسائل لتشير إلى الكروب بدلاً من القناة.
-2. قمنا بتعديل التحقق من معرف/رابط الكروب.
-3. استخدمنا `event.client.send_message` و `event.client.send_file` لنشر الرسالة في الكروب المحدد.
-
-الآن يجب أن يقوم الأمر بنشر الرسالة في الكروب المحدد كل 500 ثانية بالتناوب بين الخط العريض والعادي.
+    context.chat_data['jobs'] = []
+    await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجاح ✓**")
