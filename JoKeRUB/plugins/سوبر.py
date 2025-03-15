@@ -60,7 +60,7 @@ async def schedule_post(event):
         else:
             event.client.send_message(channel_id, caption)
 
-    job_id = schedule.every(500).seconds.do(alternating_job)
+    job_id = schedule.every(10).seconds.do(alternating_job)
     if not hasattr(event.chat, 'jobs'):
         event.chat.jobs = []
     event.chat.jobs.append(job_id)
