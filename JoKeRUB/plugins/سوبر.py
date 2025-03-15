@@ -14,7 +14,13 @@ from ..Config import Config
 from ..core.managers import edit_delete, edit_or_reply
 from ..sql_helper.autopost_sql import add_post, get_all_post, is_post, remove_post
 from JoKeRUB.core.logger import logging
-from.run_pending()
+from ..sql_helper.globals import gvarstatus
+from . import BOTLOG, BOTLOG_CHATID
+from . import *
+
+def run_schedule():
+    while True:
+        schedule.run_pending()
         time.sleep(1)
 
 threading.Thread(target=run_schedule).start()
@@ -29,11 +35,7 @@ async def schedule_post(event):
     message = await event.get_reply_message()
 
     if not message:
-        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب الرد على الرسالة المراد نشرها**")
-
-    if channel.startswith("@"):
-        channel = channel
-    elif channel.startswith("https://t.me/"):
+        return await edit_or_reply(event, "**᯽︙ عـذراً .. يجب الرد على الرسالة المراد نشرها**.startswith("https://t.me/"):
         channel = channel.replace("https://t.me/", "@")
     elif str(channel).startswith("-100"):
         channel = str(channel).replace("-100", "")
@@ -59,16 +61,14 @@ async def schedule_post(event):
             event.client.send_message(channel_id, caption)
 
     job_id = schedule.every(500).seconds.do(alternating_job)
-    if not hasattr(context.chat_data, 'jobs'):
-        context.chat_data['jobs'] = []
-    context.chat_data['jobs'].append(job_id)
-    await ✓**")
-
-@l313l.on(admin_cmd(pattern="ايقاف نشر"))
+    if not hasattr(event.chat, 'jobs'):
+        event.chat.jobs = []
+    event.chat.jobs.append(job_id)
+    await edit_or_reply(event, f"**᯽︙ تم جدولة النشـر التلقـائي في القنـاة ** `{channel}`_cmd(pattern="ايقاف نشر"))
 async def stop_scheduled_posts(event):
-    if not hasattr(context.chat_data, 'jobs'):
-        context.chat_data['jobs'] = []
-    for job in context.chat_data['jobs']:
+    if not hasattr(event.chat, 'jobs'):
+        event.chat.jobs = []
+    for job in event.chat.jobs:
         schedule.cancel_job(job)
-    context.chat_data['jobs'] = []
+    event.chat.jobs = []
     await edit_or_reply(event, "**᯽︙ تم إيقاف جميع الجداول بنجاح ✓**")
