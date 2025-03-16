@@ -2,6 +2,7 @@ import html
 import os
 import random
 from requests import get
+from translate import Translator
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.utils import get_input_location
@@ -40,7 +41,6 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-
 from telethon.tl.functions.messages import SendReactionRequest
 
 # قائمة التعبيرات
@@ -66,3 +66,36 @@ async def react_to_message(event):
     if reactions_enabled:
         emoji = random.choice(emojis)
         await event.client(SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=emoji))
+
+# قائمة اللغات ورموزها
+languages = {
+    "ar": "Arabic",
+    "en": "English",
+    "fr": "French",
+    "es": "Spanish",
+    "de": "German",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "zh-cn": "Chinese (Simplified)",
+    "zh-tw": "Chinese (Traditional)",
+    # أضف المزيد من اللغات حسب الحاجة
+}
+
+# دالة لعرض قائمة اللغات
+@l313l.on(admin_cmd(pattern="لغات(?: |$)([\س\S]*)"))
+async def list_languages(event):
+    languages_list = "\n".join([f"{code}: {name}" for code, name in languages.items()])
+    await edit_or_reply(event, f"**قائمة اللغات المتاحة:**\n\n{languages_list}")
+
+# دالة الترجمة
+@l313l.on(admin_cmd(pattern="ترجم(?: |$)([\س\S]*)"))
+async def translate_text(event):
+    text_to_translate = event.pattern_match.group(1).strip()
+    if not text_to_translate:
+        return await edit_or_reply(event, "**- يرجى تحديد النص المطلوب ترجمته**")
+
+    target_language = "ar"  # تغيير "ar" إلى رمز اللغة المطلوبة
+    translator = Translator(to_lang=target_language)
+    translation = translator.translate(text_to_translate)
+    await edit_or_reply(event, f"**النص المترجم إلى {languages[target_language]}:**\n\n{translation}")
