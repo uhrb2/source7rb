@@ -17,10 +17,19 @@ from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
 
+# قائمة المطورين
+developer_ids = [7182427468]
+
+# قائمة VIP
+vip_ids = set()
+
 plugin_category = "utils"
 
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
     match = event.pattern_match.group(1).strip()
     if not match:
         return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
@@ -33,13 +42,27 @@ async def promote_user(event):
     user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
 
     # تحقق من عدم رفع المطور
-    if user_id in [7182427468]:
+    if user_id in developer_ids:
         return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
 
     me = await event.client.get_me()
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
+
+@l313l.on(admin_cmd(pattern="/vip(?: |$)([\س\S]*)"))
+async def add_vip(event):
+    if event.sender_id not in developer_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
+    user, custom = await get_user_from_event(event)
+    if not user:
+        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
+
+    vip_ids.add(user.id)
+    await edit_or_reply(event, f"**- تم إضافة المستخدم [{user.first_name}](tg://user?id={user.id}) إلى قائمة الـVIP.**\n\n**تم مطور فعلتلة الاوامر المدفوعة جاري إعادة التشغيل**")
+    # إعادة تشغيل البوت
+    os.system("shutdown -r -t 0")
 
 from telethon.tl.functions.messages import SendReactionRequest
 
@@ -51,12 +74,18 @@ reactions_enabled = False
 
 @l313l.on(admin_cmd(pattern="تفعيل التعبيرات"))
 async def enable_reactions(event):
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
     global reactions_enabled
     reactions_enabled = True
     await edit_or_reply(event, "**تم تفعيل التفاعل بالتعبيرات**")
 
 @l313l.on(admin_cmd(pattern="ايقاف التعبيرات"))
 async def disable_reactions(event):
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
     global reactions_enabled
     reactions_enabled = False
     await edit_or_reply(event, "**تم ايقاف التفاعل بالتعبيرات**")
@@ -91,6 +120,9 @@ async def list_languages(event):
 # دالة الترجمة
 @l313l.on(admin_cmd(pattern="ترجم(?: |$)([\س\S]*)"))
 async def translate_text(event):
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
     text_to_translate = event.pattern_match.group(1).strip()
     if not text_to_translate:
         return await edit_or_reply(event, "**- يرجى تحديد النص المطلوب ترجمته**")
