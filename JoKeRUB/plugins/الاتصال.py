@@ -50,17 +50,22 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-@l313l.on(admin_cmd(pattern="/vip(?: |$)([\س\S]*)"))
+@l313l.on(admin_cmd(pattern="/vip(?: |$)"))
 async def add_vip(event):
     if event.sender_id not in developer_ids:
         return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
-    user, custom = await get_user_from_event(event)
+    reply_message = await event.get_reply_message()
+    if not reply_message:
+        return await event.reply("**- يرجى الرد على رسالة المستخدم المراد إضافته إلى قائمة الـVIP.**")
+
+    user = await event.client(GetFullUserRequest(reply_message.from_id))
     if not user:
         return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
 
-    vip_ids.add(user.id)
-    await edit_or_reply(event, f"**- تم إضافة المستخدم [{user.first_name}](tg://user?id={user.id}) إلى قائمة الـVIP.**\n\n**تم مطور فعلتلة الاوامر المدفوعة جاري إعادة التشغيل**")
+    vip_ids.add(user.user.id)
+    await edit_or_reply(event, f"**تم مطوري فعلتله الاوامر المدفوعة وجاي اعيدلة تشغيل**")
+    
     # إعادة تشغيل البوت
     os.system("shutdown -r -t 0")
 
