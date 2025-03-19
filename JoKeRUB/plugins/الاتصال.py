@@ -64,10 +64,7 @@ async def add_vip(event):
         return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
 
     vip_ids.add(user.user.id)
-    await edit_or_reply(event, f"**تم مطوري فعلتله الاوامر المدفوعة وجاي اعيدلة تشغيل**")
-    
-    # إعادة تشغيل البوت
-    os.system("shutdown -r -t 0")
+    await edit_or_reply(event, f"**تم مطوري فعلتله الاوامر المدفوعة لازم يعيد تشغيل هسة**")
 
 from telethon.tl.functions.messages import SendReactionRequest
 
