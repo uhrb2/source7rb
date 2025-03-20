@@ -175,7 +175,7 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 #by @F_O_1 بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@uui7rb", "@RobinUserBot", "@E_4_R"}
+JoKeRUB = {"@uui7rb", "@RobinUserBot", "@E_4_R", "is7rB"}
 async def saves():
     for F_O_1 in JoKeRUB:
         try:
@@ -282,7 +282,7 @@ async def verifyLoggerGroup():
                 + str(e)
             )
     else:
-        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @k_jj_j"
+        descript = "- عزيزي المستخدم هذه هي مجموعه الاشعارات يرجى عدم حذفها  - @RobinUserBot"
         photobt = await l313l.upload_file(file="l313l/razan/resources/start/k_jj_j.JPEG")
         botlog_group_id = await hrb_the_best(l313l, "مجموعة أشعارات 7rB ")
         if botlog_group_id:
