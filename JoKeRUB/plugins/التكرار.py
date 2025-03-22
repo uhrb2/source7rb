@@ -370,9 +370,6 @@ super_groups_list = []
 
 @l313l.on(admin_cmd(pattern="اضف سوبر(?: |$)([\س\S]*)"))
 async def add_super_group(event):
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-    
     group_link = event.pattern_match.group(1).strip()
     if not group_link:
         return await edit_or_reply(event, "**- يرجى تحديد رابط القروب.**")
