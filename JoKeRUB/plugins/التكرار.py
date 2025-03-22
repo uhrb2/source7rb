@@ -399,7 +399,7 @@ async def robin_supernshr(l313l, sleeptimet, message):
                 print(f"Error in sending message to group {group_id}: {e}")
         await asyncio.sleep(sleeptimet)
 
-@l313l.ar_cmd(pattern="سوبر(?: |$)([\س\S]*)"))
+@l313l.on(admin_cmd(pattern="سوبر(?: |$)([\س\S]*)"))
 async def Hussein(event):
     await event.delete()
     args = event.pattern_match.group(1).split()
@@ -420,7 +420,7 @@ async def Hussein(event):
     yaAli = True
     await robin_supernshr(l313l, sleeptimet, message)
 
-@l313l.ar_cmd(pattern="ايقاف (النشر|نشر)"))
+@l313l.on(admin_cmd(pattern="ايقاف (النشر|نشر)"))
 async def stop_7rB(event):
     global yaAli
     yaAli = False
