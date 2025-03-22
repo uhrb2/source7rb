@@ -378,7 +378,7 @@ async def add_super_group(event):
         group_entity = await event.client.get_entity(group_link)
         group_id = group_entity.id
         if group_id not in super_groups_list:
-            super_groups_list.append(group_id)
+_list.append(group_id)
             await edit_or_reply(event, f"**- تم إضافة القروب {group_link} إلى قائمة السوبر.**")
         else:
             await edit_or_reply(event, f"**- القروب {group_link} موجود بالفعل في قائمة السوبر.**")
