@@ -362,24 +362,69 @@ async def robin_supernshr(l313l, sleeptimet, message):
                     print(f"Error in sending message to chat {chat.id}: {e}")
         await asyncio.sleep(sleeptimet)
 
-@l313l.ar_cmd(pattern="سوبر")
+import asyncio
+from telethon.tl.functions.messages import ForwardMessagesRequest
+
+# قائمة لتخزين القروبات المضافة
+super_groups_list = []
+
+@l313l.on(admin_cmd(pattern="اضف سوبر(?: |$)([\س\S]*)"))
+async def add_super_group(event):
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+    
+    group_link = event.pattern_match.group(1).strip()
+    if not group_link:
+        return await edit_or_reply(event, "**- يرجى تحديد رابط القروب.**")
+    
+    try:
+        group_entity = await event.client.get_entity(group_link)
+        group_id = group_entity.id
+        if group_id not in super_groups_list:
+            super_groups_list.append(group_id)
+            await edit_or_reply(event, f"**- تم إضافة القروب {group_link} إلى قائمة السوبر.**")
+        else:
+            await edit_or_reply(event, f"**- القروب {group_link} موجود بالفعل في قائمة السوبر.**")
+    except Exception as e:
+        await edit_or_reply(event, f"**- خطأ في الحصول على القروب: {str(e)}**")
+
+async def robin_supernshr(l313l, sleeptimet, message):
+    global yaAli
+    yaAli = True
+    while yaAli:
+        for group_id in super_groups_list:
+            try:
+                if message.media:
+                    await l313l.send_file(group_id, message.media, caption=message.text)
+                else:
+                    await l313l.send_message(group_id, message.text)
+            except Exception as e:
+                print(f"Error in sending message to group {group_id}: {e}")
+        await asyncio.sleep(sleeptimet)
+
+@l313l.ar_cmd(pattern="سوبر(?: |$)([\س\S]*)"))
 async def Hussein(event):
     await event.delete()
-    seconds = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
-    message = await event.get_reply_message()
+    args = event.pattern_match.group(1).split()
+    if len(args) < 2:
+        return await edit_or_reply(event, "**- يرجى تحديد العدد والوقت بالثواني.**")
+
     try:
-        sleeptimet = int(seconds[0])
-    except Exception:
-        return await edit_delete(
-            event, "⌔∮ يجب استخدام كتابة صحيحة الرجاء التاكد من الامر اولا ⚠️"
-        )
+        sleeptimet = int(args[1])
+    except ValueError:
+        return await edit_or_reply(event, "**- الوقت يجب أن يكون رقمًا صحيحًا بالثواني.**")
+
+    message = await event.get_reply_message()
+    if not message:
+        return await edit_or_reply(event, "**- يرجى الرد على الرسالة التي تريد نشرها.**")
+
     l313l = event.client
     global yaAli
     yaAli = True
     await robin_supernshr(l313l, sleeptimet, message)
 
-@l313l.ar_cmd(pattern="ايقاف (النشر|نشر)")
+@l313l.ar_cmd(pattern="ايقاف (النشر|نشر)"))
 async def stop_7rB(event):
     global yaAli
     yaAli = False
-    await event.edit("**᯽︙ تم ايقاف النشر التلقائي بنجاح ✓** ")
+    await event.edit("**- تم إيقاف النشر التلقائي بنجاح.**")
