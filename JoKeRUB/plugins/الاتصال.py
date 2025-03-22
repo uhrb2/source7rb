@@ -133,3 +133,60 @@ async def translate_text(event):
     translator = Translator(to_lang=target_language)
     translation = translator.translate(text_to_translate)
     await edit_or_reply(event, f"**النص المترجم إلى {languages[target_language]}:**\n\n{translation}")
+
+import asyncio
+from telethon.tl.functions.messages import ForwardMessagesRequest
+
+# متغير للتحكم في حالة التكرار
+repeat_posting = False
+
+@l313l.on(admin_cmd(pattern="نشر(?: |$)([\س\S]*)"))
+async def schedule_post(event):
+    global repeat_posting
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
+    args = event.pattern_match.group(1).strip().split()
+    if len(args) < 2:
+        return await edit_or_reply(event, "**- يرجى تحديد رابط القناة والوقت بالثواني.**")
+
+    channel_link = args[0]
+    try:
+        delay = int(args[1])
+    except ValueError:
+        return await edit_or_reply(event, "**- الوقت يجب أن يكون رقمًا صحيحًا بالثواني.**")
+
+    reply_message = await event.get_reply_message()
+    if not reply_message:
+        return await edit_or_reply(event, "**- يرجى الرد على الرسالة التي تريد نشرها.**")
+
+    try:
+        # الحصول على الكيان من رابط القناة
+        channel_entity = await event.client.get_entity(channel_link)
+    except Exception as e:
+        return await edit_or_reply(event, f"**- خطأ في الحصول على القناة: {str(e)}**")
+
+    await edit_or_reply(event, f"**- سيتم نشر الرسالة في القناة {channel_link} كل {delay} ثانية حتى يتم إيقافها.**")
+
+    repeat_posting = True
+
+    while repeat_posting:
+        try:
+            await event.client(ForwardMessagesRequest(
+                from_peer=event.chat_id,
+                id=[reply_message.id],
+                to_peer=channel_entity
+            ))
+            await event.reply("**- تم نشر الرسالة بنجاح في القناة.**")
+        except Exception as e:
+            await event.reply(f"**- فشل في نشر الرسالة: {str(e)}**")
+        await asyncio.sleep(delay)
+
+@l313l.on(admin_cmd(pattern="ايقاف النشر"))
+async def stop_posting(event):
+    global repeat_posting
+    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
+
+    repeat_posting = False
+    await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
