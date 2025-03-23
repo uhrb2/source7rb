@@ -181,11 +181,17 @@ async def stop_posting(event):
     repeat_posting = False
     await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
 
-@l313l.on(admin_cmd(pattern="ذكاء(?: |$)([\س\S]*)"))
+@l313l.on(admin_cmd(pattern="جيميني(?: |$)([\س\S]*)"))
 async def ai_query(event):
     query = event.pattern_match.group(1).strip()
     if not query:
         return await edit_or_reply(event, "**- يرجى تحديد السؤال المطلوب إرساله**")
 
+    # تعديل الرسالة لتظهر "انتظر قليلاً..."
+    initial_message = await edit_or_reply(event, "**انتظر قليلاً...**")
+
+    # استدعاء API جيميني للحصول على الإجابة
     answer = ask_gemini(query)
-    await edit_or_reply(event, f"**الإجابة من جيميني:**\n\n{answer}")
+
+    # تعديل الرسالة لعرض الإجابة
+    await initial_message.edit(f"**الإجابة من جيميني:**\n\n{answer}")
