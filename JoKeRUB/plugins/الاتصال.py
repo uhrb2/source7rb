@@ -1,6 +1,7 @@
 import html
 import os
 import random
+import requests
 from requests import get
 from translate import Translator
 from telethon.tl.functions.photos import GetUserPhotosRequest
@@ -20,14 +21,28 @@ from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install
 # قائمة المطورين
 developer_ids = [7182427468]
 
-# قائمة VIP
-vip_ids = set()
-
 plugin_category = "utils"
+
+API_GEMINI = 'AIzaSyA5pzOpKVcMGm6Aek82KoB3Pk94dYg3LX4'
+
+def ask_gemini(question):
+    url = "https://api.gemini.com/v1/ask"
+    headers = {
+        "Authorization": f"Bearer {API_GEMINI}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "question": question
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    if response.status_code == 200:
+        return response.json().get("answer")
+    else:
+        return f"Error: {response.status_code} - {response.text}"
 
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+    if event.sender_id not in developer_ids:
         return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
     match = event.pattern_match.group(1).strip()
@@ -50,22 +65,6 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-@l313l.on(admin_cmd(pattern="/vip(?: |$)"))
-async def add_vip(event):
-    if event.sender_id not in developer_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-
-    reply_message = await event.get_reply_message()
-    if not reply_message:
-        return await event.reply("**- يرجى الرد على رسالة المستخدم المراد إضافته إلى قائمة الـVIP.**")
-
-    user = await event.client(GetFullUserRequest(reply_message.from_id))
-    if not user:
-        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
-
-    vip_ids.add(user.user.id)
-    await edit_or_reply(event, f"**تم مطوري فعلتله الاوامر المدفوعة لازم يعيد تشغيل هسة**")
-
 from telethon.tl.functions.messages import SendReactionRequest
 
 # قائمة التعبيرات
@@ -76,18 +75,12 @@ reactions_enabled = False
 
 @l313l.on(admin_cmd(pattern="تفعيل التعبيرات"))
 async def enable_reactions(event):
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-
     global reactions_enabled
     reactions_enabled = True
     await edit_or_reply(event, "**تم تفعيل التفاعل بالتعبيرات**")
 
 @l313l.on(admin_cmd(pattern="ايقاف التعبيرات"))
 async def disable_reactions(event):
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-
     global reactions_enabled
     reactions_enabled = False
     await edit_or_reply(event, "**تم ايقاف التفاعل بالتعبيرات**")
@@ -122,9 +115,6 @@ async def list_languages(event):
 # دالة الترجمة
 @l313l.on(admin_cmd(pattern="ترجم(?: |$)([\س\S]*)"))
 async def translate_text(event):
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-
     text_to_translate = event.pattern_match.group(1).strip()
     if not text_to_translate:
         return await edit_or_reply(event, "**- يرجى تحديد النص المطلوب ترجمته**")
@@ -143,7 +133,7 @@ repeat_posting = False
 @l313l.on(admin_cmd(pattern="نشر(?: |$)([\س\S]*)"))
 async def schedule_post(event):
     global repeat_posting
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+    if event.sender_id not in developer_ids:
         return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
     args = event.pattern_match.group(1).strip().split()
@@ -185,8 +175,17 @@ async def schedule_post(event):
 @l313l.on(admin_cmd(pattern="ايقاف النشر"))
 async def stop_posting(event):
     global repeat_posting
-    if event.sender_id not in developer_ids and event.sender_id not in vip_ids:
+    if event.sender_id not in developer_ids:
         return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
     repeat_posting = False
     await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
+
+@l313l.on(admin_cmd(pattern="ذكاء(?: |$)([\س\S]*)"))
+async def ai_query(event):
+    query = event.pattern_match.group(1).strip()
+    if not query:
+        return await edit_or_reply(event, "**- يرجى تحديد السؤال المطلوب إرساله**")
+
+    answer = ask_gemini(query)
+    await edit_or_reply(event, f"**الإجابة من جيميني:**\n\n{answer}")
