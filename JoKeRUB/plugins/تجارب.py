@@ -38,10 +38,13 @@ async def write_text_letter_by_letter(event):
 @l313l.on(admin_cmd(pattern="تحميل قصة (.+)"))
 async def download_story(event):
     url = event.pattern_match.group(1)
+    await event.edit("**᯽︙جاري تحميل القصة ...**")
+    
     response = requests.get(url)
     if response.status_code == 200:
         with open("story.mp4", "wb") as file:
             file.write(response.content)
+        
         await event.client.send_file("me", "story.mp4")
         await event.edit("**᯽︙تم تحميل القصة وإرسالها إلى الرسائل المحفوظة بنجاح ✓**")
         os.remove("story.mp4")
