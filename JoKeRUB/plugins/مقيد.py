@@ -1,5 +1,4 @@
 import time
-import threading
 import random
 from telethon import *
 from telethon.tl import functions, types
@@ -48,12 +47,22 @@ async def fetch_restricted_videos(event):
 
     for link in links:
         await event.respond(f"**᯽︙ جاري جلب الفيديو من الرابط ** `{link}`")
-        # هنا تضع كود لجلب الفيديو من الرابط
-        # سأفترض وجود دالة fetch_video(link) تقوم بجلب الفيديو من الرابط
-        await fetch_video(link)
+        await fetch_video(link, event)
         await event.respond(f"**᯽︙ تم جلب الفيديو من الرابط ** `{link}`")
         time.sleep(20)  # الانتظار لمدة 20 ثانية بين كل رابط والآخر
 
-async def fetch_video(link):
+async def fetch_video(link, event):
     # هنا تضع الكود الفعلي لجلب الفيديو من الرابط
-    pass
+    # مثال لجلب الفيديو باستخدام requests
+    import requests
+
+    response = requests.get(link, stream=True)
+    file_name = link.split("/")[-1]
+
+    with open(file_name, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:
+                f.write(chunk)
+
+    # إرسال الفيديو إلى الرسائل المحفوظة
+    await event.client.send_file("me", file_name)
