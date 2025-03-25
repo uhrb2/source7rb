@@ -7,7 +7,7 @@ from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 import os
 import datetime
 from JoKeRUB import *
-import requests
+import aiohttp
 
 @l313l.on(admin_cmd(pattern="(الصوتية تشغيل|صوتية تشغيل)"))
 async def enable_voice_save(event):
@@ -39,7 +39,7 @@ async def write_text_letter_by_letter(event):
 async def download_story(event):
     url = event.pattern_match.group(1)
     await event.edit("**᯽︙جاري تحميل القصة ...**")
-    
+
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
