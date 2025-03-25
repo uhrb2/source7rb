@@ -1,12 +1,13 @@
 from telethon import events
 import random, re
 from JoKeRUB.utils import admin_cmd
-import asyncio 
+import asyncio
 from JoKeRUB import l313l
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 import os
 import datetime
 from JoKeRUB import *
+import requests
 
 @l313l.on(admin_cmd(pattern="(الصوتية تشغيل|صوتية تشغيل)"))
 async def enable_voice_save(event):
@@ -32,3 +33,15 @@ async def write_text_letter_by_letter(event):
         result += char
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
+
+
+@l313l.on(admin_cmd(pattern="تحميل قصة (.+)"))
+async def download_story(event):
+    url = event.pattern_match.group(1)
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open("story.mp4", "wb") as file:
+            file.write(response.content)
+        await event.edit("**᯽︙تم تحميل القصة بنجاح ✓**")
+    else:
+        await event.edit("**᯽︙حدث خطأ أثناء تحميل القصة ✗**")
