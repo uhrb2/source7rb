@@ -40,13 +40,18 @@ async def download_story(event):
     url = event.pattern_match.group(1)
     await event.edit("**᯽︙جاري تحميل القصة ...**")
     
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open("story.mp4", "wb") as file:
-            file.write(response.content)
-        
-        await event.client.send_file("me", "story.mp4")
-        await event.edit("**᯽︙تم تحميل القصة وإرسالها إلى الرسائل المحفوظة بنجاح ✓**")
-        os.remove("story.mp4")
-    else:
-        await event.edit("**᯽︙حدث خطأ أثناء تحميل القصة ✗**")
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                with open("story.mp4", "wb") as file:
+                    while True:
+                        chunk = await response.content.read(1024)
+                        if not chunk:
+                            break
+                        file.write(chunk)
+                
+                await event.client.send_file("me", "story.mp4")
+                await event.edit("**᯽︙تم تحميل القصة وإرسالها إلى الرسائل المحفوظة بنجاح ✓**")
+                os.remove("story.mp4")
+            else:
+                await event.edit("**᯽︙حدث خطأ أثناء تحميل القصة ✗**")
