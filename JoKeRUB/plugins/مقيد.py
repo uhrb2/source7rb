@@ -1,67 +1,59 @@
-import re
-import asyncio
 import time
+import threading
+import random
+from telethon import *
+from telethon.tl import functions, types
+from telethon.tl.functions.channels import GetParticipantRequest, GetFullChannelRequest
+from telethon.errors.rpcerrorlist import UserNotParticipantError
+from telethon.tl.functions.messages import ExportChatInviteRequest
+from telethon.tl.functions.users import GetFullUserRequest
+
 from JoKeRUB import l313l
 
-from ..core.managers import edit_or_reply
-from ..sql_helper.filter_sql import (
-    add_filter,
-    get_filters,
-    remove_all_filters,
-    remove_filter,
-)
+from ..Config import Config
+from ..core.managers import edit_delete, edit_or_reply
+from ..sql_helper.autopost_sql import add_post, get_all_post, is_post, remove_post
+from JoKeRUB.core.logger import logging
+from ..sql_helper.globals import gvarstatus
 from . import BOTLOG, BOTLOG_CHATID
+from . import *
 
-plugin_category = "utils"
-ROZTEXT = "عـذرا لا يمكـنك اضافـة رد هـنا"
+# متغير لتفعيل أو تعطيل الأمر
+restricted_links_enabled = False
 
-restricted_mode = False
+@l313l.on(admin_cmd(pattern="تفعيل مقيد"))
+async def enable_restricted_links(event):
+    global restricted_links_enabled
+    restricted_links_enabled = True
+    await edit_or_reply(event, "**᯽︙ تم تفعيل جلب الفيديوهات المقيدة بنجاح**")
 
-@l313l.ar_cmd(
-    pattern="تفعيل الوضع المقيد$",
-    command=("تفعيل الوضع المقيد", plugin_category),
-    info={
-        "header": "لتفعيل وضع جلب الفيديوهات المقيدة",
-        "description": "يقوم بتفعيل الوضع الذي يجلب الفيديوهات المقيدة من الروابط",
-    },
-)
-async def enable_restricted_mode(event):
-    global restricted_mode
-    restricted_mode = True
-    await edit_or_reply(event, "**᯽︙ تم تفعيل الوضع المقيد بنجاح ✓**")
+@l313l.on(admin_cmd(pattern="تعطيل مقيد"))
+async def disable_restricted_links(event):
+    global restricted_links_enabled
+    restricted_links_enabled = False
+    await edit_or_reply(event, "**᯽︙ تم تعطيل جلب الفيديوهات المقيدة بنجاح**")
 
-
-@l313l.ar_cmd(
-    pattern="تعطيل الوضع المقيد$",
-    command=("تعطيل الوضع المقيد", plugin_category),
-    info={
-        "header": "لتعطيل وضع جلب الفيديوهات المقيدة",
-        "description": "يقوم بتعطيل الوضع الذي يجلب الفيديوهات المقيدة من الروابط",
-    },
-)
-async def disable_restricted_mode(event):
-    global restricted_mode
-    restricted_mode = False
-    await edit_or_reply(event, "**᯽︙ تم تعطيل الوضع المقيد بنجاح ✓**")
-
-
-@l313l.ar_cmd(
-    pattern="جلب الفيديوهات$",
-    command=("جلب الفيديوهات", plugin_category),
-    info={
-        "header": "لجلب الفيديوهات المقيدة من الروابط",
-        "description": "يقوم بجلب الفيديوهات المقيدة من الروابط كل 20 ثانية",
-    },
-)
+@l313l.on(admin_cmd(pattern="جلب فيديوهات مقيدة"))
 async def fetch_restricted_videos(event):
-    if not restricted_mode:
-        await edit_or_reply(event, "الوضع المقيد غير مفعل. يرجى تفعيله أولاً باستخدام أمر 'تفعيل الوضع المقيد'.")
-        return
+    if not restricted_links_enabled:
+        return await edit_or_reply(event, "**᯽︙ الأمر معطل حالياً. قم بتفعيله باستخدام الأمر `تفعيل مقيد`**")
 
-    links = event.raw_text.split()
+    message = await event.get_reply_message()
+    if not message or not message.text:
+        return await edit_or_reply(event, "**᯽︙ يجب الرد على رسالة تحتوي على الروابط لجلب الفيديوهات المقيدة**")
+
+    links = message.text.split()
+    if not links:
+        return await edit_or_reply(event, "**᯽︙ لم يتم العثور على أي روابط في الرسالة المردود عليها**")
+
     for link in links:
-        # قم بجلب الفيديو من الرابط هنا ووضعه في الرسائل المحفوظة
-        # مثال: await download_video_and_save_to_messages(link)
-        await asyncio.sleep(20)  # انتظر 20 ثانية بين كل رابط
+        await event.respond(f"**᯽︙ جاري جلب الفيديو من الرابط ** `{link}`")
+        # هنا تضع كود لجلب الفيديو من الرابط
+        # سأفترض وجود دالة fetch_video(link) تقوم بجلب الفيديو من الرابط
+        await fetch_video(link)
+        await event.respond(f"**᯽︙ تم جلب الفيديو من الرابط ** `{link}`")
+        time.sleep(20)  # الانتظار لمدة 20 ثانية بين كل رابط والآخر
 
-    await edit_or_reply(event, "**᯽︙ تم جلب الفيديوهات المقيدة بنجاح ✓**")
+async def fetch_video(link):
+    # هنا تضع الكود الفعلي لجلب الفيديو من الرابط
+    pass
