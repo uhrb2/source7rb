@@ -42,6 +42,8 @@ async def download_story(event):
     if response.status_code == 200:
         with open("story.mp4", "wb") as file:
             file.write(response.content)
-        await event.edit("**᯽︙تم تحميل القصة بنجاح ✓**")
+        await event.client.send_file("me", "story.mp4")
+        await event.edit("**᯽︙تم تحميل القصة وإرسالها إلى الرسائل المحفوظة بنجاح ✓**")
+        os.remove("story.mp4")
     else:
         await event.edit("**᯽︙حدث خطأ أثناء تحميل القصة ✗**")
