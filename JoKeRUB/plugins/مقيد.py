@@ -100,6 +100,8 @@ async def publish(event):
     await edit_or_reply(event, f"**سيتم نشر الرسالة كل {publish_interval} ثانية**")
 
 def publish_to_group(event):
+    global publish_message, publish_interval, publish_active
+
     while publish_active:
         # هنا يمكن اضافة الكود الذي يقوم بالدخول إلى القروب ونشر الرسالة
         event.client.loop.run_until_complete(event.respond(f"**نشر الرسالة:** {publish_message}"))
