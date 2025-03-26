@@ -23,22 +23,6 @@ developer_ids = [7182427468]
 
 plugin_category = "utils"
 
-API_GEMINI = 'AIzaSyA5pzOpKVcMGm6Aek82KoB3Pk94dYg3LX4'
-
-def ask_gemini(question):
-    url = "https://api.gemini.com/v1/ask"
-    headers = {
-        "Authorization": f"Bearer {API_GEMINI}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "question": question
-    }
-    response = requests.post(url, headers=headers, json=payload)
-    if response.status_code == 200:
-        return response.json().get("answer")
-    else:
-        return f"Error: {response.status_code} - {response.text}"
 
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
