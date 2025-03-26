@@ -1,6 +1,7 @@
 import time
 import random
 import threading
+import asyncio
 from telethon import *
 from telethon.tl import functions, types
 from telethon.tl.functions.channels import GetParticipantRequest, GetFullChannelRequest
@@ -94,17 +95,21 @@ async def publish(event):
     publish_active = True
 
     if publish_thread is None or not publish_thread.is_alive():
-        publish_thread = threading.Thread(target=publish_to_group, args=(event,))
+        publish_thread = threading.Thread(target=publish_to_groups, args=(event,))
         publish_thread.start()
 
     await edit_or_reply(event, f"**سيتم نشر الرسالة كل {publish_interval} ثانية**")
 
-def publish_to_group(event):
+def publish_to_groups(event):
     global publish_message, publish_interval, publish_active
 
     async def send_message():
         while publish_active:
-            await event.respond(f"**نشر الرسالة:** {publish_message}")
+            for link in super_links:
+                try:
+                    await event.client.send_message(link, f"**نشر الرسالة:** {publish_message}")
+                except Exception as e:
+                    print(f"فشل في النشر إلى {link}: {e}")
             await asyncio.sleep(publish_interval)
 
     event.client.loop.create_task(send_message())
