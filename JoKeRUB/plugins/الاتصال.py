@@ -26,9 +26,6 @@ plugin_category = "utils"
 
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
-    if event.sender_id not in developer_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
-
     match = event.pattern_match.group(1).strip()
     if not match:
         return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
@@ -49,76 +46,10 @@ async def promote_user(event):
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
 
-from telethon.tl.functions.messages import SendReactionRequest
-
-# قائمة التعبيرات
-emojis = ['😊', '😂', '😍', '😢', '😡', '👍', '👎', '❤️', '🔥', '🎉']
-
-# حالة التفعيل
-reactions_enabled = False
-
-@l313l.on(admin_cmd(pattern="تفعيل التعبيرات"))
-async def enable_reactions(event):
-    global reactions_enabled
-    reactions_enabled = True
-    await edit_or_reply(event, "**تم تفعيل التفاعل بالتعبيرات**")
-
-@l313l.on(admin_cmd(pattern="ايقاف التعبيرات"))
-async def disable_reactions(event):
-    global reactions_enabled
-    reactions_enabled = False
-    await edit_or_reply(event, "**تم ايقاف التفاعل بالتعبيرات**")
-
-@l313l.on(events.NewMessage(pattern=None))
-async def react_to_message(event):
-    if reactions_enabled:
-        emoji = random.choice(emojis)
-        await event.client(SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=emoji))
-
-# قائمة اللغات ورموزها
-languages = {
-    "ar": "Arabic",
-    "en": "English",
-    "fr": "French",
-    "es": "Spanish",
-    "de": "German",
-    "it": "Italian",
-    "ja": "Japanese",
-    "ko": "Korean",
-    "zh-cn": "Chinese (Simplified)",
-    "zh-tw": "Chinese (Traditional)",
-    # أضف المزيد من اللغات حسب الحاجة
-}
-
-# دالة لعرض قائمة اللغات
-@l313l.on(admin_cmd(pattern="لغات(?: |$)([\س\S]*)"))
-async def list_languages(event):
-    languages_list = "\n".join([f"{code}: {name}" for code, name in languages.items()])
-    await edit_or_reply(event, f"**قائمة اللغات المتاحة:**\n\n{languages_list}")
-
-# دالة الترجمة
-@l313l.on(admin_cmd(pattern="ترجم(?: |$)([\س\S]*)"))
-async def translate_text(event):
-    text_to_translate = event.pattern_match.group(1).strip()
-    if not text_to_translate:
-        return await edit_or_reply(event, "**- يرجى تحديد النص المطلوب ترجمته**")
-
-    target_language = "ar"  # تغيير "ar" إلى رمز اللغة المطلوبة
-    translator = Translator(to_lang=target_language)
-    translation = translator.translate(text_to_translate)
-    await edit_or_reply(event, f"**النص المترجم إلى {languages[target_language]}:**\n\n{translation}")
-
-import asyncio
-from telethon.tl.functions.messages import ForwardMessagesRequest
-
-# متغير للتحكم في حالة التكرار
-repeat_posting = False
 
 @l313l.on(admin_cmd(pattern="نشر(?: |$)([\س\S]*)"))
 async def schedule_post(event):
     global repeat_posting
-    if event.sender_id not in developer_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
     args = event.pattern_match.group(1).strip().split()
     if len(args) < 2:
@@ -145,8 +76,7 @@ async def schedule_post(event):
     repeat_posting = True
 
     while repeat_posting:
-        try:
-            await event.client(ForwardMessagesRequest(
+        try.client(ForwardMessagesRequest(
                 from_peer=event.chat_id,
                 id=[reply_message.id],
                 to_peer=channel_entity
@@ -156,26 +86,10 @@ async def schedule_post(event):
             await event.reply(f"**- فشل في نشر الرسالة: {str(e)}**")
         await asyncio.sleep(delay)
 
+
 @l313l.on(admin_cmd(pattern="ايقاف النشر"))
 async def stop_posting(event):
     global repeat_posting
-    if event.sender_id not in developer_ids:
-        return await event.reply("**- ليس لديك الصلاحية لاستخدام هذا الأمر.**")
 
     repeat_posting = False
     await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
-
-@l313l.on(admin_cmd(pattern="جيميني(?: |$)([\س\S]*)"))
-async def ai_query(event):
-    query = event.pattern_match.group(1).strip()
-    if not query:
-        return await edit_or_reply(event, "**- يرجى تحديد السؤال المطلوب إرساله**")
-
-    # تعديل الرسالة لتظهر "انتظر قليلاً..."
-    initial_message = await edit_or_reply(event, "**انتظر قليلاً...**")
-
-    # استدعاء API جيميني للحصول على الإجابة
-    answer = ask_gemini(query)
-
-    # تعديل الرسالة لعرض الإجابة
-    await initial_message.edit(f"**الإجابة من جيميني:**\n\n{answer}")
