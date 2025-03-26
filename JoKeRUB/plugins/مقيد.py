@@ -1,5 +1,6 @@
 import time
 import random
+import threading
 from telethon import *
 from telethon.tl import functions, types
 from telethon.tl.functions.channels import GetParticipantRequest, GetFullChannelRequest
@@ -19,6 +20,7 @@ from . import *
 
 # متغير لتفعيل أو تعطيل الأمر
 restricted_links_enabled = False
+super_links = []
 
 @l313l.on(admin_cmd(pattern="تفعيل مقيد"))
 async def enable_restricted_links(event):
@@ -66,3 +68,57 @@ async def fetch_video(link, event):
 
     # إرسال الفيديو إلى الرسائل المحفوظة
     await event.client.send_file("me", file_name)
+
+# إضافة متغيرات جديدة للنشر
+publish_message = None
+publish_interval = None
+publish_thread = None
+publish_active = False
+
+@l313l.on(admin_cmd(pattern="اضف سوبر (.*)"))
+async def add_super(event):
+    global super_links
+    link = event.pattern_match.group(1)
+    super_links.append(link)
+    await edit_or_reply(event, f"**تم اضافة الرابط: {link}**")
+
+@l313l.on(admin_cmd(pattern="نشر (.*) (\d+)"))
+async def publish(event):
+    global publish_message, publish_interval, publish_active, publish_thread
+
+    if not super_links:
+        return await edit_or_reply(event, "**يجب اضافة الرابط أولا باستخدام أمر 'اضف سوبر'.**")
+
+    publish_message = event.pattern_match.group(1)
+    publish_interval = int(event.pattern_match.group(2))
+    publish_active = True
+
+    if publish_thread is None or not publish_thread.is_alive():
+        publish_thread = threading.Thread(target=publish_to_group, args=(event,))
+        publish_thread.start()
+
+    await edit_or_reply(event, f"**سيتم نشر الرسالة كل {publish_interval} ثانية**")
+
+def publish_to_group(event):
+    while publish_active:
+        # هنا يمكن اضافة الكود الذي يقوم بالدخول إلى القروب ونشر الرسالة
+        event.client.loop.run_until_complete(event.respond(f"**نشر الرسالة:** {publish_message}"))
+        time.sleep(publish_interval)
+
+@l313l.on(admin_cmd(pattern="تعطيل النشر"))
+async def stop_publish(event):
+    global publish_active, publish_thread
+    publish_active = False
+    if publish_thread is not None:
+        publish_thread.join()
+    await edit_or_reply(event, "**تم تعطيل النشر**")
+
+@l313l.on(admin_cmd(pattern="حذف سوبر (.*)"))
+async def remove_super(event):
+    global super_links
+    link_or_user = event.pattern_match.group(1)
+    if link_or_user in super_links:
+        super_links.remove(link_or_user)
+        await edit_or_reply(event, f"**تم حذف الرابط أو اليوزر:** {link_or_user}")
+    else:
+        await edit_or_reply(event, f"**لم يتم العثور على الرابط أو اليوزر:** {link_or_user}")
