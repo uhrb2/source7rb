@@ -102,10 +102,12 @@ async def publish(event):
 def publish_to_group(event):
     global publish_message, publish_interval, publish_active
 
-    while publish_active:
-        # هنا يمكن اضافة الكود الذي يقوم بالدخول إلى القروب ونشر الرسالة
-        event.client.loop.run_until_complete(event.respond(f"**نشر الرسالة:** {publish_message}"))
-        time.sleep(publish_interval)
+    async def send_message():
+        while publish_active:
+            await event.respond(f"**نشر الرسالة:** {publish_message}")
+            await asyncio.sleep(publish_interval)
+
+    event.client.loop.create_task(send_message())
 
 @l313l.on(admin_cmd(pattern="تعطيل النشر"))
 async def stop_publish(event):
