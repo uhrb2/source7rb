@@ -67,9 +67,13 @@ async def repo(event):
     F_O_1 = Config.TG_BOT_USERNAME
     if event.reply_to_msg_id:
         await event.get_reply_message()
-    response = await bot.inline_query(F_O_1, "اوامري")
-    await response[0].click(event.chat_id)
-    await event.delete()
+    try:
+        response = await bot.inline_query(F_O_1, "اوامري")
+        await response[0].click(event.chat_id)
+    except telethon.errors.rpcerrorlist.BotResponseTimeoutError:
+        await event.reply("البوت لم يستجب في الوقت المحدد. يرجى المحاولة مرة أخرى لاحقًا.")
+    finally:
+        await event.delete()
 
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"l313l0")))
@@ -80,6 +84,7 @@ async def _(event):
       Button.inline("التالي", data="jrzst"),
       Button.inline("القائمة الرئيسية", data="ROE"),]]
     await event.edit(ROZADM, buttons=buttons)
+
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"jrzst")))
 @check_owner
@@ -196,6 +201,7 @@ async def _(event):
 async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
+
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"source_channels")))
 @check_owner
