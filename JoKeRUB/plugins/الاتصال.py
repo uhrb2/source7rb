@@ -93,3 +93,21 @@ async def stop_posting(event):
 
     repeat_posting = False
     await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
+
+@l313l.ar_cmd(
+    pattern="اذاعه(?:\s+|$)([\s\S]*)",
+    command=("اذاعه", plugin_category),
+)
+async def _(event):
+    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
+        reply = await event.get_reply_message()
+        text = event.pattern_match.group(1)
+        
+        if reply:
+            text = reply.text
+
+        if text:
+            await event.edit(f"إرسال النص: {text} لجميع الأشخاص")
+            # هنا تضيف الكود لإرسال النص لجميع الأشخاص
+        else:
+            await event.edit("يرجى إدخال نص بعد الأمر أو الرد على رسالة تحتوي على النص.")
