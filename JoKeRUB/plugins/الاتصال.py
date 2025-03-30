@@ -17,12 +17,14 @@ from ..helpers import get_user_from_event, reply_id
 from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
+import asyncio
 
 # قائمة المطورين
 developer_ids = [7182427468]
 
 plugin_category = "utils"
 
+broadcasting = False
 
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
 async def promote_user(event):
@@ -45,7 +47,6 @@ async def promote_user(event):
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
-
 
 @l313l.on(admin_cmd(pattern="نشر(?: |$)([\س\S]*)"))
 async def schedule_post(event):
@@ -76,7 +77,8 @@ async def schedule_post(event):
     repeat_posting = True
 
     while repeat_posting:
-        try.client(ForwardMessagesRequest(
+        try:
+            await event.client(ForwardMessagesRequest(
                 from_peer=event.chat_id,
                 id=[reply_message.id],
                 to_peer=channel_entity
@@ -86,7 +88,6 @@ async def schedule_post(event):
             await event.reply(f"**- فشل في نشر الرسالة: {str(e)}**")
         await asyncio.sleep(delay)
 
-
 @l313l.on(admin_cmd(pattern="ايقاف النشر"))
 async def stop_posting(event):
     global repeat_posting
@@ -94,3 +95,39 @@ async def stop_posting(event):
     repeat_posting = False
     await edit_or_reply(event, "**- تم إيقاف النشر المتكرر.**")
 
+@l313l.on(admin_cmd(pattern="اذاعة(?: |$)([\س\S]*)"))
+async def start_broadcast(event):
+    global broadcasting
+    if broadcasting:
+        await event.respond("إذاعة قيد التشغيل بالفعل.")
+        return
+
+    message = await event.get_reply_message()
+    if not message:
+        await event.respond("الرجاء الرد على الرسالة التي تريد إذاعتها.")
+        return
+
+    broadcasting = True
+    await event.respond("بدأت الإذاعة...")
+    count = 0
+
+    async for dialog in event.client.iter_dialogs():
+        if dialog.is_user and not dialog.entity.bot:
+            try:
+                await event.client.send_message(dialog.id, message)
+                count += 1
+            except Exception as e:
+                print(f"Failed to send message to {dialog.id}: {e}")
+
+    broadcasting = False
+    await event.respond(f"تم الإذاعة إلى {count} مستخدمين.")
+
+@l313l.on(admin_cmd(pattern="ايقاف الاذاعة"))
+async def stop_broadcast(event):
+    global broadcasting
+    if not broadcasting:
+        await event.respond("لا توجد إذاعة قيد التشغيل.")
+        return
+
+    broadcasting = False
+    await event.respond("تم إيقاف الإذاعة.")
