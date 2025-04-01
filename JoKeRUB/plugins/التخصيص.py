@@ -43,57 +43,82 @@ async def custom_HuRe(event):
     dontDo = ["جهاتي", "جهتي"]
     if input_str in dontDo:
         return
-    if reply and reply.text:
+    if reply:
         text = reply.text
-    else:
+    if text is None:
         return await edit_delete(
             event, "**⌔∮ يجب عليك الرد على النص او الرابط حسب الفار الذي تضيفه **"
         )
-
-    if input_str in ["كليشة الحماية", "كليشة الحمايه", "كليشه الحماية", "كليشه الحمايه"]:
+    if (
+        input_str == "كليشة الحماية"
+        or input_str == "كليشة الحمايه"
+        or input_str == "كليشه الحماية"
+        or input_str == "كليشه الحمايه"
+    ):
+        addgvar("pmpermit_txt", text)
         var = "pmpermit_txt"
-    elif input_str in ["اشتراك الخاص", "اشتراك خاص"]:
+    if input_str == "اشتراك الخاص" or input_str == "اشتراك خاص":
+        addgvar("pchan", text)
         var = "pchan"
-    elif input_str in ["اشتراك كروب", "اشتراك الكروب"]:
+    if input_str == "اشتراك كروب" or input_str == "اشتراك الكروب":
+        addgvar("gchan", text)
         var = "gchan"
-    elif input_str in ["امر النشر", "امر نشر"]:
+    if input_str == "امر النشر" or input_str == "امر نشر":
+        addgvar("MUKRR_ET", text)
         var = "MUKRR_ET"
-    elif input_str in ["زخرفة الارقام", "زخرفه الارقام"]:
+    if input_str == "زخرفة الارقام" or input_str == "زخرفه الارقام":
+        addgvar("JP_FN", text)
         var = "JP_FN"
-    elif input_str in ["البايو", "بايو"]:
+    if input_str == "البايو" or input_str == "بايو":
+        addgvar("DEFAULT_BIO", text)
         var = "DEFAULT_BIO"
-    elif input_str in ["رمز الاسم", "علامة الاسم"]:
+    if input_str == "رمز الاسم" or input_str == "علامة الاسم":
+        addgvar("TIME_JEP", text)
         var = "TIME_JEP"
-    elif input_str in ["كليشة الفحص", "كليشه الفحص", "كليشه فحص"]:
+    if input_str == "كليشة الفحص" or input_str == "كليشه الفحص" or input_str == "كليشه فحص" or input_str == "كليشه فحص":
+        addgvar("ALIVE_TEMPLATE", text)
         var = "ALIVE_TEMPLATE"
-    elif input_str in ["كليشة الحظر", "كليشه الحظر"]:
+    if input_str == "كليشة الحظر" or input_str == "كليشه الحظر":
+        addgvar("pmblock", text)
         var = "pmblock"
-    elif input_str in ["كليشة البوت", "كليشه البوت"]:
+    if input_str == "كليشة البوت" or input_str == "كليشه البوت":
+        addgvar("START_TEXT", text)
         var = "START_TEXT"
-    elif input_str == "ايموجي الفحص":
+    if input_str == "ايموجي الفحص":
+        addgvar("ALIVE_EMOJI", text)
         var = "ALIVE_EMOJI"
-    elif input_str == "نص الفحص":
+    if input_str == "نص الفحص":
+        addgvar("ALIVE_TEXT", text)
         var = "ALIVE_TEXT"
-    elif input_str == "عدد التحذيرات":
+    if input_str == "عدد التحذيرات":
+        addgvar("MAX_FLOOD_IN_PMS", text)
         var = "MAX_FLOOD_IN_PMS"
-    elif input_str in ["لون الوقتي", "لون وقتي", "لون صوره وقتيه", "لون الصوره الوقتيه", "لون"]:
-        var = "digitalpiccolor"
-    elif input_str in ["التخزين", "تخزين"]:
+    if (
+        input_str == "لون الوقتي"
+        or input_str == "لون وقتي"
+        or input_str == "لون صوره وقتيه"
+        or input_str == "لون الصوره الوقتيه"
+        or input_str == "لون"
+    ):
+       addgvar("digitalpiccolor", text)
+       var = "digitalpiccolor"
+    if input_str == "التخزين" or input_str == "تخزين":
+        addgvar("PM_LOGGER_GROUP_ID", text)
         var = "PM_LOGGER_GROUP_ID"
-    elif input_str in ["كليشة الخاص", "كليشه الخاص"]:
-        var = "7rB_message"
-    elif input_str in ["اشعارات", "الاشعارات"]:
+    if input_str == "كليشة الخاص" or input_str == "كليشه الخاص":
+        addgvar("7rB _message", text)
+        var = "7rB _message"
+    if input_str == "اشعارات" or input_str == "الاشعارات":
+        addgvar("PRIVATE_GROUP_BOT_API_ID", text)
         var = "PRIVATE_GROUP_BOT_API_ID"
-    else:
-        return await edit_delete(event, "**⌔∮ الفار غير معروف، الرجاء التحقق من الاسم. **")
-    
-    addgvar(var, text)
     await edit_or_reply(event, f"**₰ تم بنجاح تحديث فار {input_str} 𓆰،**")
-    
+    delgvar(var)
+    addgvar(var, text)
     if BOTLOG_CHATID:
-        await event.client.send_message(
+            await event.client.send_message(
             BOTLOG_CHATID,
-            f"#اضف_فار\n**{input_str}** تم تحديثه بنجاح في قاعده البيانات كـ:{var}",
+            f"#اضف_فار\
+                    \n**{input_str}** تم تحديثه بنجاح في قاعده البيانات كـ:",
         )
 
 
@@ -306,8 +331,6 @@ async def secu_hrb (event):
                 os.remove(media)
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
-
-
 @l313l.ar_cmd(pattern="اضف صورة (الخاص|خاص) ?(.*)")
 async def khas_hrb (event):
     reply = await event.get_reply_message()
@@ -338,3 +361,5 @@ async def khas_hrb (event):
                 os.remove(media)
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
+
+
