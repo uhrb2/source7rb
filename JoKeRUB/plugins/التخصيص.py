@@ -306,6 +306,8 @@ async def secu_hrb (event):
                 os.remove(media)
     else:
         await event.edit("**᯽︙ يُرجى الرد على الصورة لطفًا**")
+
+
 @l313l.ar_cmd(pattern="اضف صورة (الخاص|خاص) ?(.*)")
 async def khas_hrb (event):
     reply = await event.get_reply_message()
