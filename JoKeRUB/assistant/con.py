@@ -398,7 +398,7 @@ async def join_channels(bot_username, event, client):
 
     chs = 1
     for i in range(100):
-                if not collecting.get(event.sender_id, False):
+                        if not collecting.get(event.sender_id, False):
             await event.reply("تم إيقاف التجميع ⛔")
             break
         await asyncio.sleep(4)
@@ -464,4 +464,8 @@ async def tajme3_3qab(event):
 async def tajme3_milyon(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
-        await event
+        await event.reply("🏆 **سيتم تجميع النقاط من بوت المليون**")
+        bot_username = '@qweqwe1919bot'
+        await join_channels(bot_username, event, client)
+    else:
+        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
