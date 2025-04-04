@@ -71,9 +71,80 @@ async def collecting_section(event):
     buttons = [
         [Button.inline('تجميع العقاب 🔥', b'tajme3_3qab'), Button.inline('تجميع الجوكر 🃏', b'tajme3_7rb')],
         [Button.inline('تجميع المليار 📈', b'tajme3_milyar'), Button.inline('تجميع المليون 🏆', b'tajme3_milyon')],
+        [Button.inline('تجميع بابليون 🏛️', b'tajme3_babylon')],
         [Button.inline('العودة للخلف 🔙', b'back_to_main')]
     ]
-    await event.reply("اختر أحد الخيارات التالية:", buttons=buttons)
+    await event.reply("اختر رحلة مميزة لتجميع النقاط:", buttons=buttons)
+
+@tgbot.on(events.CallbackQuery(data=b'tajme3_babylon'))
+async def tajme3_babylon(event):
+    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
+        client = user_sessions[event.sender_id]["client"]
+        await event.reply("🏛️ **رحلة تجميع النقاط من بوت بابليون بدأت!**")
+        bot_username = '@S_313KBOT'
+        await client.send_message(bot_username, '/start')
+        await asyncio.sleep(4)
+        
+        # الضغط على زر b'col'
+        msg1 = await client.get_messages(bot_username, limit=1)
+        if msg1[0].buttons:
+            await msg1[0].click(data=b'col')
+        await asyncio.sleep(4)
+        
+        # الضغط على زر b'col3'
+        msg2 = await client.get_messages(bot_username, limit=1)
+        if msg2[0].buttons:
+            await msg2[0].click(data=b'col3')
+        await asyncio.sleep(4)
+        
+        # الضغط على أول زر للانضمام إلى القناة
+        msg3 = await client.get_messages(bot_username, limit=1)
+        if msg3[0].buttons:
+            await msg3[0].click(0)
+        await asyncio.sleep(4)
+        
+        # الضغط على زر b'donechkeko'
+        msg4 = await client.get_messages(bot_username, limit=1)
+        if msg4[0].buttons:
+            await msg4[0].click(data=b'donechkeko')
+        await asyncio.sleep(4)
+        
+        # الانضمام لباقي القنوات
+        chs = 1
+        for i in range(100):
+            if not collecting.get(event.sender_id, False):
+                await event.reply("تم إيقاف التجميع ⛔")
+                break
+            await asyncio.sleep(4)
+            history = await client.get_messages(bot_username, limit=1)
+            msgs = history[0]
+            if 'لا يوجد قنوات في الوقت الحالي' in msgs.message:
+                await client.send_message(event.chat_id, "تم الانتهاء من التجميع")
+                break
+            if msgs.reply_markup and msgs.reply_markup.rows:
+                url = msgs.reply_markup.rows[0].buttons[0].url
+                try:
+                    try:
+                        await client(JoinChannelRequest(url))
+                    except:
+                        invite_code = url.split('/')[-1]
+                        await client(ImportChatInviteRequest(invite_code))
+                    msg2 = await client.get_messages(bot_username, limit=1)
+                    if msg2[0].buttons:
+                        await msg2[0].click(text='تحقق')
+                    chs += 1
+                    await event.reply(f"تم الانضمام إلى {chs} قناة")
+                except:
+                    msg2 = await client.get_messages(bot_username, limit=1)
+                    if msg2[0].buttons:
+                        await msg2[0].click(text='التالي')
+                    chs += 1
+                    await event.reply(f"القناة رقم {chs}")
+            else:
+                await client.send_message(event.chat_id, "لا توجد أزرار في الرسالة، تم إيقاف التجميع.")
+                break
+    else:
+        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
 @tgbot.on(events.CallbackQuery(data=b'gift_section'))
 async def gift_section(event):
