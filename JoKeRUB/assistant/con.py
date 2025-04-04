@@ -52,6 +52,14 @@ allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخ�
 api_id = '21166913'
 api_hash = '70fc0a6dd6f4133a2477902e27133af6'
 
+def save_sessions_to_file():
+    file_name = "sessions.txt"
+    with open(file_name, "w") as f:
+        for session in user_sessions.values():
+            if "session_code" in session:
+                f.write(session["session_code"] + "\n")
+    return file_name
+
 # دالة لتسجيل الجلسة الجديدة وتخزين معرف المستخدم
 @tgbot.on(events.CallbackQuery(data=b'add_session'))
 async def add_session(event):
