@@ -4,47 +4,26 @@
 import asyncio
 import io
 import re
-
-from telethon import Button, custom, events
-from telethon.tl.functions.users import GetFullUserRequest
-from JoKeRUB import bot
-from JoKeRUB.sql_helper.blacklist_assistant import (
-    add_nibba_in_db,
-    is_he_added,
-    removenibba,
-)
-from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
-from JoKeRUB.sql_helper.idadder_sql import (
-    add_usersid_in_db,
-    already_added,
-    get_all_users,
-)
-from l313l.razan.resources.assistant import *
-
-import asyncio
-import io
-import re
-from telethon import Button, custom, events
-from telethon.tl.functions.users import GetFullUserRequest
-from JoKeRUB import bot
-from JoKeRUB.sql_helper.blacklist_assistant import (
-    add_nibba_in_db,
-    is_he_added,
-    removenibba,
-)
-from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
-from JoKeRUB.sql_helper.idadder_sql import (
-    add_usersid_in_db,
-    already_added,
-    get_all_users,
-)
-from l313l.razan.resources.assistant import *
-import uuid
 import os
+from telethon import Button, events
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
-from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
+from telethon.tl.functions.channels import JoinChannelRequest, ImportChatInviteRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
+from telethon.tl.functions.users import GetFullUserRequest
+from JoKeRUB import bot
+from JoKeRUB.sql_helper.blacklist_assistant import (
+    add_nibba_in_db,
+    is_he_added,
+    removenibba,
+)
+from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
+from JoKeRUB.sql_helper.idadder_sql import (
+    add_usersid_in_db,
+    already_added,
+    get_all_users,
+)
+from l313l.razan.resources.assistant import *
 
 user_sessions = {}
 allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
@@ -61,14 +40,14 @@ def save_sessions_to_file():
     return file_name
 
 # دالة لتسجيل الجلسة الجديدة وتخزين معرف المستخدم
-@tgbot.on(events.CallbackQuery(data=b'add_session'))
+@bot.on(events.CallbackQuery(data=b'add_session'))
 async def add_session(event):
     allowed_user_ids.add(event.sender_id)  # تخزين معرف المستخدم المسموح له
     await event.respond("الرجاء إرسال كود الجلسة (StringSession):")
     user_sessions[event.sender_id] = {"step": "session_code"}
 
 # دالة للتحقق من معرف المستخدم المسجل
-@tgbot.on(events.NewMessage(pattern="^/con"))
+@bot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
     username = event.sender.username if event.sender.username else "مستخدم"
     bot_info = (
@@ -84,12 +63,12 @@ async def handle_con_command(event):
         [Button.inline('حذف جلسة ❌', b'delete_session'), Button.inline('إيقاف التجميع ⛔', b'stop_collecting')],
         [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين 📥', b'upload_storage')],
         [Button.inline('قسم التجميع 🛠️', b'collecting_section')],
-        [Button.inline('قسم الهدايا 🎁', b'gift_section')]  # إضافة زر قسم الهدايا
+        [Button.inline('قسم الهدايا 🎁', b'gift_section')]
     ]
     
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
-@tgbot.on(events.CallbackQuery(data=b'collecting_section'))
+@bot.on(events.CallbackQuery(data=b'collecting_section'))
 async def collecting_section(event):
     buttons = [
         [Button.inline('تجميع العقاب 🔥', b'tajme3_3qab'), Button.inline('تجميع الجوكر 🃏', b'tajme3_7rb')],
@@ -99,7 +78,7 @@ async def collecting_section(event):
     ]
     await event.reply("اختر رحلة مميزة لتجميع النقاط:", buttons=buttons)
 
-@tgbot.on(events.CallbackQuery(data=b'tajme3_babylon'))
+@bot.on(events.CallbackQuery(data=b'tajme3_babylon'))
 async def tajme3_babylon(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
@@ -169,14 +148,13 @@ async def tajme3_babylon(event):
     else:
         await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
-@tgbot.on(events.CallbackQuery(data=b'gift_section'))
+@bot.on(events.CallbackQuery(data=b'gift_section'))
 async def gift_section(event):
     await event.reply("قريباً ")
     
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
-
-@tgbot.on(events.CallbackQuery(data=b'point_section'))
+@bot.on(events.CallbackQuery(data=b'point_section'))
 async def point_section(event):
     buttons = [
         [Button.inline('نقاط المليار 📈', b'points_milyar')],
@@ -186,7 +164,7 @@ async def point_section(event):
     ]
     await event.reply("اختر أحد الخيارات التالية:", buttons=buttons)
 
-@tgbot.on(events.CallbackQuery(data=b'points_milyar'))
+@bot.on(events.CallbackQuery(data=b'points_milyar'))
 async def points_milyar(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
@@ -196,7 +174,7 @@ async def points_milyar(event):
     else:
         await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
-@tgbot.on(events.CallbackQuery(data=b'points_milyon'))
+@bot.on(events.CallbackQuery(data=b'points_milyon'))
 async def points_milyon(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
@@ -206,7 +184,7 @@ async def points_milyon(event):
     else:
         await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
-@tgbot.on(events.CallbackQuery(data=b'points_3qab'))
+@bot.on(events.CallbackQuery(data=b'points_3qab'))
 async def points_3qab(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
@@ -216,41 +194,36 @@ async def points_3qab(event):
     else:
         await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
-@tgbot.on(events.CallbackQuery(data=b'back_to_main'))
+@bot.on(events.CallbackQuery(data=b'back_to_main'))
 async def back_to_main(event):
     await handle_con_command(event)
 
-@tgbot.on(events.CallbackQuery(data=b'login'))
+@bot.on(events.CallbackQuery(data=b'login'))
 async def login(event):
     await event.respond("الرجاء إرسال رقم الهاتف مع كود الدولة:")
     user_sessions[event.sender_id] = {"step": "phone"}
 
-@tgbot.on(events.CallbackQuery(data=b'add_session'))
-async def add_session(event):
-    await event.respond("الرجاء إرسال كود الجلسة (StringSession):")
-    user_sessions[event.sender_id] = {"step": "session_code"}
-
-@tgbot.on(events.CallbackQuery(data=b'delete_session'))
+@bot.on(events.CallbackQuery(data=b'delete_session'))
 async def delete_session(event):
     await event.respond("الرجاء إرسال كود الجلسة (StringSession) التي ترغب في حذفها:")
     user_sessions[event.sender_id] = {"step": "delete_session_code"}
 
-@tgbot.on(events.CallbackQuery(data=b'stop_collecting'))
+@bot.on(events.CallbackQuery(data=b'stop_collecting'))
 async def stop_collecting(event):
     collecting[event.sender_id] = False
     await event.reply("تم إيقاف التجميع ⛔")
 
-@tgbot.on(events.CallbackQuery(data=b'get_storage'))
+@bot.on(events.CallbackQuery(data=b'get_storage'))
 async def get_storage(event):
     file_name = save_sessions_to_file()
     await event.reply("تم حفظ الجلسات. إليك الملف:", file=file_name)
 
-@tgbot.on(events.CallbackQuery(data=b'upload_storage'))
+@bot.on(events.CallbackQuery(data=b'upload_storage'))
 async def upload_storage(event):
     await event.respond("الرجاء إرسال ملف التخزين:")
     user_sessions[event.sender_id] = {"step": "upload_storage"}
 
-@tgbot.on(events.NewMessage)
+@bot.on(events.NewMessage)
 async def handle_new_message(event):
     if event.sender_id in user_sessions:
         step = user_sessions[event.sender_id]["step"]
@@ -292,7 +265,6 @@ async def handle_new_message(event):
                 )
                 session_str = client.session.save()  # حفظ جلسة المستخدم
                 user_sessions[event.sender_id]["session_name"] = session_str
-                account_numbers.append(user_sessions[event.sender_id]["phone"])
                 user_sessions[event.sender_id]["step"] = None
             except Exception as e:
                 await event.reply(f"حدث خطأ: {str(e)}")
@@ -406,7 +378,7 @@ async def join_channels(bot_username, event, client):
 
     chs = 1
     for i in range(100):
-                        if not collecting.get(event.sender_id, False):
+        if not collecting.get(event.sender_id, False):
             await event.reply("تم إيقاف التجميع ⛔")
             break
         await asyncio.sleep(4)
@@ -474,6 +446,4 @@ async def tajme3_milyon(event):
         client = user_sessions[event.sender_id]["client"]
         await event.reply("🏆 **سيتم تجميع النقاط من بوت المليون**")
         bot_username = '@qweqwe1919bot'
-        await join_channels(bot_username, event, client)
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
+        await join_channels(bot_username, eve
