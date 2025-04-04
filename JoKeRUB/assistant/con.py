@@ -24,15 +24,27 @@ from l313l.razan.resources.assistant import *
 import asyncio
 import io
 import re
-import uuid
-import os
 from telethon import Button, custom, events
 from telethon.tl.functions.users import GetFullUserRequest
+from JoKeRUB import bot
+from JoKeRUB.sql_helper.blacklist_assistant import (
+    add_nibba_in_db,
+    is_he_added,
+    removenibba,
+)
+from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
+from JoKeRUB.sql_helper.idadder_sql import (
+    add_usersid_in_db,
+    already_added,
+    get_all_users,
+)
+from l313l.razan.resources.assistant import *
+import uuid
+import os
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
-from telethon import events
 
 user_sessions = {}
 allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
@@ -386,7 +398,7 @@ async def join_channels(bot_username, event, client):
 
     chs = 1
     for i in range(100):
-        if not collecting.get(event.sender_id, False):
+                if not collecting.get(event.sender_id, False):
             await event.reply("تم إيقاف التجميع ⛔")
             break
         await asyncio.sleep(4)
@@ -452,8 +464,4 @@ async def tajme3_3qab(event):
 async def tajme3_milyon(event):
     if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
         client = user_sessions[event.sender_id]["client"]
-        await event.reply("🏆 **سيتم تجميع النقاط من بوت المليون**")
-        bot_username = '@qweqwe1919bot'
-        await join_channels(bot_username, event, client)
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
+        await event
