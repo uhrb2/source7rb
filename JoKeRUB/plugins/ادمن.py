@@ -54,9 +54,3 @@ from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelReque
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon import events
 
-
-@l313l.on(admin_cmd(pattern="اضف اشتراك\+(\d+)"))
-async def add_allowed_user(event):
-    user_id = int(event.pattern_match.group(1))
-    allowed_user_ids.add(user_id)
-    await event.reply(f"تم إضافة المستخدم {user_id} إلى قائمة المسموح لهم باستخدام البوت.")
