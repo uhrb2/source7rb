@@ -37,6 +37,9 @@ from telethon import events
 user_sessions = {}
 allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
 
+api_id = '21166913'
+api_hash = '70fc0a6dd6f4133a2477902e27133af6'
+
 # دالة لتسجيل الجلسة الجديدة وتخزين معرف المستخدم
 @tgbot.on(events.CallbackQuery(data=b'add_session'))
 async def add_session(event):
