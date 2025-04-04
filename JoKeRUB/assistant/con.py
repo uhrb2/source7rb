@@ -32,6 +32,7 @@ from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest
+from telethon import events
 
 user_sessions = {}
 allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
@@ -48,7 +49,11 @@ async def add_session(event):
 async def handle_con_command(event):
     # تحقق من أن المستخدم مسموح له باستخدام البوت
     if event.sender_id not in allowed_user_ids:
-        await event.reply("عذرًا، لا يُسمح لك باستخدام هذا البوت.")
+        await event.reply(
+            "عذرًا، لا يُسمح لك باستخدام هذا البوت.\n"
+            "إذا كنت من منصبين السورس فقط أرسل التالي:\n"
+            "`اضف اشتراك+الايدي`"
+        )
         return
 
     username = event.sender.username if event.sender.username else "مستخدم"
@@ -69,6 +74,26 @@ async def handle_con_command(event):
     ]
     
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
+
+@tgbot.on(events.CallbackQuery(data=b'collecting_section'))
+async def collecting_section(event):
+    buttons = [
+        [Button.inline('تجميع العقاب 🔥', b'tajme3_3qab'), Button.inline('تجميع الجوكر 🃏', b'tajme3_7rb')],
+        [Button.inline('تجميع المليار 📈', b'tajme3_milyar'), Button.inline('تجميع المليون 🏆', b'tajme3_milyon')],
+        [Button.inline('العودة للخلف 🔙', b'back_to_main')]
+    ]
+    await event.reply("اختر أحد الخيارات التالية:", buttons=buttons)
+
+@tgbot.on(events.CallbackQuery(data=b'gift_section'))
+async def gift_section(event):
+    await event.reply("قريباً 🎁")
+
+# دالة لإضافة معرفات المستخدمين المسموح لهم عبر رسالة معينة
+@l313l.on(admin_cmd(pattern="اضف اشتراك\+(\d+)"))
+async def add_allowed_user(event):
+    user_id = int(event.pattern_match.group(1))
+    allowed_user_ids.add(user_id)
+    await event.reply(f"تم إضافة المستخدم {user_id} إلى قائمة المسموح لهم باستخدام البوت.")
 
 @tgbot.on(events.CallbackQuery(data=b'collecting_section'))
 async def collecting_section(event):
