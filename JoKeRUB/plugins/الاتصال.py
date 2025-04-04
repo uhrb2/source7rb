@@ -47,3 +47,23 @@ async def promote_user(event):
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
     await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
+
+from telethon import Button
+
+@l313l.on(admin_cmd(pattern="اكشف(?: |$)([\س\S]*)"))
+async def reveal_buttons(event):
+    reply_message = await event.get_reply_message()
+    if not reply_message or not reply_message.buttons:
+        return await edit_or_reply(event, "**- لا توجد أزرار في الرسالة المردود عليها**")
+    
+    buttons_info = []
+    for row in reply_message.buttons:
+        row_info = []
+        for button in row:
+            row_info.append(f"النص: {button.text}, البيانات: {button.data}")
+        buttons_info.append("\n".join(row_info))
+    
+    buttons_text = "\n\n".join(buttons_info)
+    await edit_or_reply(event, f"**معلومات الأزرار:**\n\n{buttons_text}")
+
+# Add this function to the existing plugin file where other commands are defined
