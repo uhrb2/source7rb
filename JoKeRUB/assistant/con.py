@@ -40,6 +40,13 @@ account_numbers = []
 api_id = '21166913'
 api_hash = '70fc0a6dd6f4133a2477902e27133af6'
 
+def save_sessions_to_file():
+    file_name = f"sessions_{uuid.uuid4().hex}.txt"
+    with open(file_name, 'w') as f:
+        for session in user_sessions.values():
+            if 'session_code' in session:
+                f.write(session['session_code'] + '\n')
+    return file_name
 
 @tgbot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
