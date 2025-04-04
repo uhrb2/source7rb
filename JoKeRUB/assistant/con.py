@@ -37,6 +37,10 @@ user_sessions = {}
 collecting = {}
 account_numbers = []
 
+api_id = '21166913'
+api_hash = '70fc0a6dd6f4133a2477902e27133af6'
+
+
 @tgbot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
     buttons = [
