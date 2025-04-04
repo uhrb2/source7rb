@@ -8,7 +8,7 @@ class Development(Config):
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
     DB_URI = "postgresql://jokeer501:jokeer501@localhost:5432/jokeer501"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
-    STRING_SESSION = "1BJWap1sBuxgBXENph0jevvyZwuQZ2NTnJBIBg6pDO0g65BTB6XvNiMFkzlh9ZuYw0YiqTXk6W6LT3N8W0ya2VZu28tKmFPAKt5Syel1a3gkgxzbKciUBB4MGY4IWIOqxsMzSX7qRaeMAcJi_NMz8dHPt1kRkdx9gw-Oo1ugTUA1I_onZ_sRN4tMfyi_ia5iUMM9Gm4GRdLYtxmNLCAF2cZsMph2OL9Q4igP5F4z2_Sn8qYNcjo-dnhtWoCSSI_rZCLSjrb0Ue3z6kKQEEOesbJwLudTjiY4S_JMhAiJZi7y4mtH3sa-f1K4iuZ2euW724h0st-eqfuIYjGH-zHP-wbOXGnrHGnU="
+    STRING_SESSION = "1ApWapzMBu6OZCl1sMuEwEI80KKBo0kw2msTnPzgZw7TjhpPAVXY9FcjR3OxJL55iHeYp67MzvwGWZTWD71GoagnN49_SGDim4M49Ittq6EgEC5jAH0EaeXVwfWnqHVgIqDd1WhE7ZCKihhJGTSyIUexM9H1T6eFNbsHtg5VM17i3y_LMfckBjM6j_Ff5Kb5r2-InS5akR668KuzKEesBW9ru6B7y6o_wFz8Ph80zpm20AjdgoS4OQtNNhYToluzfu2PlRPKdkMVyvydo6v5_sfKh_6hWASBXc07rI0FOtu1wEz0r8tsEE6WoyWSxWV0u5EP65FlPBtSYvHUrPAMp0j1uu8sbfwc="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
     TG_BOT_TOKEN = "7653315118:AAFeXKbMtax9EtvGelN5_I-4cOfRCgvtrgo"
     # command handler
