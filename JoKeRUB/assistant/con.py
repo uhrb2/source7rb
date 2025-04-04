@@ -50,6 +50,12 @@ def save_sessions_to_file():
 
 @tgbot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
+    username = event.sender.username if event.sender.username else "مستخدم"
+    bot_info = (
+        "🔹معلومات البوت:\n"
+        "بوت التجميع الخاص بنا يساعدك في تجميع النقاط والخدمات المختلفة من تليجرام.\n"
+        "استخدم الأزرار التالية للتفاعل مع البوت:"
+    )
     buttons = [
         [Button.inline('تسجيل الدخول 🔑', b'login'), Button.inline('تسجيل جلسة 📝', b'add_session')],
         [Button.inline('قسم النقاط 📊', b'point_section')],
@@ -60,7 +66,7 @@ async def handle_con_command(event):
         [Button.inline('تقليد', b'mimic')]
     ]
     
-    await event.reply("اختر أحد الأزرار:", buttons=buttons)
+    await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
 @tgbot.on(events.CallbackQuery(data=b'mimic'))
 async def handle_mimic_button(event):
