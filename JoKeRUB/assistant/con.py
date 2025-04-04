@@ -63,18 +63,24 @@ async def handle_con_command(event):
         [Button.inline('حذف حساب 🗑️', b'delete_account'), Button.inline('عدد الحسابات 📊', b'account_count')],
         [Button.inline('حذف جلسة ❌', b'delete_session'), Button.inline('إيقاف التجميع ⛔', b'stop_collecting')],
         [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين 📥', b'upload_storage')],
-        [Button.inline('تقليد', b'mimic')]
+        [Button.inline('قسم التجميع 🛠️', b'collecting_section')],
+        [Button.inline('قسم الهدايا 🎁', b'gift_section')]  # إضافة زر قسم الهدايا
     ]
     
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
-@tgbot.on(events.CallbackQuery(data=b'mimic'))
-async def handle_mimic_button(event):
-    await event.edit("سوف أقوم بتقليدك الآن، ارسل أي رسالة.")
-    tgbot.add_event_handler(mimic_user, events.NewMessage(from_users=event.sender_id))
+@tgbot.on(events.CallbackQuery(data=b'collecting_section'))
+async def collecting_section(event):
+    buttons = [
+        [Button.inline('تجميع العقاب 🔥', b'tajme3_3qab'), Button.inline('تجميع الجوكر 🃏', b'tajme3_7rb')],
+        [Button.inline('تجميع المليار 📈', b'tajme3_milyar'), Button.inline('تجميع المليون 🏆', b'tajme3_milyon')],
+        [Button.inline('العودة للخلف 🔙', b'back_to_main')]
+    ]
+    await event.reply("اختر أحد الخيارات التالية:", buttons=buttons)
 
-async def mimic_user(event):
-    await event.reply(event.text)
+@tgbot.on(events.CallbackQuery(data=b'gift_section'))
+async def gift_section(event):
+    await event.reply("قريباً")
 
 @tgbot.on(events.CallbackQuery(data=b'point_section'))
 async def point_section(event):
