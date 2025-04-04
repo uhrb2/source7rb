@@ -34,22 +34,23 @@ from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelReque
 from telethon.tl.functions.messages import ImportChatInviteRequest
 
 user_sessions = {}
-collecting = {}
-account_numbers = []
+allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
 
-api_id = '21166913'
-api_hash = '70fc0a6dd6f4133a2477902e27133af6'
+# دالة لتسجيل الجلسة الجديدة وتخزين معرف المستخدم
+@tgbot.on(events.CallbackQuery(data=b'add_session'))
+async def add_session(event):
+    allowed_user_ids.add(event.sender_id)  # تخزين معرف المستخدم المسموح له
+    await event.respond("الرجاء إرسال كود الجلسة (StringSession):")
+    user_sessions[event.sender_id] = {"step": "session_code"}
 
-def save_sessions_to_file():
-    file_name = f"sessions_{uuid.uuid4().hex}.txt"
-    with open(file_name, 'w') as f:
-        for session in user_sessions.values():
-            if 'session_code' in session:
-                f.write(session['session_code'] + '\n')
-    return file_name
-
+# دالة للتحقق من معرف المستخدم المسجل
 @tgbot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
+    # تحقق من أن المستخدم مسموح له باستخدام البوت
+    if event.sender_id not in allowed_user_ids:
+        await event.reply("عذرًا، لا يُسمح لك باستخدام هذا البوت.")
+        return
+
     username = event.sender.username if event.sender.username else "مستخدم"
     bot_info = (
         "🔹معلومات البوت:\n"
@@ -68,6 +69,19 @@ async def handle_con_command(event):
     ]
     
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
+
+@tgbot.on(events.CallbackQuery(data=b'collecting_section'))
+async def collecting_section(event):
+    buttons = [
+        [Button.inline('تجميع العقاب 🔥', b'tajme3_3qab'), Button.inline('تجميع الجوكر 🃏', b'tajme3_7rb')],
+        [Button.inline('تجميع المليار 📈', b'tajme3_milyar'), Button.inline('تجميع المليون 🏆', b'tajme3_milyon')],
+        [Button.inline('العودة للخلف 🔙', b'back_to_main')]
+    ]
+    await event.reply("اختر أحد الخيارات التالية:", buttons=buttons)
+
+@tgbot.on(events.CallbackQuery(data=b'gift_section'))
+async def gift_section(event):
+    await event.reply("قريباً تتم اضافتها")
 
 @tgbot.on(events.CallbackQuery(data=b'collecting_section'))
 async def collecting_section(event):
