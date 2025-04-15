@@ -12,63 +12,31 @@ ROE = f"☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n�
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
-   from telethon import events, Button
+   @tgbot.on(events.InlineQuery)
+    async def inline_handler(event):
+        builder = event.builder
+        query = event.text
+        await bot.get_me()
 
-@tgbot.on(events.InlineQuery)
-async def inline_handler(event):
-    builder = event.builder
-    query = event.text
-    await bot.get_me()
-
-    if query.startswith("اوامري") and event.query.user_id == bot.uid:
-        buttons = [
-            [Button.url("🌐 قناة السورس", "https://t.me/RobinUserBot")],
-            [Button.inline("🤖 أوامر البوت", data="bot_commands")],
-            [Button.inline("📋 الأوامر", data="main_commands")],
-        ]
-        await event.answer(
-            results=[
-                builder.article(
-                    title="اوامري",
-                    text="اختر أحد الخيارات من القائمة:",
-                    buttons=buttons,
-                    link_preview=False
-                )
-            ],
-            cache_time=0
-        )
-
-@tgbot.on(events.CallbackQuery(data="bot_commands"))
-async def bot_commands_handler(event):
-    buttons = [[Button.inline("🔙 رجوع", data="back_to_main")]]
-    await event.edit(
-        text="🤖 وظائف أوامر البوت:\n- وظيفة 1\n- وظيفة 2\n- وظيفة 3",
-        buttons=buttons
-    )
-
-@tgbot.on(events.CallbackQuery(data="main_commands"))
-async def main_commands_handler(event):
-    buttons = [
-        [Button.inline("أمر 1", data="command_1"), Button.inline("أمر 2", data="command_2")],
-        [Button.inline("أمر 3", data="command_3"), Button.inline("أمر 4", data="command_4")],
-        [Button.inline("🔙 رجوع", data="back_to_main")]
-    ]
-    await event.edit(
-        text="📋 قائمة الأوامر:",
-        buttons=buttons
-    )
-
-@tgbot.on(events.CallbackQuery(data="back_to_main"))
-async def back_to_main_handler(event):
-    buttons = [
-        [Button.url("🌐 قناة السورس", "https://t.me/RobinUserBot")],
-        [Button.inline("🤖 أوامر البوت", data="bot_commands")],
-        [Button.inline("📋 الأوامر", data="main_commands")],
-    ]
-    await event.edit(
-        text="اختر أحد الخيارات من القائمة:",
-        buttons=buttons
-    )
+        if query.startswith("اوامري") and event.query.user_id == bot.uid:
+            buttons = [
+                [Button.inline("🔧 اوامر الادمن", data="l313l0")],
+                [Button.inline(" اوامر البوت", data="rozbot"),
+                 Button.inline(" الحساب", data="Jmrz"),
+                 Button.inline("👥 المجموعات", data="gro")],
+                [Button.inline("📞 الصيغ و الجهات", data="sejrz"),
+                 Button.inline(" الحماية و تلكراف", data="grrz")],
+                [Button.inline(" اوامر التسلية", data="tslrzj"),
+                 Button.inline(" الترحيبات والردود", data="r7brz")],
+                [Button.inline(" اومر المساعدة", data="krrznd"),
+                 Button.inline(" الملصقات وصور", data="jrzst")],
+                [Button.inline(" التكرار والتنظيف", data="krrznd"),
+                 Button.inline(" الترفيه", data="rfhrz")],
+                [Button.inline(" الملصقات وصور", data="jrzst")],
+                [Button.inline("📦 الأكستـرا", data="iiers"),
+                 Button.inline("🕵️‍♂️ الانتحال والتقليد", data="uscuxrz")],
+                [Button.url("🌐 SourceRobin", "https://t.me/RobinUserBot")]
+            ]
 
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
