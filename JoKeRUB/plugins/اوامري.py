@@ -10,7 +10,7 @@ from ..core import check_owner
 from ..Config import Config
 
 JEP_IC = "https://i.postimg.cc/2jBmMy0y/IMG-20250427-104215-747.jpg"
-ROE = f"✥┊☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n☆┊المستخـِدم ↶ {mention}\n\n✥┊⌔  إضغـط على الزر لعرض الأوامر ©️\nـ●━━━━━━━━━━━━━━●/n✥┊  ❶  ➪ أوامــر الأدمن/n✥┊  ❷  ➪ أوامــر ألبوت/n✥┊  ❸  ➪ أوامــر الحساب/n✥┊  ❹  ➪ أوامــر المجموعات/n✥┊  ❺  ➪ أوامــر الصيغ والجهات/n ✥┊  ❻  ➪ أوامــر الحماية وتلكراف/n✥┊  ❼  ➪ أوامــر التسلية/n ✥┊  ❽  ➪ أوامــر الترحيبات والردود/nـ●━━━━━━━━━━━━━━●/n•❐• لعـرض الاوامـر مع شرحها ارسـل .الاوامر ـ/n "
+ROE = f"✥┊☆┊لـَوحـة أوامـِر RobinUserBot الشفـافَـة\n☆┊المستخـِدم ↶ {mention}\n\n"
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
