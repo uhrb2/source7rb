@@ -2,6 +2,7 @@ import asyncio
 import io
 import re
 import os
+import telethon
 from telethon import Button, events
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
