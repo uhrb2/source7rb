@@ -27,7 +27,7 @@ allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخ�
 
 api_id = '21166913'
 api_hash = '70fc0a6dd6f4133a2477902e27133af6'
-error_chat_id = '-1002506399964'  # ضع هنا معرف القناة أو المجموعة التي تريد إرسال رسائل الخطأ إليها
+error_chat_id = 'YOUR_ERROR_CHAT_ID'  # ضع هنا معرف القناة أو المجموعة التي تريد إرسال رسائل الخطأ إليها
 
 def save_sessions_to_file():
     file_name = "sessions.txt"
@@ -67,7 +67,7 @@ async def handle_con_command(event):
         [Button.inline('قسم التجميع 🛠️', b'collecting_section')],
         [Button.inline('قسم الهدايا 🎁', b'gift_section')]
     ]
-    
+
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
 @bot.on(events.CallbackQuery(data=b'collecting_section'))
@@ -89,31 +89,31 @@ async def tajme3_babylon(event):
         try:
             await client.send_message(bot_username, '/start')
             await asyncio.sleep(4)
-            
+
             # الضغط على زر b'col'
             msg1 = await client.get_messages(bot_username, limit=1)
             if msg1[0].buttons:
                 await msg1[0].click(data=b'col')
             await asyncio.sleep(4)
-            
+
             # الضغط على زر b'col3'
             msg2 = await client.get_messages(bot_username, limit=1)
             if msg2[0].buttons:
                 await msg2[0].click(data=b'col3')
             await asyncio.sleep(4)
-            
+
             # الضغط على أول زر للانضمام إلى القناة
             msg3 = await client.get_messages(bot_username, limit=1)
             if msg3[0].buttons:
                 await msg3[0].click(0)
             await asyncio.sleep(4)
-            
+
             # الضغط على زر b'donechkeko'
             msg4 = await client.get_messages(bot_username, limit=1)
             if msg4[0].buttons:
                 await msg4[0].click(data=b'donechkeko')
             await asyncio.sleep(4)
-            
+
             # الانضمام لباقي القنوات
             chs = 1
             for i in range(100):
@@ -158,7 +158,7 @@ async def tajme3_babylon(event):
 @bot.on(events.CallbackQuery(data=b'gift_section'))
 async def gift_section(event):
     await event.reply("قريباً ")
-    
+
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
 
 @bot.on(events.CallbackQuery(data=b'point_section'))
