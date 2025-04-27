@@ -96,7 +96,7 @@ async def startupmessage():
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
                 caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
-                buttons=[(Button.url("سورس Robin ", "https://t.me/ir7rb"),)],
+                buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
             )
     except Exception as e:
         LOGS.error(e)
@@ -136,7 +136,7 @@ async def mybot():
         if bot_name.endswith("Assistant"):
             print("تم تشغيل البوت")
         if starkbot.bot_inline_placeholder:
-            print("7rB  ForEver")
+            print("hrb  ForEver")
         else:
             try:
                 await l313l.send_message("@BotFather", "/setinline")
@@ -175,7 +175,7 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 #by @k_jj_j بس اشوفك خامطه للكود اهينك وافضحك
-JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R", @robinsource}
+JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R", "@robinsource"}
 async def saves():
     for F_O_1 in JoKeRUB:
         try:
