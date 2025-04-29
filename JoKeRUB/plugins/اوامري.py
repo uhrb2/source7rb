@@ -21,12 +21,12 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         await bot.get_me()
         if query.startswith("اوامري") and event.query.user_id == bot.uid:
          buttons = [
-    [Button.inline("❶", data="l313l0"), Button.inline("❷", data="rozbot")],
-    [Button.inline("❸", data="Jmrz"), Button.inline("❹", data="gro")],
-    [Button.inline("❺", data="sejrz"), Button.inline("❻", data="grrz")],
-    [Button.inline("❼", data="tslrzj"), Button.inline("❽", data="r7brz")],
-    [Button.inline("❾", data="krrznd"), Button.inline("❿", data="jrzst")],
-    [Button.inline("⓫", data="krrznd"), Button.inline("⓬", data="rfhrz")],
+    [Button.inline("❶", data="l313l0"), Button.inline("❸", data="Jmrz")],
+    [Button.inline("❷", data="rozbot"), Button.inline("❹", data="gro")],
+    [Button.inline("❺", data="sejrz"), Button.inline("❼", data="tslrzj")],
+    [Button.inline("❻", data="grrz"), Button.inline("❽", data="r7brz")],
+    [Button.inline("❾", data="krrznd"), Button.inline("⓫", data="krrznd")],
+    [Button.inline("❿", data="jrzst"), Button.inline("⓬", data="rfhrz")],
     [Button.inline("⓭", data="iiers"), Button.inline("⓮", data="jrzst")],
     [Button.inline("⓯", data="uscuxrz")],
 ]
