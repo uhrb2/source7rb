@@ -1,8 +1,6 @@
 import re
-
 from telethon import Button, events
 from telethon.events import CallbackQuery
-
 from l313l.razan.resources.assistant import *
 from l313l.razan.resources.mybot import *
 from JoKeRUB import l313l
