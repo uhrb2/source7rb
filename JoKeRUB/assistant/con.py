@@ -65,7 +65,7 @@ async def handle_con_command(event):
         [Button.inline('قسم الهدايا 🎁', b'gift_section')]  # إضافة زر قسم الهدايا
     ]
 
-    await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
+    await event.reply(f"اهلا @{username}\n\n{bot_info}", buttons=buttons)
 
 @tgbot.on(events.CallbackQuery(data=b'collecting_section'))
 async def collecting_section(event):
