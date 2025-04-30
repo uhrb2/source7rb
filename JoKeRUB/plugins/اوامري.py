@@ -14,94 +14,45 @@ ROE = f"**🖥┊لـوحـة اوامـر Robin الشفـافـه **\n**🧑�
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
-    @tgbot.on(events.NewMessage(pattern="اوامري"))
-async def main_menu(event):
-    buttons = [
-        [Button.inline("الأوامر", data="commands")],  # زر الأوامر
-    ]
-    await event.reply("مرحبًا! اختر من القائمة:", buttons=buttons)
-
-# قائمة الأوامر
-@tgbot.on(events.CallbackQuery(data=b"commands"))
-async def commands_menu(event):
-    buttons = [
-        [Button.inline("م1", data="m1")],
-        [Button.inline("م2", data="m2")],
-        [Button.inline("م3", data="m3")],
-        [Button.inline("م4", data="m4")],
-        [Button.inline("رجوع", data="back_to_main")],  # زر الرجوع
-    ]
-    await event.edit("اختر من الأقسام التالية:", buttons=buttons)
-
-# محتوى م1
-@tgbot.on(events.CallbackQuery(data=b"m1"))
-async def menu_m1(event):
-    buttons = [
-        [Button.inline("❶", data="l313l0")],
-        [
-            Button.inline("❷", data="rozbot"),
-            Button.inline("❸", data="Jmrz"),
-            Button.inline("❹", data="gro"),
-        ],
-        [Button.inline("رجوع", data="commands")],  # زر الرجوع
-    ]
-    await event.edit("هذه هي الأزرار الخاصة بـ م1:", buttons=buttons)
-
-# محتوى م2
-@tgbot.on(events.CallbackQuery(data=b"m2"))
-async def menu_m2(event):
-    buttons = [
-        [
-            Button.inline("❺", data="sejrz"),
-            Button.inline("❻", data="grrz"),
-        ],
-        [
-            Button.inline("❼", data="tslrzj"),
-            Button.inline("❽", data="r7brz"),
-        ],
-        [Button.inline("رجوع", data="commands")],  # زر الرجوع
-    ]
-    await event.edit("هذه هي الأزرار الخاصة بـ م2:", buttons=buttons)
-
-# محتوى م3
-@tgbot.on(events.CallbackQuery(data=b"m3"))
-async def menu_m3(event):
-    buttons = [
-        [
-            Button.inline("❾", data="krrznd"),
-            Button.inline("❿", data="jrzst"),
-        ],
-        [
-            Button.inline("⓫", data="krrznd"),
-            Button.inline("⓬", data="rfhrz"),
-        ],
-        [Button.inline("رجوع", data="commands")],  # زر الرجوع
-    ]
-    await event.edit("هذه هي الأزرار الخاصة بـ م3:", buttons=buttons)
-
-# محتوى م4
-@tgbot.on(events.CallbackQuery(data=b"m4"))
-async def menu_m4(event):
-    buttons = [
-        [
-            Button.inline("⓬", data="iiers"),
-            Button.inline("⓭", data="jrzst"),
-        ],
-        [
-            Button.inline("⓮", data="iiers"),
-            Button.inline("⓯", data="uscuxrz"),
-        ],
-        [Button.inline("رجوع", data="commands")],  # زر الرجوع
-    ]
-    await event.edit("هذه هي الأزرار الخاصة بـ م4:", buttons=buttons)
-
-# الرجوع إلى القائمة الرئيسية
-@tgbot.on(events.CallbackQuery(data=b"back_to_main"))
-async def back_to_main(event):
-    buttons = [
-        [Button.inline("الأوامر", data="commands")],  # زر الأوامر
-    ]
-    await event.edit("مرحبًا! اختر من القائمة:", buttons=buttons)
+    @tgbot.on(events.InlineQuery)
+    async def inline_handler(event):
+        builder = event.builder
+        result = None
+        query = event.text
+        await bot.get_me()
+        if query.startswith("اوامري") and event.query.user_id == bot.uid:
+            buttons = [
+                [Button.inline("❶", data="l313l0")],
+                [
+                    Button.inline("❷", data="rozbot"),
+                    Button.inline("❸", data="Jmrz"),
+                    Button.inline("❹", data="gro"),
+                ],
+                [
+                    Button.inline("❺", data="sejrz"),
+                    Button.inline("❻", data="grrz"),
+                ],
+                [
+                    Button.inline("❼", data="tslrzj"),
+                    Button.inline("❽", data="r7brz"),
+                ],
+                [
+                    Button.inline("❾", data="krrznd"),
+                    Button.inline("❿", data="jrzst"),
+                ],
+                [
+                    Button.inline("⓫", data="krrznd"),
+                    Button.inline("⓬", data="rfhrz"),
+                ],
+                [
+                    Button.inline("⓬", data="iiers"),
+                    Button.inline("⓭", data="jrzst"),
+                ],
+                [
+                    Button.inline("⓮", data="iiers"),
+                    Button.inline("⓯", data="uscuxrz"),
+                ],
+            ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
                     JEP_IC, text=ROE, buttons=buttons, link_preview=False
