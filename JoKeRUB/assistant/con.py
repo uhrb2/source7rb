@@ -57,9 +57,9 @@ async def handle_con_command(event):
         [Button.inline('تسجيل الدخول', b'login'), Button.inline('تسجيل جلسة', b'add_session')],
         [Button.inline('قسم النقاط 📊', b'point_section')],
         [Button.inline('هدية خدمات تليجرام 🎁', b'open_bot')],
-        [Button.inline('حذف حساب', b'delete_account'), Button.inline('عدد الحسابات 📊', b'account_count')],
-        [Button.inline('حذف جلسة', b'delete_session'), Button.inline('إيقاف التجميع ⛔', b'stop_collecting')],
-        [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين 📥', b'upload_storage')],
+        [Button.inline('حذف حساب', b'delete_account'), Button.inline('عدد الحسابات', b'account_count')],
+        [Button.inline('حذف جلسة', b'delete_session'), Button.inline('إيقاف التجميع', b'stop_collecting')],
+        [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين ', b'upload_storage')],
         [Button.inline('قسم التجميع 🛠️', b'collecting_section')],
         [Button.inline('قسم الهدايا 🎁', b'gift_section')]  # إضافة زر قسم الهدايا
     ]
