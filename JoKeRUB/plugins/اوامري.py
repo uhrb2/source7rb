@@ -48,7 +48,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         Button.inline("⓯", data="uscuxrz"),
     ],
     [
-        Button.inline("قنوات السورس", data="channels"),
+        Button.inline("قنوات السورس", data="CHANNELS"),
     ],
 ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
@@ -209,3 +209,11 @@ async def _(event):
 async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
+
+CHANNELS = (
+    "**•❒ قنوات السورس**\n"
+    "1. القناة الأساسية - [@RobinSource](https://t.me/RobinSource)\n"
+    "2. القناة الثانية - [@E_4_R](https://t.me/E_4_R)\n"
+    "3. القناة الثالثة - [@uui7rB](https://t.me/uui7rB)\n"
+    "4. قروب الدردشة الخاص بالسورس - [@Is7rB](https://t.me/Is7rB)\n"
+)
