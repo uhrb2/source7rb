@@ -34,6 +34,7 @@ from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelReque
 from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon import events
 
+botusername = Config.TG_BOT_USERNAME
 user_sessions = {}
 allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخدمين المسموح لهم
 
