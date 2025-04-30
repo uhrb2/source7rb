@@ -14,7 +14,7 @@ ROE = f"**🖥┊لـوحـة اوامـر Robin الشفـافـه **\n**🧑�
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
-    @tgbot.on(events.NewMessage(pattern=r'اومري'))
+    @tgbot.on(events.NewMessage(pattern=r'اوامري'))
 async def command_handler(event):
     builder = event.builder
     if event.query.user_id == bot.uid:
