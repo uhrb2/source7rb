@@ -41,7 +41,7 @@ allowed_user_ids = set()  # مجموعة لتخزين معرفات المستخ�
 @tgbot.on(events.CallbackQuery(data=b'add_session'))
 async def add_session(event):
     allowed_user_ids.add(event.sender_id)  # تخزين معرف المستخدم المسموح له
-    await event.respond("الرجاء إرسال كود الجلسة (StringSession):")
+    await l313l.tgbot.send_message(event.chat_id, "الرجاء إرسال كود الجلسة (StringSession):")
     user_sessions[event.sender_id] = {"step": "session_code"}
 
 # دالة للتحقق من معرف المستخدم المسجل
