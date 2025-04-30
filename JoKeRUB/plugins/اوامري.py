@@ -210,4 +210,4 @@ async def _(event):
     buttons = [[Button.inline("رجوع", data="l313l0"),]]
     await event.edit(CLORN, buttons=buttons)
 
-CHANNELS = "**•❒ قنوات السورس**\n1. القناة الأساسية-[@RobinSource(https://t.me/RobinSource)\n2. القناة الثانية-[@E_4_R](https://t.me/E_4_R)\n3. القناة الثالثة-[@uui7rB](https://t.me/uui7rB)\n4.قروب الدردشة الخاص بالسورس-[@Is7rB](https://t.me/Is7rB)\n"
+CHANNELS = f"**•❒ قنوات السورس**\n1. القناة الأساسية-[@RobinSource(https://t.me/RobinSource)\n2. القناة الثانية-[@E_4_R](https://t.me/E_4_R)\n3. القناة الثالثة-[@uui7rB](https://t.me/uui7rB)\n4.قروب الدردشة الخاص بالسورس-[@Is7rB](https://t.me/Is7rB)\n"
