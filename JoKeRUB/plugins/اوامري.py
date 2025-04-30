@@ -14,51 +14,45 @@ ROE = f"**🖥┊لـوحـة اوامـر Robin الشفـافـه **\n**🧑�
 
 if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 
-    @tgbot.on(events.NewMessage(pattern=r'اوامري'))
-async def command_handler(event):
-    builder = event.builder
-    if event.query.user_id == bot.uid:
-        await event.reply(
-            "اضغط على الزر أدناه لعرض الأوامر:",
-            buttons=[
-                [Button.inline("الأوامر", data="show_commands")]
+    @tgbot.on(events.InlineQuery)
+    async def inline_handler(event):
+        builder = event.builder
+        result = None
+        query = event.text
+        await bot.get_me()
+        if query.startswith("اوامري") and event.query.user_id == bot.uid:
+            buttons = [
+                [Button.inline("❶", data="l313l0")],
+                [
+                    Button.inline("❷", data="rozbot"),
+                    Button.inline("❸", data="Jmrz"),
+                    Button.inline("❹", data="gro"),
+                ],
+                [
+                    Button.inline("❺", data="sejrz"),
+                    Button.inline("❻", data="grrz"),
+                ],
+                [
+                    Button.inline("❼", data="tslrzj"),
+                    Button.inline("❽", data="r7brz"),
+                ],
+                [
+                    Button.inline("❾", data="krrznd"),
+                    Button.inline("❿", data="jrzst"),
+                ],
+                [
+                    Button.inline("⓫", data="krrznd"),
+                    Button.inline("⓬", data="rfhrz"),
+                ],
+                [
+                    Button.inline("⓬", data="iiers"),
+                    Button.inline("⓭", data="jrzst"),
+                ],
+                [
+                    Button.inline("⓮", data="iiers"),
+                    Button.inline("⓯", data="uscuxrz"),
+                ],
             ]
-        )
-
-@tgbot.on(events.CallbackQuery(data=b"show_commands"))
-async def inline_handler(event):
-    buttons = [
-        [Button.inline("❶", data="l313l0")],
-        [
-            Button.inline("❷", data="rozbot"),
-            Button.inline("❸", data="Jmrz"),
-            Button.inline("❹", data="gro"),
-        ],
-        [
-            Button.inline("❺", data="sejrz"),
-            Button.inline("❻", data="grrz"),
-        ],
-        [
-            Button.inline("❼", data="tslrzj"),
-            Button.inline("❽", data="r7brz"),
-        ],
-        [
-            Button.inline("❾", data="krrznd"),
-            Button.inline("❿", data="jrzst"),
-        ],
-        [
-            Button.inline("⓫", data="krrznd"),
-            Button.inline("⓬", data="rfhrz"),
-        ],
-        [
-            Button.inline("⓬", data="iiers"),
-            Button.inline("⓭", data="jrzst"),
-        ],
-        [
-            Button.inline("⓮", data="iiers"),
-            Button.inline("⓯", data="uscuxrz"),
-        ],
-    ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
                     JEP_IC, text=ROE, buttons=buttons, link_preview=False
