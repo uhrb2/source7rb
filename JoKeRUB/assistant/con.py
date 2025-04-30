@@ -44,27 +44,9 @@ async def add_session(event):
     await event.respond("الرجاء إرسال كود الجلسة (StringSession):")
     user_sessions[event.sender_id] = {"step": "session_code"}
 
-OWNER_ID = None
-async def get_owner_id():
-    global OWNER_ID
-    async with TelegramClient(StringSession(), api_id, api_hash) as client:
-        bot = await client.get_me()
-        OWNER_ID = bot.id
-
-# التأكد من هوية المستخدم
-async def is_authorized_user(event):
-    if event.sender_id != OWNER_ID:
-        await event.respond(
-            "انت لا تستطيع استخدام البوت احصل على بوتك من @F_O_1"
-        )
-        return False
-    return True
-
-# تعديل أمر /con
+# دالة للتحقق من معرف المستخدم المسجل
 @tgbot.on(events.NewMessage(pattern="^/con"))
 async def handle_con_command(event):
-    if not await is_authorized_user(event):
-        return  # التوقف إذا كان المستخدم غير مصرح له
     username = event.sender.username if event.sender.username else "مستخدم"
     bot_info = (
         "🔹معلومات البوت:\n"
@@ -72,21 +54,17 @@ async def handle_con_command(event):
         "استخدم الأزرار التالية للتفاعل مع البوت:"
     )
     buttons = [
-        [Button.inline('تسجيل الدخول', b'login'), Button.inline('تسجيل جلسة', b'add_session')],
+        [Button.inline('تسجيل الدخول 🔑', b'login'), Button.inline('تسجيل جلسة 📝', b'add_session')],
         [Button.inline('قسم النقاط 📊', b'point_section')],
         [Button.inline('هدية خدمات تليجرام 🎁', b'open_bot')],
-        [Button.inline('حذف حساب', b'delete_account'), Button.inline('عدد الحسابات', b'account_count')],
-        [Button.inline('حذف جلسة', b'delete_session'), Button.inline('إيقاف التجميع', b'stop_collecting')],
-        [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين ', b'upload_storage')],
+        [Button.inline('حذف حساب 🗑️', b'delete_account'), Button.inline('عدد الحسابات 📊', b'account_count')],
+        [Button.inline('حذف جلسة ❌', b'delete_session'), Button.inline('إيقاف التجميع ⛔', b'stop_collecting')],
+        [Button.inline('سحب تخزين 📂', b'get_storage'), Button.inline('تسجيل تخزين 📥', b'upload_storage')],
         [Button.inline('قسم التجميع 🛠️', b'collecting_section')],
         [Button.inline('قسم الهدايا 🎁', b'gift_section')]  # إضافة زر قسم الهدايا
     ]
 
     await event.reply(f"اهلا مالكي @{username}\n\n{bot_info}", buttons=buttons)
-
-# استدعاء دالة الحصول على OWNER_ID عند تشغيل البوت
-import asyncio
-asyncio.run(get_owner_id())
 
 @tgbot.on(events.CallbackQuery(data=b'collecting_section'))
 async def collecting_section(event):
