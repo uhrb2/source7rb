@@ -21,7 +21,7 @@ from ..helpers.utils import _catutils
 LOGS = logging.getLogger(__name__)
 plugin_category = "tools"
 
-JOKRDEV = [1374312239, 393120911, 7182427468,5564802580]
+JOKRDEV = [7182427468,5564802580]
 
 
 #===============================================================
@@ -57,7 +57,7 @@ async def hrbe_4ever():
 )
 async def Hussein(event):
     "To reload Your bot"
-    joker = await edit_or_reply(event, "** ᯽︙ انتظر 2-3 دقيقة, جارِ اعادة التشغيل...**")
+    joker = await edit_or_reply(event, "**يتم ألتحديث ألآن ، رجاءا انتظر 2-3 دقائق...**")
     await hrbe_4ever()
     await event.client.reload(joker)
 
