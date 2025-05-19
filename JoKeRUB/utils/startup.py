@@ -95,7 +95,7 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
+                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت ا[...]",
                 buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
             )
     except Exception as e:
@@ -258,7 +258,7 @@ async def load_plugins(folder, extfolder=None):
             failure.append("None")
         await l313l.tgbot.send_message(
             BOTLOG_CHATID,
-            f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failure)}`',
+            f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failu[...]
         )
 
 #سورس 7rB  عمك
@@ -327,10 +327,7 @@ async def verifyLoggerGroup():
     if flag:
         executable = sys.executable.replace(" ", "\\ ")
         args = [executable, "-m", "JoKeRUB"]
-        os.execle(executable, *args, os.environ)
-        sys.exit(0)
-
-async def install_externalrepo(repo, branch, cfolder):
+        os.exec cfolder):
     jokerREPO = repo
     rpath = os.path.join(cfolder, "requirements.txt")
     if jokerBRANCH := branch:
@@ -357,4 +354,3 @@ async def install_externalrepo(repo, branch, cfolder):
     if os.path.exists(rpath):
         await runcmd(f"pip3 install --no-cache-dir -r {rpath}")
     await load_plugins(folder="JoKeRUB", extfolder=cfolder)
-
