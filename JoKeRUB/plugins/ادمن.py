@@ -39,7 +39,3 @@ from JoKeRUB.sql_helper.idadder_sql import (
 )
 from l313l.razan.resources.assistant import *
 
-@l313l.on(admin_cmd(pattern="هلو"))
-async def respond_hello(event):
-    PREMIUM_EMOJI_ID = 5776096350097644971  # معرف التعبير المميز
-    await event.edit(f"هلوات 🫶", parse_mode="html", formatting_entities=[{"type": "custom_emoji", "document_id": PREMIUM_EMOJI_ID}])
