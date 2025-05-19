@@ -4,7 +4,6 @@
 import asyncio
 import io
 import re
-
 import html
 import os
 import random
@@ -24,7 +23,6 @@ from ..helpers import get_user_from_event, reply_id
 from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
-import asyncio
 from telethon import Button, custom, events
 from telethon.tl.functions.users import GetFullUserRequest
 from JoKeRUB import bot
@@ -41,16 +39,14 @@ from JoKeRUB.sql_helper.idadder_sql import (
 )
 from l313l.razan.resources.assistant import *
 
-import asyncio
-import io
-import re
-import uuid
-import os
-from telethon import Button, custom, events
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
-from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
-from telethon.tl.functions.messages import ImportChatInviteRequest
-from telethon import events
-
+# الوظيفة الجديدة التي تعدل الرسالة عند كتابة "هلو"
+@l313l.ar_cmd(
+    pattern="هلو"
+)
+async def handle_hello_message(event):
+    """
+    عند كتابة المستخدم 'هلو'، سيتم تعديل الرسالة لتصبح 'هلوات' مع التعبير المميز.
+    """
+    PREMIUM_EMOJI_ID = "5776096350097644971"  # معرف التعبير المميز
+    new_message = f"هلوات 🫶 [Premium Emoji: {PREMIUM_EMOJI_ID}]"
+    await event.edit(new_message)
