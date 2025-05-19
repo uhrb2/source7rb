@@ -39,14 +39,8 @@ from JoKeRUB.sql_helper.idadder_sql import (
 )
 from l313l.razan.resources.assistant import *
 
-# الوظيفة الجديدة التي تعدل الرسالة عند كتابة "هلو"
-@l313l.ar_cmd(
-    pattern="هلو"
-)
-async def handle_hello_message(event):
-    """
-    عند كتابة المستخدم 'هلو'، سيتم تعديل الرسالة لتصبح 'هلوات' مع التعبير المميز.
-    """
+@l313l.on(admin_cmd(pattern="هلو"))
+async def respond_hello(event):
     PREMIUM_EMOJI_ID = "5776096350097644971"  # معرف التعبير المميز
     new_message = f"هلوات 🫶 [Premium Emoji: {PREMIUM_EMOJI_ID}]"
     await event.edit(new_message)
