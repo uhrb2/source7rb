@@ -192,7 +192,7 @@ async def saves():
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'AljokerUserBot',
+                'RobinSource',
                 slots=slots
             ))
         except FloodWaitError as e:
