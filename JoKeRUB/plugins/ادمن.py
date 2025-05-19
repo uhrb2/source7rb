@@ -43,12 +43,16 @@ from telethon.tl.types import MessageEntityCustomEmoji
 from userbot.events import admin_cmd
 from userbot import l313l  # تأكد من أن هذا هو اسم الـ client عندك
 
+from telethon.tl.types import MessageEntityCustomEmoji
+from userbot.events import admin_cmd
+from userbot import l313l  # تأكد من اسم الكلاينت
+from userbot.utils import getgvar
+
 @l313l.on(admin_cmd(pattern="(هلو)"))
 async def hello_handler(event):
     if getgvar("auto_respond_enabled", "disabled") == "enabled":
-        await event.client.send_message(
-            entity=event.chat_id,
-            message="🎙 هلو",
+        await event.edit(
+            "🎙 هلوات",
             entities=[
                 MessageEntityCustomEmoji(
                     offset=0,
@@ -57,4 +61,3 @@ async def hello_handler(event):
                 )
             ]
         )
-        await event.delete()
