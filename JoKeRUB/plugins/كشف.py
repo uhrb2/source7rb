@@ -79,16 +79,15 @@ async def fetch_info(replied_user, event):
     rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
     rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
      
-    caption = "✛━━━━━━━━━━━━━✛\n"
-    caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
-    caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
-    caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
-    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
-    caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
-    caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
-    caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
-    caption += f"\n<b> {JEP_EM}╎البايـو    ⇠ </b> {user_bio} \n"
-    caption += f"✛━━━━━━━━━━━━━✛"
+    caption = "✦━━━━━━━✦\n"
+caption += f"🌐 <b>الاسـم:</b> {full_name}\n"
+caption += f"🏷 <b>المعـرف:</b> {username}\n"
+caption += f"🆔 <b>الايـدي:</b> <code>{user_id}</code>\n"
+caption += f"⭐ <b>الرتبـــه:</b> {rotbat}\n"
+caption += f"🖼 <b>عدد الصور:</b> {replied_user_profile_photos_count}\n"
+caption += f"🔗 <b>رابط الحساب:</b> <a href='tg://user?id={user_id}'>{first_name}</a>\n"
+caption += f"📜 <b>البايـو:</b> {user_bio}\n"
+caption += "✦━━━━━━━✦"
     return photo, caption
 
 
