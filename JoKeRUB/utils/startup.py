@@ -74,8 +74,8 @@ async def setup_bot():
                 break
         bot_details = await l313l.tgbot.get_me()
         Config.TG_BOT_USERNAME = f"@{bot_details.username}"
-        
-        
+
+
         l313l.me = await l313l.get_me()
         l313l.uid = l313l.tgbot.uid = utils.get_peer_id(l313l.me)
         if Config.OWNER_ID == 0:
@@ -95,7 +95,7 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_file(
                 BOTLOG_CHATID,
                 "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت ا[...]",
+                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
                 buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
             )
     except Exception as e:
@@ -184,7 +184,7 @@ async def saves():
             slots = [boost.slot for boost in result.my_boosts]
             hrb_channel_id = None
             for chat in result.chats:
-                if chat.username == 'RobinSource':
+                if chat.username == 'AljokerUserBot':
                     hrb_channel_id = chat.id
                     break
             if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
@@ -192,7 +192,7 @@ async def saves():
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'RobinSource',
+                'AljokerUserBot',
                 slots=slots
             ))
         except FloodWaitError as e:
@@ -258,7 +258,7 @@ async def load_plugins(folder, extfolder=None):
             failure.append("None")
         await l313l.tgbot.send_message(
             BOTLOG_CHATID,
-            f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failu[...]
+            f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failure)}`',
         )
 
 #سورس 7rB  عمك
@@ -327,7 +327,10 @@ async def verifyLoggerGroup():
     if flag:
         executable = sys.executable.replace(" ", "\\ ")
         args = [executable, "-m", "JoKeRUB"]
-        os.exec cfolder):
+        os.execle(executable, *args, os.environ)
+        sys.exit(0)
+
+async def install_externalrepo(repo, branch, cfolder):
     jokerREPO = repo
     rpath = os.path.join(cfolder, "requirements.txt")
     if jokerBRANCH := branch:
