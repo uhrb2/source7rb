@@ -48,6 +48,11 @@ from userbot.events import admin_cmd
 from userbot import l313l  # تأكد من اسم الكلاينت
 from userbot.utils import getgvar
 
+from telethon.tl.types import MessageEntityCustomEmoji
+from userbot import l313l
+from userbot.events import admin_cmd
+from userbot.utils import getgvar
+
 @l313l.on(admin_cmd(pattern="(هلو)"))
 async def hello_handler(event):
     if getgvar("auto_respond_enabled", "disabled") == "enabled":
@@ -57,7 +62,7 @@ async def hello_handler(event):
                 MessageEntityCustomEmoji(
                     offset=0,
                     length=1,
-                    document_id=5776309943116241193
+                    document_id=5776309943116241193  # هذا هو ID الإيموجي المميز
                 )
             ]
         )
