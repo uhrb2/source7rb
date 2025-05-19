@@ -79,7 +79,7 @@ async def fetch_info(replied_user, event):
     rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
     rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat     
     caption = "✛━━━━━━━━━━━━━✛\n"
-caption += f"<b> {JEP_EM}╎الاسـم 🧾    ⇠ </b> {full_name}\n"
+caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
 caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
 caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
 caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
