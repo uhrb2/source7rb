@@ -39,3 +39,22 @@ from JoKeRUB.sql_helper.idadder_sql import (
 )
 from l313l.razan.resources.assistant import *
 
+from telethon.tl.types import MessageEntityCustomEmoji
+from userbot.events import admin_cmd
+from userbot import l313l  # تأكد من أن هذا هو اسم الـ client عندك
+
+@l313l.on(admin_cmd(pattern="(هلو)"))
+async def hello_handler(event):
+    if getgvar("auto_respond_enabled", "disabled") == "enabled":
+        await event.client.send_message(
+            entity=event.chat_id,
+            message="🎙 هلو",
+            entities=[
+                MessageEntityCustomEmoji(
+                    offset=0,
+                    length=1,
+                    document_id=5776309943116241193
+                )
+            ]
+        )
+        await event.delete()
