@@ -77,8 +77,7 @@ async def fetch_info(replied_user, event):
     username = "@{}".format(username) if username else ("لايـوجـد معـرف")
     user_bio = "لاتـوجـد نبـذة" if not user_bio else user_bio
     rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
-    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
-     
+    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat     
     caption = "✦━━━━━━━✦\n"
 caption += f"🌐 <b>الاسـم:</b> {full_name}\n"
 caption += f"🏷 <b>المعـرف:</b> {username}\n"
@@ -89,7 +88,6 @@ caption += f"🔗 <b>رابط الحساب:</b> <a href='tg://user?id={user_id}'
 caption += f"📜 <b>البايـو:</b> {user_bio}\n"
 caption += "✦━━━━━━━✦"
     return photo, caption
-
 
 
 @l313l.ar_cmd(
