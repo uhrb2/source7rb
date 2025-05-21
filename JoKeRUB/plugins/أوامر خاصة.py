@@ -7,3 +7,8 @@ from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 import os
 import datetime
 from JoKeRUB import *
+from telethon import events
+
+@bot.on(events.NewMessage(pattern=r'\.هلو'))
+async def hello_3yoon(event):
+    await event.reply('[هلو عيني 🫥](tg://emoji?id=6327735399770752519)')
