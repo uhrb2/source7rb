@@ -9,6 +9,7 @@ import datetime
 from JoKeRUB import *
 from telethon import events
 
+client.parse_mode = AaycoBot()
 @bot.on(events.NewMessage(pattern=r'\.هلو'))
 async def hello_3yoon(event):
     await event.reply('[🎁](tg://emoji?id=5294430336380330453)')
