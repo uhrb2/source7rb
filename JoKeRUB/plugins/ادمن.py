@@ -57,7 +57,8 @@ client = TelegramClient()
 client.parse_mode = AaycoBot()
 @client.on
 
-@l313l.on(events.NewMessage(pattern=r'\.هلو'))
-async def hello_3yoon(event):
-^exec async
-await event.reply('[🫥](tg://emoji?id=6327735399770752519)')
+from telethon import events
+
+@l313l.on(events.NewMessage(pattern=r'^هلو'))
+async def send_custom_emoji(event):
+    await event.reply('[🫥](tg://emoji?id=6327735399770752519)')
