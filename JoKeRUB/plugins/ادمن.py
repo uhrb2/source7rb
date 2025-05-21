@@ -55,7 +55,7 @@ from userbot.utils import getgvar
 
 client = TelegramClient()
 client.parse_mode = AaycoBot()
-@client.on
+@l313l.on
 
 from telethon import events
 
