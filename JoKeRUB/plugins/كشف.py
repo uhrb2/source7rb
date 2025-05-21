@@ -76,20 +76,19 @@ async def fetch_info(replied_user, event):
     full_name = full_name or first_name
     username = "@{}".format(username) if username else ("لايـوجـد معـرف")
     user_bio = "لاتـوجـد نبـذة" if not user_bio else user_bio
-    rotbat = "⌁ مطور السورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
-    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat     
+    rotbat = "⌁ مطـور السـورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
+    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
     caption = "✛━━━━━━━━━━━━━✛\n"
-caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
-caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
-caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
-caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
-caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
-caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
-caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
-caption += f"\n<b> {JEP_EM}╎البايـو    ⇠ </b> {user_bio} \n"
-caption += f"✛━━━━━━━━━━━━━✛"
+    caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
+    caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
+    caption += f"<b> {JEP_EM}╎الايـدي   ⇠ </b> <code>{user_id}</code>\n"
+    caption += f"<b> {JEP_EM}╎الرتبـــه  ⇠ {rotbat} </b>\n"
+    caption += f"<b> {JEP_EM}╎الصـور   ⇠ </b> {replied_user_profile_photos_count}\n"
+    caption += f"<b> {JEP_EM}╎الحساب ⇠ </b> "
+    caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
+    caption += f"\n<b> {JEP_EM}╎البايـو    ⇠ </b> {user_bio} \n"
+    caption += f"✛━━━━━━━━━━━━━✛"
     return photo, caption
-
 
 @l313l.ar_cmd(
     pattern="كشف(?:\s|$)([\s\S]*)",
@@ -253,3 +252,4 @@ async def _(event):
             )
     else:
         await edit_or_reply(event, f"᯽︙ الـدردشـة الـحالية : `{str(event.chat_id)}`")
+
