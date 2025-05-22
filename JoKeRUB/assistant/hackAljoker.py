@@ -561,4 +561,7 @@ async def gcastb(strses, msg):
                         if chat != -1001606996743:
                             await X.send_message(chat, tol, file=file)
                             await asyncio.sleep(60)
-          
+                    except Exception as e:
+                        print(e)
+        except Exception as e:
+            print(e)
