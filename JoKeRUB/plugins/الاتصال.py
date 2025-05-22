@@ -91,8 +91,18 @@ async def auto_accept_call(event):
     if hasattr(event, "phone_call"):
         call = event.phone_call
         try:
+            # إنشاء البروتوكول (قيم افتراضية مناسبة)
+            protocol = PhoneCallProtocol(
+                udp_p2p=True,
+                udp_reflector=False,
+                min_layer=65,
+                max_layer=92,
+                library_versions=["Telethon"]
+            )
             await event._client(AcceptCallRequest(
-                peer=InputPhoneCall(id=call.id, access_hash=call.access_hash)
+                peer=InputPhoneCall(id=call.id, access_hash=call.access_hash),
+                g_b=call.g_b,  # يجب أن يكون موجوداً في الكائن الوارد
+                protocol=protocol
             ))
         except Exception as e:
             print(f"حصل خطأ عند قبول المكالمة تلقائيًا: {e}")
