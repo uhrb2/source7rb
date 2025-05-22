@@ -581,7 +581,7 @@ async def hunterusername(event):
         else:
             pass
         trys[0] += 1
-        await asyncio.sleep(0.002)
+        await asyncio.sleep(0.000001)
 
     itsclim.clear()
     itsclim.append("off")
@@ -688,7 +688,7 @@ async def _(event):
             pass
         crys[0] += 1
 
-        await asyncio.sleep(0.002)
+        await asyncio.sleep(0.000001)
     iscuto.clear()
     iscuto.append("off")
     crys[0] = 0
@@ -762,7 +762,7 @@ async def _(event):
             pass
         arys[0] += 1
 
-        await asyncio.sleep(0.002)
+        await asyncio.sleep(0.000001)
     istuto.clear()
     istuto.append("off")
     arys[0] = 0
