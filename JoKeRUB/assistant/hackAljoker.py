@@ -1,4 +1,5 @@
-from joker import @l313l.bot
+# -*- coding: utf-8 -*-
+from joker import bot, l313l
 #By Source aljoker @FFAARRSS1
 from telethon import events, functions, types, Button
 from datetime import timedelta
