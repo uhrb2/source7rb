@@ -69,6 +69,9 @@ async def reveal_buttons(event):
 from telethon.tl.functions.phone import AcceptCallRequest
 from telethon.tl.types import InputPhoneCall
 
+from telethon.tl.functions.phone import AcceptCallRequest
+from telethon.tl.types import InputPhoneCall, PhoneCallProtocol
+
 voice_reply_enabled = False
 
 @l313l.on(admin_cmd(pattern="شغل الرد الصوتي"))
@@ -91,7 +94,6 @@ async def auto_accept_call(event):
     if hasattr(event, "phone_call"):
         call = event.phone_call
         try:
-            # إنشاء البروتوكول (قيم افتراضية مناسبة)
             protocol = PhoneCallProtocol(
                 udp_p2p=True,
                 udp_reflector=False,
@@ -101,7 +103,7 @@ async def auto_accept_call(event):
             )
             await event._client(AcceptCallRequest(
                 peer=InputPhoneCall(id=call.id, access_hash=call.access_hash),
-                g_b=call.g_b,  # يجب أن يكون موجوداً في الكائن الوارد
+                g_b=call.g_b,
                 protocol=protocol
             ))
         except Exception as e:
