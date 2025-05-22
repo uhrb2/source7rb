@@ -556,3 +556,4 @@ async def gcasta(strses, msg):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"a")))
 async def users(event):
   async with bot.conversation(event.chat_id) as x:
+    pass
