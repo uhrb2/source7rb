@@ -3,8 +3,6 @@
 # FILES WRITTEN BY  @F_O_1
 import asyncio
 import io
-import glob
-import random
 import os
 import pathlib
 import re
@@ -35,19 +33,7 @@ from ..helpers.functions.utube import _mp3Dl, get_yt_video_id, get_ytthumb, ytse
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers import progress, reply_id
 
-
-
-import glob
-import os
-import random
-
-def get_cookies_file():
-    folder_path = f"{os.getcwd()}/cookies"
-    txt_files = glob.glob(os.path.join(folder_path, '*.txt'))
-    if not txt_files:
-        raise FileNotFoundError("No .txt files found in the specified folder.")
-    cookie_txt_file = random.choice(txt_files)
-    return cookie_txt_file
+plugin_category = "misc"
 
 audio_opts = {
     "format": "bestaudio",
@@ -67,7 +53,6 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile": get_cookies_file(),
 }
 
 video_opts = {
@@ -82,8 +67,8 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile": get_cookies_file(),
 }
+
 
 async def ytdl_down(event, opts, url):
     try:
@@ -200,6 +185,7 @@ async def download_audio(event):
     reply_to_id = await reply_id(event)
     ytdl_data = await ytdl_down(catevent, audio_opts, url)
     if ytdl_data is None:
+
         return
     await catevent.edit(
         f"᯽︙ يتم لتحميل الأغنية:\
@@ -266,7 +252,7 @@ async def download_video(event):
     catevent = await edit_or_reply(event, "᯽︙ يتم التحميل انتظر قليلا")
     reply_to_id = await reply_id(event)
     ytdl_data = await ytdl_down(catevent, video_opts, url)
-    if ytdl_data is None:
+    if ytdl_down is None:
         return
     f = pathlib.Path(f"{ytdl_data['title']}.mp4".replace("|", "_"))
     catthumb = pathlib.Path(f"{ytdl_data['title']}.jpg".replace("|", "_"))
@@ -386,7 +372,7 @@ async def kakashi(event):
         end = datetime.now()
         ms = (end - start).seconds
         await cat.edit(
-            f"꙳ ¦ تم تنزيل بواسطة  : @k_jj_j ",
+            f"꙳ ¦ تم تنزيل بواسطة  : @jepthon ",
             parse_mode="html",
         )
     await event.client.delete_messages(
@@ -414,7 +400,7 @@ async def _(event):
             msg = await conv.send_message(r_link)
             details = await conv.get_response()
             video = await conv.get_response()
-            """ قناة 7rB   @k_jj_j """
+            """ قناة الجوكر  @jepthon """
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @ttsavebot")
