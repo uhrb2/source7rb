@@ -1,6 +1,38 @@
 # -*- coding: utf-8 -*-
 #By Source aljoker @FFAARRSS1
 from telethon import events, functions, types, Button
+import asyncio
+import io
+import re
+
+from telethon import Button, custom, events
+from telethon.tl.functions.users import GetFullUserRequest
+from JoKeRUB import bot
+from JoKeRUB.sql_helper.blacklist_assistant import (
+    add_nibba_in_db,
+    is_he_added,
+    removenibba,
+)
+from JoKeRUB.sql_helper.botusers_sql import add_me_in_db, his_userid
+from JoKeRUB.sql_helper.idadder_sql import (
+    add_usersid_in_db,
+    already_added,
+    get_all_users,
+)
+from l313l.razan.resources.assistant import *
+
+import asyncio
+import io
+import re
+import uuid
+import os
+from telethon import Button, custom, events
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.sync import TelegramClient
+from telethon.sessions import StringSession
+from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelRequest, GetFullChannelRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest
+from telethon import events
 from datetime import timedelta
 import asyncio
 from ..Config import Config
