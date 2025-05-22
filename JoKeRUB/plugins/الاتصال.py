@@ -18,7 +18,6 @@ from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
 import asyncio
-
 # قائمة المطورين
 developer_ids = [7182427468]
 
@@ -66,4 +65,45 @@ async def reveal_buttons(event):
     buttons_text = "\n\n".join(buttons_info)
     await edit_or_reply(event, f"**معلومات الأزرار:**\n\n{buttons_text}")
 
-# Add this function to the existing plugin file where other commands are defined
+# ================== أوامر الرد الصوتي على الاتصالات ==================
+from telethon.tl.functions.phone import AcceptCallRequest
+from telethon.tl.types import InputPhoneCall
+
+voice_reply_enabled = False
+voice_reply_file = None
+
+@l313l.on(admin_cmd(pattern="أضف رد صوتي(?: |$)(.*)"))
+async def add_voice_reply(event):
+    global voice_reply_file
+    reply = await event.get_reply_message()
+    if not reply or not (reply.voice or reply.audio):
+        return await edit_or_reply(event, "↯︙يجب الرد على رسالة صوتية بهذه الأمر.")
+    voice_reply_file = await reply.download_media()
+    await edit_or_reply(event, "↯︙تم حفظ الرد الصوتي بنجاح.")
+
+@l313l.on(admin_cmd(pattern="شغل الرد الصوتي"))
+async def enable_voice_reply(event):
+    global voice_reply_enabled
+    voice_reply_enabled = True
+    await edit_or_reply(event, "↯︙تم تفعيل الرد الصوتي التلقائي.")
+
+@l313l.on(admin_cmd(pattern="عطل الرد الصوتي"))
+async def disable_voice_reply(event):
+    global voice_reply_enabled
+    voice_reply_enabled = False
+    await edit_or_reply(event, "↯︙تم تعطيل الرد الصوتي التلقائي.")
+
+@l313l.on(events.Raw)
+async def auto_voice_reply_on_call(event):
+    global voice_reply_enabled, voice_reply_file
+    if not voice_reply_enabled or not voice_reply_file:
+        return
+    if hasattr(event, "phone_call"):
+        call = event.phone_call
+        try:
+            await event.client(AcceptCallRequest(
+                peer=InputPhoneCall(id=call.id, access_hash=call.access_hash)
+            ))
+            await event.client.send_file(call.participants[0], voice_reply_file, voice_note=True)
+        except Exception as e:
+            print(f"حصل خطأ في الرد التلقائي على المكالمة: {e}")
