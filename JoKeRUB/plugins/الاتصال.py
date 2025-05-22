@@ -70,33 +70,23 @@ from telethon.tl.functions.phone import AcceptCallRequest
 from telethon.tl.types import InputPhoneCall
 
 voice_reply_enabled = False
-voice_reply_file = None
-
-@l313l.on(admin_cmd(pattern="أضف رد صوتي(?: |$)(.*)"))
-async def add_voice_reply(event):
-    global voice_reply_file
-    reply = await event.get_reply_message()
-    if not reply or not (reply.voice or reply.audio):
-        return await edit_or_reply(event, "↯︙يجب الرد على رسالة صوتية بهذه الأمر.")
-    voice_reply_file = await reply.download_media()
-    await edit_or_reply(event, "↯︙تم حفظ الرد الصوتي بنجاح.")
 
 @l313l.on(admin_cmd(pattern="شغل الرد الصوتي"))
 async def enable_voice_reply(event):
     global voice_reply_enabled
     voice_reply_enabled = True
-    await edit_or_reply(event, "↯︙تم تفعيل الرد الصوتي التلقائي.")
+    await edit_or_reply(event, "↯︙تم تفعيل قبول المكالمات تلقائيًا.")
 
 @l313l.on(admin_cmd(pattern="عطل الرد الصوتي"))
 async def disable_voice_reply(event):
     global voice_reply_enabled
     voice_reply_enabled = False
-    await edit_or_reply(event, "↯︙تم تعطيل الرد الصوتي التلقائي.")
+    await edit_or_reply(event, "↯︙تم تعطيل قبول المكالمات التلقائي.")
 
 @l313l.on(events.Raw)
-async def auto_voice_reply_on_call(event):
-    global voice_reply_enabled, voice_reply_file
-    if not voice_reply_enabled or not voice_reply_file:
+async def auto_accept_call(event):
+    global voice_reply_enabled
+    if not voice_reply_enabled:
         return
     if hasattr(event, "phone_call"):
         call = event.phone_call
@@ -104,6 +94,5 @@ async def auto_voice_reply_on_call(event):
             await event.client(AcceptCallRequest(
                 peer=InputPhoneCall(id=call.id, access_hash=call.access_hash)
             ))
-            await event.client.send_file(call.participants[0], voice_reply_file, voice_note=True)
         except Exception as e:
-            print(f"حصل خطأ في الرد التلقائي على المكالمة: {e}")
+            print(f"حصل خطأ عند قبول المكالمة تلقائيًا: {e}")
