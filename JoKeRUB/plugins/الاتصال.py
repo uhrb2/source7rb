@@ -91,7 +91,7 @@ async def auto_accept_call(event):
     if hasattr(event, "phone_call"):
         call = event.phone_call
         try:
-            await event.client(AcceptCallRequest(
+            await event._client(AcceptCallRequest(
                 peer=InputPhoneCall(id=call.id, access_hash=call.access_hash)
             ))
         except Exception as e:
