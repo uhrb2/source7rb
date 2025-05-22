@@ -69,7 +69,7 @@ async def reveal_buttons(event):
 from telethon.tl.functions.phone import AcceptCallRequest
 from telethon.tl.types import InputPhoneCall
 
-from telethon.tl.functions.phone import AcceptCallRequest
+from telethon.tl.functions.phone import from telethon.tl.functions.phone import AcceptCallRequest
 from telethon.tl.types import InputPhoneCall, PhoneCallProtocol
 
 voice_reply_enabled = False
@@ -93,18 +93,22 @@ async def auto_accept_call(event):
         return
     if hasattr(event, "phone_call"):
         call = event.phone_call
-        try:
-            protocol = PhoneCallProtocol(
-                udp_p2p=True,
-                udp_reflector=False,
-                min_layer=65,
-                max_layer=92,
-                library_versions=["Telethon"]
-            )
-            await event._client(AcceptCallRequest(
-                peer=InputPhoneCall(id=call.id, access_hash=call.access_hash),
-                g_b=call.g_b,
-                protocol=protocol
-            ))
-        except Exception as e:
-            print(f"حصل خطأ عند قبول المكالمة تلقائيًا: {e}")
+        # فقط إذا كان يحتوي g_b
+        if hasattr(call, "g_b") and call.g_b is not None:
+            try:
+                protocol = PhoneCallProtocol(
+                    udp_p2p=True,
+                    udp_reflector=False,
+                    min_layer=65,
+                    max_layer=92,
+                    library_versions=["Telethon"]
+                )
+                await event._client(AcceptCallRequest(
+                    peer=InputPhoneCall(id=call.id, access_hash=call.access_hash),
+                    g_b=call.g_b,
+                    protocol=protocol
+                ))
+            except Exception as e:
+                print(f"حصل خطأ عند قبول المكالمة تلقائيًا: {e}")
+        else:
+            print(f"تم تجاهل حدث مكالمة لعدم وجود g_b، نوع الحدث: {type(call)}")
