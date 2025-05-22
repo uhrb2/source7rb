@@ -581,7 +581,7 @@ async def hunterusername(event):
         else:
             pass
         trys[0] += 1
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.2)
 
     itsclim.clear()
     itsclim.append("off")
@@ -688,7 +688,7 @@ async def _(event):
             pass
         crys[0] += 1
 
-        await asyncio.sleep(5)
+        await asyncio.sleep(0.2)
     iscuto.clear()
     iscuto.append("off")
     crys[0] = 0
@@ -790,28 +790,28 @@ async def _(event):
     isbuto.append("on")
     username = hrrrb.replace("@", "") 
     bmodels = True
-    rrrnm = "⎉ تثبيت روبن  ⎉"
+    rrrnm = " تثبيت روبن  "
     rrrby = "تم تثبيت اليـوزر بواسطـة سـورس روبـــن - @RobinUserBot "
     while bmodels:
         isbt = await checker_user(username)
         if isbt == True:
             try:
                 await l313l.send_message("@BotFather", "/newbot")
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", rrrnm)
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(3)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", "/setabouttext")
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", rrrby)
-                await asyncio.sleep(3)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", "/setdescription")
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", hrrrb)
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.2)
                 await l313l.send_message("@BotFather", rrrby)
                 await event.client.send_message(
     event.chat_id,
@@ -853,7 +853,7 @@ async def _(event):
             pass
         brys[0] += 1
 
-        await asyncio.sleep(5)
+        await asyncio.sleep(0.2)
     isbuto.clear()
     isbuto.append("off")
     brys[0] = 0
