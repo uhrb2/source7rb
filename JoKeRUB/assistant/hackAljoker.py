@@ -1,4 +1,4 @@
-from joker import bot, l313l
+from joker import @l313l.bot
 #By Source aljoker @FFAARRSS1
 from telethon import events, functions, types, Button
 from datetime import timedelta
