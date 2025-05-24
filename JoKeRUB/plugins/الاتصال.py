@@ -83,12 +83,11 @@ async def disable_auto_reply(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def iraqi_auto_reply(event):
     global auto_reply_enabled
-    # لا ترد على رسائل البوت نفسه أو إذا الرد الآلي معطل
-    if not auto_reply_enabled or event.out:
+    # لا ترد إذا الرد الآلي متعطل أو إذا الرسالة ليست في الخاص أو إذا كانت رسالة من البوت نفسه
+    if not auto_reply_enabled or not event.is_private or event.out:
         return
     text = event.text
     if not text:
         return
     # الرد العراقي لأي رسالة
     await event.reply(f"{text} هلا بيك حبي")
-
