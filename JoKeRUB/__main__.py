@@ -39,7 +39,7 @@ try:
     LOGS.info("تم تفعيل وضع الانلاين بنجاح ✓")
 except Exception as jep:
     LOGS.error(f"- {jep}")
-    sys.exit()    
+    sys.exit()
 
 async def startup_process():
     await verifyLoggerGroup()
@@ -58,14 +58,18 @@ async def startup_process():
     if PM_LOGGER_GROUP_ID != -100:
         await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
     await startupmessage()
-    return
 
 async def externalrepo():
     if Config.VCMODE:
         await install_externalrepo("https://github.com/k_jj_jiq/JepVc", "jepvc", "k_jj_jvc")
 
-l313l.loop.run_until_complete(externalrepo())
-l313l.loop.run_until_complete(startup_process())
+try:
+    l313l.loop.run_until_complete(externalrepo())
+    l313l.loop.run_until_complete(startup_process())
+finally:
+    # إغلاق جلسة aiohttp إذا كانت موجودة
+    if hasattr(l313l, 'session') and l313l.session is not None:
+        l313l.loop.run_until_complete(l313l.session.close())
 
 if len(sys.argv) in {1, 3, 4}:
     with contextlib.suppress(ConnectionError):
