@@ -6,7 +6,7 @@ class Development(Config):
     # the name to display in your alive message
     ALIVE_NAME = "- 7rB ."
     # create any PostgreSQL database (i recommend to use elephantsql) and paste that link here
-    DB_URI = "postgresql://jokir12:jokir12@localhost:5432/jokir12"
+    DB_URI = "postgresql://jokir13:jokir13@localhost:5432/jokir13"
     # After cloning the repo and installing requirements do python3 telesetup.py an fill that value with this
     STRING_SESSION = "1ApWapzMAUI4oDrKg7m_XvjPvdWyJD8xqULGH-QZal6uQzcbpXS_D_b9tAofysStf1vu3L_FldGzQXMRQarmojcxUiG0oaTdApQsxiboM3OPZb3FKAZPdyg8wIIqUQxp_qpqTQB_PqybaIuN0hKRHdIByiTEZ2EZyh0j5uXz1PHR4jLwgkYAsDODDfp8MfILb09cj46Dxl_Ac_MDpWhXgTo4AAdDi_mTb0_DEmR9Jzui3qPyCE8ofaISTGedIkO1xMSQBXl3eR7IX0NfNWz68o1iVoI6e0dq64rjMRiomgiMMu_PRp3pcDvrdq88jpjcfWiv57zHV9fdXMnNQmYIrtr3XL1eXX9g="
     # create a new bot in @botfather and fill the following vales with bottoken and username respectively
