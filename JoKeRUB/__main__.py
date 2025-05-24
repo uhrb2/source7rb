@@ -23,8 +23,8 @@ init(autoreset=True)
 
 LOGS = logging.getLogger("JoKeRUB")
 
-# طباعة اسم Robin بشكل كبير جداً ومميز باللون الأحمر
-f = Figlet(font='slant')  # جرب أيضاً 'block' أو 'big' أو 'standard' حسب رغبتك
+# طباعة اسم Robin بشكل ضخم جداً وواضح باللون الأحمر
+f = Figlet(font='block')  # يمكنك تجربة 'big' أو 'banner3-D' أيضاً لحجم أضخم
 big_text = f.renderText('Robin')
 print(Fore.RED + big_text + Style.RESET_ALL)
 
@@ -52,13 +52,13 @@ async def startup_process():
     await verifyLoggerGroup()
     await load_plugins("plugins")
     await load_plugins("assistant")
-    print("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
+    print("➖" * 24)
     print("᯽︙بـوت Robin يعـمل بـنجاح ")
     print(
-        f"تم تشغيل الانلاين تلقائياً ارسل {cmdhr}الاوامر لـرؤيـة اوامر السورس\
-        \nللمسـاعدة تواصـل  https://t.me/k_jj_jSupport"
+        f"تم تشغيل الانلاين تلقائياً ارسل {cmdhr}الاوامر لـرؤيـة اوامر السورس"
+        "\nللمسـاعدة تواصـل  https://t.me/k_jj_jSupport"
     )
-    print("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
+    print("➖" * 24)
     await verifyLoggerGroup()
     await saves()
     await add_bot_to_logger_group(BOTLOG_CHATID)
@@ -74,7 +74,7 @@ async def externalrepo():
 l313l.loop.run_until_complete(externalrepo())
 l313l.loop.run_until_complete(startup_process())
 
-# إذا كان لديك جلسة aiohttp وتحتاج إغلاقها، استخدم الطريقة الآمنة التالية
+# إغلاق جلسة aiohttp بشكل آمن (في حال وجودها)
 if hasattr(l313l, 'session') and l313l.session is not None:
     close_coro = getattr(l313l.session, "close", None)
     if close_coro is not None and callable(close_coro):
