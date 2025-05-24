@@ -23,10 +23,10 @@ init(autoreset=True)
 
 LOGS = logging.getLogger("Robin")
 
-# طباعة اسم Robin بشكل ضخم جداً وواضح باللون الأحمر
-f = Figlet(font='block')  # يمكنك تجربة 'big' أو 'banner3-D' أيضاً لحجم أضخم
+# طباعة اسم Robin بشكل ضخم جداً وواضح باللون الأبيض
+f = Figlet(font='block')  # يمكنك تجربة 'big' أو 'standard' أو 'banner3-D'
 big_text = f.renderText('Robin')
-print(Fore.RED + big_text + Style.RESET_ALL)
+print(Fore.WHITE + big_text + Style.RESET_ALL)
 
 print(JoKeRUB.__copyright__)
 print("Licensed under the terms of the " + JoKeRUB.__license__)
