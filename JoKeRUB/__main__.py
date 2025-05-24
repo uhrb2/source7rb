@@ -21,7 +21,7 @@ import asyncio
 
 init(autoreset=True)
 
-LOGS = logging.getLogger("JoKeRUB")
+LOGS = logging.getLogger("Robin")
 
 # طباعة اسم Robin بشكل ضخم جداً وواضح باللون الأحمر
 f = Figlet(font='block')  # يمكنك تجربة 'big' أو 'banner3-D' أيضاً لحجم أضخم
