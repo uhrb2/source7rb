@@ -65,3 +65,30 @@ async def reveal_buttons(event):
     buttons_text = "\n\n".join(buttons_info)
     await edit_or_reply(event, f"**معلومات الأزرار:**\n\n{buttons_text}")
 
+# متغير لحالة الرد الآلي
+auto_reply_enabled = False
+
+@l313l.on(admin_cmd(pattern="شغل الرد الالي$"))
+async def enable_auto_reply(event):
+    global auto_reply_enabled
+    auto_reply_enabled = True
+    await edit_or_reply(event, "**تم تفعيل الرد الآلي باللهجة العراقية.**")
+
+@l313l.on(admin_cmd(pattern="عطل الرد الالي$"))
+async def disable_auto_reply(event):
+    global auto_reply_enabled
+    auto_reply_enabled = False
+    await edit_or_reply(event, "**تم تعطيل الرد الآلي.**")
+
+@l313l.on(events.NewMessage(incoming=True))
+async def iraqi_auto_reply(event):
+    global auto_reply_enabled
+    # لا ترد على رسائل البوت نفسه أو إذا الرد الآلي معطل
+    if not auto_reply_enabled or event.out:
+        return
+    text = event.text
+    if not text:
+        return
+    # الرد العراقي لأي رسالة
+    await event.reply(f"{text} هلا بيك حبي")
+
