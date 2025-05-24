@@ -16,13 +16,20 @@ from .utils import (
     saves,
 )
 from colorama import init, Fore, Style
+from pyfiglet import Figlet
+import asyncio
+
 init(autoreset=True)
 
 LOGS = logging.getLogger("JoKeRUB")
 
+# طباعة اسم - 7rB . بشكل كبير جداً ومميز باللون الأزرق
+f = Figlet(font='big')  # يمكنك تجربة خطوط أخرى مثل 'slant'، 'block' إلخ
+big_text = f.renderText('- 7rB .')
+print(Fore.BLUE + big_text + Style.RESET_ALL)
+
 print(JoKeRUB.__copyright__)
 print("Licensed under the terms of the " + JoKeRUB.__license__)
-print(Fore.BLUE + "- 7rB" + Style.RESET_ALL)
 cmdhr = Config.COMMAND_HAND_LER
 
 try:
@@ -58,18 +65,22 @@ async def startup_process():
     if PM_LOGGER_GROUP_ID != -100:
         await add_bot_to_logger_group(PM_LOGGER_GROUP_ID)
     await startupmessage()
+    return
 
 async def externalrepo():
     if Config.VCMODE:
         await install_externalrepo("https://github.com/k_jj_jiq/JepVc", "jepvc", "k_jj_jvc")
 
-try:
-    l313l.loop.run_until_complete(externalrepo())
-    l313l.loop.run_until_complete(startup_process())
-finally:
-    # إغلاق جلسة aiohttp إذا كانت موجودة
-    if hasattr(l313l, 'session') and l313l.session is not None:
-        l313l.loop.run_until_complete(l313l.session.close())
+l313l.loop.run_until_complete(externalrepo())
+l313l.loop.run_until_complete(startup_process())
+
+# إذا كان لديك جلسة aiohttp وتحتاج إغلاقها، استخدم الطريقة الآمنة التالية
+if hasattr(l313l, 'session') and l313l.session is not None:
+    close_coro = getattr(l313l.session, "close", None)
+    if close_coro is not None and callable(close_coro):
+        coro = l313l.session.close()
+        if asyncio.iscoroutine(coro):
+            l313l.loop.run_until_complete(coro)
 
 if len(sys.argv) in {1, 3, 4}:
     with contextlib.suppress(ConnectionError):
