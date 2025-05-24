@@ -93,7 +93,7 @@ ytsearch_data = YT_Search_X()
 """
 async def yt_data(JoKeRUB):
     params = {"format": "json", "url": JoKeRUB}
-    url = "https://www.youtube.com/oembed"  # https://stackoverflow.com/questions/29069444/returning-the-urls-as-a-list-from-a-youtube-search-query
+    url = "https://www.youtube.com/oembed"
     query_string = urllib.parse.urlencode(params)
     url = f"{url}?{query_string}"
     with urllib.request.urlopen(url) as response:
@@ -126,18 +126,14 @@ def get_yt_video_id(url: str):
         return match.group(1)
 
 
-# Based on https://gist.github.com/AgentOak/34d47c65b1d28829bb17c24c04a0096f
 def get_choice_by_id(choice_id, media_type: str):
     if choice_id == "mkv":
-        # default format selection
         choice_str = "bestvideo+bestaudio/best"
         disp_str = "best(video+audio)"
     elif choice_id == "mp3":
         choice_str = "320"
         disp_str = "320 Kbps"
     elif choice_id == "mp4":
-        # Download best Webm / Mp4 format available or any other best if no mp4
-        # available
         choice_str = "bestvideo[ext=webm]+251/bestvideo[ext=mp4]+(258/256/140/bestaudio[ext=m4a])/bestvideo[ext=webm]+(250/249)/best"
         disp_str = "best(video+audio)[webm/mp4]"
     else:
@@ -212,8 +208,7 @@ def yt_search_btns(
 
 
 @pool.run_in_thread
-def download_button(vid: str, body: bool = False):  # sourcery no-metrics
-    # sourcery skip: low-code-quality
+def download_button(vid: str, body: bool = False):
     try:
         vid_data = yt_dlp.YoutubeDL({"no-playlist": True}).extract_info(
             BASE_YT_URL + vid, download=False
@@ -229,11 +224,9 @@ def download_button(vid: str, body: bool = False):  # sourcery no-metrics
             ),
         ]
     ]
-    # ------------------------------------------------ #
     qual_dict = defaultdict(lambda: defaultdict(int))
     qual_list = ["144p", "240p", "360p", "480p", "720p", "1080p", "1440p"]
     audio_dict = {}
-    # ------------------------------------------------ #
     for video in vid_data["formats"]:
         if video.get("filesize"):
             fr_note = video.get("format_note")
@@ -292,14 +285,12 @@ def _tubeDl(url: str, starttime, uid: str):
         "outtmpl": os.path.join(
             Config.TEMP_DIR, str(starttime), "%(title)s-%(format)s.%(ext)s"
         ),
-        #         "logger": LOGS,
         "format": uid,
         "writethumbnail": True,
         "prefer_ffmpeg": True,
+        "cookiefile": "cookies.txt",   # ← سطر دعم الكوكيز
         "postprocessors": [
             {"key": "FFmpegMetadata"}
-            # ERROR R15: Memory quota vastly exceeded
-            # {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
         ],
         "quiet": True,
     }
@@ -318,12 +309,12 @@ def _tubeDl(url: str, starttime, uid: str):
 def _mp3Dl(url: str, starttime, uid: str):
     _opts = {
         "outtmpl": os.path.join(Config.TEMP_DIR, str(starttime), "%(title)s.%(ext)s"),
-        #         "logger": LOGS,
         "writethumbnail": True,
         "prefer_ffmpeg": True,
         "format": "bestaudio/best",
         "geo_bypass": True,
         "nocheckcertificate": True,
+        "cookiefile": "cookies.txt",   # ← سطر دعم الكوكيز
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
