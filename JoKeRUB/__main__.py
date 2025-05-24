@@ -23,10 +23,17 @@ init(autoreset=True)
 
 LOGS = logging.getLogger("Robin")
 
-# طباعة اسم Robin بشكل ضخم جداً وواضح باللون الأبيض
-f = Figlet(font='block')  # يمكنك تجربة 'big' أو 'standard' أو 'banner3-D'
-big_text = f.renderText('Robin')
-print(Fore.WHITE + big_text + Style.RESET_ALL)
+# طباعة اسم Robin بشكل ضخم وبألوان متبادلة (أحمر وأزرق)
+robin_ascii = [
+    " ____       _     _       ",
+    "|  _ \\ ___ | |__ (_)_ __  ",
+    "| |_) / _ \\| '_ \\| | '_ \\ ",
+    "|  _ < (_) | |_) | | | | |",
+    "|_| \\_\\___/|_.__/|_|_| |_|"
+]
+for i, line in enumerate(robin_ascii):
+    color = Fore.RED if i % 2 == 0 else Fore.BLUE
+    print(color + line + Style.RESET_ALL)
 
 print(JoKeRUB.__copyright__)
 print("Licensed under the terms of the " + JoKeRUB.__license__)
