@@ -305,9 +305,19 @@ async def iraqi_auto_reply(event):
         or (hasattr(event.sender, 'bot') and event.sender.bot)
     ):
         return
+
     text = event.text.strip()
     if not text:
         return
+
+    # الرد الخاص لجملة "تحبني"
+    if text == "تحبني":
+        await event.reply("لا")
+        await asyncio.sleep(4)
+        await event.reply("انا اعشقك")
+        return
+
+    # الردود العادية من القاموس
     reply_text = iraqi_specific_replies.get(text)
     if reply_text:
         await event.reply(reply_text)
