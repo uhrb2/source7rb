@@ -206,3 +206,35 @@ async def homer(homer):
 @l313l.on(admin_cmd(pattern=r"بك"))
 async def pig(pig):
     await pig.edit(Z)
+
+# أمر: إزالة بوتاتي
+@l313l.on(admin_cmd(pattern="إزالة بوتاتي$"))
+async def delete_my_bots(event):
+    botfather = "BotFather"
+    await event.edit("جاري حذف جميع البوتات... الرجاء الانتظار")
+    # إرسال /mybots لجلب قائمة البوتات
+    await event.client.send_message(botfather, "/mybots")
+    await asyncio.sleep(2)
+    msgs = await event.client.get_messages(botfather, limit=10)
+    bots = []
+    for msg in msgs:
+        if msg.message and "Here are your existing bots:" in msg.message:
+            lines = msg.message.split("\n")
+            for line in lines:
+                if line.strip().startswith("@"):
+                    bots.append(line.strip())
+            break
+    if not bots:
+        await event.edit("لم يتم العثور على أي بوتات في حسابك.")
+        return
+
+    deleted = []
+    for bot in bots:
+        await event.client.send_message(botfather, "/deletebot")
+        await asyncio.sleep(2)
+        await event.client.send_message(botfather, bot)
+        await asyncio.sleep(2)
+        await event.client.send_message(botfather, "Yes, I am totally sure.")
+        await asyncio.sleep(3)
+        deleted.append(bot)
+    await event.edit(f"تم حذف البوتات التالية:\n" + "\n".join(deleted))
