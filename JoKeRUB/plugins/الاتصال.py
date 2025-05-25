@@ -297,7 +297,7 @@ async def disable_auto_reply(event):
 
 @l313l.on(events.NewMessage(incoming=True))
 async def iraqi_auto_reply(event):
-    global auto_reply_enabled
+    global auto_reply_enabled, last_love_request
     if (
         not auto_reply_enabled
         or not event.is_private
@@ -306,19 +306,24 @@ async def iraqi_auto_reply(event):
     ):
         return
 
+    sender_id = event.sender_id
     text = event.text.strip()
     if not text:
         return
 
-    # الرد الخاص لجملة "تحبني"
+    # الرد على "تحبني"
     if text == "تحبني":
         await event.reply("لا")
-        await asyncio.sleep(4)
-        await event.reply("انا اعشقك")
+        last_love_request[sender_id] = True
         return
 
-    # الردود العادية من القاموس
+    # إذا كتب "لا" بعد "تحبني"
+    if text == "لا" and last_love_request.get(sender_id):
+        await event.reply("انا اعشقك")
+        last_love_request[sender_id] = False  # إعادة التهيئة
+        return
+
+    # الرد العادي من القاموس
     reply_text = iraqi_specific_replies.get(text)
     if reply_text:
         await event.reply(reply_text)
-    # إذا لم توجد الكلمة في القاموس لا يرد نهائيًا
