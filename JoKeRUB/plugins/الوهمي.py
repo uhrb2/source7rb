@@ -217,13 +217,18 @@ async def delete_my_bots(event):
     await asyncio.sleep(2)
     msgs = await event.client.get_messages(botfather, limit=10)
     bots = []
+    # عدّل هنا إذا كانت رسالتك من بوت فاذر بالعربي
     for msg in msgs:
-        if msg.message and "Here are your existing bots:" in msg.message:
+        if msg.message and (
+            "Here are your existing bots:" in msg.message or
+            "هذه هي البوتات الحالية لديك:" in msg.message
+        ):
             lines = msg.message.split("\n")
             for line in lines:
                 if line.strip().startswith("@"):
                     bots.append(line.strip())
             break
+
     if not bots:
         await event.edit("لم يتم العثور على أي بوتات في حسابك.")
         return
