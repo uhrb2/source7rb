@@ -17,8 +17,10 @@ from . import BOTLOG, BOTLOG_CHATID
 from telethon import events
 import asyncio
 
-# إذا كان اسم متغير البوت في سورسك 'l313l' غيّره هنا حسب سورسك
-bot = l313l
+bot = l313l  # غيّرها إذا كان اسم المتغير مختلف
+
+# متغير عالمي لتعقب حالة التكرار
+repeat_active = {}
 
 @bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
 async def timed_repeat_handler(event):
@@ -31,13 +33,21 @@ async def timed_repeat_handler(event):
         if sleep_time < 0:
             await event.reply("❌ الوقت يجب أن يكون رقمًا موجبًا.")
             return
-        # عدد التكرار غير محدد في طلبك، إذا أردت عدداً معينًا أضف عداداً
+
+        chat_id = event.chat_id
+        repeat_active[chat_id] = True  # تفعيل التكرار
         await event.delete()
-        while True:
+        while repeat_active.get(chat_id, False):
             await event.respond(message)
             await asyncio.sleep(sleep_time)
     except Exception as e:
         await event.reply(f"حدث خطأ: {e}")
+
+@bot.on(events.NewMessage(pattern=r"\.ايقاف المكرر"))
+async def stop_repeat_handler(event):
+    chat_id = event.chat_id
+    repeat_active[chat_id] = False
+    await event.reply("✅ تم إيقاف التكرار بنجاح.")
 
 # أمر سبام حرفي .سبام
 @bot.on(events.NewMessage(pattern=r"\.سبام (.+)"))
