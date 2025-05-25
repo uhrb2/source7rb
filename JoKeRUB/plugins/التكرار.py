@@ -17,37 +17,33 @@ from . import BOTLOG, BOTLOG_CHATID
 from telethon import events
 import asyncio
 
-bot = l313l  # غيّرها إذا كان اسم المتغير مختلف
+bot = l313l  # غيّر إذا كان اسم المتغير مختلف في سورسك
 
-# متغير عالمي لتعقب حالة التكرار
-repeat_active = {}
+repeat_enabled = True  # متغير عالمي للتحكم في التكرار
 
 @bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
 async def timed_repeat_handler(event):
-    try:
-        sleep_time = int(event.pattern_match.group(1))
-        message = event.pattern_match.group(2).strip()
-        if not message:
-            await event.reply("❌ يرجى كتابة كلمة أو جملة بعد الوقت.")
-            return
-        if sleep_time < 0:
-            await event.reply("❌ الوقت يجب أن يكون رقمًا موجبًا.")
-            return
+    global repeat_enabled
+    sleep_time = int(event.pattern_match.group(1))
+    message = event.pattern_match.group(2).strip()
+    if not message:
+        await event.reply("❌ يرجى كتابة كلمة أو جملة بعد الوقت.")
+        return
+    if sleep_time < 0:
+        await event.reply("❌ الوقت يجب أن يكون رقمًا موجبًا.")
+        return
 
-        chat_id = event.chat_id
-        repeat_active[chat_id] = True  # تفعيل التكرار
-        await event.delete()
-        while repeat_active.get(chat_id, False):
-            await event.respond(message)
-            await asyncio.sleep(sleep_time)
-    except Exception as e:
-        await event.reply(f"حدث خطأ: {e}")
+    await event.delete()
+    while repeat_enabled:
+        await event.respond(message)
+        await asyncio.sleep(sleep_time)
+    # عند الإيقاف يخرج من اللوب تلقائياً
 
-@bot.on(events.NewMessage(pattern=r"\.ايقاف المكرر"))
+@bot.on(events.NewMessage(pattern=r"\.ايقاف مكرر"))
 async def stop_repeat_handler(event):
-    chat_id = event.chat_id
-    repeat_active[chat_id] = False
-    await event.reply("✅ تم إيقاف التكرار بنجاح.")
+    global repeat_enabled
+    repeat_enabled = False
+    await event.reply("✅ تم إيقاف جميع التكرارات في البوت.")
 
 # أمر سبام حرفي .سبام
 @bot.on(events.NewMessage(pattern=r"\.سبام (.+)"))
