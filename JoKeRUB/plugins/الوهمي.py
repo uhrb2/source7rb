@@ -209,37 +209,45 @@ async def pig(pig):
 
 # أمر: إزالة بوتاتي
 @l313l.on(admin_cmd(pattern="إزالة بوتاتي$"))
-async def delete_my_bots(event):
+async def delete_all_bots(event):
     botfather = "BotFather"
-    await event.edit("جاري حذف جميع البوتات... الرجاء الانتظار")
-    # إرسال /mybots لجلب قائمة البوتات
-    await event.client.send_message(botfather, "/mybots")
-    await asyncio.sleep(2)
-    msgs = await event.client.get_messages(botfather, limit=10)
-    bots = []
-    # عدّل هنا إذا كانت رسالتك من بوت فاذر بالعربي
-    for msg in msgs:
-        if msg.message and (
-            "Here are your existing bots:" in msg.message or
-            "هذه هي البوتات الحالية لديك:" in msg.message
-        ):
-            lines = msg.message.split("\n")
-            for line in lines:
-                if line.strip().startswith("@"):
-                    bots.append(line.strip())
-            break
+    await event.edit("جاري حذف جميع البوتات واحدًا تلو الآخر... الرجاء الانتظار")
 
-    if not bots:
-        await event.edit("لم يتم العثور على أي بوتات في حسابك.")
-        return
-
-    deleted = []
-    for bot in bots:
+    while True:
+        # إرسال أمر حذف بوت جديد
         await event.client.send_message(botfather, "/deletebot")
         await asyncio.sleep(2)
-        await event.client.send_message(botfather, bot)
+        # جلب رسالة اختيار البوتات
+        msgs = await event.client.get_messages(botfather, limit=2)
+        bot_list_msg = None
+        for msg in msgs:
+            # يعتمد على لغة حسابك مع BotFather (عربي أو انجليزي)!
+            if (
+                "Choose a bot to delete" in msg.message or
+                "اختر بوتًا لحذفه" in msg.message or
+                "اختر بوت لحذفه" in msg.message
+            ):
+                bot_list_msg = msg
+                break
+
+        if not bot_list_msg:
+            break  # لا توجد رسالة اختيارات بوتات، يعني انتهت البوتات
+
+        # استخراج أول بوت من الرسالة
+        lines = bot_list_msg.message.split("\n")
+        bot_username = None
+        for line in lines:
+            if line.strip().startswith("@"):
+                bot_username = line.strip()
+                break
+
+        if not bot_username:
+            break  # لا يوجد بوتات متبقية
+
+        # اختيار البوت وإرسال التأكيد
+        await event.client.send_message(botfather, bot_username)
         await asyncio.sleep(2)
         await event.client.send_message(botfather, "Yes, I am totally sure.")
         await asyncio.sleep(3)
-        deleted.append(bot)
-    await event.edit(f"تم حذف البوتات التالية:\n" + "\n".join(deleted))
+
+    await event.edit("تم حذف جميع البوتات التي يمكن حذفها ✅")
