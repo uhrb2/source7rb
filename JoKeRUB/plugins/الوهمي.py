@@ -208,46 +208,82 @@ async def pig(pig):
     await pig.edit(Z)
 
 # أمر: إزالة بوتاتي
+from telethon.tl.custom.button import Button
+from telethon.tl.types import InputBotInlineMessageID
+
 @l313l.on(admin_cmd(pattern="إزالة بوتاتي$"))
-async def delete_all_bots(event):
+async def delete_all_bots_by_data(event):
     botfather = "BotFather"
-    await event.edit("جاري حذف جميع البوتات واحدًا تلو الآخر... الرجاء الانتظار")
+    await event.edit("جاري حذف جميع البوتات بالاعتماد على أزرار البيانات... الرجاء الانتظار")
+    deleted = []
+    offset = 0
 
     while True:
-        # إرسال أمر حذف بوت جديد
-        await event.client.send_message(botfather, "/deletebot")
+        # إرسال /mybots للحصول على القائمة مع الأزرار
+        mybots_msg = await event.client.send_message(botfather, "/mybots")
         await asyncio.sleep(2)
-        # جلب رسالة اختيار البوتات
-        msgs = await event.client.get_messages(botfather, limit=2)
-        bot_list_msg = None
+        # جلب آخر رسالة من BotFather تحتوي الأزرار
+        msgs = await event.client.get_messages(botfather, limit=3)
+        bot_msg = None
         for msg in msgs:
-            # يعتمد على لغة حسابك مع BotFather (عربي أو انجليزي)!
-            if (
-                "Choose a bot to delete" in msg.message or
-                "اختر بوتًا لحذفه" in msg.message or
-                "اختر بوت لحذفه" in msg.message
-            ):
-                bot_list_msg = msg
+            if msg.buttons:
+                bot_msg = msg
                 break
+        if not bot_msg or not bot_msg.buttons:
+            break
 
-        if not bot_list_msg:
-            break  # لا توجد رسالة اختيارات بوتات، يعني انتهت البوتات
+        # البحث عن أزرار البوتات (callback_data يبدأ بـ b'bots/')
+        bot_buttons = []
+        for row in bot_msg.buttons:
+            for button in row:
+                if (hasattr(button, 'data')
+                    and button.data
+                    and button.data.startswith(b'bots/')
+                    and b'/' not in button.data[5:]):  # فقط البوتات وليس أزرار next page
+                    bot_buttons.append(button)
+        if not bot_buttons:
+            break
 
-        # استخراج أول بوت من الرسالة
-        lines = bot_list_msg.message.split("\n")
-        bot_username = None
-        for line in lines:
-            if line.strip().startswith("@"):
-                bot_username = line.strip()
-                break
-
-        if not bot_username:
-            break  # لا يوجد بوتات متبقية
-
-        # اختيار البوت وإرسال التأكيد
-        await event.client.send_message(botfather, bot_username)
-        await asyncio.sleep(2)
-        await event.client.send_message(botfather, "Yes, I am totally sure.")
-        await asyncio.sleep(3)
-
-    await event.edit("تم حذف جميع البوتات التي يمكن حذفها ✅")
+        for button in bot_buttons:
+            # اضغط على زر البوت لفتح خياراته
+            await event.client(
+                functions.messages.GetBotCallbackAnswerRequest(
+                    botfather,
+                    bot_msg.id,
+                    data=button.data
+                )
+            )
+            await asyncio.sleep(2)
+            # جلب رسالة الخيارات (فيها زر الحذف)
+            msgs2 = await event.client.get_messages(botfather, limit=2)
+            del_msg = None
+            for msg2 in msgs2:
+                if msg2.buttons:
+                    del_msg = msg2
+                    break
+            # ابحث عن زر الحذف المناسب
+            del_button = None
+            for row in del_msg.buttons:
+                for btn in row:
+                    if hasattr(btn, 'data') and btn.data and btn.data.endswith(b'/del'):
+                        del_button = btn
+                        break
+                if del_button:
+                    break
+            if not del_button:
+                continue
+            # اضغط على زر الحذف
+            await event.client(
+                functions.messages.GetBotCallbackAnswerRequest(
+                    botfather,
+                    del_msg.id,
+                    data=del_button.data
+                )
+            )
+            await asyncio.sleep(2)
+            # تأكيد الحذف (عادة برسالة Yes, I am totally sure.)
+            await event.client.send_message(botfather, "Yes, I am totally sure.")
+            await asyncio.sleep(3)
+            deleted.append(button.text)
+        # بعد دورة واحدة أعد جلب قائمة البوتات من جديد
+    await event.edit("تم حذف جميع البوتات:\n" + "\n".join(deleted) if deleted else "لم يتم العثور على بوتات أو تم حذفها جميعاً.")
