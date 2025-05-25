@@ -17,37 +17,25 @@ from . import BOTLOG, BOTLOG_CHATID
 from telethon import events
 import asyncio
 
-# إذا كان اسم متغير البوت في سورسك l313l استخدمه بدل bot
-bot = l313l  # إذا كان اسم المتغير لديك 'bot' غيّر هذا السطر
+# إذا كان اسم متغير البوت في سورسك 'l313l' غيّره هنا حسب سورسك
+bot = l313l
 
-# أمر التكرار الأساسي .مكرر
-@bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s*(.*)"))
-async def repeat_handler(event):
+@bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
+async def timed_repeat_handler(event):
     try:
-        count = int(event.pattern_match.group(1))
-        custom_text = event.pattern_match.group(2).strip()
-        reply = await event.get_reply_message()
-
-        # تحديد النص المطلوب تكراره
-        if custom_text:
-            text = custom_text
-        elif reply:
-            text = reply.text or (reply.message if hasattr(reply, "message") else "")
-        else:
-            await event.reply("❌ يرجى كتابة نص بعد الأمر أو الرد على رسالة.")
+        sleep_time = int(event.pattern_match.group(1))
+        message = event.pattern_match.group(2).strip()
+        if not message:
+            await event.reply("❌ يرجى كتابة كلمة أو جملة بعد الوقت.")
             return
-
-        if not text:
-            await event.reply("❌ لا يوجد نص لتكراره.")
+        if sleep_time < 0:
+            await event.reply("❌ الوقت يجب أن يكون رقمًا موجبًا.")
             return
-        if count > 50:
-            await event.reply("❌ الحد الأقصى للتكرار هو 50.")
-            return
-
+        # عدد التكرار غير محدد في طلبك، إذا أردت عدداً معينًا أضف عداداً
         await event.delete()
-        for _ in range(count):
-            await event.respond(text)
-            await asyncio.sleep(0.1)
+        while True:
+            await event.respond(message)
+            await asyncio.sleep(sleep_time)
     except Exception as e:
         await event.reply(f"حدث خطأ: {e}")
 
