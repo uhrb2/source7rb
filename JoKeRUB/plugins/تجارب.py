@@ -32,3 +32,25 @@ async def write_text_letter_by_letter(event):
         result += char
         await event.edit(result)
         await asyncio.sleep(0.20)  # إضافة تأخير بسيط بين كل حرف وآخر
+
+# --- الكود الجديد لحفظ الصوتيات ---
+@l313l.on(events.NewMessage(incoming=True))
+async def save_voice_message(event):
+    # التأكد أن الحفظ مفعل وأن الرسالة تحتوي على صوتية
+    if not gvarstatus("savevoiceforme"):
+        return
+    if not event.voice:
+        return
+    # إنشاء مجلد للحفظ إذا لم يكن موجود
+    save_dir = "voice_notes"
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    # تسمية الملف بناءً على رقم الرسالة وتاريخ اليوم
+    date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_name = f"{save_dir}/voice_{event.id}_{date_str}.ogg"
+    try:
+        await event.download_media(file=file_name)
+        # يمكنك إرسال رسالة تأكيد أو بدونها حسب رغبتك
+        # await event.reply(f"تم حفظ الصوتية باسم {file_name}")
+    except Exception as e:
+        await event.reply(f"حدث خطأ أثناء حفظ الصوتية: {e}")
