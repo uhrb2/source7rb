@@ -18,56 +18,14 @@ from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
 import asyncio
-# قائمة المطورين
+
 developer_ids = [7182427468]
-
 plugin_category = "utils"
-
 broadcasting = False
 
-@l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
-async def promote_user(event):
-    match = event.pattern_match.group(1).strip()
-    if not match:
-        return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
-
-    user, custom = await get_user_from_event(event)
-    if not user:
-        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
-
-    user_id = user.id
-    user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
-
-    # تحقق من عدم رفع المطور
-    if user_id in developer_ids:
-        return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
-
-    me = await event.client.get_me()
-    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
-
-    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
-
-from telethon import Button
-
-@l313l.on(admin_cmd(pattern="اكشف(?: |$)([\س\S]*)"))
-async def reveal_buttons(event):
-    reply_message = await event.get_reply_message()
-    if not reply_message or not reply_message.buttons:
-        return await edit_or_reply(event, "**- لا توجد أزرار في الرسالة المردود عليها**")
-    
-    buttons_info = []
-    for row in reply_message.buttons:
-        row_info = []
-        for button in row:
-            row_info.append(f"النص: {button.text}, البيانات: {button.data}")
-        buttons_info.append("\n".join(row_info))
-    
-    buttons_text = "\n\n".join(buttons_info)
-    await edit_or_reply(event, f"**معلومات الأزرار:**\n\n{buttons_text}")
-
-import random
-
+# الرد الالي
 auto_reply_enabled = False
+current_auto_reply_dialect = None  # 'iraqi' or 'saudi'
 
 iraqi_specific_replies = {
     "السلام عليكم": "وعليكم السلام هلا وغلا",
@@ -287,21 +245,60 @@ iraqi_specific_replies = {
     "مح": "عخدك",
 }
 
+saudi_specific_replies = {
+    "هلا": "هلا والله!",
+    "مرحبا": "مرحبتين!",
+    "صباح الخير": "صباح النور والسرور",
+    "مساء الخير": "مساء الورد",
+    "كيف الحال": "بخير دامك بخير",
+    "وش الأخبار": "عساك بخير",
+    "وينك": "موجود يالغالي",
+    "تمام": "الله يديمها",
+    "احبك": "احبك اكثر والله!",
+    "احبك موت": "اموت فيك يابعدي",
+    "يعطيك العافية": "الله يعافيك",
+    "تسلم": "يسلم راسك",
+    "تسلمين": "الله يسلمك",
+    "وش عندك": "سلامتك ما عندي شي",
+    "أفا": "العذر والسموحة",
+    "لبى قلبك": "لبى روحك",
+    "منور": "نورك سابق",
+    "هلا بك": "هلا بك أكثر",
+    "هلا والله": "هلا فيك يابعد حيي",
+    "شخبارك": "بخير دامك بخير",
+    "وين الناس": "موجودين حوالينا",
+    "اوكي": "تم يالغالي",
+    "تمام": "الله يديمها",
+    "دوك": "دوك العافية",
+    "فديتك": "فداك العمر",
+    "مشكور": "العفو واجبنا",
+    # ... أضف بقية الكلمات الشائعة حتى 250 ...
+}
+
 @l313l.on(admin_cmd(pattern="شغل الرد الالي$"))
-async def enable_auto_reply(event):
-    global auto_reply_enabled
+async def enable_iraqi_auto_reply(event):
+    global auto_reply_enabled, current_auto_reply_dialect
     auto_reply_enabled = True
+    current_auto_reply_dialect = 'iraqi'
     await edit_or_reply(event, "**تم تفعيل الرد الآلي باللهجة العراقية في الخاص.**")
+
+@l313l.on(admin_cmd(pattern="شغل الرد الالي السعودي$"))
+async def enable_saudi_auto_reply(event):
+    global auto_reply_enabled, current_auto_reply_dialect
+    auto_reply_enabled = True
+    current_auto_reply_dialect = 'saudi'
+    await edit_or_reply(event, "**تم تفعيل الرد الآلي باللهجة السعودية في الخاص.**")
 
 @l313l.on(admin_cmd(pattern="عطل الرد الالي$"))
 async def disable_auto_reply(event):
-    global auto_reply_enabled
+    global auto_reply_enabled, current_auto_reply_dialect
     auto_reply_enabled = False
+    current_auto_reply_dialect = None
     await edit_or_reply(event, "**تم تعطيل الرد الآلي.**")
 
 @l313l.on(events.NewMessage(incoming=True))
-async def iraqi_auto_reply(event):
-    global auto_reply_enabled
+async def auto_reply(event):
+    global auto_reply_enabled, current_auto_reply_dialect
     if (
         not auto_reply_enabled
         or not event.is_private
@@ -314,16 +311,11 @@ async def iraqi_auto_reply(event):
     if not text:
         return
 
-    # إذا كتب "تحبني"
-    if text == "تحبني":
-        # يرد على رسالة عباس بـ"لا"
-        reply_msg = await event.reply("لا")
-        # ينتظر أربع ثواني ثم يرد على رسالة "لا" نفسها بـ"انا اعشقك"
-        await asyncio.sleep(4)
-        await reply_msg.reply("انا اعشقك")
-        return
+    reply_text = None
+    if current_auto_reply_dialect == 'iraqi':
+        reply_text = iraqi_specific_replies.get(text)
+    elif current_auto_reply_dialect == 'saudi':
+        reply_text = saudi_specific_replies.get(text)
 
-    # الردود الاعتيادية من القاموس
-    reply_text = iraqi_specific_replies.get(text)
     if reply_text:
         await event.reply(reply_text)
