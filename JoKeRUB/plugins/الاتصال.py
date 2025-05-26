@@ -18,6 +18,53 @@ from . import spamwatch
 from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
 import asyncio
+# قائمة المطورين
+developer_ids = [7182427468]
+
+plugin_category = "utils"
+
+broadcasting = False
+
+@l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
+async def promote_user(event):
+    match = event.pattern_match.group(1).strip()
+    if not match:
+        return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
+
+    user, custom = await get_user_from_event(event)
+    if not user:
+        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
+
+    user_id = user.id
+    user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
+
+    # تحقق من عدم رفع المطور
+    if user_id in developer_ids:
+        return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
+
+    me = await event.client.get_me()
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
+
+    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
+
+from telethon import Button
+
+@l313l.on(admin_cmd(pattern="اكشف(?: |$)([\س\S]*)"))
+async def reveal_buttons(event):
+    reply_message = await event.get_reply_message()
+    if not reply_message or not reply_message.buttons:
+        return await edit_or_reply(event, "**- لا توجد أزرار في الرسالة المردود عليها**")
+    
+    buttons_info = []
+    for row in reply_message.buttons:
+        row_info = []
+        for button in row:
+            row_info.append(f"النص: {button.text}, البيانات: {button.data}")
+        buttons_info.append("\n".join(row_info))
+    
+    buttons_text = "\n\n".join(buttons_info)
+    await edit_or_reply(event, f"**معلومات الأزرار:**\n\n{buttons_text}")
+
 
 developer_ids = [7182427468]
 plugin_category = "utils"
