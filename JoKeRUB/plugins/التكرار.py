@@ -24,6 +24,7 @@ repeat_enabled = True  # متغير عالمي للتحكم في التكرار
 @bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
 async def timed_repeat_handler(event):
     global repeat_enabled
+    repeat_enabled = True  # أضف هذا السطر هنا ليتم التفعيل في كل مرة
     sleep_time = int(event.pattern_match.group(1))
     message = event.pattern_match.group(2).strip()
     if not message:
@@ -37,7 +38,6 @@ async def timed_repeat_handler(event):
     while repeat_enabled:
         await event.respond(message)
         await asyncio.sleep(sleep_time)
-    # عند الإيقاف يخرج من اللوب تلقائياً
 
 @bot.on(events.NewMessage(pattern=r"\.ايقاف مكرر"))
 async def stop_repeat_handler(event):
