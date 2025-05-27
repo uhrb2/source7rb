@@ -397,7 +397,7 @@ def gen_user(choice):
         f = [c[0], c[0], d[0], c[0], c[0], c[0]]
         username = "".join(f)
 
-    if choice == "سداسيات5":  # ARAAAA ~ 
+    elif choice == "سداسيات5":  # ARAAAA ~ 
     c = random.choices(a)
     d = random.choices(e)
     f = [c[0], d[0], c[0], c[0], c[0], c[0]]
