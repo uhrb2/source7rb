@@ -990,3 +990,303 @@ async def rpin_cmd(baqir):
 @zq_lo.rep_cmd(pattern="(النوع|الانواع)")
 async def rtype_cmd(baqir):
     await edit_or_reply(baqir, BaqirType_cmd)
+
+
+@zq_lo.rep_cmd(pattern="مخصص (.*)")
+async def customhunter(event):
+    choice = str(event.pattern_match.group(1))
+    replly = await event.get_reply_message()
+    if not choice:
+        return await edit_or_reply(event, "⚈ **امـر خاطـئ .. تصفح اوامـر الصيـد**\n⚈ **لـ الاوامـر العامـه .. ارسـل** ( `.الصيد` )\n⚈ **لـ انـواع اليـوزرات .. ارسـل** ( `.الانواع` )")
+    try:
+        if replly and replly.text.startswith('@'):
+            ch = replly.text
+            await edit_or_reply(event, f"⚈ **تم بـدء الصيـد المخصص .. بنجـاح ☑️**\n⚈ **النـوع** {choice} \n⚈ **على القنـاة** {ch} \n⚈ **لمعرفـة حالة عمليـة الصيـد المخصص (** `.حالة مخصص` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.مخصص ايقاف` **)**")
+        else:
+            baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
+            ch = await zq_lo(
+                functions.channels.CreateChannelRequest(
+                    title="⎉ صيـد ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
+                    about=f"This channel to custom hunt username by - @Repthon | {baq}",
+                )
+            )
+            try:
+                ch = ch.updates[1].channel_id
+            except Exception:
+                ch = ch.chats[0].id
+            await edit_or_reply(event, f"⚈ **تم بـدء الصيـد المخصص .. بنجـاح ☑️**\n⚈ **علـى النـوع** {choice} \n⚈ **لمعرفـة حالة عمليـة الصيـد المخصص (** `.حالة مخصص` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد المخصص (** `.مخصص ايقاف` **)**")
+    except Exception as e:
+        await zq_lo.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
+        vesmod = False
+
+    validate_cchoice = validate_choice(choice)
+    if not validate_cchoice:
+        try:
+            issclim.clear()
+            issclim.append("off")
+            srys[0] = 0
+        except Exception:
+            pass
+        return await edit_or_reply(event, "**• عـذراً عـزيـزي .. النمـط خاطـئ ✖️**\n**• تم إيقاف الصيـد المخصص 🚷**\n\n**• لـ تصفح اوامـر الصيـد .. ارسـل** ( `.الصيد` )\n**• لـ انـواع اليـوزرات .. ارسـل** ( `.الانواع` )")
+
+    issclim.clear()
+    issclim.append("on")
+    vesmod = True
+    while vesmod:
+        username = ""
+        if choice == "ايقاف":
+            break
+        username = generate_random_string(choice)
+        t = Thread(target=lambda q, arg1: q.put(
+            check_user(arg1)), args=(que, username))
+        t.start()
+        t.join()
+        isav = que.get()
+        if "Available" in isav:
+            await asyncio.sleep(1)
+            try:
+                await zq_lo(
+                    functions.channels.UpdateUsernameRequest(
+                        channel=ch, username=username
+                    )
+                )
+                await event.client.send_message(
+                    event.chat_id,
+                    f"- Done : @{username} ✅\n- By : @Repthon\n- Custom Hunting Log {srys[0]}",
+                )
+                await event.client.send_message(
+                    "@ZQ_L1", f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {srys[0]}",
+                )
+                break
+            except FloodWaitError as rep:
+                wait_time = rep.seconds
+                await sleep(wait_time + 10)
+                pass
+            except telethon.errors.rpcerrorlist.UsernameInvalidError:
+                #with open("banned.txt", "a") as f:
+                    #f.write(f"\n{username}")
+                pass
+            except telethon.errors.FloodError as e:
+                flood_error = e.seconds
+                await sleep(flood_error + 10)
+                pass
+            except Exception as eee:
+                if "too many public channels" in str(eee):
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- تم إيقاف الصيد:\n- انت تمتلك العديد من القنوات العامة\n- قم بحذف معرف او اكثر من قنواتك\n- لكي تستطيع استخدام الصيد""",
+                    )
+                    break
+                elif "you can't create channels or chats" in str(eee):
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- حسابك محظور من شركة تيليجرام\n- لا يمكنك إنشاء قنوات أو مجموعات\n- للمزيد راسل بوت قيود تيليجرام @spambot""",
+                    )
+                    break
+                elif "A wait of" in str(eee):
+                    break
+                else:
+                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    pass
+        else:
+            pass
+        srys[0] += 1
+        await asyncio.sleep(1)
+        #else:
+            #pass
+        #srys += 1
+    issclim.clear()
+    issclim.append("off")
+    srys[0] = 0
+    #srys = ""
+    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من الصيد المخصص .. بنجـاح ✅**")
+
+
+@zq_lo.rep_cmd(pattern="صيد (.*)")
+async def hunterusername(event):
+    choice = str(event.pattern_match.group(1))
+    replly = await event.get_reply_message()
+    if not choice:
+        return await edit_or_reply(event, "⚈ **امـر خاطـئ .. تصفح اوامـر الصيـد**\n⚈ **لـ الاوامـر العامـه .. ارسـل** ( `.الصيد` )\n⚈ **لـ انـواع اليـوزرات .. ارسـل** ( `.الانواع` )")
+    try:
+        if replly and replly.text.startswith('@'):
+            ch = replly.text
+            await edit_or_reply(event, f"⚈ **تم بـدء الصيـد .. بنجـاح ☑️**\n⚈ **النـوع** {choice} \n⚈ **على القنـاة** {ch} \n⚈ **لمعرفـة حالة عمليـة الصيـد (** `.حالة الصيد` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.صيد ايقاف` **)**")
+        else:
+            baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
+            ch = await zq_lo(
+                functions.channels.CreateChannelRequest(
+                    title="⎉ صيـد ريبـثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
+                    about=f"This channel to hunt username by - Repthon | {baq}",
+                )
+            )
+            try:
+                ch = ch.updates[1].channel_id
+            except Exception:
+                ch = ch.chats[0].id
+            await edit_or_reply(event, f"⚈ **تم بـدء الصيـد .. بنجـاح ☑️**\n⚈ **علـى النـوع** {choice} \n⚈ **لمعرفـة حالة عمليـة الصيـد (** `.حالة الصيد` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.صيد ايقاف` **)**")
+    except Exception as e:
+        await zq_lo.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
+        vedmod = False
+
+    itsclim.clear()
+    itsclim.append("on")
+    vedmod = True
+    while vedmod:
+        username = ""
+        if choice == "ايقاف":
+            break
+        #username = await gen_user(choice) تبعي
+        username = gen_user(choice)
+        if username == "stop":
+            itsclim.clear()
+            itsclim.append("off")
+            trys[0] = 0
+            break
+            return await edit_or_reply(event, "**- تم إيقـاف عمليـة الصيـد .. بنجـاح ✓**")
+        if username == "error":
+            await edit_or_reply(event, f"**- عـذراً عـزيـزي\n- لايوجـد نوع** {choice} \n**- لـ عرض الانواع ارسـل (**`.الانواع`**)**")
+            break
+
+        #username = gen_user(choice)
+        t = Thread(target=lambda q, arg1: q.put(
+            check_user(arg1)), args=(que, username))
+        t.start()
+        t.join()
+        isav = que.get()
+        if "Available" in isav:
+            await asyncio.sleep(1)
+            try:
+                await zq_lo(
+                    functions.channels.UpdateUsernameRequest(
+                        channel=ch, username=username
+                    )
+                )
+                await event.client.send_message(
+                    event.chat_id,
+                    f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {trys[0]}",
+                )
+                await event.client.send_message(
+                    "@ZQ_L1", f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {trys[0]}",
+                )
+                break
+            except FloodWaitError as rep: # تبعي
+                wait_time = rep.seconds
+                await sleep(wait_time + 10)
+                pass
+            except telethon.errors.rpcerrorlist.UsernameInvalidError:
+                #with open("banned.txt", "a") as f:
+                    #f.write(f"\n{username}")
+                pass
+            except telethon.errors.FloodError as e: # تبعي
+                flood_error = e.seconds
+                await sleep(flood_error + 10)
+                pass
+            except Exception as eee: # تبعي
+                if "too many public channels" in str(eee): # تبعي
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- خطأ بصيـد اليـوزر @{username} ,\n- الخطأ :\nانت تمتلك العديد من القنوات العامة قم بحذف معرف او اكثر من قنواتك لكي تستطيع صيد هذا اليوزر""",
+                    )
+                    break
+                elif "you can't create channels or chats" in str(eee): # تبعي
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- حسابك محظور من شركة تيليجرام\n- لا يمكنك إنشاء قنوات أو مجموعات\n- للمزيد راسل بوت قيود تيليجرام @spambot""",
+                    )
+                    break
+                elif "A wait of" in str(eee):
+                    break
+                else: # تبعي
+                    #await zedub.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    pass
+        else:
+            pass
+        trys[0] += 1
+        await asyncio.sleep(1)
+        #else:
+            #pass
+        #trys += 1
+    itsclim.clear()
+    itsclim.append("off")
+    trys[0] = 0
+    #trys = ""
+    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من الصيد .. بنجـاح ✅**")
+
+
+@zq_lo.rep_cmd(pattern="تثبيت (.*)")
+async def _(event):
+    baqir = str(event.pattern_match.group(1))
+    if baqir.startswith('@'):
+        return await edit_or_reply(event, "⚈ **امـر خاطـئ .. تصفح اوامـر التثبيت**\n⚈ **لـ الاوامـر العامـه للتثبيت .. ارسـل** ( `.التثبيت` )")
+
+@zq_lo.rep_cmd(pattern="تثبيت_قناة (.*)")
+async def _(event):
+    baqir = str(event.pattern_match.group(1))
+    if not baqir.startswith('@'):
+        return await edit_or_reply(event, "⚈ **عـذراً عـزيـزي المدخـل خطـأ ❌**\n⚈ **استخـدم الامـر كالتالـي**\n⚈ **ارسـل (**`.تثبيت_قناة`** + اليـوزر)**")
+    try:
+        baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
+        ch = await zq_lo(
+            functions.channels.CreateChannelRequest(
+                title="⎉ تثبيت ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
+                about=f"تم تثبيت اليـوزر بواسطـة سـورس ريبـثون - @Repthon | {baq} ",
+            )
+        )
+        try:
+            ch = ch.updates[1].channel_id
+        except Exception:
+            ch = ch.chats[0].id
+        await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {zelzal} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_القناة`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_القناة`**)**")
+    except Exception as e:
+        await zq_lo.send_message(
+            event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`"
+        )
+        cmodels = False
+
+    iscuto.clear()
+    iscuto.append("on")
+    username = baqir.replace("@", "") 
+    cmodels = True
+    while cmodels:
+        #isch = await checker_user(username)
+
+        t = Thread(target=lambda q, arg1: q.put(
+            checker_user(arg1)), args=(que, username))
+        t.start()
+        t.join()
+        isav = que.get()
+        if "Available" in isav:
+            try:
+                await zq_lo(functions.channels.UpdateUsernameRequest(
+                        channel=ch, username=username))
+                await event.client.send_message(
+                    event.chat_id,
+                    f"- Done : @{username} ✅\n- Save: ❲ Channel ❳\n- By : @Repthon\n- Hunting Log {crys[0]}",
+                )
+                break
+            except telethon.errors.rpcerrorlist.UsernameInvalidError:
+                await event.client.send_message(event.chat_id, f"**• اليـوزر** @{username} **مبنـد** ❌\n**• تم إيقاف عملية التثبيت لهذا اليوزر**")
+                break
+            except FloodWaitError as rep: #Code by t.me/ZlZZ7
+                wait_time = rep.seconds
+                await sleep(wait_time + 10)
+                pass
+            except telethon.errors.FloodError as e:
+                flood_error = e.seconds
+                await sleep(flood_error + 10)
+                pass
+            except Exception as eee: # تبعي
+                if "too many public channels" in str(eee): # تبعي
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- تم إيقاف الصيد:\n- انت تمتلك العديد من القنوات العامة\n- قم بحذف معرف او اكثر من قنواتك\n- لكي تستطيع استخدام الصيد""",
+                    )
+                    break
+                elif "you can't create channels or chats" in str(eee): # تبعي
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- حسابك محظور من شركة تيليجرام\n- لا يمكنك إنشاء قنوات أو مجموعات\n- للمزيد راسل بوت قيود تيليجرام @spambot""",
+                    )
+                    break
+                elif "USERNAME_PURCHASE_AVAILABLE" in str(eee):
