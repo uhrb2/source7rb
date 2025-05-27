@@ -583,11 +583,79 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-# إضافة الرد لـ ".السلام عليكم"
-@l313l.on(events.NewMessage(pattern=r"\.السلام عليكم"))
-async def salam_reply(event):
-    # النص الذي سيتم إرساله كرد يحتوي فقط على التعبير المميز
-    reply_text = f"وعليكم السلام <a href='emoji/5418272106292991797'></a>"
+from telethon import events, types
+import asyncio
 
-    # إرسال الرد
-    await event.reply(reply_text, parse_mode="html")
+# ضع معرف القنوات الإجباري هنا
+REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
+YOUTUBE_BOT = '@YTOOTY_BOT'
+
+@bot.on(events.NewMessage(pattern=r'\.يوتيوب\+(.+)'))
+async def youtube_extractor(event):
+    query = event.pattern_match.group(1).strip()
+    await event.reply('**صبرك جاري جلب المطلوب ...**')
+    
+    # ابدأ محادثة مع بوت اليوتيوب
+    bot_conv = await bot.conversation(YOUTUBE_BOT)
+
+    # أرسل /start للبوت
+    await bot_conv.send_message('/start')
+    response = await bot_conv.get_response()
+
+    # تحقق من اشتراك القنوات الإجباري
+    if 'عليك الأشتراك في قنوات البوت أولاً' in response.text:
+        for channel in REQUIRED_CHANNELS:
+            try:
+                await bot(JoinChannelRequest(channel))
+                await asyncio.sleep(1)
+            except Exception as e:
+                await event.reply(f'حدث خطأ أثناء الانضمام للقناة {channel}: {e}')
+        # بعد الاشتراك، أعد إرسال /start
+        await bot_conv.send_message('/start')
+        response = await bot_conv.get_response()
+
+    # أرسل البحث
+    await bot_conv.send_message(query)
+    search_response = await bot_conv.get_response()
+    
+    # ابحث عن أول زر /dl
+    if search_response.reply_markup and search_response.reply_markup.rows:
+        for button_row in search_response.reply_markup.rows:
+            for button in button_row.buttons:
+                if '/dl' in button.text:
+                    await bot_conv.send_message(button.text)
+                    break
+            else:
+                continue
+            break
+
+    # انتظر 4 ثواني
+    await asyncio.sleep(4)
+    # استقبل رد الأزرار
+    buttons_response = await bot_conv.get_response()
+
+    # اختر زر (🎶┇ملف صوتي.)
+    found = False
+    if buttons_response.reply_markup:
+        for row in buttons_response.reply_markup.rows:
+            for button in row.buttons:
+                if '🎶' in button.text:
+                    await bot_conv.send_message(button.text)
+                    found = True
+                    break
+            if found:
+                break
+
+    # انتظر 4 ثواني لاستقبال الملف الصوتي
+    await asyncio.sleep(4)
+    file_message = await bot_conv.get_response()
+    # أرسل الملف لنفس المكان مع التعديل المطلوب
+    if file_message.media:
+        sent = await bot.send_file(
+            event.chat_id,
+            file_message.media,
+            caption=f"{query}\n\nتم جلبه بواسطة 𝗥𝗼𝗯𝗶𝗻 𝗦𝗼𝘂𝗿𝗰𝗲"
+        )
+        # تغيير اسم الملف إذا أردت (telethon لا يدعم تعديل الاسم أثناء الإرسال مباشرة، يمكنك فقط تغيير الكابشن)
+    else:
+        await event.reply("لم أستطع جلب الملف الصوتي. حاول مجددًا.")
