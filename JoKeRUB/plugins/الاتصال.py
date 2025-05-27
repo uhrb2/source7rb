@@ -595,7 +595,7 @@ REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
 async def _(event):
     query = event.pattern_match.group(1).strip()
     await event.reply("**صبرك جاري جلب المطلوب ...**")
-    bot_conv = await bot.conversation(YOUTUBE_BOT, timeout=180, exclusive=True)
+    bot_conv = await l313l.conversation(YOUTUBE_BOT, timeout=180, exclusive=True)
 
     # Step 1: أرسل /start
     await bot_conv.send_message("/start")
@@ -606,7 +606,7 @@ async def _(event):
     if "عليك الأشتراك" in resp.text:
         for ch in REQUIRED_CHANNELS:
             try:
-                await bot(JoinChannelRequest(ch))
+                await l313l(JoinChannelRequest(ch))
                 await asyncio.sleep(1)
             except Exception as e:
                 await event.reply(f"خطأ بالانضمام: {ch}\n{e}")
@@ -636,7 +636,7 @@ async def _(event):
     if opts.buttons:
         for row in opts.buttons:
             for btn in row:
-                if ('🔉┇بصمة صوتية.' in btn.text) or ('yt_voice' in str(getattr(btn, "data", b""))):
+                if ('بصمة صوتية' in btn.text) or ('yt_voice' in str(getattr(btn, "data", b""))):
                     await btn.click()
                     found = True
                     break
@@ -652,7 +652,7 @@ async def _(event):
 
     # Step 8: أعد إرسال الصوتية مع توقيع
     if result_msg.voice or getattr(result_msg, "media", None):
-        await bot.send_file(
+        await l313l.send_file(
             event.chat_id,
             result_msg.media,
             caption="تم الجلب بواسطة 𝗥𝗼𝗯𝗶𝗻 𝗦𝗼𝘂𝗿𝗰𝗲"
