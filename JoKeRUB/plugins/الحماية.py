@@ -547,6 +547,20 @@ async def on_plug_in_callback_query_handler(event):
 
 # ترجمه وكتابة فريق 7rB 
 
+@l313l.ar_cmd(pattern="تغيير كليشة الحماية (.+)")
+async def _(event):
+    new_msg = event.pattern_match.group(1)
+    with open("protection_message.txt", "w", encoding="utf-8") as f:
+        f.write(new_msg)
+    await event.reply("تم تغيير كليشة الحماية بنجاح ✅")
+
+def get_protection_message():
+    try:
+        with open("protection_message.txt", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "كليشة الحماية الافتراضية"
+
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"to_request_something")))
 async def on_plug_in_callback_query_handler(event):
