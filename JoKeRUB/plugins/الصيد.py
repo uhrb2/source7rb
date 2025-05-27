@@ -481,18 +481,18 @@ def gen_user(choice):
         username = "".join(f)
 
     elif choice == "خماسي حرفين1": #AAARD ~ 
-        c = random.choices(a)
-        d = random.choices(z)
-        s = random.choices(e)
-        f = [c[0], c[0], c[0], s[0], d[0]]
-        username = "".join(f)
-
-        elif choice == "خماسي ارقام":  # AR888 ~ 
     c = random.choices(a)
-    d = random.choices(e)
-    s = random.choices(b)
-    f = [c[0], d[0], s[0], s[0], s[0]]
+    d = random.choices(z)
+    s = random.choices(e)
+    f = [c[0], c[0], c[0], s[0], d[0]]
     username = "".join(f)
+
+    elif choice == "خماسي ارقام":  # AR888 ~ 
+c = random.choices(a)
+d = random.choices(e)
+s = random.choices(b)
+f = [c[0], d[0], s[0], s[0], s[0]]
+username = "".join(f)
 
     elif choice == "خماسي رقمين1": #AAARD ~ 
         c = random.choices(a)
