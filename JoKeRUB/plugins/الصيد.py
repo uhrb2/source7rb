@@ -1290,3 +1290,251 @@ async def _(event):
                     )
                     break
                 elif "USERNAME_PURCHASE_AVAILABLE" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    break
+                elif "A wait of" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    break
+                else: # تبعي
+                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    pass
+        else:
+            pass
+        crys[0] += 1
+        #await asyncio.sleep(8)
+        await asyncio.sleep(2)
+        #else:
+            #pass
+        #trys += 1
+    iscuto.clear()
+    iscuto.append("off")
+    crys[0] = 0
+    #crys = ""
+    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من التثبيت .. بنجـاح ✅**")
+
+
+@zq_lo.rep_cmd(pattern="تثبيت_حساب (.*)")
+async def _(event):
+    baqir = str(event.pattern_match.group(1))
+    if not baqir.startswith('@'):
+        return await edit_or_reply(event, "⚈ **عـذراً عـزيـزي المدخـل خطـأ ❌**\n⚈ **استخـدم الامـر كالتالـي**\n⚈ **ارسـل (**`.تثبيت_حساب`** + اليـوزر)**")
+    await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {zelzal} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_الحساب`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_الحساب`**)**")
+    istuto.clear()
+    istuto.append("on")
+    username = baqir.replace("@", "") 
+    amodels = True
+    while amodels:
+        #isac = await checker_user(username)
+
+        t = Thread(target=lambda q, arg1: q.put(
+            checker_user(arg1)), args=(que, username))
+        t.start()
+        t.join()
+        isac = que.get()
+        if "Available" in isac:
+            try:
+                await zq_lo(functions.account.UpdateUsernameRequest(username=username))
+                await event.client.send_message(
+                    event.chat_id,
+                    f"- Done : @{username} ✅\n- Save: ❲ Account ❳\n- By : @Repthon \n- Hunting Log {arys[0]}",
+                )
+                break
+            except telethon.errors.rpcerrorlist.UsernameInvalidError:
+                await event.client.send_message(event.chat_id, f"**• اليـوزر** @{username} **مبنـد** ❌\n**• تم إيقاف عملية التثبيت لهذا اليوزر**")
+                break
+            except FloodWaitError as rep:
+                wait_time = rep.seconds
+                await sleep(wait_time + 10)
+                pass
+            except telethon.errors.FloodError as e:
+                flood_error = e.seconds
+                await sleep(flood_error + 10)
+                pass
+            except Exception as eee: # تبعي
+                if "USERNAME_PURCHASE_AVAILABLE" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    break
+                elif "A wait of" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    break
+                else: # تبعي
+                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    pass
+        else:
+            pass
+        arys[0] += 1
+        #await asyncio.sleep(8)
+        await asyncio.sleep(2)
+        #else:
+            #pass
+        #trys += 1
+    istuto.clear()
+    istuto.append("off")
+    arys[0] = 0
+    #arys = ""
+    return await zq_lo.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت اليـوزر ع حسـابك .. بنجـاح ✅**")
+
+
+@zq_lo.rep_cmd(pattern="تثبيت_بوت (.*)")
+async def _(event):
+    baqit = str(event.pattern_match.group(1))
+    if not baqir.startswith('@'):
+        return await edit_or_reply(event, "⚈ **عـذراً عـزيـزي المدخـل خطـأ ❌**\n⚈ **استخـدم الامـر كالتالـي**\n⚈ **ارسـل (**`.تثبيت_بوت`** + اليـوزر)**")
+    await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {zelzal} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_البوت`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_البوت`**)**")
+    isbuto.clear()
+    isbuto.append("on")
+    username = baqir.replace("@", "") 
+    bmodels = True
+    rrrnm = "⎉ تثبيت ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉"
+    rrrby = "تم تثبيت اليـوزر بواسطـة سـورس زدثـــون - @ZedThon "
+    while bmodels:
+        #isbt = await checker_user(username)
+
+        t = Thread(target=lambda q, arg1: q.put(
+            checker_user(arg1)), args=(que, username))
+        t.start()
+        t.join()
+        isac = que.get()
+        if "Available" in isac:
+            try:
+                await bot.send_message("@BotFather", "/newbot")
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", rrrnm)
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", baqir)
+                await asyncio.sleep(3)
+                await bot.send_message("@BotFather", "/setabouttext")
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", baqir)
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", rrrby)
+                await asyncio.sleep(3)
+                await bot.send_message("@BotFather", "/setdescription")
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", baqir)
+                await asyncio.sleep(1)
+                await bot.send_message("@BotFather", rrrby)
+                await event.client.send_message(
+                    event.chat_id,
+                    f"- Done : @{username} ✅\n- Save: ❲ Bot ❳\n- By : @Repthon \n- Hunting Log {brys[0]}",
+                )
+                break
+            except FloodWaitError as rep:
+                wait_time = rep.seconds
+                await sleep(wait_time + 10)
+                pass
+            except telethon.errors.rpcerrorlist.UsernameInvalidError:
+                await event.client.send_message(event.chat_id, f"**• اليـوزر** @{username} **مبنـد** ❌\n**• تم إيقاف عملية التثبيت لهذا اليوزر**")
+                break
+            except telethon.errors.FloodError as e:
+                flood_error = e.seconds
+                await sleep(flood_error + 10)
+                pass
+            except Exception as eee:
+                if "20 bots" in str(eee): # تبعي
+                    await zq_lo.send_message(
+                        event.chat_id,
+                        f"""- خطأ بصيـد اليـوزر @{username} ,\n- الخطأ :\nانت تمتلك العديد من القنوات العامة قم بحذف معرف او اكثر من قنواتك لكي تستطيع صيد هذا اليوزر""",
+                    )
+                    break
+                elif "USERNAME_PURCHASE_AVAILABLE" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    break
+                elif "A wait of" in str(eee):
+                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار ??‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    break
+                else: # تبعي
+                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بتثبيت اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• تم إيقاف عملية تثبيت هذا اليوزر ✖️**")
+                    break
+        else:
+            pass
+        brys[0] += 1
+
+        await asyncio.sleep(5)
+    isbuto.clear()
+    isbuto.append("off")
+    brys[0] = 0
+    return await zq_lo.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت البـوت .. بنجـاح ✅**\n**- لـ التأكـد قـم بالذهـاب الـى @BotFather**")
+
+
+@zq_lo.rep_cmd(pattern="حالة مخصص")
+async def _(event):
+    if "on" in issclim:
+        await edit_or_reply(event, f"**- الصيد المخصص وصل لـ({srys[0]}) من المحـاولات**")
+    elif "off" in issclim:
+        await edit_or_reply(event, "**- لا توجد عمليـة صيد مخصص جاريـه حاليـاً ؟!**")
+    else:
+        await edit_or_reply(event, "**- لقد حدث خطأ ما وتوقف الامر لديك**")
+
+@zq_lo.rep_cmd(pattern="حالة الصيد")
+async def _(event):
+    if "on" in itsclim:
+        await edit_or_reply(event, f"**- الصيد وصل لـ({trys[0]}) من المحـاولات**")
+    elif "off" in itsclim:
+        await edit_or_reply(event, "**- لا توجد عمليـة صيد جاريـه حاليـاً ؟!**")
+    else:
+        await edit_or_reply(event, "**- لقد حدث خطأ ما وتوقف الامر لديك**")
+
+@zq_lo.rep_cmd(pattern="حالة تثبيت_القناة")
+async def _(event):
+    if "on" in iscuto:
+        await edit_or_reply(event, f"**- التثبيت وصل لـ({crys[0]}) من المحاولات**")
+    elif "off" in iscuto:
+        await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
+
+@zq_lo.rep_cmd(pattern="حالة تثبيت_الحساب")
+async def _(event):
+    if "on" in istuto:
+        await edit_or_reply(event, f"**- التثبيت وصل لـ({arys[0]}) من المحاولات**")
+    elif "off" in istuto:
+        await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
+
+@zq_lo.rep_cmd(pattern="حالة تثبيت_البوت")
+async def _(event):
+    if "on" in isbuto:
+        await edit_or_reply(event, f"**- التثبيت وصل لـ({brys[0]}) من المحاولات**")
+    elif "off" in isbuto:
+        await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
+
+
+@zq_lo.rep_cmd(pattern="ايقاف تثبيت_القناة")
+async def _(event):
+    if "on" in iscuto:
+        iscuto.clear()
+        iscuto.append("off")
+        crys[0] = 0
+        return await edit_or_reply(event, "**- تم إيقـاف عمليـة التثبيت .. بنجـاح ✓**")
+    elif "off" in iscuto:
+        return await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        return await edit_or_reply(event, "**-لقد حدث خطأ ما وتوقف الامر لديك**")
+
+@zq_lo.rep_cmd(pattern="ايقاف تثبيت_الحساب")
+async def _(event):
+    if "on" in istuto:
+        istuto.clear()
+        istuto.append("off")
+        arys[0] = 0
+        return await edit_or_reply(event, "**- تم إيقـاف عمليـة التثبيت .. بنجـاح ✓**")
+    elif "off" in istuto:
+        return await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        return await edit_or_reply(event, "**-لقد حدث خطأ ما وتوقف الامر لديك**")
+
+@zq_lo.rep_cmd(pattern="ايقاف تثبيت_البوت")
+async def _(event):
+    if "on" in isbuto:
+        isbuto.clear()
+        isbuto.append("off")
+        brys[0] = 0
+        return await edit_or_reply(event, "**- تم إيقـاف عمليـة التثبيت .. بنجـاح ✓**")
+    elif "off" in isbuto:
+        return await edit_or_reply(event, "**- لا توجد عمليـة تثبيث جاريـه حاليـاً ؟!**")
+    else:
+        return await edit_or_reply(event, "**-لقد حدث خطأ ما وتوقف الامر لديك**")
