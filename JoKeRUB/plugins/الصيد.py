@@ -1,10 +1,4 @@
 import random
-import requests
-import time
-import asyncio
-from asyncio import sleep
-from ..core.managers import edit_delete, edit_or_reply
-import random
 import string
 import requests
 import time
@@ -17,12 +11,9 @@ from user_agent import generate_user_agent
 from user_agent import *
 from queue import Queue
 from threading import Thread
-import telethon
-from telethon.sync import functions
-from telethon.errors import FloodWaitError
-from user_agent import generate_user_agent
+
 from JoKeRUB import l313l
-from ..core.managers import edit_or_reply
+from ..core.managers import edit_delete, edit_or_reply
 
 srys = [0]
 trys = [0]
