@@ -111,11 +111,10 @@ async def get_var(event):
 # إضافة صورة لأي متغير صوري مدعوم
 @l313l.ar_cmd(pattern="اضف صورة ([^ ]+)(?: ?(.*))?")
 async def add_img_var(event):
-    import requests, os
     reply = await event.get_reply_message()
     img_type = event.pattern_match.group(1).strip()
-
-    # دعم جميع الأنواع: لا نتحقق من IMG_VARS
+    if img_type not in IMG_VARS:
+        return await edit_delete(event, "**✗ نوع الصورة غير مدعوم**")
     if not (reply and reply.media):
         return await event.edit("**✗ يجب الرد على صورة لإضافتها**")
     jokevent = await event.edit(f"`⌔︙جـار رفع الصورة إلى أمر {img_type} ...`")
@@ -128,8 +127,7 @@ async def add_img_var(event):
             )
         if response.status_code == 200 and response.json().get("success"):
             url = response.json()["files"][0]["url"]
-            # استخدم الاسم مباشرة كاسم المتغير
-            addgvar(img_type, url)
+            addgvar(IMG_VARS[img_type], url)
             await jokevent.edit(f"**✓ تم إضافة الصورة إلى {img_type} بنجاح**")
             if BOTLOG_CHATID:
                 await event.client.send_message(BOTLOG_CHATID, f"#اضف_صورة\nتم رفع صورة {img_type} والرابط:\n{url}")
