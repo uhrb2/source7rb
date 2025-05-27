@@ -922,7 +922,7 @@ BaqirPin_cmd = (
 )
 
 BaqirType_cmd = (
-"𓆩 [𝗦𝗼𝘂𝗿𝗰𝗲 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 - أنـواع اليـوزرات](t.me/Repthon) 𓆪\n\n"
+"𓆩 [𝗦𝗼𝘂𝗿𝗰𝗲 𝗥𝗼𝗯𝗶𝗻 - أنـواع اليـوزرات](t.me/RobinSource) 𓆪\n\n"
 "**✾╎قـائمـة أنـواع اليـوزرات التي يمكـن صيدهـا مـع الامثـلة :** \n\n"
 "⪼  `.صيد ثلاثي1`  **مثـال ~** A_D_R\n"
 "⪼  `.صيد ثلاثي2`  **مثـال ~** A_7_R\n"
@@ -971,28 +971,28 @@ BaqirType_cmd = (
 )
 
 
-@zq_lo.rep_cmd(pattern="(الصيد|التثبيت)")
+@l313l.ar_cmd(pattern="(الصيد|التثبيت)")
 async def rhunter_cmd(baqir):
     await edit_or_reply(baqir, BaqirHunter_cmd)
 
-@zq_lo.rep_cmd(pattern="(اوامر المخصص|المخصص)")
+@l313l.ar_cmd(pattern="(اوامر المخصص|المخصص)")
 async def rcustom_cmd(baqir):
     await edit_or_reply(baqir, BaqirCustom_cmd)
 
-@zq_lo.rep_cmd(pattern="اوامر الصيد")
+@l313l.ar_cmd(pattern="اوامر الصيد")
 async def rchecker_cmd(baqir):
     await edit_or_reply(baqir, BaqirChecker_cmd)
 
-@zq_lo.rep_cmd(pattern="اوامر التثبيت")
+@l313l.ar_cmd(pattern="اوامر التثبيت")
 async def rpin_cmd(baqir):
     await edit_or_reply(baqir, BaqirPin_cmd)
 
-@zq_lo.rep_cmd(pattern="(النوع|الانواع)")
+@l313l.ar_cmd(pattern="(النوع|الانواع)")
 async def rtype_cmd(baqir):
     await edit_or_reply(baqir, BaqirType_cmd)
 
 
-@zq_lo.rep_cmd(pattern="مخصص (.*)")
+@l313l.ar_cmd(pattern="مخصص (.*)")
 async def customhunter(event):
     choice = str(event.pattern_match.group(1))
     replly = await event.get_reply_message()
@@ -1003,11 +1003,11 @@ async def customhunter(event):
             ch = replly.text
             await edit_or_reply(event, f"⚈ **تم بـدء الصيـد المخصص .. بنجـاح ☑️**\n⚈ **النـوع** {choice} \n⚈ **على القنـاة** {ch} \n⚈ **لمعرفـة حالة عمليـة الصيـد المخصص (** `.حالة مخصص` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.مخصص ايقاف` **)**")
         else:
-            baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
-            ch = await zq_lo(
+            baq = f"@{l313l.me.username}" if l313l.me.username else ""
+            ch = await l313l(
                 functions.channels.CreateChannelRequest(
-                    title="⎉ صيـد ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
-                    about=f"This channel to custom hunt username by - @Repthon | {baq}",
+                    title="صيـد روبن 𝗥𝗼𝗯𝗶𝗻 ",
+                    about=f"This channel to custom hunt username by - @robinsource | {baq}",
                 )
             )
             try:
@@ -1016,7 +1016,7 @@ async def customhunter(event):
                 ch = ch.chats[0].id
             await edit_or_reply(event, f"⚈ **تم بـدء الصيـد المخصص .. بنجـاح ☑️**\n⚈ **علـى النـوع** {choice} \n⚈ **لمعرفـة حالة عمليـة الصيـد المخصص (** `.حالة مخصص` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد المخصص (** `.مخصص ايقاف` **)**")
     except Exception as e:
-        await zq_lo.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
+        await l313l.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
         vesmod = False
 
     validate_cchoice = validate_choice(choice)
@@ -1045,17 +1045,17 @@ async def customhunter(event):
         if "Available" in isav:
             await asyncio.sleep(1)
             try:
-                await zq_lo(
+                await l313l(
                     functions.channels.UpdateUsernameRequest(
                         channel=ch, username=username
                     )
                 )
                 await event.client.send_message(
                     event.chat_id,
-                    f"- Done : @{username} ✅\n- By : @Repthon\n- Custom Hunting Log {srys[0]}",
+                    f"- Done : @{username} ✅\n- By : @RobinSource\n- Custom Hunting Log {srys[0]}",
                 )
                 await event.client.send_message(
-                    "@ZQ_L1", f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {srys[0]}",
+                    "@F_O_1", f"- Done : @{username} ✅\n- By : @RobinSource\n- Hunting Log {srys[0]}",
                 )
                 break
             except FloodWaitError as rep:
@@ -1072,13 +1072,13 @@ async def customhunter(event):
                 pass
             except Exception as eee:
                 if "too many public channels" in str(eee):
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- تم إيقاف الصيد:\n- انت تمتلك العديد من القنوات العامة\n- قم بحذف معرف او اكثر من قنواتك\n- لكي تستطيع استخدام الصيد""",
                     )
                     break
                 elif "you can't create channels or chats" in str(eee):
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- حسابك محظور من شركة تيليجرام\n- لا يمكنك إنشاء قنوات أو مجموعات\n- للمزيد راسل بوت قيود تيليجرام @spambot""",
                     )
@@ -1086,7 +1086,7 @@ async def customhunter(event):
                 elif "A wait of" in str(eee):
                     break
                 else:
-                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    #await l313l.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
                     pass
         else:
             pass
@@ -1099,10 +1099,10 @@ async def customhunter(event):
     issclim.append("off")
     srys[0] = 0
     #srys = ""
-    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من الصيد المخصص .. بنجـاح ✅**")
+    return await l313l.send_message(event.chat_id, "**- تم الانتهاء من الصيد المخصص .. بنجـاح ✅**")
 
 
-@zq_lo.rep_cmd(pattern="صيد (.*)")
+@l313l.ar_cmd(pattern="صيد (.*)")
 async def hunterusername(event):
     choice = str(event.pattern_match.group(1))
     replly = await event.get_reply_message()
@@ -1113,11 +1113,11 @@ async def hunterusername(event):
             ch = replly.text
             await edit_or_reply(event, f"⚈ **تم بـدء الصيـد .. بنجـاح ☑️**\n⚈ **النـوع** {choice} \n⚈ **على القنـاة** {ch} \n⚈ **لمعرفـة حالة عمليـة الصيـد (** `.حالة الصيد` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.صيد ايقاف` **)**")
         else:
-            baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
-            ch = await zq_lo(
+            baq = f"@{l313l.me.username}" if l313l.me.username else ""
+            ch = await l313l(
                 functions.channels.CreateChannelRequest(
-                    title="⎉ صيـد ريبـثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
-                    about=f"This channel to hunt username by - Repthon | {baq}",
+                    title=" صيـد روبن 𝗥𝗼𝗯𝗶𝗻",
+                    about=f"This channel to hunt username by - RobinSource| {baq}",
                 )
             )
             try:
@@ -1126,7 +1126,7 @@ async def hunterusername(event):
                 ch = ch.chats[0].id
             await edit_or_reply(event, f"⚈ **تم بـدء الصيـد .. بنجـاح ☑️**\n⚈ **علـى النـوع** {choice} \n⚈ **لمعرفـة حالة عمليـة الصيـد (** `.حالة الصيد` **)**\n⚈ **لـ ايقـاف عمليـة الصيـد (** `.صيد ايقاف` **)**")
     except Exception as e:
-        await zq_lo.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
+        await l313l.send_message(event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`")
         vedmod = False
 
     itsclim.clear()
@@ -1157,17 +1157,17 @@ async def hunterusername(event):
         if "Available" in isav:
             await asyncio.sleep(1)
             try:
-                await zq_lo(
+                await l313l(
                     functions.channels.UpdateUsernameRequest(
                         channel=ch, username=username
                     )
                 )
                 await event.client.send_message(
                     event.chat_id,
-                    f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {trys[0]}",
+                    f"- Done : @{username} ✅\n- By : @RobinSource\n- Hunting Log {trys[0]}",
                 )
                 await event.client.send_message(
-                    "@ZQ_L1", f"- Done : @{username} ✅\n- By : @Repthon\n- Hunting Log {trys[0]}",
+                    "@F_O_1", f"- Done : @{username} ✅\n- By : @RobinSource\n- Hunting Log {trys[0]}",
                 )
                 break
             except FloodWaitError as rep: # تبعي
@@ -1184,7 +1184,7 @@ async def hunterusername(event):
                 pass
             except Exception as eee: # تبعي
                 if "too many public channels" in str(eee): # تبعي
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- خطأ بصيـد اليـوزر @{username} ,\n- الخطأ :\nانت تمتلك العديد من القنوات العامة قم بحذف معرف او اكثر من قنواتك لكي تستطيع صيد هذا اليوزر""",
                     )
@@ -1198,7 +1198,7 @@ async def hunterusername(event):
                 elif "A wait of" in str(eee):
                     break
                 else: # تبعي
-                    #await zedub.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    #await l313l.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
                     pass
         else:
             pass
@@ -1211,26 +1211,26 @@ async def hunterusername(event):
     itsclim.append("off")
     trys[0] = 0
     #trys = ""
-    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من الصيد .. بنجـاح ✅**")
+    return await l313l.send_message(event.chat_id, "**- تم الانتهاء من الصيد .. بنجـاح ✅**")
 
 
-@zq_lo.rep_cmd(pattern="تثبيت (.*)")
+@l313l.ar_cmd(pattern="تثبيت (.*)")
 async def _(event):
     baqir = str(event.pattern_match.group(1))
     if baqir.startswith('@'):
         return await edit_or_reply(event, "⚈ **امـر خاطـئ .. تصفح اوامـر التثبيت**\n⚈ **لـ الاوامـر العامـه للتثبيت .. ارسـل** ( `.التثبيت` )")
 
-@zq_lo.rep_cmd(pattern="تثبيت_قناة (.*)")
+@l313l.ar_cmd(pattern="تثبيت_قناة (.*)")
 async def _(event):
     baqir = str(event.pattern_match.group(1))
     if not baqir.startswith('@'):
         return await edit_or_reply(event, "⚈ **عـذراً عـزيـزي المدخـل خطـأ ❌**\n⚈ **استخـدم الامـر كالتالـي**\n⚈ **ارسـل (**`.تثبيت_قناة`** + اليـوزر)**")
     try:
-        baq = f"@{zq_lo.me.username}" if zq_lo.me.username else ""
-        ch = await zq_lo(
+        baq = f"@{l313l.me.username}" if l313l.me.username else ""
+        ch = await l313l(
             functions.channels.CreateChannelRequest(
-                title="⎉ تثبيت ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉",
-                about=f"تم تثبيت اليـوزر بواسطـة سـورس ريبـثون - @Repthon | {baq} ",
+                title=" تثبيت روبن 𝗥𝗼𝗯𝗶𝗻",
+                about=f"تم تثبيت اليـوزر بواسطـة سـورس روبن - @RobinSource | {baq} ",
             )
         )
         try:
@@ -1239,7 +1239,7 @@ async def _(event):
             ch = ch.chats[0].id
         await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {zelzal} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_القناة`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_القناة`**)**")
     except Exception as e:
-        await zq_lo.send_message(
+        await l313l.send_message(
             event.chat_id, f"**- اووبـس .. خطـأ فـي إنشـاء القنـاة ؟!**\n**- تفاصيـل الخطـأ :**\n`{str(e)}`"
         )
         cmodels = False
@@ -1258,11 +1258,11 @@ async def _(event):
         isav = que.get()
         if "Available" in isav:
             try:
-                await zq_lo(functions.channels.UpdateUsernameRequest(
+                await l313l(functions.channels.UpdateUsernameRequest(
                         channel=ch, username=username))
                 await event.client.send_message(
                     event.chat_id,
-                    f"- Done : @{username} ✅\n- Save: ❲ Channel ❳\n- By : @Repthon\n- Hunting Log {crys[0]}",
+                    f"- Done : @{username} ✅\n- Save: ❲ Channel ❳\n- By : @RobinSource\n- Hunting Log {crys[0]}",
                 )
                 break
             except telethon.errors.rpcerrorlist.UsernameInvalidError:
@@ -1278,25 +1278,25 @@ async def _(event):
                 pass
             except Exception as eee: # تبعي
                 if "too many public channels" in str(eee): # تبعي
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- تم إيقاف الصيد:\n- انت تمتلك العديد من القنوات العامة\n- قم بحذف معرف او اكثر من قنواتك\n- لكي تستطيع استخدام الصيد""",
                     )
                     break
                 elif "you can't create channels or chats" in str(eee): # تبعي
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- حسابك محظور من شركة تيليجرام\n- لا يمكنك إنشاء قنوات أو مجموعات\n- للمزيد راسل بوت قيود تيليجرام @spambot""",
                     )
                     break
                 elif "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    await l313l.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
                     break
                 elif "A wait of" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    await l313l.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
                     break
                 else: # تبعي
-                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    #await l313l.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
                     pass
         else:
             pass
@@ -1310,15 +1310,15 @@ async def _(event):
     iscuto.append("off")
     crys[0] = 0
     #crys = ""
-    return await zq_lo.send_message(event.chat_id, "**- تم الانتهاء من التثبيت .. بنجـاح ✅**")
+    return await l313l.send_message(event.chat_id, "**- تم الانتهاء من التثبيت .. بنجـاح ✅**")
 
 
-@zq_lo.rep_cmd(pattern="تثبيت_حساب (.*)")
+@l313l.ar_cmd(pattern="تثبيت_حساب (.*)")
 async def _(event):
     baqir = str(event.pattern_match.group(1))
     if not baqir.startswith('@'):
         return await edit_or_reply(event, "⚈ **عـذراً عـزيـزي المدخـل خطـأ ❌**\n⚈ **استخـدم الامـر كالتالـي**\n⚈ **ارسـل (**`.تثبيت_حساب`** + اليـوزر)**")
-    await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {zelzal} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_الحساب`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_الحساب`**)**")
+    await edit_or_reply(event, f"⚈ **تم بـدء التثبيت .. بنجـاح ☑️**\n⚈ **اليـوزر المثبت ( {l313l} )**\n⚈ **لمعرفـة تقـدم عمليـة التثبيت (**`.حالة تثبيت_الحساب`**)**\n⚈ **لـ ايقـاف عمليـة التثبيت (**`.ايقاف تثبيت_الحساب`**)**")
     istuto.clear()
     istuto.append("on")
     username = baqir.replace("@", "") 
@@ -1333,10 +1333,10 @@ async def _(event):
         isac = que.get()
         if "Available" in isac:
             try:
-                await zq_lo(functions.account.UpdateUsernameRequest(username=username))
+                await l313l(functions.account.UpdateUsernameRequest(username=username))
                 await event.client.send_message(
                     event.chat_id,
-                    f"- Done : @{username} ✅\n- Save: ❲ Account ❳\n- By : @Repthon \n- Hunting Log {arys[0]}",
+                    f"- Done : @{username} ✅\n- Save: ❲ Account ❳\n- By : @RobinSource \n- Hunting Log {arys[0]}",
                 )
                 break
             except telethon.errors.rpcerrorlist.UsernameInvalidError:
@@ -1352,13 +1352,13 @@ async def _(event):
                 pass
             except Exception as eee: # تبعي
                 if "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    await l313l.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
                     break
                 elif "A wait of" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    await l313l.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار 😵‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
                     break
                 else: # تبعي
-                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
+                    #await l313l.send_message(event.chat_id, f"**• خطأ بصيـد اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• حسناً .. سوف استمـر بالصيـد ♾**")
                     pass
         else:
             pass
@@ -1372,10 +1372,10 @@ async def _(event):
     istuto.append("off")
     arys[0] = 0
     #arys = ""
-    return await zq_lo.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت اليـوزر ع حسـابك .. بنجـاح ✅**")
+    return await l313l.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت اليـوزر ع حسـابك .. بنجـاح ✅**")
 
 
-@zq_lo.rep_cmd(pattern="تثبيت_بوت (.*)")
+@l313l.ar_cmd(pattern="تثبيت_بوت (.*)")
 async def _(event):
     baqit = str(event.pattern_match.group(1))
     if not baqir.startswith('@'):
@@ -1385,8 +1385,8 @@ async def _(event):
     isbuto.append("on")
     username = baqir.replace("@", "") 
     bmodels = True
-    rrrnm = "⎉ تثبيت ريـبثون 𝗥𝗲𝗽𝘁𝗵𝗼𝗻 ⎉"
-    rrrby = "تم تثبيت اليـوزر بواسطـة سـورس زدثـــون - @ZedThon "
+    rrrnm = " تثبيت روبن 𝗥𝗼𝗯𝗶𝗻 "
+    rrrby = "تم تثبيت اليـوزر بواسطـة سـورس روبو - @RobinSource "
     while bmodels:
         #isbt = await checker_user(username)
 
@@ -1416,7 +1416,7 @@ async def _(event):
                 await bot.send_message("@BotFather", rrrby)
                 await event.client.send_message(
                     event.chat_id,
-                    f"- Done : @{username} ✅\n- Save: ❲ Bot ❳\n- By : @Repthon \n- Hunting Log {brys[0]}",
+                    f"- Done : @{username} ✅\n- Save: ❲ Bot ❳\n- By : @RobinSource \n- Hunting Log {brys[0]}",
                 )
                 break
             except FloodWaitError as rep:
@@ -1432,19 +1432,19 @@ async def _(event):
                 pass
             except Exception as eee:
                 if "20 bots" in str(eee): # تبعي
-                    await zq_lo.send_message(
+                    await l313l.send_message(
                         event.chat_id,
                         f"""- خطأ بصيـد اليـوزر @{username} ,\n- الخطأ :\nانت تمتلك العديد من القنوات العامة قم بحذف معرف او اكثر من قنواتك لكي تستطيع صيد هذا اليوزر""",
                     )
                     break
                 elif "USERNAME_PURCHASE_AVAILABLE" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
+                    await l313l.send_message(event.chat_id, f"**• لا تستطيع التثبيت ع** {username} ✖️\n**• اليوزر مرفوع منصه .. ومتاح للشراء 💲**\n\n**• لذلك تم إيقاف عملية التثبيت والخروج**")
                     break
                 elif "A wait of" in str(eee):
-                    await zq_lo.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار ??‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
+                    await l313l.send_message(event.chat_id, f"**• الحساب .. بالع فلود تكرار ??‍💫**\n**• لذلك تم إيقاف عملية التثبيت والخروج ☑️**\n**• للامان .. حاول اعادة عملية التثبيت في وقت اخر**\n**• لكي لا يتم حظر حسابك من قبل الشركة**")
                     break
                 else: # تبعي
-                    #await zq_lo.send_message(event.chat_id, f"**• خطأ بتثبيت اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• تم إيقاف عملية تثبيت هذا اليوزر ✖️**")
+                    #await l313l.send_message(event.chat_id, f"**• خطأ بتثبيت اليـوزر** {username} ؟!\n**• الخطأ:**\n{str(eee)}\n\n**• تم إيقاف عملية تثبيت هذا اليوزر ✖️**")
                     break
         else:
             pass
@@ -1454,10 +1454,10 @@ async def _(event):
     isbuto.clear()
     isbuto.append("off")
     brys[0] = 0
-    return await zq_lo.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت البـوت .. بنجـاح ✅**\n**- لـ التأكـد قـم بالذهـاب الـى @BotFather**")
+    return await l313l.send_message(event.chat_id, "**- تم الإنتهـاء من تثبيت البـوت .. بنجـاح ✅**\n**- لـ التأكـد قـم بالذهـاب الـى @BotFather**")
 
 
-@zq_lo.rep_cmd(pattern="حالة مخصص")
+@l313l.ar_cmd(pattern="حالة مخصص")
 async def _(event):
     if "on" in issclim:
         await edit_or_reply(event, f"**- الصيد المخصص وصل لـ({srys[0]}) من المحـاولات**")
@@ -1466,7 +1466,7 @@ async def _(event):
     else:
         await edit_or_reply(event, "**- لقد حدث خطأ ما وتوقف الامر لديك**")
 
-@zq_lo.rep_cmd(pattern="حالة الصيد")
+@l313l.ar_cmd(pattern="حالة الصيد")
 async def _(event):
     if "on" in itsclim:
         await edit_or_reply(event, f"**- الصيد وصل لـ({trys[0]}) من المحـاولات**")
@@ -1475,7 +1475,7 @@ async def _(event):
     else:
         await edit_or_reply(event, "**- لقد حدث خطأ ما وتوقف الامر لديك**")
 
-@zq_lo.rep_cmd(pattern="حالة تثبيت_القناة")
+@l313l.ar_cmd(pattern="حالة تثبيت_القناة")
 async def _(event):
     if "on" in iscuto:
         await edit_or_reply(event, f"**- التثبيت وصل لـ({crys[0]}) من المحاولات**")
@@ -1484,7 +1484,7 @@ async def _(event):
     else:
         await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
 
-@zq_lo.rep_cmd(pattern="حالة تثبيت_الحساب")
+@l313l.ar_cmd(pattern="حالة تثبيت_الحساب")
 async def _(event):
     if "on" in istuto:
         await edit_or_reply(event, f"**- التثبيت وصل لـ({arys[0]}) من المحاولات**")
@@ -1493,7 +1493,7 @@ async def _(event):
     else:
         await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
 
-@zq_lo.rep_cmd(pattern="حالة تثبيت_البوت")
+@l313l.ar_cmd(pattern="حالة تثبيت_البوت")
 async def _(event):
     if "on" in isbuto:
         await edit_or_reply(event, f"**- التثبيت وصل لـ({brys[0]}) من المحاولات**")
@@ -1503,7 +1503,7 @@ async def _(event):
         await edit_or_reply(event, "-لقد حدث خطأ ما وتوقف الامر لديك")
 
 
-@zq_lo.rep_cmd(pattern="ايقاف تثبيت_القناة")
+@l313l.ar_cmd(pattern="ايقاف تثبيت_القناة")
 async def _(event):
     if "on" in iscuto:
         iscuto.clear()
@@ -1515,7 +1515,7 @@ async def _(event):
     else:
         return await edit_or_reply(event, "**-لقد حدث خطأ ما وتوقف الامر لديك**")
 
-@zq_lo.rep_cmd(pattern="ايقاف تثبيت_الحساب")
+@l313l.ar_cmd(pattern="ايقاف تثبيت_الحساب")
 async def _(event):
     if "on" in istuto:
         istuto.clear()
@@ -1527,7 +1527,7 @@ async def _(event):
     else:
         return await edit_or_reply(event, "**-لقد حدث خطأ ما وتوقف الامر لديك**")
 
-@zq_lo.rep_cmd(pattern="ايقاف تثبيت_البوت")
+@l313l.ar_cmd(pattern="ايقاف تثبيت_البوت")
 async def _(event):
     if "on" in isbuto:
         isbuto.clear()
