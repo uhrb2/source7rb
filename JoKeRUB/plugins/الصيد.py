@@ -482,7 +482,7 @@ def gen_user(choice):
         f = [c[0], c[0], c[0], s[0], d[0]]
         username = "".join(f)
 
-    elif choice == "خماسي ارقام": #AR888 ~ 
+        elif choice == "خماسي ارقام": #AR888 ~ 
         c = random.choices(a)
         d = random.choices(e)
         s = random.choices(b)
@@ -495,3 +495,295 @@ def gen_user(choice):
         s = random.choices(b)
         f = [c[0], c[0], c[0], d[0], s[0]]
         username = "".join(f)
+
+    elif choice == "خماسي حرفين2": #A7RRR ~ 
+        c = random.choices(a)
+        d = random.choices(b)
+        s = random.choices(z)
+        f = [c[0], d[0], s[0], s[0], s[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي k": #A800k ~ 
+        c = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], d[0], "0", "0", "k"]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفينa": #AAARD ~ 
+        c = random.choices(z)
+        d = random.choices(e)
+        f = ["a", "a", "a", c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفينr": #RRRAD ~ 
+        c = random.choices(z)
+        d = random.choices(e)
+        f = ["r", "r", "r", c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي رقمينm": #MMM87 ~ 
+        c = random.choices(b)
+        d = random.choices(o)
+        f = ["m", "m", "m", c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفينn": #NNNAR ~ 
+        c = random.choices(e)
+        d = random.choices(z)
+        f = ["n", "n", "n", c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفينz": #ZZZAR ~ 
+        c = random.choices(z)
+        d = random.choices(e)
+        f = ["z", "z", "z", c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفين3": #ARRRD ~ 
+        c = random.choices(a)
+        d = random.choices(z)
+        s = random.choices(e)
+        f = [c[0], d[0], d[0], d[0], s[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفين33": #AAARR ~ 
+        c = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], c[0], d[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفين44": #ARRRA ~ 
+        c = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], d[0], d[0], d[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفين55": #AARRR ~ 
+        c = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], d[0], d[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "خماسي حرفين66": #ARAAR
+        c = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], d[0], c[0], c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات1": #AAAAAAR ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], c[0], c[0], c[0], c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات2": #AAAAARA ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], c[0], c[0], c[0], d[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات3": #AAAARAA
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], c[0], c[0], d[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات4": #AAARAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], c[0], d[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات5": #AARAAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], c[0], d[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات6": #ARAAAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], d[0], c[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات7": #ARRRRRR ~ 
+        c = d = random.choices(a)
+        d = random.choices(z)
+        f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف1": #AAAAAAR ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], c[0], c[0], c[0], c[0], c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم1": #AAAAAA8 ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], c[0], c[0], c[0], c[0], c[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف2": #AAAAARA ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], c[0], c[0], c[0], c[0], d[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم2": #AAAAA8A ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], c[0], c[0], c[0], c[0], d[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف3": #AAAARAA
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], c[0], c[0], c[0], d[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم3": #AAAA8AA
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], c[0], c[0], c[0], d[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف4": #AAARAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], c[0], c[0], d[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم4": #AAA8AAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], c[0], c[0], d[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف5": #AARAAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], c[0], d[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم5": #AA8AAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], c[0], d[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف6": #ARAAAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], d[0], c[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم6": #A8AAAAA ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], d[0], c[0], c[0], c[0], c[0], c[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات حرف7": #ARRRRRR ~ 
+        c = d = random.choices(a)
+        d = random.choices(k)
+        f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "سباعيات رقم7": #A888888 ~ 
+        c = d = random.choices(a)
+        d = random.choices(o)
+        f = [c[0], d[0], d[0], d[0], d[0], d[0], d[0]]
+        username = "".join(f)
+
+    elif choice == "ايقاف": #
+        return "stop"
+    else:
+        return "error"
+    return username
+
+
+def validate_choice(choice):
+    # الشروط:
+    # 1. النمط لا يبدأ برقم
+    # 2. لا يحتوي على أكثر من رمز خاص متتالي
+    # 3. يحتوي فقط على الرموز المسموح بها: X, Y, Z, _ أو أحرف وأرقام أخرى
+    # 4. ان لا يكون النمط اقل من 5 احرف 
+    allowed_chars = {'X', 'Y', 'Z', '_'}
+    if choice[0] == 'Y' or choice[0] == 'z':
+        return False
+    if '__' in choice:
+        return False
+
+    if len(choice) < 5 or len(choice) > 32:
+        return False
+
+    if choice[0].isdigit():  # تحقق من أن النمط لا يبدأ برقم
+        return False
+
+    if choice.endswith('_'):
+        return False
+
+    if '(' in choice and ')' in choice:
+        # تحقق من الأقواس
+        stack = []
+        i = 0
+        while i < len(choice):
+            if choice[i] == '(':
+                stack.append(i)
+            elif choice[i] == ')':
+                if not stack:
+                    return False  # قوس مغلق بدون قوس مفتوح
+                start_index = stack.pop()
+                # تحقق من أن المحتوى داخل الأقواس يبدأ بحرف
+                if start_index == 0 or choice[start_index - 1] not in allowed_chars:
+                    if not choice[start_index + 1].isalpha():
+                        return False
+            i += 1
+        if stack:  # إذا كان هناك أقواس مفتوحة غير مغلقة
+            return False
+
+    for i in range(len(choice) - 1):
+        if choice[i] == '_' and choice[i + 1] == '_':
+            return False
+
+    for char in choice:
+        if char not in allowed_chars and not char.isalnum() and char != '(' and char != ')':
+            return False
+
+    return True
+
+
+def generate_random_string(choice):
+    # تحقق من صحة النمط المدخل
+    if not validate_choice(choice):
+        return "error"
+    # قاموس لحفظ القيم العشوائية لكل رمز
+    random_values = {}
+    # دالة لتوليد حرف عشوائي
+    def get_random_letter():
+        return random.choice(string.ascii_letters)
+    # دالة لتوليد رقم عشوائي
+    def get_random_digit():
+        return random.choice(string.digits)
+    # دالة لتوليد حرف أو رقم عشوائي
+    def get_random_char():
+        return random.choice(string.ascii_letters + string.digits)
+    # إنشاء قيم عشوائية لكل رمز في النمط
+    for char in choice:
+        if char not in random_values:
+            if char == 'X':
+                random_values[char] = get_random_letter()
+            elif char == 'Y':
+                random_values[char] = get_random_digit()
+            elif char == 'Z':
+                random_values[char] = get_random_char()
+            elif char == '(':
+                random_values[char] = ""
+            elif char == ')':
+                random_values[char] = ""
+            else:
+                random_values[char] = char  # نحتفظ بالرموز الأخرى كما هي
+    # بناء السلسلة النهائية باستخدام القيم العشوائية
+    username = ''.join(random_values[char] for char in choice)
+    return username
