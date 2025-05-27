@@ -1,6 +1,7 @@
 import html
 import os
 import random
+from telethon.tl.types import EmojiStatusEmpty
 import requests
 from requests import get
 from translate import Translator
@@ -580,3 +581,11 @@ async def auto_reply(event):
 
     if reply_text:
         await event.reply(reply_text)
+
+
+# إضافة الرد لـ ".السلام عليكم"
+@l313l.on(events.NewMessage(pattern=r"\.السلام عليكم"))
+async def salam_reply(event):
+    emoji_id = 5834880210268329130
+    reply_text = f"وعليكم السلام ❤️ <a href='emoji/{emoji_id}'>❤️</a>"
+    await event.reply(reply_text, parse_mode="html")
