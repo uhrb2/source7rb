@@ -591,7 +591,7 @@ import re
 YOUTUBE_BOT = '@YTOOTY_BOT'
 REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
 
-@bot.on(events.NewMessage(pattern=r'\.يوتيوب\+(.+)'))
+@l313l.on(events.NewMessage(pattern=r'\.يوتيوب\+(.+)'))
 async def _(event):
     query = event.pattern_match.group(1).strip()
     await event.reply("**صبرك جاري جلب المطلوب ...**")
