@@ -586,6 +586,6 @@ async def auto_reply(event):
 # إضافة الرد لـ ".السلام عليكم"
 @l313l.on(events.NewMessage(pattern=r"\.السلام عليكم"))
 async def salam_reply(event):
-    emoji_id = 5834880210268329130
-    reply_text = f"وعليكم السلام ❤️ <a href='emoji/{emoji_id}'>❤️</a>"
+    # النص الذي سيتم إرساله كرد يحتوي على التعبير المميز
+    reply_text = f"وعليكم السلام ❤️ <a href='emoji/5832334750655715478'>❤️</a>"
     await event.reply(reply_text, parse_mode="html")
