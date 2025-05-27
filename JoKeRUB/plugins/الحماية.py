@@ -130,30 +130,33 @@ async def do_pm_permit_action(event, chat):  # sourcery no-metrics
     PM_WARNS[str(chat.id)] += 1
     try:
         if gvarstatus("pmmenu") is None:
-            results = await event.client.inline_query(
-                Config.TG_BOT_USERNAME, "pmpermit"
-            )
-            msg = await results[0].click(chat.id, reply_to=reply_to_id, hide_via=True)
-        else:
-            PM_PIC = gvarstatus("pmpermit_pic")
-            if PM_PIC:
-                CAT = [x for x in PM_PIC.split()]
-                PIC = list(CAT)
-                CAT_IMG = random.choice(PIC)
-            else:
-                CAT_IMG = None
-            if CAT_IMG is not None:
-                msg = await event.client.send_file(
-                    chat.id,
-                    CAT_IMG,
-                    caption=USER_BOT_NO_WARN,
-                    reply_to=reply_to_id,
-                    force_document=False,
-                )
-            else:
-                msg = await event.client.send_message(
-                    chat.id, USER_BOT_NO_WARN, reply_to=reply_to_id
-                )
+    results = await event.client.inline_query(
+        Config.TG_BOT_USERNAME, "pmpermit"
+    )
+    if results:
+        msg = await results[0].click(chat.id, reply_to=reply_to_id, hide_via=True)
+    else:
+        msg = await event.reply(USER_BOT_NO_WARN)
+else:
+    PM_PIC = gvarstatus("pmpermit_pic")
+    if PM_PIC:
+        CAT = [x for x in PM_PIC.split()]
+        PIC = list(CAT)
+        CAT_IMG = random.choice(PIC)
+    else:
+        CAT_IMG = None
+    if CAT_IMG is not None:
+        msg = await event.client.send_file(
+            chat.id,
+            CAT_IMG,
+            caption=USER_BOT_NO_WARN,
+            reply_to=reply_to_id,
+            force_document=False,
+        )
+    else:
+        msg = await event.client.send_message(
+            chat.id, USER_BOT_NO_WARN, reply_to=reply_to_id
+        )
     except Exception as e:
         LOGS.error(e)
         msg = await event.reply(USER_BOT_NO_WARN)
