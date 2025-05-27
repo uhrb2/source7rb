@@ -21,7 +21,7 @@ bot = l313l  # غيّر إذا كان اسم المتغير مختلف في سو
 
 repeat_enabled = True  # متغير عالمي للتحكم في التكرار
 
-@bot.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
+@l313l.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
 async def timed_repeat_handler(event):
     global repeat_enabled
     repeat_enabled = True  # أضف هذا السطر هنا ليتم التفعيل في كل مرة
@@ -39,14 +39,14 @@ async def timed_repeat_handler(event):
         await event.respond(message)
         await asyncio.sleep(sleep_time)
 
-@bot.on(events.NewMessage(pattern=r"\.ايقاف مكرر"))
+@l313l.on(events.NewMessage(pattern=r"\.ايقاف مكرر"))
 async def stop_repeat_handler(event):
     global repeat_enabled
     repeat_enabled = False
     await event.reply("✅ تم إيقاف جميع التكرارات في البوت.")
 
 # أمر سبام حرفي .سبام
-@bot.on(events.NewMessage(pattern=r"\.سبام (.+)"))
+@l313l.on(events.NewMessage(pattern=r"\.سبام (.+)"))
 async def char_spam_handler(event):
     try:
         message = event.pattern_match.group(1).replace(" ", "")
@@ -61,7 +61,7 @@ async def char_spam_handler(event):
         await event.reply(f"حدث خطأ: {e}")
 
 # أمر سبام بالكلمات .وسبام
-@bot.on(events.NewMessage(pattern=r"\.وسبام (.+)"))
+@l313l.on(events.NewMessage(pattern=r"\.وسبام (.+)"))
 async def word_spam_handler(event):
     try:
         message = event.pattern_match.group(1)
@@ -77,6 +77,6 @@ async def word_spam_handler(event):
         await event.reply(f"حدث خطأ: {e}")
 
 # أمر إيقاف التكرار (للتوافق والرسالة فقط)
-@bot.on(events.NewMessage(pattern=r"\.ايقاف التكرار"))
+@l313l.on(events.NewMessage(pattern=r"\.ايقاف التكرار"))
 async def stop_spam_handler(event):
     await event.reply("تم إيقاف جميع أوامر التكرار، يمكنك استخدام الأوامر مجدداً متى شئت.")
