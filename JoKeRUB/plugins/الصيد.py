@@ -397,110 +397,109 @@ def gen_user(choice):
         f = [c[0], c[0], d[0], c[0], c[0], c[0]]
         username = "".join(f)
 
-    elif choice == "سداسيات5": #ARAAAA ~ 
-        c = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], d[0], c[0], c[0], c[0], c[0]]
-        username = "".join(f)
+    if choice == "سداسيات5":  # ARAAAA ~ 
+    c = random.choices(a)
+    d = random.choices(e)
+    f = [c[0], d[0], c[0], c[0], c[0], c[0]]
+    username = "".join(f)
 
-    elif choice == "سداسيات6": #ARRRRR ~ 
-        c = random.choices(a)
-        d = random.choices(e)
-        f = [c[0], d[0], d[0], d[0], d[0], d[0]]
-        username = "".join(f)
+elif choice == "سداسيات6":  # ARRRRR ~ 
+    c = random.choices(a)
+    d = random.choices(e)
+    f = [c[0], d[0], d[0], d[0], d[0], d[0]]
+    username = "".join(f)
 
-    elif choice == "سداسيvip": #VIP537 ~ 
-        c = random.choices(b)
-        d = random.choices(o)
-        s = random.choices(q)
-        f = ["v", "i", "p", c[0], d[0], s[0]]
-        username = "".join(f)
+elif choice == "سداسيvip":  # VIP537 ~ 
+    c = random.choices(b)
+    d = random.choices(o)
+    s = random.choices(q)
+    f = ["v", "i", "p", c[0], d[0], s[0]]
+    username = "".join(f)
 
-    elif choice == "سداسي_vip": #VIP537 ~ 
-        c = random.choices(b)
-        d = random.choices(o)
-        f = ["v", "i", "p", "_", c[0], d[0]]
-        username = "".join(f)
+elif choice == "سداسي_vip":  # VIP537 ~ 
+    c = random.choices(b)
+    d = random.choices(o)
+    f = ["v", "i", "p", "_", c[0], d[0]]
+    username = "".join(f)
 
-    elif choice == "بوتات1": #AR_Bot ~ 
-        c = random.choices(a)
-        d = random.choices(z)
-        f = [c[0], d[0], "_", "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات1":  # AR_Bot ~ 
+    c = random.choices(a)
+    d = random.choices(z)
+    f = [c[0], d[0], "_", "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات2": #A_RBot ~ 
-        c = random.choices(a)
-        d = random.choices(z)
-        f = [c[0], "_", d[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات2":  # A_RBot ~ 
+    c = random.choices(a)
+    d = random.choices(z)
+    f = [c[0], "_", d[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات3": #AR7Bot ~ 
-        c = random.choices(a)
-        d = random.choices(k)
-        s = random.choices(b)
-        f = [c[0], d[0], s[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات3":  # AR7Bot ~ 
+    c = random.choices(a)
+    d = random.choices(k)
+    s = random.choices(b)
+    f = [c[0], d[0], s[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات4": #A7RBot ~ 
-        c = random.choices(a)
-        d = random.choices(b)
-        s = random.choices(k)
-        f = [c[0], d[0], s[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات4":  # A7RBot ~ 
+    c = random.choices(a)
+    d = random.choices(b)
+    s = random.choices(k)
+    f = [c[0], d[0], s[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات5": #A77Bot ~ 
-        c = random.choices(a)
-        d = random.choices(b)
-        s = random.choices(o)
-        f = [c[0], d[0], s[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات5":  # A77Bot ~ 
+    c = random.choices(a)
+    d = random.choices(b)
+    s = random.choices(o)
+    f = [c[0], d[0], s[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات6": #ADRBot
-        c = random.choices(a)
-        d = random.choices(e)
-        s = random.choices(z)
-        f = [c[0], d[0], s[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات6":  # ADRBot
+    c = random.choices(a)
+    d = random.choices(e)
+    s = random.choices(z)
+    f = [c[0], d[0], s[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات7": #(AARBot - AA8bot) ~ 
-        c = random.choices(a)
-        d = random.choices(z)
-        f = [c[0], c[0], d[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات7":  # (AARBot - AA8bot) ~ 
+    c = random.choices(a)
+    d = random.choices(z)
+    f = [c[0], c[0], d[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات8": #AARBot ~ 
-        c = random.choices(a)
-        d = random.choices(k)
-        f = [c[0], c[0], d[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات8":  # AARBot ~ 
+    c = random.choices(a)
+    d = random.choices(k)
+    f = [c[0], c[0], d[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "بوتات9": #AA8Bot ~ 
-        c = random.choices(a)
-        d = random.choices(o)
-        f = [c[0], c[0], d[0], "b", "o", "t"]
-        username = "".join(f)
+elif choice == "بوتات9":  # AA8Bot ~ 
+    c = random.choices(a)
+    d = random.choices(o)
+    f = [c[0], c[0], d[0], "b", "o", "t"]
+    username = "".join(f)
 
-    elif choice == "خماسي حرفين1":
-    # الكود الخاص بهذا الشرط هنا
+elif choice == "خماسي حرفين1":  # AAARD ~ 
     c = random.choices(a)
     d = random.choices(z)
     s = random.choices(e)
     f = [c[0], c[0], c[0], s[0], d[0]]
     username = "".join(f)
 
-    elif choice == "خماسي ارقام":
+elif choice == "خماسي ارقام":  # AR888 ~ 
     c = random.choices(a)
     d = random.choices(e)
     s = random.choices(b)
     f = [c[0], d[0], s[0], s[0], s[0]]
     username = "".join(f)
 
-    elif choice == "خماسي رقمين1": #AAARD ~ 
-        c = random.choices(a)
-        d = random.choices(o)
-        s = random.choices(b)
-        f = [c[0], c[0], c[0], d[0], s[0]]
-        username = "".join(f)
+elif choice == "خماسي رقمين1":  # AAARD ~ 
+    c = random.choices(a)
+    d = random.choices(o)
+    s = random.choices(b)
+    f = [c[0], c[0], c[0], d[0], s[0]]
+    username = "".join(f)
 
     elif choice == "خماسي حرفين2": #A7RRR ~ 
         c = random.choices(a)
