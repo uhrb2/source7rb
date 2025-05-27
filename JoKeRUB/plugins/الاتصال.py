@@ -583,79 +583,79 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-from telethon import events, types
+from telethon import events
+from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
+import re
 
-# ضع معرف القنوات الإجباري هنا
-REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
 YOUTUBE_BOT = '@YTOOTY_BOT'
+REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
 
 @bot.on(events.NewMessage(pattern=r'\.يوتيوب\+(.+)'))
-async def youtube_extractor(event):
+async def _(event):
     query = event.pattern_match.group(1).strip()
-    await event.reply('**صبرك جاري جلب المطلوب ...**')
-    
-    # ابدأ محادثة مع بوت اليوتيوب
-    bot_conv = await bot.conversation(YOUTUBE_BOT)
+    await event.reply("**صبرك جاري جلب المطلوب ...**")
+    bot_conv = await bot.conversation(YOUTUBE_BOT, timeout=180, exclusive=True)
 
-    # أرسل /start للبوت
-    await bot_conv.send_message('/start')
-    response = await bot_conv.get_response()
+    # Step 1: أرسل /start
+    await bot_conv.send_message("/start")
+    resp = await bot_conv.get_response()
+    await asyncio.sleep(1)
 
-    # تحقق من اشتراك القنوات الإجباري
-    if 'عليك الأشتراك في قنوات البوت أولاً' in response.text:
-        for channel in REQUIRED_CHANNELS:
+    # Step 2: إذا طلب اشتراك، انضم للقنوات ثم أعد /start
+    if "عليك الأشتراك" in resp.text:
+        for ch in REQUIRED_CHANNELS:
             try:
-                await bot(JoinChannelRequest(channel))
+                await bot(JoinChannelRequest(ch))
                 await asyncio.sleep(1)
             except Exception as e:
-                await event.reply(f'حدث خطأ أثناء الانضمام للقناة {channel}: {e}')
-        # بعد الاشتراك، أعد إرسال /start
-        await bot_conv.send_message('/start')
-        response = await bot_conv.get_response()
+                await event.reply(f"خطأ بالانضمام: {ch}\n{e}")
+        await bot_conv.send_message("/start")
+        resp = await bot_conv.get_response()
+        await asyncio.sleep(1)
 
-    # أرسل البحث
+    # Step 3: أرسل الكلمة للبحث
     await bot_conv.send_message(query)
-    search_response = await bot_conv.get_response()
-    
-    # ابحث عن أول زر /dl
-    if search_response.reply_markup and search_response.reply_markup.rows:
-        for button_row in search_response.reply_markup.rows:
-            for button in button_row.buttons:
-                if '/dl' in button.text:
-                    await bot_conv.send_message(button.text)
-                    break
-            else:
-                continue
-            break
+    srch = await bot_conv.get_response()
+    await asyncio.sleep(4)  # انتظر ظهور النتائج
 
-    # انتظر 4 ثواني
-    await asyncio.sleep(4)
-    # استقبل رد الأزرار
-    buttons_response = await bot_conv.get_response()
+    # Step 4: التقط أول رابط من نوع /dl_
+    match = re.search(r'(/dl_\w+)', srch.text)
+    if not match:
+        await event.reply("لم أجد روابط تحميل في النتائج.")
+        return
+    dl_link = match.group(1)
 
-    # اختر زر (🎶┇ملف صوتي.)
+    # Step 5: أرسل أول رابط /dl_ للبوت
+    await bot_conv.send_message(dl_link)
+    opts = await bot_conv.get_response()
+    await asyncio.sleep(1)
+
+    # Step 6: اضغط زر بصمة صوتية فقط
     found = False
-    if buttons_response.reply_markup:
-        for row in buttons_response.reply_markup.rows:
-            for button in row.buttons:
-                if '🎶' in button.text:
-                    await bot_conv.send_message(button.text)
+    if opts.buttons:
+        for row in opts.buttons:
+            for btn in row:
+                if ('🔉┇بصمة صوتية.' in btn.text) or ('yt_voice' in str(getattr(btn, "data", b""))):
+                    await btn.click()
                     found = True
                     break
             if found:
                 break
-
-    # انتظر 4 ثواني لاستقبال الملف الصوتي
-    await asyncio.sleep(4)
-    file_message = await bot_conv.get_response()
-    # أرسل الملف لنفس المكان مع التعديل المطلوب
-    if file_message.media:
-        sent = await bot.send_file(
-            event.chat_id,
-            file_message.media,
-            caption=f"{query}\n\nتم جلبه بواسطة 𝗥𝗼𝗯𝗶𝗻 𝗦𝗼𝘂𝗿𝗰𝗲"
-        )
-        # تغيير اسم الملف إذا أردت (telethon لا يدعم تعديل الاسم أثناء الإرسال مباشرة، يمكنك فقط تغيير الكابشن)
     else:
-        await event.reply("لم أستطع جلب الملف الصوتي. حاول مجددًا.")
+        await event.reply("تعذر إيجاد أزرار البصمة الصوتية.")
+        return
+
+    # Step 7: انتظر ظهور النتيجة الصوتية
+    await asyncio.sleep(4)
+    result_msg = await bot_conv.get_response()
+
+    # Step 8: أعد إرسال الصوتية مع توقيع
+    if result_msg.voice or getattr(result_msg, "media", None):
+        await bot.send_file(
+            event.chat_id,
+            result_msg.media,
+            caption="تم الجلب بواسطة 𝗥𝗼𝗯𝗶𝗻 𝗦𝗼𝘂𝗿𝗰𝗲"
+        )
+    else:
+        await event.reply("تعذر جلب البصمة الصوتية.")
