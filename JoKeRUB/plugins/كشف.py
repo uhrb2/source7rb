@@ -14,6 +14,17 @@ from ..Config import Config
 from ..core.managers import edit_or_reply
 from ..helpers import get_user_from_event, reply_id
 from . import spamwatch
+import json
+
+ranks_file = "ranks.json"
+
+def get_rank(user_id):
+    try:
+        with open(ranks_file, "r", encoding="utf-8") as f:
+            ranks = json.load(f)
+        return ranks.get(str(user_id))
+    except Exception:
+        return None
 
 JEP_EM = Config.ID_EM or " •❃ "
 ID_EDIT = gvarstatus("ID_ET") or "ايدي"
@@ -49,10 +60,20 @@ async def get_user_from_event(event):
 
 
 async def fetch_info(replied_user, event):
-    """Get details from the User object."""
+    import json
+    ranks_file = "ranks.json"
+    def get_rank(user_id):
+        try:
+            with open(ranks_file, "r", encoding="utf-8") as f:
+                ranks = json.load(f)
+            return ranks.get(str(user_id))
+        except Exception:
+            return None
+
     FullUser = (await event.client(GetFullUserRequest(replied_user.id))).full_user
     replied_user_profile_photos = await event.client(
-        GetUserPhotosRequest(user_id=replied_user.id, offset=42, max_id=0, limit=80)    )
+        GetUserPhotosRequest(user_id=replied_user.id, offset=42, max_id=0, limit=80)
+    )
     replied_user_profile_photos_count = "لايـوجـد بروفـايـل"
     dc_id = "Can't get dc id"
     try:
@@ -69,15 +90,26 @@ async def fetch_info(replied_user, event):
     is_bot = replied_user.bot
     restricted = replied_user.restricted
     verified = replied_user.verified
-    photo = await event.client.download_profile_photo(     user_id,     Config.TMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg",    download_big=True  )
-    first_name = (      first_name.replace("\u2060", "")
-        if first_name
-        else ("هذا المستخدم ليس له اسم أول")  )
+    photo = await event.client.download_profile_photo(
+        user_id,
+        Config.TMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg",
+        download_big=True
+    )
+    first_name = (first_name.replace("\u2060", "") if first_name else ("هذا المستخدم ليس له اسم أول"))
     full_name = full_name or first_name
     username = "@{}".format(username) if username else ("لايـوجـد معـرف")
     user_bio = "لاتـوجـد نبـذة" if not user_bio else user_bio
-    rotbat = "⌁ مطـور السـورس 𓄂𓆃 ⌁" if user_id == 7182427468 else ("⌁ العضـو 𓅫 ⌁")
-    rotbat = "⌁ مـالك الحساب 𓀫 ⌁" if user_id == (await event.client.get_me()).id and user_id != 7182427468  else rotbat
+
+    user_rank = get_rank(user_id)
+    if user_rank:
+        rotbat = user_rank
+    elif user_id == 7182427468:
+        rotbat = "⌁ مطـور السـورس 𓄂𓆃 ⌁"
+    elif user_id == (await event.client.get_me()).id:
+        rotbat = "⌁ مـالك الحساب 𓀫 ⌁"
+    else:
+        rotbat = "⌁ العضـو 𓅫 ⌁"
+
     caption = "✛━━━━━━━━━━━━━✛\n"
     caption += f"<b> {JEP_EM}╎الاسـم    ⇠ </b> {full_name}\n"
     caption += f"<b> {JEP_EM}╎المعـرف  ⇠ </b> {username}\n"
