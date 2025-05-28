@@ -144,3 +144,13 @@ async def auto_spam_publish(event):
         await edit_or_reply(event, f"✅ تم نشر الرسالة {sent} مرة في {target_id}.")
     except Exception as e:
         await edit_or_reply(event, f"حدث خطأ: {str(e)}")
+
+auto_publish_status = {}
+
+@l313l.on(admin_cmd(pattern="ايقاف نشر مكرر$"))
+async def stop_auto_spam_publish(event):
+    chat_id = event.chat_id
+    msg_id = event.reply_to_msg_id
+    key = f"{chat_id}:{msg_id}"
+    auto_publish_status[key] = False
+    await edit_or_reply(event, "✅ تم إيقاف النشر المكرر لهذه الرسالة.")
