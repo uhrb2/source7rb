@@ -635,74 +635,48 @@ from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
 import re
 
-YOUTUBE_BOT = '@YTOOTY_BOT'
-REQUIRED_CHANNELS = ['@PPPJP', '@KKKKB']
+from telethon import events
+import random
 
-@l313l.on(admin_cmd(pattern=r"يوتيوب\+(.+)$"))
-async def _(event):
-    query = event.pattern_match.group(1).strip()
-    await event.reply("**صبرك جاري جلب المطلوب ...**")
-    bot_conv = await l313l.conversation(YOUTUBE_BOT, timeout=180, exclusive=True)
+# متغير لحفظ المجموعات أو القنوات المفعّل فيها التفاعل التلقائي
+auto_react_chats = set()
 
-    # Step 1: أرسل /start
-    await bot_conv.send_message("/start")
-    resp = await bot_conv.get_response()
-    await asyncio.sleep(1)
+# قائمة الرموز التعبيرية
+REACTIONS = [
+    "👍", "❤️", "🔥", "🥰", "👏", "😁", "❤️‍🔥", "🤯", "😘", "🤤", "😎", "🥹", "🗿", "😐",
+    "🫡", "👀", "👨🏼‍💻", "😭", "🤩", "💯", "🌚", "👾", "🐳", "🥲", "💔", "😂", "👻", "⚡",
+    "🤣", "🤔", "😇", "😴", "😨", "😱", "🤗", "🙏🏼", "👌🏼", "🎉", "⚡", "🕊️", "🙈", "😈",
+    "💋", "👨🏼‍💻", "🤷🏼‍♂️", "🐳", "🤡", "🥴", "🥱", "🍓", "🏆", "😐", "🤨", "🤬", "🤓",
+    "💘", "🎅🏼", "🆒"
+]
 
-    # Step 2: إذا طلب اشتراك، انضم للقنوات ثم أعد /start
-    if "عليك الأشتراك" in resp.text:
-        for ch in REQUIRED_CHANNELS:
-            try:
-                await l313l(JoinChannelRequest(ch))
-                await asyncio.sleep(1)
-            except Exception as e:
-                await event.reply(f"خطأ بالانضمام: {ch}\n{e}")
-        await bot_conv.send_message("/start")
-        resp = await bot_conv.get_response()
-        await asyncio.sleep(1)
-
-    # Step 3: أرسل الكلمة للبحث
-    await bot_conv.send_message(query)
-    srch = await bot_conv.get_response()
-    await asyncio.sleep(4)  # انتظر ظهور النتائج
-
-    # Step 4: التقط أول رابط من نوع /dl_
-    match = re.search(r'(/dl_\w+)', srch.text)
-    if not match:
-        await event.reply("لم أجد روابط تحميل في النتائج.")
+# أمر تفعيل/تعطيل التفاعل التلقائي
+@l313l.on(admin_cmd(pattern="تفاعل تلقائي (تشغيل|تعطيل)"))
+async def auto_react_toggle(event):
+    if event.is_private:
+        await event.edit("❌ هذا الأمر فقط للمجموعات أو القنوات")
         return
-    dl_link = match.group(1)
-
-    # Step 5: أرسل أول رابط /dl_ للبوت
-    await bot_conv.send_message(dl_link)
-    opts = await bot_conv.get_response()
-    await asyncio.sleep(1)
-
-    # Step 6: اضغط زر بصمة صوتية فقط
-    found = False
-    if opts.buttons:
-        for row in opts.buttons:
-            for btn in row:
-                if ('بصمة صوتية' in btn.text) or ('yt_voice' in str(getattr(btn, "data", b""))):
-                    await btn.click()
-                    found = True
-                    break
-            if found:
-                break
+    chat_id = event.chat_id
+    action = event.pattern_match.group(1)
+    if action == "تشغيل":
+        auto_react_chats.add(chat_id)
+        await event.edit("✅ تم تفعيل التفاعل التلقائي في هذا المكان.")
     else:
-        await event.reply("تعذر إيجاد أزرار البصمة الصوتية.")
+        auto_react_chats.discard(chat_id)
+        await event.edit("❌ تم تعطيل التفاعل التلقائي في هذا المكان.")
+
+# التفاعل التلقائي مع الرسائل في المجموعات المفعّل فيها
+@l313l.on(events.NewMessage(incoming=True))
+async def auto_react(event):
+    # تجاهل الخاص والقنوات، واشتغل فقط في الشات المفعّل فيه التفاعل
+    if not (event.is_group or event.is_channel):
         return
-
-    # Step 7: انتظر ظهور النتيجة الصوتية
-    await asyncio.sleep(4)
-    result_msg = await bot_conv.get_response()
-
-    # Step 8: أعد إرسال الصوتية مع توقيع
-    if result_msg.voice or getattr(result_msg, "media", None):
-        await l313l.send_file(
-            event.chat_id,
-            result_msg.media,
-            caption="تم الجلب بواسطة 𝗥𝗼𝗯𝗶𝗻 𝗦𝗼𝘂𝗿𝗰𝗲"
-        )
-    else:
-        await event.reply("تعذر جلب البصمة الصوتية.")
+    if event.chat_id not in auto_react_chats:
+        return
+    # اختار رمز عشوائي
+    emoji = random.choice(REACTIONS)
+    # أرسل التفاعل (ريأكشن)
+    try:
+        await event.react(emoji)
+    except Exception as e:
+        pass  # بعض الحسابات قد لا تدعم التفاعل أو البوت ليس ترخيص كامل
