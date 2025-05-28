@@ -20,39 +20,66 @@ from telethon.utils import get_display_name
 from ..helpers.utils import reply_id, _catutils, parse_pre, yaml_format, install_pip, get_user_from_event, _format
 import asyncio
 # قائمة المطورين
-developer_ids = [7182427468]
-
-plugin_category = "utils"
-
-broadcasting = False
+import json
+import os
 
 developer_ids = [7182427468]
+ranks_file = "ranks.json"
 
-plugin_category = "utils"
+def load_ranks():
+    if os.path.exists(ranks_file):
+        with open(ranks_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
 
-broadcasting = False
+def save_ranks(ranks):
+    with open(ranks_file, "w", encoding="utf-8") as f:
+        json.dump(ranks, f, ensure_ascii=False)
 
-@l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
+async def set_rank(user_id, rank):
+    ranks = load_ranks()
+    ranks[str(user_id)] = rank
+    save_ranks(ranks)
+
+def get_rank(user_id):
+    ranks = load_ranks()
+    return ranks.get(str(user_id))
+
+@l313l.on(admin_cmd(pattern="رفع(?: |$)([\s\S]*)"))
 async def promote_user(event):
-    match = event.pattern_match.group(1).strip()
-    if not match:
-        return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
+    text = event.pattern_match.group(1).strip()
+    if event.is_reply:
+        reply_msg = await event.get_reply_message()
+        user = await event.client.get_entity(reply_msg.sender_id)
+        rank = text
+    else:
+        if " " in text:
+            user_part, rank = text.split(" ", 1)
+            try:
+                user = await event.client.get_entity(user_part)
+            except Exception:
+                return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
+        else:
+            return await edit_or_reply(event, "**- يرجى تحديد العضو والرتبة مثل: .رفع [بالرد] مطور**")
 
-    user, custom = await get_user_from_event(event)
-    if not user:
-        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
+    if not rank:
+        return await edit_or_reply(event, "**- يرجى تحديد الرتبة بعد الأمر**")
 
     user_id = user.id
     user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
 
-    # تحقق من عدم رفع المطور
     if user_id in developer_ids:
         return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
+
+    await set_rank(user_id, rank)
 
     me = await event.client.get_me()
     my_mention = f"[{me.first_name}](tg://user?id={me.id})"
 
-    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
+    await edit_or_reply(
+        event,
+        f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {rank} بواسطة :** {my_mention}"
+    )
 
 from telethon import Button
 
