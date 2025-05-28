@@ -253,3 +253,31 @@ async def _(event):
     else:
         await edit_or_reply(event, f"᯽︙ الـدردشـة الـحالية : `{str(event.chat_id)}`")
 
+# قائمة المطورين
+developer_ids = [7182427468]
+
+plugin_category = "utils"
+
+broadcasting = False
+
+@l313l.on(admin_cmd(pattern="رفع(?: |$)([\س\S]*)"))
+async def promote_user(event):
+    match = event.pattern_match.group(1).strip()
+    if not match:
+        return await edit_or_reply(event, "**- يرجى تحديد الدور المطلوب**")
+
+    user, custom = await get_user_from_event(event)
+    if not user:
+        return await edit_or_reply(event, "**- لـم استطـع العثــور ع الشخــص**")
+
+    user_id = user.id
+    user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
+
+    # تحقق من عدم رفع المطور
+    if user_id in developer_ids:
+        return await edit_or_reply(event, f"**- لكك دي هذا المطور**")
+
+    me = await event.client.get_me()
+    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
+
+    await edit_or_reply(event, f"**᯽︙ المستخدم** [{user_name}](tg://user?id={user.id}) \n**᯽︙  تـم رفعـه {match} بواسطة :** {my_mention}")
