@@ -45,6 +45,14 @@ def get_rank(user_id):
     ranks = load_ranks()
     return ranks.get(str(user_id))
 
+forbidden_words = [
+    "بوت", "بوته", "بوتة", "تكرار", "سورس", "سورسه", "سورسة", "سورسي"
+]
+
+def contains_forbidden(text):
+    text = text.lower()
+    return any(word in text for word in forbidden_words)
+
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\s\S]*)"))
 async def promote_user(event):
     text = event.pattern_match.group(1).strip()
@@ -64,6 +72,10 @@ async def promote_user(event):
 
     if not rank:
         return await edit_or_reply(event, "**- يرجى تحديد الرتبة بعد الأمر**")
+
+    # منع الرتب المحظورة
+    if contains_forbidden(rank):
+        return await edit_or_reply(event, "لا يمكنك رفع لأنك لست مطورا ياغبي ياعضو يازق")
 
     user_id = user.id
     user_name = user.first_name.replace("\u2060", "") if user.first_name else user.username
