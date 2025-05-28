@@ -111,3 +111,36 @@ async def _(event):
             await event.client.send_file(int(chat), event.media, caption=event.text)
         elif not event.media:
             await l313l.send_message(int(chat), event.message)
+
+from asyncio import sleep
+
+@l313l.on(admin_cmd(pattern="نشر\+(\d+)\+([^\+]+)\+(\d+)$"))
+async def auto_spam_publish(event):
+    if not event.reply_to_msg_id:
+        return await edit_or_reply(event, " يجب الرد على الرسالة التي تريد نشرها.")
+    try:
+        args = event.pattern_match
+        seconds = int(args.group(1))
+        target = args.group(2)
+        count = int(args.group(3))
+        if target.startswith("@"):
+            target_id = target
+        elif target.startswith("https://t.me/"):
+            target_id = target.replace("https://t.me/", "@")
+        else:
+            try:
+                target_id = int(target)
+            except Exception:
+                return await edit_or_reply(event, " صيغة الآيدي/الرابط/اليوزر غير صحيحة.")
+        msg = await event.get_reply_message()
+        sent = 0
+        for i in range(count):
+            if msg.media:
+                await event.client.send_file(target_id, msg.media, caption=msg.text or "")
+            else:
+                await event.client.send_message(target_id, msg.text or "")
+            sent += 1
+            await sleep(seconds)
+        await edit_or_reply(event, f"✅ تم نشر الرسالة {sent} مرة في {target_id}.")
+    except Exception as e:
+        await edit_or_reply(event, f"حدث خطأ: {str(e)}")
