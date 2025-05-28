@@ -631,17 +631,9 @@ async def auto_reply(event):
 
 
 from telethon import events
-from telethon.tl.functions.channels import JoinChannelRequest
-import asyncio
-import re
-
-from telethon import events
 import random
 
-# متغير لحفظ المجموعات أو القنوات المفعّل فيها التفاعل التلقائي
 auto_react_chats = set()
-
-# قائمة الرموز التعبيرية
 REACTIONS = [
     "👍", "❤️", "🔥", "🥰", "👏", "😁", "❤️‍🔥", "🤯", "😘", "🤤", "😎", "🥹", "🗿", "😐",
     "🫡", "👀", "👨🏼‍💻", "😭", "🤩", "💯", "🌚", "👾", "🐳", "🥲", "💔", "😂", "👻", "⚡",
@@ -650,7 +642,6 @@ REACTIONS = [
     "💘", "🎅🏼", "🆒"
 ]
 
-# أمر تفعيل/تعطيل التفاعل التلقائي
 @l313l.on(admin_cmd(pattern="تفاعل تلقائي (تشغيل|تعطيل)"))
 async def auto_react_toggle(event):
     if event.is_private:
@@ -665,18 +656,14 @@ async def auto_react_toggle(event):
         auto_react_chats.discard(chat_id)
         await event.edit("❌ تم تعطيل التفاعل التلقائي في هذا المكان.")
 
-# التفاعل التلقائي مع الرسائل في المجموعات المفعّل فيها
 @l313l.on(events.NewMessage(incoming=True))
 async def auto_react(event):
-    # تجاهل الخاص والقنوات، واشتغل فقط في الشات المفعّل فيه التفاعل
-    if not (event.is_group or event.is_channel):
-        return
     if event.chat_id not in auto_react_chats:
         return
-    # اختار رمز عشوائي
+    if event.sender_id == (await event.client.get_me()).id:
+        return
     emoji = random.choice(REACTIONS)
-    # أرسل التفاعل (ريأكشن)
     try:
         await event.react(emoji)
-    except Exception as e:
-        pass  # بعض الحسابات قد لا تدعم التفاعل أو البوت ليس ترخيص كامل
+    except:
+        pass
