@@ -896,5 +896,5 @@ async def approve_p_m(event):
         event,
         APPROVED_PMs,
         file_name="قائمة الحماية 7rB .txt",
-        caption="قائمة المسموح لهم الحالية\n سورس 7rB  \n @k_jj_j",
+        caption="قائمة المسموح لهم الحالية\n سورس Robin  \n @RobinSource",
     )
