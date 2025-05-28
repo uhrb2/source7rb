@@ -26,6 +26,10 @@ import os
 developer_ids = [7182427468]
 ranks_file = "ranks.json"
 
+forbidden_words = [
+    "بوت", "بوته", "بوتة", "تكرار", "سورس", "سورسه", "سورسة", "سورسي"
+]
+
 def load_ranks():
     if os.path.exists(ranks_file):
         with open(ranks_file, "r", encoding="utf-8") as f:
@@ -45,10 +49,6 @@ def get_rank(user_id):
     ranks = load_ranks()
     return ranks.get(str(user_id))
 
-forbidden_words = [
-    "بوت", "بوته", "بوتة", "تكرار", "سورس", "سورسه", "سورسة", "سورسي"
-]
-
 def contains_forbidden(text):
     text = text.lower()
     return any(word in text for word in forbidden_words)
@@ -56,6 +56,8 @@ def contains_forbidden(text):
 @l313l.on(admin_cmd(pattern="رفع(?: |$)([\s\S]*)"))
 async def promote_user(event):
     text = event.pattern_match.group(1).strip()
+    sender = await event.client.get_entity(event.sender_id)
+
     if event.is_reply:
         reply_msg = await event.get_reply_message()
         user = await event.client.get_entity(reply_msg.sender_id)
@@ -73,8 +75,8 @@ async def promote_user(event):
     if not rank:
         return await edit_or_reply(event, "**- يرجى تحديد الرتبة بعد الأمر**")
 
-    # منع الرتب المحظورة
-    if contains_forbidden(rank):
+    # تحقق كلمات محظورة (إلا لو كان المطور هو من يرفع)
+    if contains_forbidden(rank) and event.sender_id not in developer_ids:
         return await edit_or_reply(event, "لا يمكنك رفع لأنك لست مطورا ياغبي ياعضو يازق")
 
     user_id = user.id
