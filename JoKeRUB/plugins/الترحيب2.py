@@ -18,6 +18,54 @@ from ..sql_helper.welcomesql import (
     rmwelcome_setting,
 )
 from . import BOTLOG_CHATID
+from telethon import events
+# إذا كان لديك py-tgcalls، استورد كما يلي:
+# from pytgcalls import PyTgCalls
+# from pytgcalls.types.input_stream import InputAudioStream
+
+# مثال: تأكد أن لديك كائن المكالمات (call_py) معرف مسبقًا
+# call_py = PyTgCalls(your_client)
+
+# أمر .انضمام
+@l313l.on(events.NewMessage(pattern=r"\.انضمام$"))
+async def join_vc(event):
+    chat_id = event.chat_id
+    try:
+        await call_py.join_group_call(chat_id, InputAudioStream("silence.raw"))  # ملف صمت وهمي
+        await event.reply("تم الانضمام للاتصال الصوتي.")
+    except Exception as e:
+        if "No active group call" in str(e):
+            await event.reply("يرجى فتح الاتصال الصوتي أولاً.")
+        else:
+            await event.reply(f"حدث خطأ: {e}")
+
+# أمر .نزول
+@l313l.on(events.NewMessage(pattern=r"\.نزول$"))
+async def leave_vc(event):
+    chat_id = event.chat_id
+    try:
+        await call_py.leave_group_call(chat_id)
+        await event.reply("تم نزولي من الاتصال.")
+    except Exception as e:
+        await event.reply(f"حدث خطأ: {e}")
+
+# أمر .شغل مع الرد على صوتية
+@l313l.on(events.NewMessage(pattern=r"\.شغل$"))
+async def play_voice(event):
+    reply = await event.get_reply_message()
+    chat_id = event.chat_id
+    if not reply or not reply.voice:
+        await event.reply("يرجى الرد على رسالة صوتية!")
+        return
+    try:
+        voice = await reply.download_media()
+        await call_py.join_group_call(chat_id, InputAudioStream(voice))
+        await event.reply("جاري تشغيل الصوتية في الاتصال.")
+    except Exception as e:
+        if "No active group call" in str(e):
+            await event.reply("يرجى فتح الاتصال الصوتي أولاً والانضمام إليه.")
+        else:
+            await event.reply(f"حدث خطأ: {e}")
 
 plugin_category = "utils"
 
