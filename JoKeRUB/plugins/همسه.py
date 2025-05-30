@@ -5,14 +5,18 @@ import asyncio
 
 # Wespr File by  @F_O_1
 # Copyright (C) 2021 JoKeRUB TEAM
-@borg.on(admin_cmd(pattern="ميمز ?(.*)"))
-async def memes_to_voice(event):
+@borg.on(
+    admin_cmd(pattern="ميمز ?(.*)")
+)
+async def wspr(event):
+    if event.fwd_from:
+        return
     l313lb = event.pattern_match.group(1)
     rrrd7 = "@iizbot"
-    tap = await bot.inline_query(rrrd7, l313lb)
-    msg = await tap[0].send(event.chat_id)
-    file = await bot.download_media(msg)
-    await bot.send_file(event.chat_id, file, voice_note=True)
+    if event.reply_to_msg_id:
+        reply_to_id = await event.get_reply_message()
+    tap = await bot.inline_query(rrrd7, l313lb) 
+    await tap[0].click(event.chat_id)
     await event.delete()
     
 @borg.on(admin_cmd("م27"))
