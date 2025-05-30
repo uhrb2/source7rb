@@ -19,9 +19,8 @@ from ..sql_helper.welcomesql import (
 )
 from . import BOTLOG_CHATID
 from telethon import events
-# إذا كان لديك py-tgcalls، استورد كما يلي:
-# from pytgcalls import PyTgCalls
-# from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls import PyTgCalls
+from pytgcalls.types.input_stream import InputAudioStream
 
 from pytgcalls import PyTgCalls
 call_py = PyTgCalls(l313l)
