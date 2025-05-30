@@ -666,4 +666,4 @@ from telethon import events
 @l313l.on(events.NewMessage(pattern=r'^/7rb$', incoming=True))
 async def developer_alive_reply(event):
     if event.sender_id == 7182427468:
-        await event.reply("السورس شغال مطوريي")
+        await event.reply("**السورس شغال مطوريي**")
