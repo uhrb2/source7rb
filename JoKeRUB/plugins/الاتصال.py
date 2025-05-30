@@ -630,40 +630,34 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-from telethon import events
-import random
+# أوامر إبقاء الحساب أونلاين أو تعطيله
+keep_online_task = None
+stay_online = False
 
-auto_react_chats = set()
-REACTIONS = [
-    "👍", "❤️", "🔥", "🥰", "👏", "😁", "❤️‍🔥", "🤯", "😘", "🤤", "😎", "🥹", "🗿", "😐",
-    "🫡", "👀", "👨🏼‍💻", "😭", "🤩", "💯", "🌚", "👾", "🐳", "🥲", "💔", "😂", "👻", "⚡",
-    "🤣", "🤔", "😇", "😴", "😨", "😱", "🤗", "🙏🏼", "👌🏼", "🎉", "⚡", "🕊️", "🙈", "😈",
-    "💋", "👨🏼‍💻", "🤷🏼‍♂️", "🐳", "🤡", "🥴", "🥱", "🍓", "🏆", "😐", "🤨", "🤬", "🤓",
-    "💘", "🎅🏼", "🆒"
-]
+@l313l.on(admin_cmd(pattern="تشغيل اونلاين$"))
+async def enable_online(event):
+    global keep_online_task, stay_online
+    if stay_online:
+        await edit_or_reply(event, "**البقاء أونلاين مفعل بالفعل.**")
+        return
+    stay_online = True
+    await edit_or_reply(event, "**تم تفعيل البقاء أونلاين ✅**")
 
-@l313l.on(admin_cmd(pattern="تفاعل تلقائي (تشغيل|تعطيل)"))
-async def auto_react_toggle(event):
-    if event.is_private:
-        await event.edit("❌ هذا الأمر فقط للمجموعات أو القنوات")
-        return
-    chat_id = event.chat_id
-    action = event.pattern_match.group(1)
-    if action == "تشغيل":
-        auto_react_chats.add(chat_id)
-        await event.edit("✅ تم تفعيل التفاعل التلقائي في هذا المكان.")
-    else:
-        auto_react_chats.discard(chat_id)
-        await event.edit("❌ تم تعطيل التفاعل التلقائي في هذا المكان.")
+    async def keep_online():
+        while stay_online:
+            try:
+                await event.client.get_dialogs()
+            except Exception:
+                pass
+            await asyncio.sleep(55)  # كل أقل من دقيقة حتى لا ينقطع
 
-@l313l.on(events.NewMessage(incoming=True))
-async def auto_react(event):
-    if event.chat_id not in auto_react_chats:
+    keep_online_task = asyncio.create_task(keep_online())
+
+@l313l.on(admin_cmd(pattern="تعطيل اونلاين$"))
+async def disable_online(event):
+    global stay_online
+    if not stay_online:
+        await edit_or_reply(event, "**البقاء أونلاين غير مفعل أصلاً.**")
         return
-    if event.sender_id == (await event.client.get_me()).id:
-        return
-    emoji = random.choice(REACTIONS)
-    try:
-        await event.react(emoji)
-    except:
-        pass
+    stay_online = False
+    await edit_or_reply(event, "**تم تعطيل البقاء أونلاين ❌**")
