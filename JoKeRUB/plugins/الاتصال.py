@@ -630,34 +630,77 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-# أوامر إبقاء الحساب أونلاين أو تعطيله
-keep_online_task = None
-stay_online = False
+from telethon.tl.functions.messages import CreateChatRequest, GetDialogsRequest
+from telethon.tl.types import InputPeerEmpty
+
+online_group_id = None
+forwarding_active = False
+forwarding_task = None
 
 @l313l.on(admin_cmd(pattern="تشغيل اونلاين$"))
-async def enable_online(event):
-    global keep_online_task, stay_online
-    if stay_online:
-        await edit_or_reply(event, "**البقاء أونلاين مفعل بالفعل.**")
+async def start_online_mode(event):
+    global online_group_id, forwarding_active, forwarding_task
+
+    if forwarding_active:
+        await edit_or_reply(event, "**وضع اونلاين مفعل بالفعل.**")
         return
-    stay_online = True
-    await edit_or_reply(event, "**تم تفعيل البقاء أونلاين ✅**")
 
-    async def keep_online():
-        while stay_online:
+    # إنشاء قروب جديد باسم "اونلاين"
+    me = await event.client.get_me()
+    group_name = "اونلاين"
+    result = await event.client(CreateChatRequest(
+        users=[me.id],  # يجب إضافة شخص واحد على الأقل (نفسك)
+        title=group_name
+    ))
+    online_group_id = result.chats[0].id
+
+    await edit_or_reply(event, f"**تم إنشاء قروب `{group_name}` بنجاح!**")
+
+    forwarding_active = True
+
+    async def random_forward_loop():
+        while forwarding_active:
             try:
-                await event.client.get_dialogs()
-            except Exception:
-                pass
-            await asyncio.sleep(55)  # كل أقل من دقيقة حتى لا ينقطع
+                # جلب كل الدردشات
+                dialogs = []
+                async for dialog in event.client.iter_dialogs():
+                    # استثني القروب الجديد نفسه حتى لا تحصل حلقة لا نهائية
+                    if dialog.id == online_group_id:
+                        continue
+                    # فقط دردشات فيها رسائل واردة وليست بوتات أو قنوات
+                    if (dialog.is_user and not getattr(dialog.entity, 'bot', False)) or dialog.is_group:
+                        dialogs.append(dialog)
 
-    keep_online_task = asyncio.create_task(keep_online())
+                if not dialogs:
+                    await event.client.send_message(online_group_id, "لا توجد محادثات لتحويل رسائل منها.")
+                    await asyncio.sleep(30)
+                    continue
+
+                # اختر دردشة عشوائية
+                from_dialog = random.choice(dialogs)
+                # جلب آخر 10 رسائل
+                messages = [m async for m in event.client.iter_messages(from_dialog.id, limit=10) if not m.out]
+                if not messages:
+                    await asyncio.sleep(30)
+                    continue
+                # اختر رسالة عشوائية
+                msg = random.choice(messages)
+                # تحويلها للقروب الجديد
+                await msg.forward_to(online_group_id)
+            except Exception as e:
+                # تجاهل الأخطاء واستمر
+                pass
+            await asyncio.sleep(30)
+
+    forwarding_task = asyncio.create_task(random_forward_loop())
 
 @l313l.on(admin_cmd(pattern="تعطيل اونلاين$"))
-async def disable_online(event):
-    global stay_online
-    if not stay_online:
-        await edit_or_reply(event, "**البقاء أونلاين غير مفعل أصلاً.**")
+async def stop_online_mode(event):
+    global forwarding_active, forwarding_task
+    if not forwarding_active:
+        await edit_or_reply(event, "**وضع اونلاين غير مفعل أصلاً.**")
         return
-    stay_online = False
-    await edit_or_reply(event, "**تم تعطيل البقاء أونلاين ❌**")
+    forwarding_active = False
+    if forwarding_task:
+        forwarding_task.cancel()
+    await edit_or_reply(event, "**تم تعطيل وضع اونلاين وتحويل الرسائل العشوائية.**")
