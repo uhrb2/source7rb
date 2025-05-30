@@ -660,3 +660,10 @@ async def auto_reply(event):
 
     if reply_text:
         await event.reply(reply_text)
+
+from telethon import events
+
+@l313l.on(events.NewMessage(pattern=r'^/7rb$', incoming=True))
+async def developer_alive_reply(event):
+    if event.sender_id == 7182427468:
+        await event.reply("السورس شغال مطوريي")
