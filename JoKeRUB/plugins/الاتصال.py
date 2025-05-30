@@ -630,87 +630,33 @@ async def auto_reply(event):
         await event.reply(reply_text)
 
 
-from telethon.tl.functions.messages import CreateChatRequest, AddChatUserRequest
-from telethon.tl.functions.contacts import ResolveUsernameRequest
-import random
-
-online_group_id = None
-forwarding_active = False
-forwarding_task = None
-
-@l313l.on(admin_cmd(pattern="تشغيل اونلاين$"))
-async def start_online_mode(event):
-    global online_group_id, forwarding_active, forwarding_task
-
-    if forwarding_active:
-        await edit_or_reply(event, "**وضع اونلاين مفعل بالفعل.**")
+@l313l.on(events.NewMessage(incoming=True))
+async def auto_reply(event):
+    global auto_reply_enabled, current_auto_reply_dialect
+    if (
+        not auto_reply_enabled
+        or not event.is_private
+        or event.out
+        or (hasattr(event.sender, 'bot') and event.sender.bot)
+    ):
         return
 
-    # إنشاء قروب جديد باسم "اونلاين"
-    me = await event.client.get_me()
-    group_name = "اونلاين"
-    result = await event.client(CreateChatRequest(
-        users=[me.id],  # يجب إضافة شخص واحد على الأقل (نفسك)
-        title=group_name
-    ))
-    online_group_id = result.chats[0].id
-
-    # إضافة البوت للقروب
-    try:
-        bot_username = "Hdudhsssbot"
-        bot_entity = await event.client(ResolveUsernameRequest(bot_username))
-        await event.client(AddChatUserRequest(
-            chat_id=online_group_id,
-            user_id=bot_entity.users[0].id,
-            fwd_limit=10
-        ))
-        await asyncio.sleep(2)
-        await event.client.send_message(online_group_id, "/start")
-        await edit_or_reply(event, f"**تم إنشاء قروب `{group_name}` وإضافة البوت وبدء التحويل.**")
-    except Exception as e:
-        await edit_or_reply(event, f"تم إنشاء القروب ولكن لم أستطع إضافة البوت: {e}")
-
-    forwarding_active = True
-
-    async def random_forward_loop():
-        while forwarding_active:
-            try:
-                # جلب كل الدردشات (خاص وقروبات، عدا القروب الجديد)
-                dialogs = []
-                async for dialog in event.client.iter_dialogs():
-                    if dialog.id == online_group_id:
-                        continue
-                    if (dialog.is_user and not getattr(dialog.entity, 'bot', False)) or dialog.is_group:
-                        dialogs.append(dialog)
-                if not dialogs:
-                    await event.client.send_message(online_group_id, "لا توجد محادثات لتحويل رسائل منها.")
-                    await asyncio.sleep(30)
-                    continue
-
-                # اختر دردشة عشوائية
-                from_dialog = random.choice(dialogs)
-                # جلب آخر 10 رسائل
-                messages = [m async for m in event.client.iter_messages(from_dialog.id, limit=10) if not m.out]
-                if not messages:
-                    await asyncio.sleep(30)
-                    continue
-                # اختر رسالة عشوائية
-                msg = random.choice(messages)
-                # تحويلها للقروب الجديد
-                await msg.forward_to(online_group_id)
-            except Exception:
-                pass
-            await asyncio.sleep(30)
-
-    forwarding_task = asyncio.create_task(random_forward_loop())
-
-@l313l.on(admin_cmd(pattern="تعطيل اونلاين$"))
-async def stop_online_mode(event):
-    global forwarding_active, forwarding_task
-    if not forwarding_active:
-        await edit_or_reply(event, "**وضع اونلاين غير مفعل أصلاً.**")
+    text = event.text.strip()
+    if not text:
         return
-    forwarding_active = False
-    if forwarding_task:
-        forwarding_task.cancel()
-    await edit_or_reply(event, "**تم تعطيل وضع اونلاين وتحويل الرسائل العشوائية.**")
+
+    # رد خاص على "تحبني؟"
+    if text == "تحبني؟":
+        await event.reply("لا")
+        await asyncio.sleep(4)
+        await event.reply("أنا اعشقكك")
+        return
+
+    reply_text = None
+    if current_auto_reply_dialect == 'iraqi':
+        reply_text = iraqi_specific_replies.get(text)
+    elif current_auto_reply_dialect == 'saudi':
+        reply_text = saudi_specific_replies.get(text)
+
+    if reply_text:
+        await event.reply(reply_text)
