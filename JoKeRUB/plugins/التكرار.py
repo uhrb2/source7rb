@@ -17,8 +17,6 @@ from . import BOTLOG, BOTLOG_CHATID
 from telethon import events
 import asyncio
 
-bot = l313l  # غيّر إذا كان اسم المتغير مختلف في سورسك
-
 repeat_enabled = True  # متغير عالمي للتحكم في التكرار
 
 @l313l.on(events.NewMessage(pattern=r"\.مكرر (\d+)\s+(.+)"))
