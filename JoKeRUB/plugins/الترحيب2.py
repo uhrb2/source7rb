@@ -23,6 +23,8 @@ from telethon import events
 # from pytgcalls import PyTgCalls
 # from pytgcalls.types.input_stream import InputAudioStream
 
+from pytgcalls import PyTgCalls
+call_py = PyTgCalls(l313l)
 # مثال: تأكد أن لديك كائن المكالمات (call_py) معرف مسبقًا
 # call_py = PyTgCalls(your_client)
 
