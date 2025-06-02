@@ -53,7 +53,7 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None, 
+    "cookiefile": "cookies.txt", 
 }
 video_opts = {
     "format": "best",
@@ -67,7 +67,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
+    "cookiefile": "cookies.txt",
 }
 
 
