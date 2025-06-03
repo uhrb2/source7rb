@@ -37,6 +37,41 @@ YOUTUBE_REGEX = re.compile(
 )
 PATH = "./JoKeRUB/cache/ytsearch.json"
 plugin_category = "bot"
+audio_opts = {
+    "format": "bestaudio",
+    "addmetadata": True,
+    "key": "FFmpegMetadata",
+    "writethumbnail": True,
+    "prefer_ffmpeg": True,
+    "geo_bypass": True,
+    "nocheckcertificate": True,
+    "postprocessors": [
+        {
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "mp3",
+            "preferredquality": "320",
+        }
+    ],
+    "outtmpl": "%(title)s.mp3",
+    "quiet": True,
+    "logtostderr": False,
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
+}
+
+video_opts = {
+    "format": "best",
+    "addmetadata": True,
+    "key": "FFmpegMetadata",
+    "writethumbnail": True,
+    "prefer_ffmpeg": True,
+    "geo_bypass": True,
+    "nocheckcertificate": True,
+    "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
+    "outtmpl": "%(title)s.mp4",
+    "logtostderr": False,
+    "quiet": True,
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
+}
 
 
 @l313l.ar_cmd(
@@ -129,9 +164,9 @@ async def ytdl_download_callback(c_q: CallbackQuery):  # sourcery no-metrics
         parse_mode="html",
     )
     if downtype == "v":
-        retcode = await _tubeDl(url=yt_url, starttime=startTime, uid=choice_str)
+        retcode = await _tubeDl(url=yt_url, starttime=startTime, uid=choice_str, **video_opts) 
     else:
-        retcode = await _mp3Dl(url=yt_url, starttime=startTime, uid=choice_str)
+        retcode = await _mp3Dl(url=yt_url, starttime=startTime, uid=choice_str, **audio_opts)  
     if retcode != 0:
         return await upload_msg.edit(str(retcode))
     _fpath = ""
