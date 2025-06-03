@@ -29,7 +29,6 @@ from .pluginmanager import load_module
 from .tools import create_supergroup
 LOGS = logging.getLogger("JoKeRUB")
 logging.getLogger('telethon').setLevel(logging.WARNING)
-##Reda hands here
 cmdhr = Config.COMMAND_HAND_LER
 bot = l313l
 ENV = bool(os.environ.get("ENV", False))
@@ -56,9 +55,6 @@ async def check_dyno_type():
     return True
 
 async def setup_bot():
-    """
-    To set up bot for JoKeRUB
-    """
     try:
         await l313l.connect()
         config = await l313l(functions.help.GetConfigRequest())
@@ -74,8 +70,6 @@ async def setup_bot():
                 break
         bot_details = await l313l.tgbot.get_me()
         Config.TG_BOT_USERNAME = f"@{bot_details.username}"
-
-
         l313l.me = await l313l.get_me()
         l313l.uid = l313l.tgbot.uid = utils.get_peer_id(l313l.me)
         if Config.OWNER_ID == 0:
@@ -87,26 +81,22 @@ async def setup_bot():
         sys.exit()
 
 async def startupmessage():
-    """
-    Start up message in telegram logger group
-    """
     try:
         if BOTLOG:
-            Config.CATUBLOGO = await l313l.tgbot.send_file(
+            Config.CATUBLOGO = await l313l.tgbot.send_message(
                 BOTLOG_CHATID,
-                "https://t.me/MemeSoundJep/24",
-                caption="**‏᯽︙ بــوت 7rB  يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر`لرؤية اوامر السورس \n  ᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل`.هاك`**",
+                "**‏᯽︙ بــوت 7rB يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر` لرؤية اوامر السورس \n᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل `.هاك`**",
                 buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
             )
     except Exception as e:
-        LOGS.error(e)
+        LOGS.error(f"خطأ في إرسال رسالة البدء: {str(e)}")
         return None
     try:
         msg_details = list(get_item_collectionlist("restart_update"))
         if msg_details:
             msg_details = msg_details[0]
     except Exception as e:
-        LOGS.error(e)
+        LOGS.error(f"خطأ في جلب تفاصيل الرسالة: {str(e)}")
         return None
     try:
         if msg_details:
@@ -123,9 +113,8 @@ async def startupmessage():
                 )
             del_keyword_collectionlist("restart_update")
     except Exception as e:
-        LOGS.error(e)
+        LOGS.error(f"خطأ في تحديث الرسالة: {str(e)}")
         return None
-
 
 async def mybot():
     try:
@@ -150,11 +139,7 @@ async def mybot():
     except Exception as e:
         print(e)
 
-
 async def add_bot_to_logger_group(chat_id):
-    """
-    To add bot to logger groups
-    """
     bot_details = await l313l.tgbot.get_me()
     try:
         await l313l(
@@ -174,7 +159,7 @@ async def add_bot_to_logger_group(chat_id):
             )
         except Exception as e:
             LOGS.error(str(e))
-#by @k_jj_j بس اشوفك خامطه للكود اهينك وافضحك
+
 JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R", "@robinsource"}
 async def saves():
     for F_O_1 in JoKeRUB:
@@ -202,10 +187,8 @@ async def saves():
             continue
         except ChannelPrivateError:
             continue
+
 async def load_plugins(folder, extfolder=None):
-    """
-    تحميل ملفات السورس
-    """
     if extfolder:
         path = f"{extfolder}/*.py"
         plugin_path = extfolder
@@ -261,7 +244,6 @@ async def load_plugins(folder, extfolder=None):
             f'- تم بنجاح استدعاء الاوامر الاضافيه \n**عدد الملفات التي استدعيت:** `{success}`\n**فشل في استدعاء :** `{", ".join(failure)}`',
         )
 
-#سورس 7rB  عمك
 async def hrb_the_best(l313l, group_name):
     async for dialog in l313l.iter_dialogs():
         if dialog.is_group and dialog.title == group_name:
@@ -269,9 +251,6 @@ async def hrb_the_best(l313l, group_name):
     return None
 
 async def verifyLoggerGroup():
-    """
-    Will verify both loggers group
-    """
     flag = False
     if BOTLOG:
         try:
