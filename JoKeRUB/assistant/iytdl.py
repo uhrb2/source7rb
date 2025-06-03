@@ -37,6 +37,7 @@ YOUTUBE_REGEX = re.compile(
 )
 PATH = "./JoKeRUB/cache/ytsearch.json"
 plugin_category = "bot"
+
 audio_opts = {
     "format": "bestaudio",
     "addmetadata": True,
@@ -55,7 +56,7 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None, 
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
 }
 
 video_opts = {
@@ -70,7 +71,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None, 
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
 }
 
 
@@ -249,7 +250,7 @@ async def ytdl_callback(c_q: CallbackQuery):
         else None
     )
     if not os.path.exists(PATH):
-        return await c_q.answer(
+        return c_q.answer(
             "**▾∮ لم تعد بيانات البحث موجودة \nيرجى إجراء البحث مرة أخرى ...**",
             alert=True,
         )
@@ -258,7 +259,7 @@ async def ytdl_callback(c_q: CallbackQuery):
     search_data = view_data.get(data_key)
     total = len(search_data) if search_data is not None else 0
     if total == 0:
-        return await c_q.answer(
+        return c_q.answer(
             "Search again your bot lost the information about this.", alert=True
         )
     if choosen_btn == "back":
@@ -281,7 +282,7 @@ async def ytdl_callback(c_q: CallbackQuery):
     elif choosen_btn == "next":
         index = int(page) + 1
         if index > total:
-            return await c_q.answer("هذا كل ما لدي أيها الناس 😡!", alert=True)
+            return c_q.answer("هذا كل ما لدي أيها الناس 😡!", alert=True)
         await c_q.answer()
         front_vid = search_data.get(str(index))
         await c_q.edit(
