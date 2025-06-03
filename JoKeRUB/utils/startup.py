@@ -16,7 +16,7 @@ from JoKeRUB import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
 from ..Config import Config
 from aiohttp import web
 from ..core import web_server
-from ..core.logger import logging
+from ..core(c).logger import logging
 from ..core.session import l313l
 from ..helpers.utils import install_pip
 from ..helpers.utils.utils import runcmd
@@ -101,20 +101,25 @@ async def startupmessage():
     try:
         if msg_details:
             await l313l.check_testcases()
-            message = await l313l.get_messages(msg_details[0], ids=msg_details[1])
-            text = message.text + "\n\n**تم تشغيل البوت الأن أرسل `.فحص`**"
-            await l313l.edit_message(msg_details[0], msg_details[1], text)
-            if gvarstatus("restartupdate") is not None:
-                await l313l.send_message(
-                    msg_details[0],
-                    f"{cmdhr}بنك",
-                    reply_to=msg_details[1],
-                    schedule=timedelta(seconds=10),
-                )
             try:
-                del_keyword_collectionlist("keyword", "restart_update")
+                entity = await l313l.get_entity(msg_details[0])
+                message = await l313l.get_messages(entity, ids=msg_details[1])
+                text = message.text + "\n\n**تم تشغيل البوت الأن أرسل `.فحص`**"
+                await l313l.edit_message(entity, msg_details[1], text)
+                if gvarstatus("restartupdate") is not None:
+                    await l313l.send_message(
+                        entity,
+                        f"{cmdhr}بنك",
+                        reply_to=msg_details[1],
+                        schedule=timedelta(seconds=10),
+                    )
+                try:
+                    del_keyword_collectionlist("keyword", "restart_update")
+                except Exception as e:
+                    LOGS.error(f"خطأ في حذف السجل: {str(e)}")
             except Exception as e:
-                LOGS.error(f"خطأ في حذف السجل: {str(e)}")
+                LOGS.error(f"خطأ في تحديث الرسالة: {str(e)}")
+                return None
     except Exception as e:
         LOGS.error(f"خطأ في تحديث الرسالة: {str(e)}")
         return None
