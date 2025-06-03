@@ -55,7 +55,7 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None, 
 }
 
 video_opts = {
@@ -70,7 +70,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None, 
 }
 
 
@@ -163,10 +163,20 @@ async def ytdl_download_callback(c_q: CallbackQuery):  # sourcery no-metrics
         f"<b>▾∮ جارٍ تنزيل 🎧 {media_type} ...</b>\n\n  <a href={yt_url}> <b>الرابط 🔗</b></a>\n🆔  <b>كود التنسيق</b> : {disp_str}",
         parse_mode="html",
     )
-    if downtype == "v":
-        retcode = await _tubeDl(url=yt_url, starttime=startTime, uid=choice_str, **video_opts) 
-    else:
-        retcode = await _mp3Dl(url=yt_url, starttime=startTime, uid=choice_str, **audio_opts)  
+    try:
+        if downtype == "v":
+            retcode = await _tubeDl(url=yt_url, starttime=startTime, uid=choice_str, **video_opts)
+        else:
+            retcode = await _mp3Dl(url=yt_url, starttime=startTime, uid=choice_str, **audio_opts)
+    except Exception as e:
+        if "Sign in to confirm you’re not a bot" in str(e):
+            await upload_msg.edit(
+                "᯽︙ فشل التنزيل: يتطلب تسجيل الدخول. تأكد من وجود ملف cookies.txt صالح في مجلد السكربت."
+            )
+            return
+        else:
+            await upload_msg.edit(f"᯽︙ حدث خطأ: {str(e)}")
+            return
     if retcode != 0:
         return await upload_msg.edit(str(retcode))
     _fpath = ""
