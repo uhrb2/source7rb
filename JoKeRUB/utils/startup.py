@@ -111,7 +111,10 @@ async def startupmessage():
                     reply_to=msg_details[1],
                     schedule=timedelta(seconds=10),
                 )
-            del_keyword_collectionlist("restart_update")
+            try:
+                del_keyword_collectionlist("keyword", "restart_update")
+            except Exception as e:
+                LOGS.error(f"خطأ في حذف السجل: {str(e)}")
     except Exception as e:
         LOGS.error(f"خطأ في تحديث الرسالة: {str(e)}")
         return None
