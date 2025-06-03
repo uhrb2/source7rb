@@ -13,11 +13,11 @@ from JoKeRUB.utils import sudo_cmd
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl import types
 from telethon.utils import get_attributes
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from urlextract import URLExtract
 from wget import download
 from JoKeRUB import l313l
-from youtube_dl.utils import (
+from yt_dlp.utils import (
     ContentTooShortError,
     DownloadError,
     ExtractorError,
@@ -53,8 +53,9 @@ audio_opts = {
     "outtmpl": "%(title)s.mp3",
     "quiet": True,
     "logtostderr": False,
-    "cookiefile": "cookies.txt", 
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
 }
+
 video_opts = {
     "format": "best",
     "addmetadata": True,
@@ -67,7 +68,7 @@ video_opts = {
     "outtmpl": "%(title)s.mp4",
     "logtostderr": False,
     "quiet": True,
-    "cookiefile": "cookies.txt",
+    "cookiefile": "cookies.txt" if os.path.exists("cookies.txt") else None,
 }
 
 
