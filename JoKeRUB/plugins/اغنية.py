@@ -33,6 +33,7 @@ SONG_SENDING_STRING = "<code>جارِ الارسال انتظر قليلا...</c
 # =========================================================== #
 
 import os
+import ytc
 import time
 import requests
 from yt_dlp import YoutubeDL
@@ -77,7 +78,7 @@ async def handler(event):
         ydl_opts = {
             "format": "bestaudio[ext=m4a]",
             "forceduration": True,
-            "cookiefile": "cookies.txt"
+            "cookiefile": ytc.cookies()
         }
 
         with YoutubeDL(ydl_opts) as ydl:
