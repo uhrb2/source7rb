@@ -32,85 +32,79 @@ SONG_SENDING_STRING = "<code>جارِ الارسال انتظر قليلا...</c
 #                                                             #
 # =========================================================== #
 
-@l313l.ar_cmd(
-    pattern="بحث(320)?(?:\s|$)([\s\S]*)",
-    command=("بحث", plugin_category),
-    info={
-        "header": "To get songs from youtube.",
-        "description": "Basically this command searches youtube and send the first video as audio file.",
-        "flags": {
-            "320": "if you use song320 then you get 320k quality else 128k quality",
-        },
-        "usage": "{tr}song <song name>",
-        "examples": "{tr}song memories song",
-    },
-)
-async def _(event):
-    "To search songs"
-    reply_to_id = await reply_id(event)
-    reply = await event.get_reply_message()
-    if event.pattern_match.group(2):
-        query = event.pattern_match.group(2)
-    elif reply and reply.message:
-        query = reply.message
-    else:
-        return await edit_or_reply(event, "⌔∮ يرجى الرد على ما تريد البحث عنه")
-    cat = base64.b64decode("YnkybDJvRG04WEpsT1RBeQ==")
-    catevent = await edit_or_reply(event, "⌔∮ جاري البحث عن المطلوب انتظر")
-    video_link = await yt_search(str(query))
-    if not url(video_link):
-        return await catevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صلة بـ `{query}`"
-        )
-    cmd = event.pattern_match.group(1)
-    q = "320k" if cmd == "320" else "128k"
-    song_cmd = song_dl.format(QUALITY=q, video_link=video_link)
-    name_cmd = name_dl.format(video_link=video_link)
+@l313l.on(joker_cmd(pattern="بحث"))
+async def handler(event):
+    text = event.message.text
+    chat_id = event.chat_id
+    user_id = event.sender_id
+    query = text.split(None, 1)[1]  
+    joker_hussein = f"**⌔︙ اصبر عمري، انزلك الأغنية الي طلبتها `{query}`**"
+    wait_message = await event.edit(joker_hussein.format(query=query))
+
     try:
-        cat = Get(cat)
-        await event.client(cat)
-    except BaseException:
-        pass
-    try:
-        stderr = (await _catutils.runcmd(song_cmd))[1]
-        # if stderr:
-        # await catevent.edit(f"**خطأ :** `{stderr}`")
-        catname, stderr = (await _catutils.runcmd(name_cmd))[:2]
-        if stderr:
-            return await catevent.edit(f"**خطأ :** `{stderr}`")
-        catname = os.path.splitext(catname)[0]
-        song_file = Path(f"{catname}.mp3")
-        catname = urllib.parse.unquote(catname)
-    except:
-        pass
-    if not os.path.exists(song_file):
-        return await catevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صله بـ `{query}`"
-        )
-    await catevent.edit("**⌔∮ جارِ الارسال انتظر قليلاً**")
-    catthumb = Path(f"{catname}.jpg")
-    if not os.path.exists(catthumb):
-        catthumb = Path(f"{catname}.webp")
-    elif not os.path.exists(catthumb):
-        catthumb = None
-    title = catname.replace("./temp/", "").replace("_", "|")
-    try:
-        await event.client.send_file(
-            event.chat_id,
-            song_file,
-            force_document=False,
-            caption=f"**العنوان:** `{title}`",
-            thumb=catthumb,
-            supports_streaming=True,
-            reply_to=reply_to_id,
-        )
-        await catevent.delete()
-        for files in (catthumb, song_file):
-            if files and os.path.exists(files):
-                os.remove(files)
-    except ChatSendMediaForbiddenError as err:
-        await catevent.edit("لا يمكن ارسال المقطع الصوتي هنا")
-        LOGS.error(str(err))
+        results = YoutubeSearch(query, max_results=1).to_dict()
+        res = results[0]
+        title = res['title']
+        video_id = res['id']
+        duration = int(time_to_seconds(res['duration'])) 
+        duration_string = time.strftime('%M:%S', time.gmtime(duration))
+        if duration > 1500:
+            return await event.edit("**⌔︙ صوت فوك 25 دقيقة ما اكدر انزله**")
+
+        url = f'https://youtu.be/{video_id}'
+        ydl_ops = {
+            "format": "bestaudio[ext=m4a]",
+            'forceduration': True,
+            "cookiefile": "cookies.txt"
+        }
+
+        with yt_dlp.YoutubeDL(ydl_ops) as ydl:
+            info = ydl.extract_info(url, download=True)
+            audio_file = ydl.prepare_filename(info)
+            if audio_file.endswith('.m4a'):
+                new_audio_file = audio_file.replace('.m4a', '.mp3')
+                os.rename(audio_file, new_audio_file)
+                audio_file = new_audio_file
+
+            title = info.get('title', 'عنوان غير متوفر')
+            length = info.get('duration', 0)
+            duration_string = time.strftime('%M:%S', time.gmtime(length))
+
+            thumb_url = info.get('thumbnail', '')
+            if thumb_url:
+                response = requests.get(thumb_url)
+                if response.status_code == 200:
+                    safe_title = title.replace("/", "-").replace("\\", "-")
+                    thumb_path = f"{safe_title}.jpg"
+                    with open(thumb_path, 'wb') as f:
+                        f.write(response.content)
+                else:
+                    thumb_path = ''
+            else:
+                thumb_path = '' 
+
+            if thumb_path and os.path.exists(thumb_path):
+                file_msg = await event.client.send_file(
+                    chat_id,
+                    audio_file,
+                    title=title,
+                    thumb=thumb_path,
+                    caption=f'@معرف قناتك ~ {duration_string} ⏳',
+                )
+            else:
+                file_msg = await event.client.send_file(
+                    chat_id,
+                    audio_file,
+                    title=title,
+                    caption=f'@معرف قناتك ~ {duration_string} ⏳',
+                )
+            os.remove(audio_file)
+            if thumb_path:
+                os.remove(thumb_path)
+            await wait_message.delete()
+    except Exception as e:
+        await wait_message.delete()
+        return await event.reply(f"حدث خطأ {e}")
 
 
 @l313l.ar_cmd(
