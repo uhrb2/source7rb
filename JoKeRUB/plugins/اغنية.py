@@ -32,35 +32,58 @@ SONG_SENDING_STRING = "<code>جارِ الارسال انتظر قليلا...</c
 #                                                             #
 # =========================================================== #
 
-@l313l.on(joker_cmd(pattern="بحث"))
+import os
+import time
+import requests
+from yt_dlp import YoutubeDL
+from youtube_search import YoutubeSearch
+
+def time_to_seconds(time_str):
+    parts = time_str.strip().split(':')
+    parts = list(map(int, parts))
+    if len(parts) == 3:
+        return parts[0] * 3600 + parts[1] * 60 + parts[2]
+    elif len(parts) == 2:
+        return parts[0] * 60 + parts[1]
+    elif len(parts) == 1:
+        return parts[0]
+    return 0
+
+@l313l.on(admin_cmd(pattern="بحث"))
 async def handler(event):
     text = event.message.text
     chat_id = event.chat_id
     user_id = event.sender_id
-    query = text.split(None, 1)[1]  
+    try:
+        query = text.split(None, 1)[1]
+    except IndexError:
+        return await event.reply("⌔︙أكتب اسم الأغنية بعد الأمر")
+
     joker_hussein = f"**⌔︙ اصبر عمري، انزلك الأغنية الي طلبتها `{query}`**"
-    wait_message = await event.edit(joker_hussein.format(query=query))
+    wait_message = await event.edit(joker_hussein)
 
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         res = results[0]
         title = res['title']
         video_id = res['id']
-        duration = int(time_to_seconds(res['duration'])) 
+        duration = int(time_to_seconds(res['duration']))
         duration_string = time.strftime('%M:%S', time.gmtime(duration))
+
         if duration > 1500:
             return await event.edit("**⌔︙ صوت فوك 25 دقيقة ما اكدر انزله**")
 
         url = f'https://youtu.be/{video_id}'
-        ydl_ops = {
+        ydl_opts = {
             "format": "bestaudio[ext=m4a]",
-            'forceduration': True,
+            "forceduration": True,
             "cookiefile": "cookies.txt"
         }
 
-        with yt_dlp.YoutubeDL(ydl_ops) as ydl:
+        with YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
             audio_file = ydl.prepare_filename(info)
+
             if audio_file.endswith('.m4a'):
                 new_audio_file = audio_file.replace('.m4a', '.mp3')
                 os.rename(audio_file, new_audio_file)
@@ -71,6 +94,7 @@ async def handler(event):
             duration_string = time.strftime('%M:%S', time.gmtime(length))
 
             thumb_url = info.get('thumbnail', '')
+            thumb_path = ''
             if thumb_url:
                 response = requests.get(thumb_url)
                 if response.status_code == 200:
@@ -78,34 +102,32 @@ async def handler(event):
                     thumb_path = f"{safe_title}.jpg"
                     with open(thumb_path, 'wb') as f:
                         f.write(response.content)
-                else:
-                    thumb_path = ''
-            else:
-                thumb_path = '' 
 
             if thumb_path and os.path.exists(thumb_path):
-                file_msg = await event.client.send_file(
+                await event.client.send_file(
                     chat_id,
                     audio_file,
                     title=title,
                     thumb=thumb_path,
-                    caption=f'@معرف قناتك ~ {duration_string} ⏳',
+                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
                 )
             else:
-                file_msg = await event.client.send_file(
+                await event.client.send_file(
                     chat_id,
                     audio_file,
                     title=title,
-                    caption=f'@معرف قناتك ~ {duration_string} ⏳',
+                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
                 )
+
             os.remove(audio_file)
             if thumb_path:
                 os.remove(thumb_path)
+
             await wait_message.delete()
+
     except Exception as e:
         await wait_message.delete()
-        return await event.reply(f"حدث خطأ {e}")
-
+        return await event.reply(f"حدث خطأ: {e}")
 
 @l313l.ar_cmd(
     pattern="فيديو(?:\s|$)([\s\S]*)",
