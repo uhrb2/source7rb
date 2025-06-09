@@ -75,7 +75,7 @@ async def handler(event):
 
         url = f'https://youtu.be/{video_id}'
         ydl_opts = {
-            "format": "22",
+            "format": "bestaudio[ext=m4a]",
             "forceduration": True,
 "cookiefile": "cookies.txt"
         }
@@ -109,7 +109,7 @@ async def handler(event):
                     audio_file,
                     title=title,
                     thumb=thumb_path,
-                    caption=f'@RobinSource ~ {duration_string} ⏳',
+                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
                 )
             else:
                 await event.client.send_file(
