@@ -109,7 +109,7 @@ async def handler(event):
                     audio_file,
                     title=title,
                     thumb=thumb_path,
-                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
+                    caption=f'@RobinSource ~ {duration_string} ⏳',
                 )
             else:
                 await event.client.send_file(
