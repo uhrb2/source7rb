@@ -33,7 +33,7 @@ SONG_SENDING_STRING = "<code>جارِ الارسال انتظر قليلا...</c
 # =========================================================== #
 
 import os
-pip install jokyt
+import jokyt
 import time
 import requests
 from yt_dlp import YoutubeDL
