@@ -33,7 +33,7 @@ SONG_SENDING_STRING = "<code>جارِ الارسال انتظر قليلا...</c
 # =========================================================== #
 
 import os
-import ytc
+pip install jokyt
 import time
 import requests
 from yt_dlp import YoutubeDL
@@ -78,7 +78,7 @@ async def handler(event):
         ydl_opts = {
             "format": "bestaudio[ext=m4a]",
             "forceduration": True,
-            "cookiefile": ytc.cookies()
+            "Cookie": jokyt.cookies()
         }
 
         with YoutubeDL(ydl_opts) as ydl:
