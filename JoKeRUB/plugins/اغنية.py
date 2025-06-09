@@ -75,7 +75,7 @@ async def handler(event):
 
         url = f'https://youtu.be/{video_id}'
         ydl_opts = {
-            "format": "bestaudio[ext=m4a]",
+            "format": "bestvideo+bestaudio/best",
             "forceduration": True,
 "cookiefile": "cookies.txt"
         }
