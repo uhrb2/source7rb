@@ -77,7 +77,7 @@ async def handler(event):
         ydl_opts = {
             "format": "bestaudio[ext=m4a]",
             "forceduration": True,
-            "cookiefile": ytc.youtube()
+"cookiefile": "cookies.txt"
         }
 
         with YoutubeDL(ydl_opts) as ydl:
@@ -109,14 +109,14 @@ async def handler(event):
                     audio_file,
                     title=title,
                     thumb=thumb_path,
-                    caption=f'@RobinSource ~ {duration_string} ⏳',
+                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
                 )
             else:
                 await event.client.send_file(
                     chat_id,
                     audio_file,
                     title=title,
-                    caption=f'@RobinSource ~ {duration_string} ⏳',
+                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
                 )
 
             os.remove(audio_file)
