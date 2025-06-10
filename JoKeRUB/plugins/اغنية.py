@@ -77,7 +77,7 @@ async def handler(event):
         ydl_opts = {
             "format": "bestaudio[ext=m4a]",
             "forceduration": True,
-"cookiefile": ytc.youtube()
+            "cookiefile": ytc.youtube()
         }
 
         with YoutubeDL(ydl_opts) as ydl:
@@ -163,10 +163,13 @@ async def _(event):
         pass
     name_cmd = name_dl.format(video_link=video_link)
     video_cmd = video_dl.format(video_link=video_link)
+    ydl_opts_video = {
+        "format": "bestvideo+bestaudio[ext=m4a]/best[ext=mp4]/best",
+        "merge_output_format": "mp4",
+        "cookiefile": ytc.youtube()
+    }
     try:
         stderr = (await _catutils.runcmd(video_cmd))[1]
-        # if stderr:
-        # return await catevent.edit(f"**Error :** `{stderr}`")
         catname, stderr = (await _catutils.runcmd(name_cmd))[:2]
         if stderr:
             return await catevent.edit(f"**Error :** `{stderr}`")
@@ -177,9 +180,17 @@ async def _(event):
     if not os.path.exists(vsong_file):
         vsong_file = Path(f"{catname}.mkv")
     elif not os.path.exists(vsong_file):
-        return await catevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صلة بـ `{query}`"
-        )
+        try:
+            with YoutubeDL(ydl_opts_video) as ydl:
+                info = ydl.extract_info(video_link, download=True)
+                video_file = ydl.prepare_filename(info)
+                if not video_file.endswith('.mp4'):
+                    new_video_file = video_file.rsplit('.', 1)[0] + '.mp4'
+                    os.rename(video_file, new_video_file)
+                    video_file = new_video_file
+                vsong_file = Path(video_file)
+        except Exception as e:
+            return await catevent.edit(f"**Error :** `{e}`")
     await catevent.edit("**⌔∮ جاري الارسال انتظر قليلا**")
     catthumb = Path(f"{catname}.jpg")
     if not os.path.exists(catthumb):
@@ -199,7 +210,6 @@ async def _(event):
     for files in (catthumb, vsong_file):
         if files and os.path.exists(files):
             os.remove(files)
-
 
 @l313l.ar_cmd(pattern="اسم الاغنية$")
 async def shazamcmd(event):
@@ -236,7 +246,6 @@ async def shazamcmd(event):
         event.chat_id, image, caption=f"**الاغنية:** `{song}`", reply_to=reply
     )
     await catevent.delete()
-
 
 @l313l.ar_cmd(
     pattern="بحث2(?:\s|$)([\s\S]*)",
