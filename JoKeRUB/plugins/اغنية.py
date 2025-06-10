@@ -4,7 +4,7 @@ import io
 import urllib.parse
 import os
 from pathlib import Path
-
+import ytc
 from ShazamAPI import Shazam
 from telethon import types
 from telethon.errors.rpcerrorlist import YouBlockedUserError, ChatSendMediaForbiddenError
@@ -77,7 +77,7 @@ async def handler(event):
         ydl_opts = {
             "format": "bestaudio[ext=m4a]",
             "forceduration": True,
-"cookiefile": "cookies.txt"
+"cookiefile": ytc.youtube()
         }
 
         with YoutubeDL(ydl_opts) as ydl:
