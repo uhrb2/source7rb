@@ -41,7 +41,7 @@ async def chat_with_gemini(question: str) -> str:
         return "هناك مشكلة في الاتصال، حاول لاحقًا."
 
 # حدث يستمع للأمر ".ذكاء + السؤال"
-@l313l.on(events.NewMessage(pattern=r"^\.ذكاء (.+)"))
+@l313l.on(events.NewMessage(pattern=r"^\.روبن (.+)"))
 async def ai_handler(event):
     question = event.pattern_match.group(1)  # استخراج السؤال بعد ".ذكاء"
     response = await chat_with_gemini(question)  # الحصول على الرد من الذكاء الاصطناعي
