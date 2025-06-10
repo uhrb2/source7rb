@@ -129,87 +129,83 @@ async def handler(event):
         await wait_message.delete()
         return await event.reply(f"حدث خطأ: {e}")
 
-@l313l.ar_cmd(
-    pattern="فيديو(?:\s|$)([\s\S]*)",
-    command=("فيديو", plugin_category),
-    info={
-        "header": "To get video songs from youtube.",
-        "description": "Basically this command searches youtube and sends the first video",
-        "usage": "{tr}vsong <song name>",
-        "examples": "{tr}vsong memories song",
-    },
-)
-async def _(event):
-    "To search video songs"
-    reply_to_id = await reply_id(event)
-    reply = await event.get_reply_message()
-    if event.pattern_match.group(1):
-        query = event.pattern_match.group(1)
-    elif reply and reply.message:
-        query = reply.message
-    else:
-        return await edit_or_reply(event, "⌔∮ يرجى الرد على ما تريد البحث عنه")
-    cat = base64.b64decode("YnkybDJvRG04WEpsT1RBeQ==")
-    catevent = await edit_or_reply(event, "⌔∮ جاري البحث عن المطلوب انتظر")
-    video_link = await yt_search(str(query))
-    if not url(video_link):
-        return await catevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صلة بـ `{query}`"
-        )
+@l313l.on(admin_cmd(pattern="فيديو"))
+async def video_handler(event):
+    text = event.message.text
+    chat_id = event.chat_id
     try:
-        cat = Get(cat)
-        await event.client(cat)
-    except BaseException:
-        pass
-    name_cmd = name_dl.format(video_link=video_link)
-    video_cmd = video_dl.format(video_link=video_link)
-    ydl_opts_video = {
-        "format": "bestvideo+bestaudio[ext=m4a]/best[ext=mp4]/best",
-        "merge_output_format": "mp4",
-        "cookiefile": ytc.youtube()
-    }
+        query = text.split(None, 1)[1]
+    except IndexError:
+        return await event.reply("⌔︙أكتب اسم الفيديو بعد الأمر")
+
+    wait_message = await event.edit(f"⌔︙ انتظر قليلاً، يتم جلب الفيديو `{query}`")
+
     try:
-        stderr = (await _catutils.runcmd(video_cmd))[1]
-        catname, stderr = (await _catutils.runcmd(name_cmd))[:2]
-        if stderr:
-            return await catevent.edit(f"**Error :** `{stderr}`")
-        catname = os.path.splitext(catname)[0]
-        vsong_file = Path(f"{catname}.mp4")
-    except:
-        pass
-    if not os.path.exists(vsong_file):
-        vsong_file = Path(f"{catname}.mkv")
-    elif not os.path.exists(vsong_file):
-        try:
-            with YoutubeDL(ydl_opts_video) as ydl:
-                info = ydl.extract_info(video_link, download=True)
-                video_file = ydl.prepare_filename(info)
-                if not video_file.endswith('.mp4'):
-                    new_video_file = video_file.rsplit('.', 1)[0] + '.mp4'
-                    os.rename(video_file, new_video_file)
-                    video_file = new_video_file
-                vsong_file = Path(video_file)
-        except Exception as e:
-            return await catevent.edit(f"**Error :** `{e}`")
-    await catevent.edit("**⌔∮ جاري الارسال انتظر قليلا**")
-    catthumb = Path(f"{catname}.jpg")
-    if not os.path.exists(catthumb):
-        catthumb = Path(f"{catname}.webp")
-    elif not os.path.exists(catthumb):
-        catthumb = None
-    title = catname.replace("./temp/", "").replace("_", "|")
-    await event.client.send_file(
-        event.chat_id,
-        vsong_file,
-        caption=f"**Title:** `{title}`",
-        thumb=catthumb,
-        supports_streaming=True,
-        reply_to=reply_to_id,
-    )
-    await catevent.delete()
-    for files in (catthumb, vsong_file):
-        if files and os.path.exists(files):
-            os.remove(files)
+        results = YoutubeSearch(query, max_results=1).to_dict()
+        res = results[0]
+        title = res['title']
+        video_id = res['id']
+        duration = int(time_to_seconds(res['duration']))
+        duration_string = time.strftime('%M:%S', time.gmtime(duration))
+
+        if duration > 1500:
+            return await event.edit("⌔︙ الفيديو أكثر من 25 دقيقة لا يمكن تحميله")
+
+        url = f'https://youtu.be/{video_id}'
+        ydl_opts = {
+            "format": "bestvideo+bestaudio[ext=m4a]/best[ext=mp4]/best",
+            "merge_output_format": "mp4",
+            "cookiefile": ytc.youtube()
+        }
+
+        with YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            video_file = ydl.prepare_filename(info)
+
+            if not video_file.endswith('.mp4'):
+                new_video_file = video_file.rsplit('.', 1)[0] + '.mp4'
+                os.rename(video_file, new_video_file)
+                video_file = new_video_file
+
+            title = info.get('title', 'عنوان غير متوفر')
+            length = info.get('duration', 0)
+            duration_string = time.strftime('%M:%S', time.gmtime(length))
+
+            thumb_url = info.get('thumbnail', '')
+            thumb_path = ''
+            if thumb_url:
+                response = requests.get(thumb_url)
+                if response.status_code == 200:
+                    safe_title = title.replace("/", "-").replace("\\", "-")
+                    thumb_path = f"{safe_title}.jpg"
+                    with open(thumb_path, 'wb') as f:
+                        f.write(response.content)
+
+            if thumb_path and os.path.exists(thumb_path):
+                await event.client.send_file(
+                    chat_id,
+                    video_file,
+                    caption=f'@RobinSource ~ {duration_string} ⏳',
+                    thumb=thumb_path,
+                    supports_streaming=True,
+                )
+            else:
+                await event.client.send_file(
+                    chat_id,
+                    video_file,
+                    caption=f'@RobinSource ~ {duration_string} ⏳',
+                    supports_streaming=True,
+                )
+
+            os.remove(video_file)
+            if thumb_path:
+                os.remove(thumb_path)
+
+            await wait_message.delete()
+
+    except Exception as e:
+        await wait_message.delete()
+        return await event.reply(f"حدث خطأ: {e}")
 
 @l313l.ar_cmd(pattern="اسم الاغنية$")
 async def shazamcmd(event):
