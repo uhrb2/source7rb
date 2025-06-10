@@ -109,14 +109,14 @@ async def handler(event):
                     audio_file,
                     title=title,
                     thumb=thumb_path,
-                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
+                    caption=f'@RobinSource ~ {duration_string} ⏳',
                 )
             else:
                 await event.client.send_file(
                     chat_id,
                     audio_file,
                     title=title,
-                    caption=f'@aljokeruserbot ~ {duration_string} ⏳',
+                    caption=f'@RobinSource ~ {duration_string} ⏳',
                 )
 
             os.remove(audio_file)
