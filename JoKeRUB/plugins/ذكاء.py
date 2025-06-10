@@ -4,16 +4,13 @@ import json
 import random
 from telethon import events
 
-# مفتاح API الخاص بـ Gemini
 GEMINI_API_KEY = 'AIzaSyC9F7-JJ2jHd4SA4Qo90AwzKhrgHBpPn0A'
 
-# ردود افتراضية في حال حدوث خطأ
 UNKNOWN_RESPONSES = [
     "لم أفهم سؤالك، يرجى التوضيح.",
     "هناك مشكلة في الاتصال، حاول مرة أخرى لاحقًا."
 ]
 
-# دالة للتواصل مع Gemini API
 async def chat_with_gemini(question: str) -> str:
     try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
