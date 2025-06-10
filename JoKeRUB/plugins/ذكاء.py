@@ -44,7 +44,5 @@ async def chat_with_gemini(question: str) -> str:
 @l313l.on(events.NewMessage(pattern=r"^\.ذكاء (.+)"))
 async def ai_handler(event):
     question = event.pattern_match.group(1)  # استخراج السؤال بعد ".ذكاء"
-    await event.reply("🤖 جارٍ معالجة سؤالك بواسطة الذكاء الاصطناعي...")
-
     response = await chat_with_gemini(question)  # الحصول على الرد من الذكاء الاصطناعي
-    await event.reply(response)  # إرسال الرد للمستخدم
+    await event.respond(response, reply_to=event.id)  # الرد مباشرة على رسالة المستخدم
