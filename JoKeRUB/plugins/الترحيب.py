@@ -247,3 +247,6 @@ async def watch_last_events(event):
             member_name = event.message.text.split("تم انضمام", 1)[1].strip()
             if member_name:
                 welcome_text = f"""نورتت ياببَ ، {member_name}🇮
+"""
+
+
