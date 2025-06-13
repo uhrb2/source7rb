@@ -223,16 +223,16 @@ from ..core.managers import edit_or_reply
 plugin_category = "utils"
 
 @l313l.ar_cmd(
-    pattern="تفعيل الترحيب$",
-    command=("تفعيل الترحيب", plugin_category),
+    pattern="فعل الترحيب$",
+    command=("فعل الترحيب", plugin_category),
 )
 async def enable_welcome_cmd(event):
     addgvar("auto_welcome_event_enabled", "true")
     await edit_or_reply(event, "تم تفعيل الترحيب ✓")
 
 @l313l.ar_cmd(
-    pattern="تعطيل الترحيب$",
-    command=("تعطيل الترحيب", plugin_category),
+    pattern="عطل الترحيب$",
+    command=("عطل الترحيب", plugin_category),
 )
 async def disable_welcome_cmd(event):
     addgvar("auto_welcome_event_enabled", "false")
