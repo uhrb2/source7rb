@@ -810,3 +810,39 @@ async def fshar_auto_reply(event):
         if not replies:
             # انتهت الردود، أوقف الفشار تلقائيًا
             del fshar_targets[user_id]
+
+import re
+
+game_words_active = {}
+
+@l313l.on(events.NewMessage(pattern=r'^\.لعب كلمات$', outgoing=True))
+async def start_words_game(event):
+    if not event.is_group:
+        return
+    chat_id = event.chat_id
+    if event.sender_id != (await event.client.get_me()).id:
+        return
+    game_words_active[chat_id] = True
+    await event.respond("كلمات")
+
+@l313l.on(events.NewMessage(pattern=r'^\.وگف كلمات$', outgoing=True))
+async def stop_words_game(event):
+    chat_id = event.chat_id
+    if event.sender_id != (await event.client.get_me()).id:
+        return
+    game_words_active[chat_id] = False
+    await event.respond("تم إيقاف لعبة الكلمات.")
+
+@l313l.on(events.NewMessage(incoming=True))
+async def words_game_handler(event):
+    chat_id = event.chat_id
+    if not getattr(event, "is_group", False):
+        return
+    if not game_words_active.get(chat_id):
+        return
+    match = re.search(r'->\s*\(([^)]*)\)', event.text)
+    if match:
+        word = match.group(1).strip()
+        await event.respond(word)
+        await asyncio.sleep(1)
+        await event.respond("كلمات")
