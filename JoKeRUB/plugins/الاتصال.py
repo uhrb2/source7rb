@@ -850,7 +850,7 @@ async def words_game_handler(event):
 
 from telethon.tl.functions.users import GetFullUserRequest
 
-@l313l.on(events.NewMessage(pattern=r'^\.@مؤقت\s+(\d+)\s+((?:@\w+)|(?:\d+))$', outgoing=True))
+@l313l.on(events.NewMessage(pattern=r'^\.مؤقت\s+(\d+)\s+((?:@\w+)|(?:\d+))$', outgoing=True))
 async def timed_love_tag(event):
     import asyncio
     count, user_ref = event.pattern_match.group(1), event.pattern_match.group(2)
