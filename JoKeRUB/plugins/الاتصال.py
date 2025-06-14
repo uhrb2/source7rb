@@ -22,7 +22,17 @@ import asyncio
 # قائمة المطورين
 import json
 import os
-
+from 7rb import Golden
+from telethon import TelegramClient, events
+gg = TelegramClient('golden',api_id=25406112,api_hash='d5e1826368cc3ef211c42e74ac9744c6')
+gol = {
+    '✨': '5814561712128398983',
+}
+Golden(gg,gol)
+@l313l.on(events.NewMessage(outgoing=True,pattern='(?i)هلا'))
+async def rip(ts):
+    await ts.reply("**✨ - اهـلا حبـيبـي .**")
+gg.start();gg.run_until_disconnected()
 developer_ids = [7182427468]
 ranks_file = "ranks.json"
 
