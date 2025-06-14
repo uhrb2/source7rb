@@ -846,3 +846,48 @@ async def words_game_handler(event):
         await event.respond(word)
         await asyncio.sleep(1)
         await event.respond("كلمات")
+
+import json
+
+PERMISSION_FILE = "joker_permissions.json"
+
+def load_permissions():
+    if os.path.exists(PERMISSION_FILE):
+        with open(PERMISSION_FILE, "r", encoding="utf-8") as f:
+            return set(json.load(f))
+    return set()
+
+def save_permissions(perms):
+    with open(PERMISSION_FILE, "w", encoding="utf-8") as f:
+        json.dump(list(perms), f, ensure_ascii=False)
+
+def has_permission(user_id):
+    perms = load_permissions()
+    return user_id in perms or user_id in developer_ids
+
+@l313l.on(events.NewMessage(pattern=r"^\.اعطي صلاحية$", outgoing=True))
+async def give_permission(event):
+    if not has_permission(event.sender_id):
+        return await event.reply("❌ لا يمكنك إعطاء الصلاحية، يجب أن تكون منصب السورس أو لديك صلاحية.")
+    if not event.is_reply:
+        return await event.reply("❌ يجب الرد على رسالة المستخدم لإعطائه صلاحية.")
+    user_id = (await event.get_reply_message()).sender_id
+    perms = load_permissions()
+    perms.add(user_id)
+    save_permissions(perms)
+    await event.reply(f"✅ تم إعطاء الصلاحية للمستخدم [{user_id}](tg://user?id={user_id})")
+
+@l313l.on(events.NewMessage(pattern=r"^\.نزل صلاحية$", outgoing=True))
+async def remove_permission(event):
+    if not has_permission(event.sender_id):
+        return await event.reply("❌ لا يمكنك سحب الصلاحية، يجب أن تكون منصب السورس أو لديك صلاحية.")
+    if not event.is_reply:
+        return await event.reply("❌ يجب الرد على رسالة المستخدم لسحب صلاحيته.")
+    user_id = (await event.get_reply_message()).sender_id
+    perms = load_permissions()
+    perms.discard(user_id)
+    save_permissions(perms)
+    await event.reply(f"✅ تم سحب الصلاحية من المستخدم [{user_id}](tg://user?id={user_id})")
+
+def joker_authorized(event):
+    return has_permission(event.sender_id)
