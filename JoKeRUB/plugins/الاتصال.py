@@ -22,16 +22,7 @@ import asyncio
 # قائمة المطورين
 import json
 import os
-from 7rb import Golden
 
-gol = {
-    '✨': '5814561712128398983',
-}
-Golden(l313l, gol)
-
-@l313l.on(events.NewMessage(outgoing=True, pattern='(?i)هلا'))
-async def rip(ts):
-    await ts.reply("✨ - اهـلا حبـيبـي .")
 developer_ids = [7182427468]
 ranks_file = "ranks.json"
 
