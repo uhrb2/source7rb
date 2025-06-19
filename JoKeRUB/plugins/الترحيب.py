@@ -216,37 +216,4 @@ async def del_welcome(event):
         )
     await edit_delete(event, "** تم تعطيل الترحيب بنجاح ✓")
 
-from telethon import events
-from ..sql_helper.globals import addgvar, gvarstatus
-from ..core.managers import edit_or_reply
-
-plugin_category = "utils"
-
-@l313l.ar_cmd(
-    pattern="فعل الترحيب$",
-    command=("فعل الترحيب", plugin_category),
-)
-async def enable_welcome_cmd(event):
-    addgvar("auto_welcome_event_enabled", "true")
-    await edit_or_reply(event, "تم تفعيل الترحيب ✓")
-
-@l313l.ar_cmd(
-    pattern="عطل الترحيب$",
-    command=("عطل الترحيب", plugin_category),
-)
-async def disable_welcome_cmd(event):
-    addgvar("auto_welcome_event_enabled", "false")
-    await edit_or_reply(event, "تم تعطيل الترحيب ✓")
-
-@l313l.on(events.Raw)
-async def watch_last_events(event):
-    if gvarstatus("auto_welcome_event_enabled") == "false":
-        return
-    if hasattr(event, "message") and event.message:
-        if event.message.text and event.message.text.startswith("تم انضمام"):
-            member_name = event.message.text.split("تم انضمام", 1)[1].strip()
-            if member_name:
-                welcome_text = f"""نورتت ياببَ ، {member_name}🇮
-"""
-
 
