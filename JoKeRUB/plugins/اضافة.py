@@ -106,3 +106,42 @@ async def Hussein(event):
         except Exception as e:
             await event.reply(f"**᯽︙ تم إضافة {added_count} من جهات اتصالي**")
     await event.reply(f"**᯽︙ تم إضافة {added_count} من جهات اتصالي**")
+
+from datetime import datetime
+from telethon import events
+
+welcome_mode = False
+
+@l313l.on(admin_cmd(pattern=r"فعل رحب$"))
+async def activate_welcome(event):
+    global welcome_mode
+    welcome_mode = True
+    await event.reply("تم التفعيل")
+
+@l313l.on(admin_cmd(pattern=r"ايقاف$"))
+async def deactivate_welcome(event):
+    global welcome_mode
+    welcome_mode = False
+    await event.reply("تم الايقاف")
+
+@l313l.on(events.NewMessage)
+async def custom_welcome(event):
+    global welcome_mode
+    if not welcome_mode:
+        return
+    if event.raw_text.startswith("بوسه . #@"):
+        try:
+            username = event.raw_text.split("#@")[1].strip()
+            entity = await event.client.get_entity(username)
+            name = entity.first_name or ""
+            user_id = entity.id
+        except Exception:
+            return
+        now = event.date.strftime("%Y-%m-%d %H:%M:%S")
+        reply = f"""نورتت ياببَ @{username}
+{name}
+{user_id}
+وقت دخولك لعالمنا: {now}
+"""
+        await event.reply(reply)
+        welcome_mode = False
