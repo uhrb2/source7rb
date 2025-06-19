@@ -856,29 +856,3 @@ async def words_game_handler(event):
         await asyncio.sleep(1)
         await event.respond("كلمات")
 
-
-from telethon.tl.functions.users import GetFullUserRequest
-
-@l313l.on(events.NewMessage(pattern=r'^\.مؤقت\s+(\d+)\s+((?:@\w+)|(?:\d+))$', outgoing=True))
-async def timed_love_tag(event):
-    import asyncio
-    count, user_ref = event.pattern_match.group(1), event.pattern_match.group(2)
-    try:
-        count = int(count)
-    except Exception:
-        return await event.reply("عدد غير صحيح.")
-    try:
-        if user_ref.startswith("@"):
-            user = await event.client.get_entity(user_ref)
-        else:
-            user = await event.client(GetFullUserRequest(int(user_ref)))
-            user = user.users[0] if hasattr(user, "users") else user
-    except Exception:
-        return await event.reply("لم أستطع العثور على المستخدم.")
-    user_id = user.id
-    user_name = user.first_name or (user.username if user.username else str(user_id))
-    mention = f"[{user_name}](tg://openmessage?user_id={user_id})"
-    for _ in range(count):
-        await event.reply(f"احبك {mention}", link_preview=False)
-        await asyncio.sleep(15)
-
