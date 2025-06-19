@@ -132,3 +132,73 @@ async def _(event):
              return await edit_delete(event, "**᯽︙ !لا يوجد هكذا لغة**")
      await edit_or_reply(event, "**᯽︙ يجري استخراج النص...**")
      await edit_or_reply(event, to_text(pic_file, api))
+
+
+import asyncio
+import speech_recognition as sr
+import os
+
+active_voice_event = False
+target_word = None
+group_call_chatid = None
+already_sent = False
+joined_call = False
+
+from .. import l313l
+from telethon import events
+from pytgcalls import PyTgCalls
+
+from .. import bot
+pytg = PyTgCalls(bot)
+
+@l313l.ar_cmd(pattern="انضمام$")
+async def join_call(event):
+    global group_call_chatid, joined_call
+    group_call_chatid = event.chat_id
+    try:
+        await pytg.join_group_call(group_call_chatid)
+        joined_call = True
+        await event.reply("تم الانضمام للاتصال الصوتي.")
+    except Exception:
+        await event.reply("فشل الانضمام للاتصال الصوتي.")
+
+@l313l.ar_cmd(pattern="فعالية تشغيل (.+)$")
+async def start_voice_event(event):
+    global active_voice_event, target_word, already_sent, group_call_chatid
+    target_word = event.pattern_match.group(1).strip()
+    group_call_chatid = event.chat_id
+    active_voice_event = True
+    already_sent = False
+    await event.reply(f"تم تفعيل الفعالية، سأراقب الاتصال وأرد بـ +{target_word} أول ما تُنطق.")
+    asyncio.create_task(listen_and_recognize())
+
+@l313l.ar_cmd(pattern="فعالية تعطيل$")
+async def stop_voice_event(event):
+    global active_voice_event
+    active_voice_event = False
+    await event.reply("تم تعطيل فعالية مراقبة الاتصال.")
+
+async def listen_and_recognize():
+    global active_voice_event, target_word, group_call_chatid, already_sent, joined_call
+    while active_voice_event and not already_sent and joined_call:
+        try:
+            audio_file_path = "temp_voice.wav"
+            if os.path.exists(audio_file_path):
+                r = sr.Recognizer()
+                with sr.AudioFile(audio_file_path) as source:
+                    audio = r.record(source)
+                text = r.recognize_google(audio, language='ar')
+                if target_word in text and not already_sent:
+                    already_sent = True
+        except Exception:
+            pass
+        await asyncio.sleep(0.2)
+
+@l313l.ar_cmd(pattern=r'^\+(.+)$')
+async def plus_word(event):
+    global active_voice_event, target_word, already_sent, group_call_chatid
+    if active_voice_event and not already_sent and event.chat_id == group_call_chatid:
+        plused = event.pattern_match.group(1).strip()
+        if plused == target_word:
+            await event.reply(f'+{target_word}')
+            already_sent = True
