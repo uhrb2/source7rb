@@ -53,8 +53,6 @@ pyfiglet
 PyGithub
 programmingquotes
 pygments
-psycopg2
-psycopg2-binary==2.9.1
 pylast
 pymediainfo
 pySmartDL
