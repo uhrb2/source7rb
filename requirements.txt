@@ -78,3 +78,6 @@ randomstuff.py
 git+https://github.com/redaiq90/py-googletrans
 git+https://github.com/yt-dlp/yt-dlp
 git+https://github.com/alexmercerind/youtube-search-python
+
+yt-dlp>=2023.7.6; python_version >= "3.9"
+yt-dlp<2025; python_version < "3.9"
