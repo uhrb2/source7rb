@@ -1,6 +1,7 @@
 from .extdl import *
 from .paste import *
 from JoKeRUB.helpers.utils import _catutils
+from . import _cattools
 
 flag = True
 check = 0
