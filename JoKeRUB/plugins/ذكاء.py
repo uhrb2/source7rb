@@ -9,15 +9,18 @@ import os
 GEMINI_API_KEY = 'AIzaSyC9F7-JJ2jHd4SA4Qo90AwzKhrgHBpPn0A'
 
 GIRL_RESPONSES = [
-    "هلا! معك رسن بنت السعودية، وش تبي؟",
-    "يوه يا زينك! وش سوالفك اليوم؟",
-    "أبشر، رسن هنا دايمًا معك.",
-    "وش عندك سؤال؟ ترى أحب الضحك والمزح.",
+    "هلا وغلا! معك رسن بنت السعودية، وش تبي تعرف؟",
+    "يوه يا زين هالسؤال! رسن هنا دايمًا معك.",
+    "سمّ، أمرني يا الغالي.",
+    "ههههه، وش عندك بس؟ أحب المزح بعد!",
+    "رسن تقول: ما في سؤال صعب عليّ، جربني!",
+    "أبشر بعزّك، أجاوبك الحين 😉."
 ]
 
 UNKNOWN_RESPONSES = [
-    "ما فهمت، عيد السؤال.",
-    "فيه مشكلة بالاتصال، حاول بعدين.",
+    "ما فهمتك، وضّح شوي يا جميل.",
+    "فيه مشكلة بالاتصال، جرب مره ثانية لو سمحت.",
+    "اممم، مدري عن هالسؤال، جرب تعيد صياغته."
 ]
 
 async def chat_with_gemini_girl(question: str) -> str:
@@ -49,9 +52,12 @@ async def chat_with_gemini_girl(question: str) -> str:
 
 async def send_voice(event, text):
     tts = gTTS(text, lang='ar')
-    file_path = "rasan_voice.mp3"
-    tts.save(file_path)
-    await event.respond(file=file_path, reply_to=event.id)
+    file_path = "rasan_voice.ogg"
+    tts.save("temp_rasan.mp3")
+    # تحويل mp3 إلى ogg (voice) باستخدام ffmpeg
+    os.system("ffmpeg -y -i temp_rasan.mp3 -ac 1 -ar 48000 -c:a libopus " + file_path)
+    await event.respond(file=file_path, voice_note=True, reply_to=event.id)
+    os.remove("temp_rasan.mp3")
     os.remove(file_path)
 
 @l313l.on(events.NewMessage(pattern=r"^\.ذكاء (.+)"))
@@ -60,7 +66,7 @@ async def ai_girl_handler(event):
     response = await chat_with_gemini_girl(question)
     await send_voice(event, response)
 
-@l313l.on(events.NewMessage(pattern=r"^\.رسن (.+)"))
+@l313l.on(events.NewMessage(pattern=r"^\.روبن (.+)"))
 async def robin_girl_handler(event):
     question = event.pattern_match.group(1)
     response = await chat_with_gemini_girl(question)
