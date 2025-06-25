@@ -76,6 +76,6 @@ wand
 ujson==5.8.0
 randomstuff.py
 git+https://github.com/redaiq90/py-googletrans
-git+https://github.com/yt-dlp/yt-dlp
+yt-dlp==2023.03.04
 git+https://github.com/alexmercerind/youtube-search-python
 browser-cookie3
